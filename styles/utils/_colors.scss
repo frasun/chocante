@@ -1,0 +1,36 @@
+$bg-colors: (
+	"primary-main": var(--wp--preset--color--bronze-main),
+	"primary-pattern": var(--wp--preset--color--bronze-pattern),
+	"primary-dark": var(--wp--preset--color--bronze-dark),
+	"primary-light": var(--wp--preset--color--bronze-light),
+	"primary-contrast": var(--wp--preset--color--red-main),
+	"accent-main": var(--wp--preset--color--green-main),
+	"accent-pattern": var(--wp--preset--color--green-pattern),
+	"success": "",
+	"error": "",
+);
+
+$text-colors: (
+	"text": var(--wp--preset--color--grey),
+	"text-light": var(--wp--preset--color--grey-inactive),
+	"success": "",
+	"error": "",
+);
+
+/* Background color */
+@each $color, $value in $bg-colors {
+	@if $value != "" {
+		.bg--#{$color} {
+			background-color: $value;
+		}
+	}
+}
+
+/* Text color */
+@each $color, $value in $text-colors {
+	@if $value != "" {
+		.color--#{$color} {
+			color: $value;
+		}
+	}
+}

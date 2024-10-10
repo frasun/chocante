@@ -1,0 +1,85 @@
+# Copyright (C) 2024 Bricks
+# This file is distributed under the .
+msgid ""
+msgstr ""
+"Project-Id-Version: Bricks Child Theme 1.1\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/theme/bricks-child1\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2024-10-11T13:12:48+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.10.0\n"
+"X-Domain: chocante\n"
+
+#. Theme Name of the theme
+#: style.css
+msgid "Bricks Child Theme"
+msgstr ""
+
+#. Theme URI of the theme
+#. Author URI of the theme
+#: style.css
+msgid "https://bricksbuilder.io/"
+msgstr ""
+
+#. Description of the theme
+#: style.css
+msgid "Use this child theme to extend Bricks."
+msgstr ""
+
+#. Author of the theme
+#: style.css
+msgid "Bricks"
+msgstr ""
+
+#: includes/woocommerce.php:30
+msgctxt "sorting option"
+msgid "Default"
+msgstr ""
+
+#: includes/woocommerce.php:31
+msgctxt "sorting option"
+msgid "Popularity"
+msgstr ""
+
+#: includes/woocommerce.php:32
+msgctxt "sorting option"
+msgid "Average rating"
+msgstr ""
+
+#: includes/woocommerce.php:33
+msgctxt "sorting option"
+msgid "Latest"
+msgstr ""
+
+#: includes/woocommerce.php:34
+msgctxt "sorting option"
+msgid "Lowest price"
+msgstr ""
+
+#: includes/woocommerce.php:35
+msgctxt "sorting option"
+msgid "Highest price"
+msgstr ""
+
+#: woocommerce/loop/result-count.php:28
+msgid "1 product"
+msgstr ""
+
+#. translators: %d: total results
+#: woocommerce/loop/result-count.php:31
+msgid "%d product"
+msgid_plural "%d products"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: 1: first result 2: last result 3: total results
+#: woocommerce/loop/result-count.php:36
+msgctxt "with first and last result"
+msgid "%1$d&ndash;%2$d of %3$d product"
+msgid_plural "%1$d&ndash;%2$d of %3$d products"
+msgstr[0] ""
+msgstr[1] ""

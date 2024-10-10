@@ -1,0 +1,253 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/theme.json",
+	"version": 3,
+	"settings": {
+		"appearanceTools": false,
+		"border": {
+			"color": false,
+			"radius": false,
+			"style": false,
+			"width": false
+		},
+		"color": {
+			"background": true,
+			"custom": false,
+			"customDuotone": false,
+			"customGradient": false,
+			"defaultDuotone": false,
+			"defaultGradients": false,
+			"defaultPalette": false,
+			"duotone": [],
+			"gradients": [],
+			"link": true,
+			"palette": [
+				{
+					"color": "#333F2E",
+					"name": "Green main",
+					"slug": "green-main"
+				},
+				{
+					"color": "#42513D",
+					"name": "Green pattern",
+					"slug": "green-pattern"
+				},
+				{
+					"color": "#3F362E",
+					"name": "Bronze main",
+					"slug": "bronze-main"
+				},
+				{
+					"color": "#493F36",
+					"name": "Bronze pattern",
+					"slug": "bronze-pattern"
+				},
+				{
+					"color": "#231E19",
+					"name": "Bronze dark",
+					"slug": "bronze-dark"
+				},
+				{
+					"color": "#958B83",
+					"name": "Bronze light",
+					"slug": "bronze-light"
+				},
+				{
+					"color": "#9D2F51",
+					"name": "Red main",
+					"slug": "red-main"
+				},
+				{
+					"color": "#454545",
+					"name": "Grey",
+					"slug": "grey"
+				},
+				{
+					"color": "#D6D6D6",
+					"name": "Grey inactive",
+					"slug": "grey-inactive"
+				}
+			],
+			"text": true
+		},
+		"custom": {},
+		"dimensions": {
+			"aspectRatio": false,
+			"aspectRatios": [],
+			"defaultAspectRatios": false,
+			"minHeight": false
+		},
+		"layout": {
+			"allowCustomContentAndWideSize": false,
+			"allowEditing": true,
+			"contentSize": "768px",
+			"wideSize": "1180px"
+		},
+		"position": {
+			"sticky": false
+		},
+		"shadow": {
+			"defaultPresets": false,
+			"presets": [
+				{
+					"name": "Shadow btn dark",
+					"slug": "natural",
+					"shadow": "0 0 25px rgba(0, 0, 0, 0.2)"
+				},
+				{
+					"name": "Shadow product box",
+					"slug": "deep",
+					"shadow": "0 0 20px rgba(0, 0, 0, 0.2)"
+				},
+				{
+					"name": "Shadow blog box",
+					"slug": "sharp",
+					"shadow": "0 0 25px rgba(0, 0, 0, 0.5)"
+				}
+			]
+		},
+		"spacing": {
+			"blockGap": null,
+			"customSpacingSize": false,
+			"defaultSpacingSizes": false,
+			"margin": false,
+			"padding": false,
+			"spacingScale": {},
+			"spacingSizes": []
+		},
+		"typography": {
+			"fluid": {
+				"maxViewportWidth": "1440px",
+				"minViewportWidth": "600px"
+			},
+			"fontFamilies": [
+				{
+					"fontFace": [
+						{
+							"fontFamily": "Montserrat",
+							"fontStyle": "normal",
+							"fontWeight": 500,
+							"src": ["file:./fonts/montserrat-medium.woff2"]
+						},
+						{
+							"fontFamily": "Montserrat",
+							"fontStyle": "normal",
+							"fontWeight": 600,
+							"src": ["file:./fonts/montserrat-semibold.woff2"]
+						},
+						{
+							"fontFamily": "Monsterrat",
+							"fontStyle": "normal",
+							"fontWeight": 700,
+							"src": ["file:./fonts/montserrat-bold.woff2"]
+						}
+					],
+					"fontFamily": "Montserrat, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif",
+					"name": "Montserrat",
+					"slug": "montserrat"
+				},
+				{
+					"fontFace": [
+						{
+							"fontFamily": "Playfair Display",
+							"fontStyle": "normal",
+							"fontWeight": 500,
+							"src": ["file:./fonts/playfair_display-medium.woff2"]
+						}
+					],
+					"fontFamily": "Playfair Display, Iowan Old Style, Apple Garamond, Baskerville, Times New Roman, Droid Serif, Times, Source Serif Pro, serif",
+					"name": "Playfair Display",
+					"slug": "playfair-display"
+				}
+			],
+			"customFontSize": false,
+			"defaultFontSizes": false,
+			"dropCap": false,
+			"fontSizes": [
+				{
+					"name": "Huge",
+					"slug": "huge",
+					"size": "90px",
+					"fluid": {
+						"max": "90px",
+						"min": "50px"
+					}
+				},
+				{
+					"name": "Extra Large",
+					"slug": "x-large",
+					"size": "50px",
+					"fluid": {
+						"max": "50px",
+						"min": "30px"
+					}
+				},
+				{
+					"name": "Large",
+					"slug": "large",
+					"size": "1.875rem",
+					"fluid": false
+				},
+				{
+					"name": "Medium",
+					"slug": "medium",
+					"size": "1.25rem",
+					"fluid": false
+				},
+				{
+					"name": "Normal",
+					"slug": "normal",
+					"size": "1rem",
+					"fluid": false
+				},
+				{
+					"name": "Small",
+					"slug": "small",
+					"size": "0.875rem",
+					"fluid": false
+				},
+				{
+					"name": "Extra Small",
+					"slug": "x-small",
+					"size": "0.8175rem",
+					"fluid": false
+				}
+			],
+			"fontStyle": false,
+			"fontWeight": false,
+			"letterSpacing": false,
+			"lineHeight": false,
+			"textAlign": true,
+			"textColumns": false,
+			"textDecoration": true,
+			"textTransform": true,
+			"writingMode": false
+		},
+		"useRootPaddingAwareAlignments": true,
+		"blocks": {
+			"core/button": {
+				"border": {
+					"radius": false
+				}
+			},
+			"core/pullquote": {
+				"border": {
+					"color": false,
+					"radius": false,
+					"style": false,
+					"width": false
+				}
+			}
+		}
+	},
+	"styles": {
+		"typography": {
+			"fontFamily": "var:preset|font-family|body",
+			"fontSize": "var:preset|font-size|normal",
+			"fontWeight": "500",
+			"lineHeight": "1.5"
+		}
+	},
+	"customTemplates": [],
+	"templateParts": [],
+	"patterns": []
+}

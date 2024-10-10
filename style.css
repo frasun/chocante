@@ -1,0 +1,578 @@
+/*
+ Theme Name:   Bricks Child Theme
+ Theme URI:    https://bricksbuilder.io/
+ Description:  Use this child theme to extend Bricks.
+ Author:       Bricks
+ Author URI:   https://bricksbuilder.io/
+ Template:     bricks
+ Version:      1.1
+ Text Domain:  bricks
+*/
+
+/* Language and currency menu fix width and height */
+.currency-lang .wpml-ls-legacy-dropdown .wpml-ls-sub-menu,
+.currency-lang .sub-menu {
+	max-height: 200px;
+	overflow: auto;
+}
+
+#brx-footer .wpml-ls-legacy-dropdown .wpml-ls-sub-menu,
+#brx-footer .currency-lang .sub-menu {
+	bottom: 100%;
+	margin-bottom: 10px;
+	top: auto;
+	right: auto;
+	width: auto;
+}
+
+#brx-footer .currency-lang .sub-menu {
+	left: 20px;
+	margin-bottom: 20px;
+}
+
+#brx-footer .wpml-ls-legacy-dropdown .wpml-ls-sub-menu {
+	left: 0;
+}
+
+@media (max-width: 1023px) {
+	body.no-scroll #brx-header .wpml-ls-current-language .brx-submenu-toggle a {
+		color: var(--bricks-color-3e1142);
+	}
+}
+
+/* Chocante Omnibus - lowest price */
+.chocante-omnibus {
+	font-size: 13px;
+	letter-spacing: 0.65px;
+	color: rgba(71, 71, 71, 0.8);
+	text-transform: uppercase;
+	line-height: 1.4;
+	margin: 0.3em 0;
+}
+
+.product-content .chocante-omnibus .woocommerce-Price-amount,
+.chocante-omnibus .woocommerce-Price-amount {
+	font-size: inherit;
+	font-weight: 700;
+	color: inherit;
+}
+
+/* WooCommerce Product Page - price */
+.brxe-product-price {
+	margin-bottom: 1.2em;
+}
+
+.brxe-product-price .price {
+	margin: 0;
+}
+
+/* Contact Form 7 */
+/* contact page */
+#brxe-jxeihu {
+	padding-top: 30px;
+	padding-right: 30px;
+	padding-bottom: 30px;
+	padding-left: 30px;
+	border-radius: 25px;
+	background-color: var(--bricks-color-3e1142);
+}
+
+.wpcf7-form {
+	max-width: 570px;
+}
+
+.wpcf7-form label {
+	text-transform: none;
+	color: var(--bricks-color-5d8d80);
+	font-size: clamp(14px, 1vw, 16px);
+	font-weight: 700;
+}
+
+.wpcf7-form label span {
+	color: #9d2f51;
+}
+
+.wpcf7-form .form-group input {
+	padding-top: 15px;
+	padding-right: 20px;
+	padding-bottom: 15px;
+	padding-left: 20px;
+	line-height: 1;
+	border: 1px solid var(--bricks-color-bynebw);
+	border-radius: 25px;
+}
+
+.wpcf7-form textarea {
+	padding-top: 15px;
+	padding-right: 20px;
+	padding-bottom: 15px;
+	padding-left: 20px;
+	line-height: 1;
+	border: 1px solid var(--bricks-color-bynebw);
+	border-radius: 25px;
+	height: 100px;
+	resize: vertical;
+}
+
+.wpcf7-form ::placeholder {
+	color: rgba(71, 71, 71, 0.5);
+	font-size: clamp(13px.0.9vw, 15px);
+	font-weight: 500;
+}
+
+.wpcf7-form .submit-button-wrapper {
+	width: 100%;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+}
+
+.wpcf7-form .submit-button-wrapper [type="submit"] {
+	order: 2;
+}
+
+.wpcf7-form .form-group {
+	padding-bottom: 30px;
+}
+
+.wpcf7-spinner {
+	visibility: hidden;
+	display: inline-block;
+	background-color: var(--bricks-color-cltuod);
+	opacity: 0.75;
+	width: 24px;
+	height: 24px;
+	border: none;
+	border-radius: 100%;
+	padding: 0;
+	margin: 0 24px;
+	position: relative;
+}
+
+form.submitting .wpcf7-spinner {
+	visibility: visible;
+}
+
+.wpcf7-spinner::before {
+	content: "";
+	position: absolute;
+	background-color: #fbfbfc; /* Light Gray 100 */
+	top: 4px;
+	left: 4px;
+	width: 6px;
+	height: 6px;
+	border: none;
+	border-radius: 100%;
+	transform-origin: 8px 8px;
+	animation-name: spin;
+	animation-duration: 1000ms;
+	animation-timing-function: linear;
+	animation-iteration-count: infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.wpcf7-spinner::before {
+		animation-name: blink;
+		animation-duration: 2000ms;
+	}
+}
+
+@keyframes spin {
+	from {
+		transform: rotate(0deg);
+	}
+
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+@keyframes blink {
+	from {
+		opacity: 0;
+	}
+
+	50% {
+		opacity: 1;
+	}
+
+	to {
+		opacity: 0;
+	}
+}
+
+.wpcf7-response-output {
+	padding-left: 50px;
+	background-image: url(/wp-content/uploads/2023/10/Union-10.svg);
+	background-repeat: no-repeat;
+	background-position: left 10px center;
+	font-size: 15px;
+	border-radius: 25px;
+	max-width: 1170px;
+	margin-top: 20px;
+}
+
+.wpcf7-form-control.wpcf7-not-valid,
+#brxe-jxeihu .wpcf7-form-control.wpcf7-not-valid {
+	background: #ffdfdf;
+	border-color: #d12;
+}
+
+.wpcf7 .screen-reader-response {
+	position: absolute;
+	overflow: hidden;
+	clip: rect(1px, 1px, 1px, 1px);
+	clip-path: inset(50%);
+	height: 1px;
+	width: 1px;
+	margin: -1px;
+	padding: 0;
+	border: 0;
+	word-wrap: normal !important;
+}
+
+.wpcf7-not-valid-tip {
+	font-size: 15px;
+	color: #d12;
+	font-weight: 600;
+}
+
+:where(.wpcf7-form) {
+	display: flex;
+	flex-wrap: wrap;
+	width: 100%;
+}
+
+:where(.wpcf7-form) .form-group {
+	display: flex;
+	flex-direction: column;
+	padding: 0 0 20px;
+	width: 100%;
+}
+
+:where(.wpcf7-form) .label,
+:where(.wpcf7-form) label {
+	color: inherit;
+	font-size: 12px;
+	font-weight: 600;
+	letter-spacing: 0.4px;
+	text-transform: uppercase;
+}
+
+/* Cart */
+
+ul.woocommerce-shipping-methods li > span {
+	font-size: 12px;
+	line-height: 1;
+	color: #493f36;
+	text-align: right;
+	width: 40%;
+}
+
+#chocanteSelectInpostParcelLocker {
+	width: 100%;
+	margin-top: 0;
+	background-color: #fff;
+	color: #333f2e;
+	border: 1px solid #333f2e;
+	line-height: normal;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	margin-top: 20px;
+	font-size: 15px;
+}
+
+.woocommerce-checkout .shop_table,
+.woocommerce-checkout .shop_table tfoot,
+.woocommerce-checkout .shop_table thead {
+	display: block;
+}
+
+.woocommerce-checkout .shop_table tr {
+	display: flex;
+}
+
+.woocommerce-checkout .shop_table tr th {
+	flex-grow: 1;
+}
+
+tr.chocante-delivery-point {
+	display: flex;
+	flex-direction: column;
+	padding-bottom: 20px;
+}
+
+.woocommerce-info[data-type="chocante-free-shipping"] {
+	line-height: 40px;
+	gap: 5px;
+}
+
+.woocommerce-info[data-type="chocante-free-shipping"] a {
+	border: 0;
+	margin: 0;
+	padding: 0;
+}
+
+#brxe-mgcsri .woocommerce-shipping-totals {
+	width: 100% !important;
+}
+
+.woocommerce-checkout .woocommerce-shipping-methods li {
+	display: flex;
+	align-items: center;
+}
+
+.woocommerce-checkout .woocommerce-shipping-methods li label {
+	margin-bottom: 0;
+	flex-grow: 1;
+}
+
+ul.woocommerce-shipping-methods label {
+	line-height: 1.4;
+}
+
+ul.woocommerce-shipping-methods label small {
+	display: block;
+}
+
+.cart_totals .shop_table tbody {
+	display: block;
+}
+
+#brxe-jdkorp .shipping {
+	width: 100% !important;
+}
+
+.cart-collaterals table tbody tr {
+	display: flex !important;
+	align-items: baseline;
+}
+
+.cart-collaterals table tbody tr th {
+	flex-grow: 1;
+}
+
+.shop_table.woocommerce-checkout-review-order-table tbody {
+	display: block;
+}
+
+.shop_table.woocommerce-checkout-review-order-table .cart_item .product-name {
+	flex-grow: 1;
+}
+
+/* Product Filters */
+.woocommerce .chocante-product-filters {
+	display: flex;
+	flex-direction: column;
+	row-gap: 20px;
+}
+
+.woocommerce .chocante-product-filters header {
+	font-size: 13px;
+	text-transform: uppercase;
+	font-weight: 600;
+	letter-spacing: 2px;
+}
+
+.woocommerce .chocante-product-filters fieldset {
+	border: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+}
+
+.woocommerce .chocante-product-filters fieldset > div {
+	position: relative;
+}
+
+.woocommerce .chocante-product-filters legend {
+	font-weight: 700;
+	font-size: 16px;
+	padding-bottom: 10px;
+}
+
+.woocommerce .chocante-product-filters label {
+	color: var(--bricks-color-oluirc);
+	font-weight: 500;
+	cursor: pointer;
+	display: flex;
+	gap: 5px;
+	align-items: center;
+}
+
+@media (min-width: 768px) {
+	.woocommerce .chocante-product-filters label {
+		font-size: 0.9em;
+	}
+}
+
+.woocommerce .chocante-product-filters label p {
+	margin: 0.2em 0;
+}
+
+.woocommerce .chocante-product-filters label span {
+	opacity: 0.4;
+}
+
+.woocommerce .chocante-product-filters fieldset > div:hover label {
+	opacity: 0.9;
+}
+
+.woocommerce .chocante-product-filters input[type="checkbox"] {
+	position: absolute;
+	left: 0;
+	top: 0.2em;
+	width: 20px;
+	height: 20px;
+	opacity: 0;
+}
+
+.woocommerce .chocante-product-filters label::before {
+	content: "";
+	border: 1px solid var(--bricks-color-oluirc);
+	width: 20px;
+	height: 20px;
+	border-radius: 4px;
+	background-color: #fff;
+	display: inline-block;
+	flex-shrink: 0;
+}
+
+.woocommerce
+	.chocante-product-filters
+	input[type="checkbox"]:checked
+	+ label::before {
+	background-image: url(/wp-content/uploads/2024/02/checkbox_checked.svg);
+	background-position: center;
+}
+
+.woocommerce .chocante-product-filters input[type="checkbox"]:disabled + label {
+	opacity: 0.3;
+}
+
+.woocommerce .chocante-product-filters footer {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 15px;
+}
+
+.woocommerce .chocante-product-filters button.button {
+	padding: 10px 20px;
+	background-color: var(--bricks-color-bynebw);
+	border-color: var(--bricks-color-bynebw);
+	border-radius: 25px;
+	color: var(--bricks-color-ce3d3b);
+	text-align: center;
+	font-size: clamp(13px, 1vw, 15px);
+	font-weight: 700;
+	line-height: 1;
+}
+
+.woocommerce .chocante-product-filters button[type="reset"] {
+	color: var(--bricks-color-bynebw);
+	padding: 0 10px;
+}
+
+.woocommerce .chocante-product-filters button[type="reset"]::before {
+	content: "";
+	background-image: url(/wp-content/uploads/2024/02/cross_icon.svg);
+	background-size: 12px;
+	background-position: 0 50%;
+	background-repeat: no-repeat;
+	background-color: transparent;
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+}
+
+.woocommerce .chocante-product-filters button[type="reset"].button {
+	background-color: transparent;
+}
+
+/* WooCommerce pagination */
+.woocommerce-pagination {
+	margin-top: 20px;
+}
+
+.woocommerce-pagination .page-numbers {
+	flex-direction: row;
+	gap: 10px;
+}
+
+.woocommerce-pagination ul.page-numbers li {
+	margin-left: 0;
+	margin-right: 6px;
+}
+
+.woocommerce-pagination .page-numbers li .page-numbers {
+	width: 50px;
+	height: 50px;
+	border-radius: 100px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: #fff;
+	background-color: #333f2e;
+}
+
+.woocommerce-pagination .page-numbers li .current {
+	font-weight: 700;
+	background-color: #958b83;
+}
+
+:where(.woocommerce-pagination .page-numbers li) .page-numbers.next,
+.page-numbers.prev {
+	background-image: url(/wp-content/uploads/2024/02/next_icon.svg);
+	background-size: 7px;
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+	font-size: 0px;
+}
+
+.woocommerce-pagination .page-numbers li .page-numbers.prev {
+	transform: rotate(180deg);
+}
+
+/** WooCommerce ordering **/
+.woocommerce-ordering select {
+	border: none;
+	padding: 0 12px 0 0;
+	background-image: url(/wp-content/uploads/2024/02/select_sort.svg);
+	background-size: 12px;
+	background-position: 98% 50%;
+	background-repeat: no-repeat;
+	background-color: transparent;
+	font-size: 14px;
+}
+
+@media (max-width: 767px) {
+	.woocommerce-ordering select {
+		text-align: left;
+		padding-right: 20px;
+		font-size: 16px;
+		font-weight: 700;
+	}
+}
+
+/** Mobile filtes **/
+#openSorting {
+	padding: 0;
+}
+
+#openSorting select {
+	background-position-x: 91%;
+	padding: 5px 30px 5px 20px;
+}
+
+#openFilters {
+	align-items: center;
+}
+
+/** Select Paczkomat **/
+#brxe-mgcsri
+	.select2.select2-container
+	.select2-selection--single
+	.select2-selection__rendered {
+	white-space: nowrap;
+}

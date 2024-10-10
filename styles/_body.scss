@@ -1,0 +1,5 @@
+body {
+	@extend .font--body;
+	line-height: $line-height;
+	@extend .color--text;
+}

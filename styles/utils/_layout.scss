@@ -1,0 +1,17 @@
+$breakpoint--mobile: 600px;
+$breakpoint--mobile-lg: 768px;
+$breakpoint--desktop-sm: 1024px;
+$breakpoint--desktop: 1280px;
+$breakpoint--desktop-lg: 1440px;
+
+@mixin max-width($breakpoint) {
+	@media (max-width: calc($breakpoint - 1px)) {
+		@content;
+	}
+}
+
+@mixin min-width($breakpoint) {
+	@media (min-width: $breakpoint) {
+		@content;
+	}
+}
