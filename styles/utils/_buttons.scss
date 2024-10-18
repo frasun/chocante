@@ -1,0 +1,179 @@
+@use "sass:map";
+
+// Icon button.
+$icon-button-size: 40px;
+
+.icon-button {
+	@extend .flex--center;
+	min-width: $icon-button-size;
+	height: $icon-button-size;
+	color: currentColor;
+	background-color: transparent;
+
+	svg {
+		opacity: 1;
+		@extend .transition--color;
+	}
+
+	&:hover svg {
+		opacity: 0.5;
+	}
+
+	&:active svg,
+	&.active svg {
+		opacity: 1;
+		transition: none;
+	}
+}
+
+// Button.
+$button-transition-property: color, background-position, box-shadow;
+
+@mixin button-color(
+	$bg,
+	$bg-hover: transparent,
+	$color: currentColor,
+	$hover-color: currentColor,
+	$border: false
+) {
+	background-image: linear-gradient(to right, $bg-hover 50%, $bg 50%);
+	color: $color;
+	background-size: 205% 105%;
+	@extend .transition;
+	background-position: right center;
+	box-shadow: none;
+
+	@if $border {
+		border: 3px solid $bg-hover;
+		transition-property: $button-transition-property, border-color;
+	} @else {
+		transition-property: $button-transition-property;
+	}
+
+	&:hover {
+		background-position: left center;
+		color: $hover-color;
+		box-shadow: map.get($shadows, "natural");
+	}
+
+	&:active {
+		opacity: 0.9;
+	}
+}
+
+@mixin button() {
+	@extend .font-size--input;
+	line-height: 1.15;
+	font-weight: bold;
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	text-decoration: none;
+	@extend .border-radius--md;
+	padding: $spacing--15 $spacing--30;
+	background-color: transparent;
+}
+
+// @todo: change to global class.
+.site-header,
+.mobile-menu,
+.search-products__form {
+	.button {
+		&,
+		.woocommerce & {
+			@include button();
+			@extend .button--primary;
+		}
+
+		&--primary {
+			&:not([disabled]) {
+				@include button-color(
+					map.get($bg-colors, "accent-main"),
+					map.get($bg-colors, "accent-pattern"),
+					white,
+					white
+				);
+			}
+
+			&.scheme--primary {
+				&:not([disabled]) {
+					@include button-color(
+						white,
+						#e2dad3,
+						map.get($bg-colors, "primary-main"),
+						map.get($bg-colors, "primary-main")
+					);
+				}
+			}
+
+			&.scheme--accent {
+				&:not([disabled]) {
+					@include button-color(
+						white,
+						#e2dad3,
+						map.get($bg-colors, "accent-main"),
+						map.get($bg-colors, "accent-main")
+					);
+				}
+			}
+
+			&.scheme--light {
+				&:not([disabled]) {
+					@include button-color(
+						map.get($bg-colors, "accent-main"),
+						map.get($bg-colors, "accent-pattern"),
+						white,
+						white
+					);
+				}
+			}
+		}
+
+		&--secondary {
+			&:not([disabled]) {
+				@include button-color(
+					white,
+					#e2dad3,
+					map.get($bg-colors, "primary-main"),
+					map.get($bg-colors, "primary-main")
+				);
+			}
+
+			&.scheme--primary {
+				&:not([disabled]) {
+					@include button-color(
+						transparent,
+						white,
+						white,
+						map.get($bg-colors, "primary-main"),
+						true
+					);
+				}
+			}
+
+			&.scheme--accent {
+				&:not([disabled]) {
+					@include button-color(
+						transparent,
+						white,
+						white,
+						map.get($bg-colors, "accent-main"),
+						true
+					);
+				}
+			}
+
+			&.scheme--light {
+				&:not([disabled]) {
+					@include button-color(
+						transparent,
+						map.get($bg-colors, "accent-main"),
+						map.get($bg-colors, "accent-main"),
+						white
+					);
+				}
+			}
+		}
+	}
+}

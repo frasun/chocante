@@ -1,0 +1,119 @@
+@use "sass:map";
+
+// @todo: change to global class.
+.site-header,
+.mobile-menu__top {
+	.wpml-ls-legacy-dropdown,
+	.wpml-ls-legacy-dropdown-click,
+	.wcml-dropdown,
+	.wcml-dropdown-click {
+		width: auto;
+	}
+
+	.wpml-ls-legacy-dropdown .wpml-ls-sub-menu,
+	.wpml-ls-legacy-dropdown-click .wpml-ls-sub-menu,
+	.wcml-dropdown .wcml-cs-submenu,
+	.wcml-dropdown-click .wcml-cs-submenu {
+		@extend .dropdown;
+
+		padding-top: $spacing--10;
+		padding-bottom: $spacing--10;
+		width: fit-content;
+		margin-left: -5px;
+		overflow-y: auto;
+
+		a {
+			font-weight: 600;
+			@extend .color--primary-main;
+			display: flex;
+			gap: $spacing--5;
+			padding: $spacing--10 $spacing--20;
+
+			&:hover {
+				text-decoration: underline;
+			}
+
+			&:active {
+				opacity: 0.7;
+			}
+		}
+	}
+
+	.wpml-ls-legacy-dropdown .wpml-ls-current-language:hover .wpml-ls-sub-menu,
+	.wcml-dropdown .wcml-cs-active-currency:hover .wcml-cs-submenu {
+		@include dropdown-active;
+	}
+
+	.wpml-ls-sub-menu,
+	.wcml-cs-submenu {
+		&[style*="visibility: visible;"] {
+			@include dropdown-active;
+		}
+	}
+
+	.wpml-ls-legacy-dropdown a,
+	.wpml-ls-legacy-dropdown .wpml-ls-current-language:hover > a,
+	.wpml-ls-legacy-dropdown a:focus,
+	.wpml-ls-legacy-dropdown a:hover,
+	.wpml-ls-legacy-dropdown-click a,
+	.wpml-ls-legacy-dropdown-click .wpml-ls-current-language:hover > a,
+	.wpml-ls-legacy-dropdown-click a:focus,
+	.wpml-ls-legacy-dropdown-click a:hover,
+	.wcml-dropdown li,
+	.wcml-dropdown li:hover,
+	.wcml-dropdown li:focus,
+	.wcml-dropdown-click li,
+	.wcml-dropdown-click li:hover,
+	.wcml-dropdown-click li:focus {
+		border: 0;
+		background: none;
+	}
+
+	.wpml-ls-legacy-dropdown .wpml-ls-sub-menu a,
+	.wpml-ls-legacy-dropdown-click .wpml-ls-sub-menu a,
+	.wcml-dropdown .wcml-cs-submenu li,
+	.wcml-dropdown-click .wcml-cs-submenu li {
+		border: 0;
+	}
+
+	.wpml-ls-legacy-dropdown a.wpml-ls-item-toggle,
+	.wpml-ls-legacy-dropdown-click a.wpml-ls-item-toggle,
+	.wcml-dropdown a.wcml-cs-item-toggle,
+	.wcml-dropdown-click a.wcml-cs-item-toggle {
+		text-transform: uppercase;
+		font-weight: bold;
+		color: var(--text-color-secondary, map.get($bg-colors, "primary-light"));
+		@extend .transition--color;
+		padding: $spacing--10 $spacing--15;
+		display: flex;
+		gap: $spacing--10;
+		align-items: baseline;
+
+		&::after {
+			@include icon-font();
+			content: "\0041";
+			border: 0;
+			position: static;
+			@extend .transition;
+			font-size: 0.75em;
+		}
+	}
+
+	.wpml-ls-legacy-dropdown a.wpml-ls-item-toggle,
+	.wcml-dropdown a.wcml-cs-item-toggle {
+		&:hover,
+		&:focus {
+			&::after {
+				transform: rotate(180deg);
+			}
+		}
+	}
+
+	.wcml-cs-active-currency:hover a.wcml-cs-item-toggle {
+		color: white;
+	}
+
+	.wcml-spinner {
+		display: none;
+	}
+}

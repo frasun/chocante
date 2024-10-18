@@ -17,11 +17,32 @@ class Chocante {
 	public static function init() {
 		// Setup.
 		add_action( 'after_setup_theme', array( self::class, 'load_textdomain' ) );
-		add_action( 'wp_enqueue_scripts', array( self::class, 'enqueue_scripts' ) );
+		add_action( 'after_setup_theme', array( self::class, 'register_nav_menus' ) );
+		add_action( 'widgets_init', array( self::class, 'register_sidebars' ) );
+		add_action( 'wp_enqueue_scripts', array( self::class, 'enqueue_scripts' ), 20 );
+
+		// Custom logo.
+		add_action( 'after_setup_theme', array( self::class, 'support_custom_logo' ) );
+		add_filter( 'get_custom_logo_image_attributes', array( self::class, 'set_custom_logo_attributes' ), 10, 2 );
+
+		// Menu.
+		// add_filter( 'nav_menu_css_class', array( self::class, 'set_menu_item_class' ), 10, 2 );
+		// add_filter( 'nav_menu_submenu_css_class', array( self::class, 'set_submenu_class' ) );
+		if ( ! is_admin() ) {
+			add_action( 'wp_footer', array( self::class, 'output_mobile_menu' ) );
+		}
 
 		// WooCommerce.
-		add_filter( 'woocommerce_pagination_args', array( self::class, 'set_pagination_args' ) );
-		add_filter( 'woocommerce_catalog_orderby', array( self::class, 'set_caralog_orderby' ) );
+		if ( class_exists( 'WooCommerce' ) && function_exists( 'WC' ) ) {
+			require plugin_dir_path( __FILE__ ) . 'class-chocante-woocommerce.php';
+			Chocante_WooCommerce::init();
+		}
+
+		// ACF.
+		if ( class_exists( 'ACF' ) ) {
+			require plugin_dir_path( __FILE__ ) . 'class-chocante-acf.php';
+			Chocante_ACF::init();
+		}
 	}
 
 	/**
@@ -32,10 +53,63 @@ class Chocante {
 	}
 
 	/**
+	 * Log values to wp-content/debug.log
+	 *
+	 * @param mixed $data Value to log.
+	 */
+	public static function debug_log( $data ) {
+		/* phpcs:disable */
+		if ( true === WP_DEBUG ) {
+			if ( is_array( $data ) || is_object( $data ) ) {
+				error_log( print_r( $data, true ) );
+			} else {
+				error_log( $data );
+			}
+		}
+		/* phpcs:enable */
+	}
+
+	/**
+	 * Register menu locations
+	 */
+	public static function register_nav_menus() {
+		register_nav_menus(
+			array(
+				'chocante_menu_main' => __( 'Main menu', 'chocante' ),
+			)
+		);
+	}
+
+	/**
+	 * Add custom logo
+	 */
+	public static function support_custom_logo() {
+		add_theme_support( 'custom-logo' );
+	}
+
+	/**
+	 * Modify custom logo
+	 *
+	 * @param array $logo_atts Custom logo attributes.
+	 * @param array $image_id Logo image ID.
+	 * @return array
+	 */
+	public static function set_custom_logo_attributes( $logo_atts, $image_id ) {
+		$logo = wp_get_attachment_metadata( $image_id );
+
+		if ( $logo ) {
+			$logo_atts['width']  = $logo['width'];
+			$logo_atts['height'] = $logo['height'];
+		}
+
+		return $logo_atts;
+	}
+
+	/**
 	 * Enqueue scripts & styles
 	 */
 	public static function enqueue_scripts() {
-		if ( ! bricks_is_builder_main() ) {
+		if ( function_exists( 'bricks_is_builder_main' ) && ! bricks_is_builder_main() ) {
 			$styles = include get_stylesheet_directory() . '/build/styles.asset.php';
 
 			wp_enqueue_style(
@@ -45,45 +119,99 @@ class Chocante {
 				$styles['version'],
 			);
 
-				$scripts = include get_stylesheet_directory() . '/build/scripts.asset.php';
+			$scripts = include get_stylesheet_directory() . '/build/scripts.asset.php';
 
-				wp_enqueue_script(
-					'chocante',
-					get_stylesheet_directory_uri() . '/build/scripts.js',
-					$scripts['dependencies'],
-					$scripts['version'],
-					array(
-						'in_footer' => true,
-						'strategy'  => 'defer',
-					)
-				);
+			wp_enqueue_script(
+				'chocante',
+				get_stylesheet_directory_uri() . '/build/scripts.js',
+				array_merge( $scripts['dependencies'], array( 'wc-cart-fragments' ) ),
+				$scripts['version'],
+				array(
+					'in_footer' => true,
+					'strategy'  => 'defer',
+				)
+			);
 		}
 	}
 
 	/**
-	 * Set shop pagination arguments
-	 *
-	 * @param array $pagination Pagination args.
-	 * @return array
+	 * Register widget areas
 	 */
-	public static function set_pagination_args( $pagination ) {
-		$pagination['prev_text'] = '';
-		$pagination['next_text'] = '';
+	public static function register_sidebars() {
+		// Header Top Nav.
+		register_sidebar(
+			array(
+				'name'           => __( 'Header - top', 'chocante' ),
+				'id'             => 'header-top',
+				'description'    => __( 'Widgets in this area will be shown in the top part of header.', 'chocante' ),
+				'before_widget'  => '',
+				'after_widget'   => '',
+				'before_sidebar' => '<aside class="site-header__top">',
+				'after_sidebar'  => '</aside>',
+			)
+		);
 
-		return $pagination;
+		register_sidebar(
+			array(
+				'name'           => __( 'Mobile menu - after main menu', 'chocante' ),
+				'id'             => 'mobile-menu-after-nav',
+				'description'    => __( 'Widgets in this area will be shown in mobile menu after main navigation menu.', 'chocante' ),
+				'before_widget'  => '',
+				'after_widget'   => '',
+				'before_sidebar' => '<aside class="mobile-menu__after-nav">',
+				'after_sidebar'  => '</aside>',
+			)
+		);
+
+		register_sidebar(
+			array(
+				'name'           => __( 'Mobile menu - top', 'chocante' ),
+				'id'             => 'mobile-menu-top',
+				'description'    => __( 'Widgets in this area will be shown in the top part of mobile menu.', 'chocante' ),
+				'before_widget'  => '',
+				'after_widget'   => '',
+				'before_sidebar' => '<div class="mobile-menu__top-sidebar">',
+				'after_sidebar'  => '</div>',
+			)
+		);
 	}
 
 	/**
-	 * Set orderby options
+	 * Insert SVG icon
+	 *
+	 * @param string $filename Filename from /icons directory.
 	 */
-	public static function set_caralog_orderby() {
-		return array(
-			'menu_order' => _x( 'Default', 'sorting option', 'chocante' ),
-			'popularity' => _x( 'Popularity', 'sorting option', 'chocante' ),
-			'rating'     => _x( 'Average rating', 'sorting option', 'chocante' ),
-			'date'       => _x( 'Latest', 'sorting option', 'chocante' ),
-			'price'      => _x( 'Lowest price', 'sorting option', 'chocante' ),
-			'price-desc' => _x( 'Highest price', 'sorting option', 'chocante' ),
-		);
+	public static function icon( $filename ) {
+		require get_stylesheet_directory() . "/icons/icon-{$filename}.svg";
+	}
+
+
+	/**
+	 * Clean menu list item classes
+	 *
+	 * @param array $classes List of menu item classes.
+	 * @return array
+	 */
+	public static function set_menu_item_class( $classes ) {
+		return array_intersect( array( 'menu-item-has-children' ), $classes );
+	}
+
+	/**
+	 * Clean sub-menu classes
+	 *
+	 * @param array $classes List of sub-menu classes.
+	 * @return array
+	 */
+	public static function set_submenu_class( $classes ) {
+		$classes = array();
+
+		return $classes;
+	}
+
+	/**
+	 * Output mobile menu
+	 */
+	public static function output_mobile_menu() {
+		get_template_part( 'template-parts/mobile-menu' );
 	}
 }

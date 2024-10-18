@@ -1,0 +1,14 @@
+$transition-fn: ease-out;
+$transition-time: 0.35s;
+
+.transition {
+	transition-property: transform, opacity;
+	transition-duration: $transition-time;
+	transition-timing-function: $transition-fn;
+}
+
+.transition--color {
+	transition-property: background-color, color, opacity;
+	transition-duration: $transition-time;
+	transition-timing-function: $transition-fn;
+}

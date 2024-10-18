@@ -1,0 +1,29 @@
+$border-radius: 30px;
+$border-radius--md: 25px;
+$border-radius--sm: 20px;
+$border-radius--xs: 5px;
+
+:root {
+	--border-radius: #{$border-radius};
+	--border-radius--md: #{$border-radius--md};
+	--border-radius--sm: #{$border-radius--sm};
+}
+
+.border-radius {
+	border-radius: var(--border-radius);
+
+	&--xs {
+		@extend .border-radius;
+		--border-radius: #{$border-radius--xs};
+	}
+
+	&--sm {
+		@extend .border-radius;
+		--border-radius: #{$border-radius--sm};
+	}
+
+	&--md {
+		@extend .border-radius;
+		--border-radius: #{$border-radius--md};
+	}
+}

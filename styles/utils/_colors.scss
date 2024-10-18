@@ -1,18 +1,24 @@
+@use "sass:list";
+@use "sass:map";
+
 $bg-colors: (
-	"primary-main": var(--wp--preset--color--bronze-main),
-	"primary-pattern": var(--wp--preset--color--bronze-pattern),
-	"primary-dark": var(--wp--preset--color--bronze-dark),
-	"primary-light": var(--wp--preset--color--bronze-light),
-	"primary-contrast": var(--wp--preset--color--red-main),
-	"accent-main": var(--wp--preset--color--green-main),
-	"accent-pattern": var(--wp--preset--color--green-pattern),
+	"primary-main": var(--wp--preset--color--bronze-main, #3f362e),
+	"primary-pattern": var(--wp--preset--color--bronze-pattern, #493f36),
+	"primary-dark": var(--wp--preset--color--bronze-dark, #231e19),
+	"primary-light": var(--wp--preset--color--bronze-light, #958b83),
+	"primary-contrast": var(--wp--preset--color--red-main, #9d2f51),
+	"accent-main": var(--wp--preset--color--green-main, #333f2e),
+	"accent-pattern": var(--wp--preset--color--green-pattern, #42513d),
 	"success": "",
 	"error": "",
 );
 
 $text-colors: (
-	"text": var(--wp--preset--color--grey),
-	"text-light": var(--wp--preset--color--grey-inactive),
+	"primary-main": var(--wp--preset--color--bronze-main, #3f362e),
+	"primary-light": var(--wp--preset--color--bronze-lighter, #e6dad3),
+	"text": var(--wp--preset--color--grey, #454545),
+	"text-light": var(--wp--preset--color--grey-inactive, #d6d6d6),
+	"text-inverted": var(--wp--preset--color--white, white),
 	"success": "",
 	"error": "",
 );
@@ -32,5 +38,56 @@ $text-colors: (
 		.color--#{$color} {
 			color: $value;
 		}
+	}
+}
+
+/*
+(
+	background-color,
+	text-color,
+	text-color-secondary,
+	border-color,
+	pattern-color
+)
+*/
+
+$schemes: (
+	"primary": (
+		map.get($bg-colors, "primary-main"),
+		map.get($text-colors, "text-inverted"),
+		map.get($bg-colors, "primary-light"),
+		#675e56,
+		map.get($bg-colors, "primary-pattern"),
+	),
+	"primary-light": (
+		map.get($bg-colors, "primary-light"),
+		map.get($text-colors, "text-inverted"),
+		map.get($text-colors, "text-light"),
+		map.get($text-colors, "text-light"),
+		rgba(255, 2555, 255, 0.5),
+	),
+	"accent": (
+		map.get($bg-colors, "accent-main"),
+		map.get($text-colors, "text-inverted"),
+		map.get($text-colors, "text-inverted"),
+		map.get($bg-colors, "accent-pattern"),
+		map.get($bg-colors, "accent-pattern"),
+	),
+	"light": (
+		white,
+		map.get($text-colors, "text"),
+		map.get($text-colors, "text"),
+		map.get($bg-colors, "accent-pattern"),
+		map.get($text-colors, "text-light"),
+	),
+);
+
+@each $name, $colors in $schemes {
+	.scheme--#{$name} {
+		--background-color: #{list.nth($colors, 1)};
+		--text-color: #{list.nth($colors, 2)};
+		--text-color-secondary: #{list.nth($colors, 3)};
+		--border-color: #{list.nth($colors, 4)};
+		--pattern-color: #{list.nth($colors, 5)};
 	}
 }

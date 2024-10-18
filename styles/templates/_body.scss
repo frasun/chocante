@@ -1,5 +1,10 @@
+html[chocante] {
+	@extend .bg--primary-main;
+}
+
 body {
 	@extend .font--body;
 	line-height: $line-height;
 	@extend .color--text;
+	background-color: white;
 }

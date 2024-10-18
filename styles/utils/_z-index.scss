@@ -1,0 +1,15 @@
+$z-index--dropdown: 100;
+$z-index--overlay: 200;
+$z-index--modal: 300;
+
+.z-index--dropdown {
+	z-index: $z-index--dropdown;
+}
+
+.z-index--overlay {
+	z-index: $z-index--overlay;
+}
+
+.z-index--modal {
+	z-index: $z-index--modal;
+}

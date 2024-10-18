@@ -1,8 +1,23 @@
+// Breakpoints.
 $breakpoint--mobile: 600px;
 $breakpoint--mobile-lg: 768px;
 $breakpoint--desktop-sm: 1024px;
+$breakpoint--desktop-md: 1180px;
 $breakpoint--desktop: 1280px;
 $breakpoint--desktop-lg: 1440px;
+
+// Spacing.
+$spacing--5: var(--wp--preset--spacing--5, 5px);
+$spacing--10: var(--wp--preset--spacing--10, 10px);
+$spacing--15: var(--wp--preset--spacing--15, 15px);
+$spacing--20: var(--wp--preset--spacing--20, 20px);
+$spacing--30: var(--wp--preset--spacing--30, 30px);
+$spacing--40: var(--wp--preset--spacing--40, 40px);
+$spacing--50: var(--wp--preset--spacing--50, 50px);
+
+// Content size.
+$wide-size: var(--wp--style--global--wide-size, 1180px);
+$content-size: var(--wp--style--global--content-size, 768px);
 
 @mixin max-width($breakpoint) {
 	@media (max-width: calc($breakpoint - 1px)) {
@@ -13,5 +28,42 @@ $breakpoint--desktop-lg: 1440px;
 @mixin min-width($breakpoint) {
 	@media (min-width: $breakpoint) {
 		@content;
+	}
+}
+
+.container,
+.content {
+	width: 100%;
+	margin: auto;
+}
+
+.container {
+	max-width: $wide-size;
+}
+
+.content {
+	max-width: $content-size;
+}
+
+.flex--center {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.flex--baseline {
+	display: flex;
+	align-items: baseline;
+}
+
+.hide--desktop {
+	@include min-width($breakpoint--desktop-sm) {
+		display: none !important;
+	}
+}
+
+.hide--mobile {
+	@include max-width($breakpoint--desktop-sm) {
+		display: none !important;
 	}
 }

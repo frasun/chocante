@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bricks Child Theme 1.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/bricks-child1\n"
-"POT-Creation-Date: 2024-10-11T13:12:48+00:00\n"
-"PO-Revision-Date: 2024-10-11 15:13+0200\n"
+"POT-Creation-Date: 2024-10-22T12:55:01+00:00\n"
+"PO-Revision-Date: 2024-10-22 14:56+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pl_PL\n"
@@ -38,35 +38,56 @@ msgstr ""
 msgid "Bricks"
 msgstr ""
 
-#: includes/woocommerce.php:30
+#: includes/class-chocante-woocommerce.php:71
 msgctxt "sorting option"
 msgid "Default"
 msgstr "Domyślnie"
 
-#: includes/woocommerce.php:31
+#: includes/class-chocante-woocommerce.php:72
 msgctxt "sorting option"
 msgid "Popularity"
 msgstr "Wg popularności"
 
-#: includes/woocommerce.php:32
+#: includes/class-chocante-woocommerce.php:73
 msgctxt "sorting option"
 msgid "Average rating"
 msgstr "Wg oceny"
 
-#: includes/woocommerce.php:33
+#: includes/class-chocante-woocommerce.php:74
 msgctxt "sorting option"
 msgid "Latest"
 msgstr "Od najnowszych"
 
-#: includes/woocommerce.php:34
+#: includes/class-chocante-woocommerce.php:75
 msgctxt "sorting option"
 msgid "Lowest price"
 msgstr "Od najtańszych"
 
-#: includes/woocommerce.php:35
+#: includes/class-chocante-woocommerce.php:76
 msgctxt "sorting option"
 msgid "Highest price"
 msgstr "Od najdroższych"
+
+#: includes/class-chocante.php:69
+msgid "Main menu"
+msgstr "Główne menu strony"
+
+#: includes/class-chocante.php:135
+msgid "Header - top"
+msgstr "Nagłówek - w górnej części"
+
+#: includes/class-chocante.php:137 includes/class-chocante.php:149
+#: includes/class-chocante.php:161
+msgid "Widgets in this area will be shown in the top part of header."
+msgstr ""
+
+#: includes/class-chocante.php:147
+msgid "Mobile menu - after main menu"
+msgstr "Menu mobilne - za głównym menu"
+
+#: includes/class-chocante.php:159
+msgid "Mobile menu - top"
+msgstr "Menu mobilne - w górnej części"
 
 #: woocommerce/loop/result-count.php:28
 msgid "1 product"

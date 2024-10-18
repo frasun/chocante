@@ -1,0 +1,77 @@
+@use "sass:map";
+
+@mixin dropdown($list: false) {
+	position: absolute;
+	background-color: rgba(255, 255, 255, 0.95);
+	color: map.get($text-colors, "primary-main");
+	z-index: $z-index--dropdown;
+	box-shadow: map.get($shadows, "outlined");
+	border-radius: $border-radius--sm;
+	transition-property: transform, opacity;
+	transition-duration: $transition-time;
+	transition-timing-function: $transition-fn;
+	transform: translateY(-5px);
+	opacity: 0;
+	pointer-events: none;
+
+	@if $list {
+		@include dropdown-list-item();
+	}
+}
+
+@mixin dropdown-active() {
+	pointer-events: all;
+	opacity: 1;
+	transform: translateY(0);
+}
+
+@mixin dropdown-list-item() {
+	li {
+		position: relative;
+
+		a {
+			text-decoration: none;
+			display: flex;
+
+			@include min-width($breakpoint--desktop-sm) {
+				span {
+					display: inline-block;
+					position: relative;
+
+					&::before {
+						content: "";
+						position: absolute;
+						left: 0;
+						right: 0;
+						top: 100%;
+						margin-top: 0.05em;
+						height: 2px;
+						border-radius: 2px;
+						background-color: currentColor;
+						transform: scale(0, 1);
+						transform-origin: 0%;
+						transition: transform $transition-time $transition-fn;
+					}
+				}
+			}
+		}
+
+		&:hover {
+			> a span::before {
+				transform: scale(1, 1);
+			}
+		}
+	}
+}
+
+.dropdown {
+	@include dropdown();
+
+	&__list {
+		@include dropdown(true);
+	}
+
+	&__list-item {
+		@include dropdown-list-item();
+	}
+}

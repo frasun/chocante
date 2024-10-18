@@ -1,0 +1,8 @@
+body {
+	&.blog,
+	&.single-post {
+		.site-header {
+			@extend .scheme--primary-light;
+		}
+	}
+}

@@ -272,7 +272,7 @@ ul.woocommerce-shipping-methods li > span {
 #chocanteSelectInpostParcelLocker {
 	width: 100%;
 	margin-top: 0;
-	background-color: #fff;
+	background: #fff;
 	color: #333f2e;
 	border: 1px solid #333f2e;
 	line-height: normal;
@@ -487,7 +487,7 @@ ul.woocommerce-shipping-methods label small {
 }
 
 .woocommerce .chocante-product-filters button[type="reset"].button {
-	background-color: transparent;
+	background: transparent;
 }
 
 /* WooCommerce pagination */
@@ -575,4 +575,10 @@ ul.woocommerce-shipping-methods label small {
 	.select2-selection--single
 	.select2-selection__rendered {
 	white-space: nowrap;
+}
+
+/** Theme transitition fixes **/
+.last-section h3,
+#brxe-wxgvzc h3 {
+	font-weight: 500 !important;
 }

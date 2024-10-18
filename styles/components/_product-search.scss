@@ -1,0 +1,79 @@
+@use "sass:map";
+
+.search-products {
+	&__form {
+		@extend .flex--center;
+		flex-direction: column;
+		gap: $spacing--30;
+		transform: translate3d(100%, 0, 0);
+		color: white;
+		@include side-nav(false);
+
+		button[data-close-modal] {
+			position: absolute;
+			z-index: 2;
+			right: $spacing--10;
+			left: auto;
+			top: $spacing--20;
+
+			@include min-width($breakpoint--desktop-sm) {
+				top: $spacing--15;
+			}
+		}
+
+		.woocommerce-product-search {
+			display: flex;
+			justify-content: center;
+			column-gap: $spacing--30;
+			row-gap: $spacing--20;
+			flex-wrap: wrap;
+			width: 100%;
+			max-width: 768px;
+			position: relative;
+
+			button[type="submit"] {
+				@extend .button, .button--primary, .scheme--primary;
+
+				@include max-width($breakpoint--mobile) {
+					width: 100%;
+				}
+			}
+
+			.search-field {
+				flex: 1 1 300px;
+
+				border: 1px solid white;
+				@extend .border-radius--md;
+				background: transparent;
+				padding: $spacing--15 $spacing--20;
+				padding-left: $spacing--50;
+				@extend .transition;
+				transition-property: color, border-color, box-shadow;
+				box-shadow: none;
+				line-height: 1;
+				@extend .font-size--input;
+
+				&:hover {
+					box-shadow: map.get($shadows, "deep");
+				}
+			}
+		}
+	}
+
+	&__title {
+		font-weight: 600;
+		@extend .font-size--normal;
+		text-transform: uppercase;
+		letter-spacing: 0.4em;
+		@extend .color--primary-light;
+		text-align: center;
+	}
+
+	&__icon {
+		position: absolute;
+		left: $spacing--15;
+		top: 25px;
+		transform: translateY(-50%);
+		display: flex;
+	}
+}

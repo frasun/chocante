@@ -6,6 +6,24 @@
 @import "utils/colors";
 @import "utils/fonts";
 @import "utils/shadows";
+@import "utils/z-index";
+@import "utils/transition";
+@import "utils/buttons";
+@import "utils/border-radius";
+@import "utils/icons";
+
+// Components.
+@import "components/modal";
+@import "components/dropdown";
+@import "components/mini-cart";
+@import "components/product-search";
+@import "components/menu";
+@import "components/currency-language-switcher";
 
 // Templates.
-@import "_body";
+@import "templates/body";
+@import "templates/header";
+@import "templates/blog";
+
+// Pages.
+@import "components/cart";

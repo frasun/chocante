@@ -1,15 +1,16 @@
 $shadows: (
-	"natural": var(--wp--preset--shadow--natural),
-	"deep": var(--wp--preset--shadow--deep),
-	"sharp": var(--wp--preset--shadow--sharp),
-	"outlined": "",
+	"natural": var(--wp--preset--shadow--natural, 0 0 25px rgba(0, 0, 0, 0.2)),
+	"deep": var(--wp--preset--shadow--deep, 0 0 20px rgba(0, 0, 0, 0.2)),
+	"sharp": var(--wp--preset--shadow--sharp, 0 0 25px rgba(0, 0, 0, 0.5)),
+	"outlined":
+		var(--wp--preset--shadow--outlined, 0 10px 30px rgba(0, 0, 0, 0.3)),
 	"crisp": "",
 );
 
 /* Shadows */
 @each $shadow, $value in $shadows {
 	@if $value != "" {
-		.shadow--#{shadow} {
+		.shadow--#{$shadow} {
 			box-shadow: $value;
 		}
 	}

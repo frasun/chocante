@@ -1,0 +1,237 @@
+@use "sass:map";
+
+.site-header {
+	@extend .scheme--primary;
+	background-color: var(--background-color);
+	color: var(--text-color);
+	position: sticky;
+	top: 0;
+	@extend .z-index--overlay;
+	@extend .transition;
+
+	// WP admin bar fix.
+	body.admin-bar & {
+		top: 46px;
+
+		@include min-width(782px) {
+			top: 32px;
+		}
+	}
+
+	&__top {
+		width: 100%;
+		display: flex;
+		align-items: baseline;
+		justify-content: end;
+		gap: $spacing--20;
+
+		@include max-width($breakpoint--desktop-sm) {
+			display: none;
+		}
+
+		div[class^="menu-"] {
+			flex-grow: 1;
+		}
+
+		> *:last-child {
+			.wpml-ls-sub-menu,
+			.wcml-cs-submenu {
+				right: 0;
+				left: auto;
+				min-width: 100%;
+			}
+		}
+
+		.wpml-ls-legacy-dropdown,
+		.wpml-ls-legacy-dropdown-click,
+		.wcml-dropdown,
+		.wcml-dropdown-click {
+			a {
+				@extend .font-size--input;
+
+				&.wpml-ls-item-toggle,
+				&.wcml-cs-item-toggle {
+					@extend .font-size--x-small;
+				}
+			}
+		}
+	}
+
+	&__menu {
+		@extend .flex--baseline;
+		gap: $spacing--10;
+		width: 100%;
+		padding: $spacing--20 $spacing--10 $spacing--10;
+
+		@include min-width($breakpoint--desktop-sm) {
+			padding-bottom: $spacing--15;
+		}
+
+		@include min-width($breakpoint--desktop-md) {
+			padding-left: 0;
+			padding-right: 0;
+		}
+
+		@include min-width($breakpoint--desktop) {
+			gap: $spacing--30;
+		}
+	}
+
+	&__nav {
+		display: grid;
+		grid-auto-flow: column;
+		flex: 1;
+		justify-content: space-between;
+
+		@extend .hide--mobile;
+
+		@include dropdown-list-item();
+
+		> li {
+			> a {
+				text-transform: uppercase;
+				font-weight: bold;
+				font-size: $font-size--small;
+				padding: $spacing--10;
+				text-align: center;
+
+				span {
+					line-height: 1.2;
+
+					&::before {
+						margin-top: 0.2em;
+					}
+				}
+			}
+		}
+
+		li {
+			&:hover {
+				> ul {
+					@include dropdown-active();
+				}
+			}
+
+			&.menu-item-has-children {
+				& > a > span {
+					display: inline-flex;
+					gap: $spacing--5;
+					align-items: center;
+
+					&::after {
+						@include icon-font();
+						content: "\0041";
+						transition: transform $transition-time $transition-fn;
+						font-size: 0.65em;
+					}
+				}
+
+				&:hover > a > span::after {
+					transform: rotate(180deg);
+				}
+			}
+		}
+
+		ul {
+			list-style: none;
+			padding: 0;
+			margin: 0;
+			left: 0;
+			top: 100%;
+			margin-left: -5px;
+			padding-top: $spacing--5;
+			padding-bottom: $spacing--10;
+			width: max-content;
+			max-width: 90vw;
+			@include dropdown();
+
+			ul {
+				left: $spacing--40;
+			}
+
+			a {
+				padding-top: $spacing--10;
+				padding-bottom: $spacing--5;
+				padding-right: $spacing--40;
+				padding-left: $spacing--20;
+				@extend .font-size--medium;
+				font-weight: 600;
+			}
+		}
+	}
+
+	&__aside {
+		@extend .flex--center;
+		justify-content: end;
+		position: relative;
+
+		@include max-width($breakpoint--desktop-sm) {
+			flex-grow: 1;
+		}
+	}
+
+	&__toggle {
+		@extend .icon-button;
+		@extend .hide--desktop;
+	}
+
+	&__top {
+		padding-top: $spacing--10;
+		padding-bottom: $spacing--10;
+		border-bottom: 1px solid var(--border-color);
+		@extend .hide--mobile;
+
+		@include max-width($breakpoint--desktop) {
+			padding-right: $spacing--10;
+		}
+
+		.menu {
+			display: flex;
+			flex-direction: row;
+			align-items: end;
+			width: 100%;
+			gap: $spacing--5;
+
+			a {
+				text-transform: uppercase;
+				font-weight: bold;
+				font-size: $font-size--x-small;
+				@extend .transition--color;
+				padding: $spacing--5 $spacing--10;
+				color: var(--text-color-secondary);
+
+				&:hover {
+					color: var(--text-color);
+				}
+			}
+		}
+	}
+
+	.custom-logo-link {
+		flex: 1 0 120px;
+		max-width: 210px;
+		display: flex;
+		justify-content: start;
+
+		@include min-width($breakpoint--desktop-sm) {
+			margin-right: $spacing--10;
+		}
+
+		img {
+			display: block;
+		}
+	}
+
+	.mini-cart__button,
+	.customer-account-link,
+	.search-products__display {
+		@extend .icon-button;
+
+		@include min-width($breakpoint--desktop-sm) {
+			height: 54px;
+			max-width: 54px;
+			min-width: 44px;
+			width: fit-content;
+		}
+	}
+}

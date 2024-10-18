@@ -1,0 +1,217 @@
+$mini-cart--image-size: 50px;
+
+.mini-cart {
+	&__button {
+		position: relative;
+
+		&:hover svg {
+			opacity: 0.5;
+		}
+	}
+
+	&__count {
+		position: absolute;
+		right: 0;
+		top: $spacing--5;
+		background-color: white;
+		@extend .color--primary-main;
+		@extend .counter-badge;
+
+		@include min-width($breakpoint--desktop-sm) {
+			top: $spacing--10;
+		}
+	}
+
+	&__content {
+		@extend .dropdown;
+
+		top: 100%;
+		right: 0;
+		width: 100vw;
+		overflow-y: hidden;
+		max-width: 360px;
+		padding-top: $spacing--20;
+		padding-bottom: $spacing--20;
+		display: flex;
+
+		@include max-width(400px) {
+			max-width: 95vw;
+		}
+	}
+
+	&:hover &__content {
+		@include dropdown-active();
+	}
+
+	&__content-title {
+		display: flex;
+		align-items: center;
+		gap: $spacing--5;
+		@extend .font-size--medium;
+		font-weight: 600;
+		width: 100%;
+		padding-left: $spacing--20;
+		padding-right: $spacing--20;
+
+		.count {
+			@extend .counter-badge;
+			@extend .bg--primary-main;
+			color: white;
+			font-size: 0.55em;
+		}
+	}
+
+	.widget_shopping_cart_content {
+		display: grid;
+		grid-template-rows: repeat(3, auto);
+		grid-template-columns: 1fr auto;
+		gap: $spacing--5;
+
+		.woocommerce-mini-cart {
+			grid-column-start: 1;
+			grid-column-end: span 2;
+
+			&__buttons {
+				grid-column-start: 2;
+				padding-right: $spacing--15;
+			}
+
+			&__total {
+				padding-left: $spacing--20;
+			}
+
+			&__buttons,
+			&__total {
+				padding-top: $spacing--10;
+			}
+		}
+
+		.mini-cart__content-title {
+			grid-column-start: 1;
+			grid-column-end: span 2;
+		}
+	}
+
+	.woocommerce-mini-cart {
+		display: grid;
+		gap: $spacing--5;
+
+		&-item {
+			display: grid;
+			grid-template-columns: auto min-content;
+			grid-template-rows: auto auto;
+			column-gap: $spacing--10;
+			align-items: start;
+			padding-top: $spacing--10;
+			padding-bottom: $spacing--10;
+			margin-left: $spacing--20;
+			margin-right: $spacing--20;
+
+			&:not(:last-child) {
+				border-bottom: 1px solid var(--wp--preset--color--grey-inactive);
+			}
+
+			.remove_from_cart_button {
+				grid-column-start: 2;
+				grid-row-start: 1;
+			}
+
+			> a:not(.remove_from_cart_button) {
+				grid-column-start: 1;
+				font-weight: 600;
+				line-height: 1.15;
+				position: relative;
+				padding-left: calc(
+					var(--mini-cart--image-size, $mini-cart--image-size) + $spacing--10
+				);
+
+				&:hover {
+					text-decoration: underline;
+				}
+
+				small {
+					display: block;
+					padding-top: 0.15em;
+					@extend .font-size--small;
+					font-weight: 500;
+					@extend .color--text;
+				}
+			}
+
+			img {
+				width: var(--mini-cart--image-size, $mini-cart--image-size);
+				height: var(--mini-cart--image-size, $mini-cart--image-size);
+				@extend .border-radius--xs;
+				border: 1px solid var(--wp--preset--color--grey-inactive);
+				position: absolute;
+				left: 0;
+				top: 0;
+			}
+
+			footer {
+				grid-column-start: 1;
+				grid-column-end: span 2;
+				grid-row-start: 2;
+				display: flex;
+				align-items: baseline;
+				justify-content: space-between;
+				padding-left: 60px;
+
+				.quantity {
+					margin-top: 0.15em;
+					@extend .font-size--input;
+
+					.woocommerce-price-suffix {
+						@extend .font-size--x-small;
+					}
+				}
+			}
+		}
+
+		&__total {
+			margin: 0;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+
+			> strong {
+				font-weight: normal;
+			}
+
+			.woocommerce-Price-amount {
+				display: block;
+				font-weight: bold;
+				@extend .font-size--big;
+				line-height: 1;
+			}
+		}
+
+		&__buttons {
+			text-align: right;
+			display: flex;
+			align-items: end;
+
+			.button {
+				@extend .button--primary, .scheme--light;
+				width: 100%;
+			}
+		}
+
+		&__empty-message {
+			padding-left: $spacing--20;
+			padding-right: $spacing--20;
+			padding-top: $spacing--20;
+			width: 100%;
+		}
+	}
+}
+
+.counter-badge {
+	min-width: 18px;
+	height: 18px;
+	border-radius: 9px;
+	padding: 3px;
+	@extend .flex--center;
+	@extend .font-size--input;
+	font-weight: bold;
+}

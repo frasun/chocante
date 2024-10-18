@@ -24,6 +24,9 @@ module.exports = {
 			new RemoveEmptyScriptsPlugin({
 				stage: RemoveEmptyScriptsPlugin.STAGE_AFTER_PROCESS_PLUGINS
 			})
-		]
+		],
+		stats: {
+			warnings: false
+		}
 	}
 };

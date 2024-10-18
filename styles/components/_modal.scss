@@ -1,0 +1,56 @@
+@use "sass:map";
+
+@mixin side-nav($set-initial-position: true, $set-active-position: true) {
+	position: fixed;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	overflow-y: scroll;
+	z-index: $z-index--modal;
+	padding: $spacing--20;
+	color: white;
+
+	@if $set-initial-position {
+		transform: translate3d(-100%, 0, 0);
+	}
+
+	@if $set-active-position {
+		&.active {
+			transform: translate3d(0, 0, 0);
+		}
+	}
+
+	// WP admin bar fix.
+	body.admin-bar & {
+		top: 46px;
+
+		@include min-width(782px) {
+			top: 32px;
+		}
+	}
+}
+
+.side-nav {
+	@include side-nav();
+}
+
+.backdrop {
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	@extend .transition--color;
+	opacity: 0;
+	background-color: map.get($bg-colors, "primary-main");
+	z-index: $z-index--modal - 1;
+
+	&.active {
+		opacity: 0.95;
+	}
+}
+
+button[data-close-modal] {
+	@extend .icon-button;
+}

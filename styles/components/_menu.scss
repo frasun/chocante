@@ -1,0 +1,90 @@
+.menu {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.mobile-menu {
+	@extend .side-nav;
+	display: flex;
+	flex-direction: column;
+	gap: $spacing--20;
+
+	&__nav {
+		gap: $spacing--15;
+
+		> li {
+			> a {
+				font-family: $font-family--headings;
+				font-weight: $font-weight--headings;
+				font-size: 40px;
+				line-height: 1.125;
+				letter-spacing: 0.05em;
+				padding: $spacing--10 0;
+				display: block;
+			}
+
+			> ul {
+				padding-bottom: $spacing--10;
+			}
+		}
+	}
+
+	&__nav,
+	&__after-nav {
+		a {
+			font-weight: 600;
+			font-size: $font-size--medium;
+			padding: $spacing--10 0;
+			display: block;
+		}
+
+		ul {
+			list-style: none;
+			padding: 0;
+			margin: 0;
+			text-align: left;
+			display: flex;
+			flex-direction: column;
+		}
+	}
+
+	&__top {
+		display: flex;
+		align-items: start;
+		gap: $spacing--20;
+
+		.wpml-ls-legacy-dropdown,
+		.wpml-ls-legacy-dropdown-click,
+		.wcml-dropdown,
+		.wcml-dropdown-click {
+			a {
+				@extend .font-size--medium;
+
+				&.wpml-ls-item-toggle,
+				&.wcml-cs-item-toggle {
+					@extend .font-size--normal;
+				}
+			}
+
+			.wpml-ls-sub-menu,
+			.wcml-cs-submenu {
+				right: 0;
+				left: auto;
+				min-width: 100%;
+			}
+		}
+
+		button[data-close-modal] {
+			position: relative;
+			left: -10px;
+		}
+	}
+
+	&__top-sidebar {
+		flex-grow: 1;
+		display: flex;
+		justify-content: end;
+		gap: $spacing--20;
+	}
+}
