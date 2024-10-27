@@ -43,7 +43,7 @@
 	bottom: 0;
 	@extend .transition--color;
 	opacity: 0;
-	background-color: map.get($bg-colors, "primary-main");
+	background-color: map.get($colors, "primary-main");
 	z-index: $z-index--modal - 1;
 
 	&.active {

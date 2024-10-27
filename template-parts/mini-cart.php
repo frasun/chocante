@@ -5,6 +5,7 @@
  * @package Chocante
  */
 
+defined( 'ABSPATH' ) || exit;
 ?>
 
 <div class="mini-cart">
@@ -12,13 +13,9 @@
 		<?php Chocante::icon( 'cart' ); ?>
 		<span class="mini-cart__count" data-count="<?php echo esc_attr( WC()->cart->get_cart_contents_count() ); ?>"></span>
 	</a>
-	<?php
-	/*
 	<aside class="mini-cart__content">
 		<div class="widget_shopping_cart_content">
 			<?php woocommerce_mini_cart(); ?>
 		</div>
 	</aside>
-	*/
-	?>
 </div>

@@ -51,71 +51,111 @@ $font-size--x-large: var(
 $font-size--large: var(--wp--preset--font-size--large, 30px);
 $font-size--big: var(--wp--preset--font-size--big, 24px);
 $font-size--medium: var(--wp--preset--font-size--medium, 20px);
+$font-size--medium-sm: var(--wp--preset--font-size--medium-sm, 18px);
 $font-size--normal: var(--wp--preset--font-size--normal, 16px);
 $font-size--small: var(--wp--preset--font-size--small, 14px);
 $font-size--x-small: var(--wp--preset--font-size--x-small, 12px);
 $font-size--input: var(--wp--preset--font-size--input, 15px);
 
-/* Font Family */
-.font--body {
-	font-family: $font-family--body;
-	font-weight: $font-weight--body;
-}
+.font {
+	/* Font Family */
+	&--body {
+		font-family: $font-family--body;
+		font-weight: $font-weight--body;
+	}
 
-.font--headings {
-	font-family: $font-family--headings;
-	font-weight: $font-weight--headings;
-}
+	&--headings {
+		font-family: $font-family--headings;
+		font-weight: $font-weight--headings;
+	}
 
-.font--labels {
-	font-family: $font-family--labels;
-	font-weight: $font-weight--labels;
-}
+	&--labels {
+		font-family: $font-family--labels;
+		font-weight: $font-weight--labels;
+	}
 
-/* Font Size */
-.font-size--huge {
-	font-size: $font-size--huge;
-	line-height: 1.2;
+	/* Font Size */
+	&-size {
+		&--huge {
+			font-size: $font-size--huge;
+			line-height: 1.2;
 
-	@include min-width($breakpoint--mobile-lg) {
-		line-height: 1.4;
+			@include min-width($breakpoint--mobile-lg) {
+				line-height: 1.4;
+			}
+		}
+
+		&--x-large {
+			font-size: $font-size--x-large;
+			line-height: 1.15;
+			letter-spacing: 0.05em;
+
+			@include min-width($breakpoint--mobile-lg) {
+				line-height: 1.1;
+			}
+		}
+
+		&--large {
+			font-size: $font-size--large;
+			line-height: 1.15;
+		}
+
+		&--big {
+			font-size: $font-size--big;
+			line-height: $line-height;
+		}
+
+		&--medium {
+			font-size: $font-size--medium;
+			line-height: $line-height;
+		}
+
+		&--medium-sm {
+			font-size: $font-size--medium-sm;
+			line-height: 1.15;
+		}
+
+		&--normal {
+			font-size: $font-size--normal;
+			line-height: $line-height;
+		}
+
+		&--small {
+			font-size: $font-size--small;
+			line-height: $line-height;
+		}
+
+		&--x-small {
+			font-size: $font-size--x-small;
+			line-height: $line-height;
+		}
+
+		&--input {
+			font-size: $font-size--input;
+			line-height: $line-height;
+		}
+	}
+
+	/* Font Style */
+	&-style {
+		&--section-label {
+			@extend .font-size--x-small;
+			font-weight: bold;
+			text-transform: uppercase;
+			letter-spacing: 0.2em;
+			line-height: inherit;
+		}
+
+		&--page-title {
+			@extend .font-size--x-large;
+			@extend .font--headings;
+			padding-top: 0.35em;
+			padding-bottom: 0.35em;
+		}
 	}
 }
 
-.font-size--x-large {
-	font-size: $font-size--x-large;
-	line-height: 1.15;
-
-	@include min-width($breakpoint--mobile-lg) {
-		line-height: 1.1;
-	}
-}
-
-.font-size--large {
-	font-size: $font-size--large;
-	line-height: 1.15;
-}
-
-.font-size--big {
-	font-size: $font-size--big;
-}
-
-.font-size--medium {
-	font-size: $font-size--medium;
-}
-
-.font-size--normal {
-	font-size: $font-size--normal;
-}
-
-.font-size--small {
-	font-size: $font-size--small;
-}
-
-.font-size--x-small {
-	font-size: $font-size--x-small;
-}
-
-.font-size--input {
-	font-size: $font-size--input;
+.page-title {
+	@extend .font-style--page-title;
+	@extend .color--primary-main;
 }

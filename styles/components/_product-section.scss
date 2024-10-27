@@ -1,0 +1,312 @@
+$slider-navigation-size: 50px;
+
+.product-section {
+	background-color: white;
+	padding: $spacing--30 $spacing--20;
+	overflow: hidden;
+	min-height: 500px;
+
+	// @todo: Chocante - Bricks footer - join group.
+	padding-bottom: 150px;
+
+	@include min-width($breakpoint--desktop-sm) {
+		padding-bottom: 200px;
+	}
+
+	// @include min-width($breakpoint--desktop) {
+	// 	padding: $spacing--40 0;
+	// }
+	// END TODO.
+
+	&__heading {
+		@extend .font-style--page-title;
+		@extend .container;
+	}
+
+	&__empty {
+		@extend .empty-screen;
+		min-height: 300px;
+		position: relative;
+	}
+
+	&__spinner {
+		@extend .flex--center;
+		min-height: 300px;
+	}
+
+	.splide {
+		&.is-initialized {
+			.product {
+				opacity: 0.3;
+
+				&.is-visible {
+					opacity: 1;
+				}
+			}
+		}
+
+		&__track {
+			@extend .container;
+			padding-top: $spacing--10;
+			overflow: visible;
+
+			@include min-width($breakpoint--desktop) {
+				padding-top: $spacing--20;
+				padding-bottom: $spacing--20;
+			}
+		}
+
+		&__arrow {
+			width: $slider-navigation-size;
+			height: $slider-navigation-size;
+			border-radius: 50%;
+			@extend .bg--accent-main;
+			color: white;
+			@extend .flex--center;
+			position: absolute;
+			top: 100%;
+			z-index: 10;
+			@extend .transition--color;
+			margin-top: $spacing--15;
+
+			@include min-width($breakpoint--desktop + $slider-navigation-size) {
+				top: 50%;
+				margin-top: 0;
+			}
+
+			svg {
+				@extend .transition;
+			}
+
+			&:hover {
+				@extend .shadow--natural;
+
+				&:not(:active) {
+					@extend .bg--accent-pattern;
+
+					svg {
+						transform: scale(1.25);
+					}
+				}
+			}
+
+			&:active {
+				transition: none;
+			}
+
+			&:disabled {
+				display: none;
+			}
+
+			&--prev {
+				left: 0;
+
+				@include min-width($breakpoint--desktop + $slider-navigation-size) {
+					transform: translate3d(-100%, -50%, 0);
+					left: -15px;
+				}
+			}
+
+			&--next {
+				right: 0;
+
+				@include min-width($breakpoint--desktop + $slider-navigation-size) {
+					transform: translate3d(100%, -50%, 0);
+					right: -15px;
+				}
+			}
+		}
+
+		&__pagination {
+			display: flex;
+			justify-content: center;
+			padding: $spacing--30 70px 0;
+			gap: $spacing--10;
+
+			&__page {
+				width: 5px;
+				height: 5px;
+				border-radius: 2px;
+				@extend .transition--color;
+				transition-property: bacground-color, width;
+				@extend .bg--accent-main;
+				cursor: default;
+
+				&.is-active {
+					background-color: map-get($colors, "grey-inactive");
+					width: 25px;
+				}
+			}
+		}
+	}
+
+	.product {
+		@extend .transition--color;
+		transition-timing-function: ease-in;
+
+		@include max-width($breakpoint--desktop-md) {
+			max-width: 270px;
+		}
+
+		@include min-width($breakpoint--desktop-md) {
+			min-width: 270px;
+		}
+
+		.woocommerce {
+			&-loop-product {
+				&__title {
+					@extend .font-size--medium-sm;
+					font-weight: bold;
+					@extend .color--primary-main;
+					margin: 0 0 0.2em;
+
+					// @todo: Chocante - Bricks.
+					@extend .font--body;
+					letter-spacing: normal;
+					// END TODO.
+				}
+
+				&__link {
+					@extend .border-radius--md;
+					@extend .transition--color;
+					overflow: hidden;
+					background-color: white;
+					border: 1px solid map-get($colors, "grey-light");
+					position: relative;
+					display: block;
+
+					&:hover {
+						@extend .shadow--deep;
+
+						img {
+							transform: translateY(-2%);
+						}
+
+						.woocommerce-loop-product__info-wrapper {
+							transform: translateY(0);
+						}
+					}
+
+					img {
+						@extend .transition;
+						transform: translateY(0);
+					}
+
+					.onsale {
+						position: absolute;
+						left: $spacing--20;
+						top: $spacing--15;
+						z-index: 10;
+						padding: $spacing--5 $spacing--10;
+						@extend .border-radius--s;
+						@extend .bg--primary-contrast;
+						letter-spacing: 0.2em;
+						text-transform: uppercase;
+						@extend .font--labels;
+						@extend .font-size--x-small;
+						line-height: 1;
+						color: white;
+					}
+				}
+
+				&__info {
+					position: absolute;
+					left: 0;
+					right: 0;
+					top: 5px;
+					z-index: -1;
+					transform: translateY(-100%);
+					padding: $spacing--10 $spacing--20 $spacing--15;
+					background: white;
+
+					&-wrapper {
+						padding: $spacing--5 $spacing--20 $spacing--20;
+						display: flex;
+						flex-direction: column;
+						gap: $spacing--10;
+						align-items: start;
+						position: relative;
+						transform: translateY(100%);
+						@extend .transition;
+						background-color: white;
+						margin-top: 2em;
+					}
+				}
+
+				&__type {
+					display: block;
+					font-size: $font-size--input;
+					line-height: 1.15;
+					padding-top: 0.2em;
+				}
+			}
+
+			&-Price-amount {
+				@extend .font-size--big;
+				font-weight: bold;
+				@extend .color--accent-main;
+			}
+
+			&-price-suffix {
+				@extend .font-size--small;
+			}
+		}
+
+		.price {
+			@extend .font-size--medium-sm;
+			margin-top: $spacing--10;
+			display: block;
+
+			del {
+				margin-right: 0.2em;
+				text-decoration: none;
+				position: relative;
+				top: -2px;
+
+				.woocommerce-Price-amount {
+					@extend .font-size--input;
+					@extend .color--text;
+					opacity: 0.5;
+				}
+
+				&::after {
+					content: "";
+					position: absolute;
+					top: 2px;
+					left: 0;
+					z-index: 2;
+					height: 100%;
+					width: 100%;
+					background: linear-gradient(
+						to top left,
+						transparent calc(50% - 1px),
+						map-get($colors, "accent-main"),
+						transparent calc(50% + 1px)
+					);
+				}
+			}
+
+			ins {
+				text-decoration: none;
+			}
+		}
+
+		.chocante-omnibus {
+			@extend .color--text;
+			opacity: 0.5;
+			@extend .font-size--x-small;
+			letter-spacing: 0.065em;
+			line-height: 1.15;
+			margin: 0.2em 0 0;
+			text-transform: uppercase;
+
+			.woocommerce-Price-amount {
+				font-size: inherit;
+			}
+		}
+
+		&.outofstock .button {
+			@extend .button--secondary, .scheme--light;
+		}
+	}
+}

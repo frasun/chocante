@@ -5,6 +5,7 @@
  * @package Chocante
  */
 
+ defined( 'ABSPATH' ) || exit;
 ?>
 
 <nav class="mobile-menu">

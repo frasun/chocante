@@ -1,6 +1,12 @@
+@use "sass:map";
+
 $mini-cart--image-size: 50px;
 
 .mini-cart {
+	// @todo: Chocnate - Bricks forge.
+	font-size: #{$font-size--input};
+	// END TODO.
+
 	&__button {
 		position: relative;
 
@@ -66,10 +72,13 @@ $mini-cart--image-size: 50px;
 		grid-template-rows: repeat(3, auto);
 		grid-template-columns: 1fr auto;
 		gap: $spacing--5;
+		width: 100%;
 
 		.woocommerce-mini-cart {
 			grid-column-start: 1;
 			grid-column-end: span 2;
+			padding: 0;
+			margin: 0;
 
 			&__buttons {
 				grid-column-start: 2;
@@ -108,7 +117,7 @@ $mini-cart--image-size: 50px;
 			margin-right: $spacing--20;
 
 			&:not(:last-child) {
-				border-bottom: 1px solid var(--wp--preset--color--grey-inactive);
+				border-bottom: 1px solid map.get($colors, "grey-inactive");
 			}
 
 			.remove_from_cart_button {
@@ -118,6 +127,7 @@ $mini-cart--image-size: 50px;
 
 			> a:not(.remove_from_cart_button) {
 				grid-column-start: 1;
+				grid-row-start: 1;
 				font-weight: 600;
 				line-height: 1.15;
 				position: relative;
@@ -152,13 +162,14 @@ $mini-cart--image-size: 50px;
 				grid-column-start: 1;
 				grid-column-end: span 2;
 				grid-row-start: 2;
-				display: flex;
-				align-items: baseline;
+				@extend .flex--baseline;
 				justify-content: space-between;
 				padding-left: 60px;
 
 				.quantity {
 					margin-top: 0.15em;
+					@extend .flex--baseline;
+					gap: $spacing--5;
 					@extend .font-size--input;
 
 					.woocommerce-price-suffix {
@@ -192,7 +203,7 @@ $mini-cart--image-size: 50px;
 			align-items: end;
 
 			.button {
-				@extend .button--primary, .scheme--light;
+				@extend .button--primary, .scheme--light, .button--sm;
 				width: 100%;
 			}
 		}
@@ -200,7 +211,7 @@ $mini-cart--image-size: 50px;
 		&__empty-message {
 			padding-left: $spacing--20;
 			padding-right: $spacing--20;
-			padding-top: $spacing--20;
+			padding-top: $spacing--10;
 			width: 100%;
 		}
 	}

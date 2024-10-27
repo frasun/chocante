@@ -1,0 +1,37 @@
+$empty-scree-badge-size: 120px;
+$empty-scree-icon-size: 60px;
+
+.empty-screen {
+	@extend .flex--center;
+	flex-wrap: nowrap;
+	flex-direction: column;
+	text-align: center;
+	margin: $spacing--20 auto $spacing--30;
+	max-width: 600px;
+	padding: $spacing--10 $spacing--20;
+	gap: $spacing--10;
+
+	figure {
+		width: $empty-scree-badge-size;
+		height: $empty-scree-badge-size;
+		border-radius: 50%;
+		background-color: white;
+		@extend .flex--center;
+		margin: $spacing--10 auto;
+
+		svg {
+			width: $empty-scree-icon-size;
+			height: $empty-scree-icon-size;
+		}
+	}
+
+	p {
+		@include min-width($breakpoint--mobile-lg) {
+			font-size: $font-size--medium;
+		}
+	}
+
+	.button {
+		margin-top: $spacing--20;
+	}
+}

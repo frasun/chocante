@@ -1,0 +1,84 @@
+@use "sass:map";
+
+$notice-icon-size: 24px;
+
+.notice {
+	display: block;
+	@extend .border-radius--md;
+	padding: $spacing--15 $spacing--20;
+	@extend .font-size--small;
+	text-align: left;
+	list-style: none;
+	width: 100%;
+
+	a {
+		@extend .link;
+	}
+
+	&--has-icon {
+		background-repeat: no-repeat;
+		background-position: $spacing--20;
+		background-size: $notice-icon-size;
+		padding-left: calc($spacing--20 + $notice-icon-size + $spacing--10);
+	}
+}
+
+.woocommerce-cart {
+	.woocommerce-notices-wrapper {
+		display: flex;
+		flex-direction: column;
+		gap: $spacing--20;
+		width: 100%;
+
+		&:not(:empty) {
+			margin: 0;
+		}
+
+		&:empty {
+			display: none;
+		}
+
+		.woocommerce {
+			&-info,
+			&-message,
+			&-success,
+			&-error {
+				@extend .notice;
+			}
+
+			&-info {
+				background-color: white;
+				color: inherit;
+
+				&[data-type="chocante-free-shipping"] {
+					@extend .notice--has-icon;
+					background-image: url(../icons/icon-shipping.svg);
+				}
+			}
+
+			&-message {
+				background-color: white;
+				color: inherit;
+				@extend .notice--has-icon;
+				background-image: url(../icons/icon-info.svg);
+
+				svg {
+					@extend .color--primary-contrast;
+				}
+			}
+
+			&-success {
+				background-color: white;
+				color: inherit;
+			}
+
+			&-error {
+				@extend .bg--error;
+				@extend .color--error-text;
+
+				@extend .notice--has-icon;
+				background-image: url(../icons/icon-error.svg);
+			}
+		}
+	}
+}

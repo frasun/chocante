@@ -44,7 +44,7 @@ $button-transition-property: color, background-position, box-shadow;
 	box-shadow: none;
 
 	@if $border {
-		border: 3px solid $bg-hover;
+		border-color: $bg-hover;
 		transition-property: $button-transition-property, border-color;
 	} @else {
 		transition-property: $button-transition-property;
@@ -71,14 +71,23 @@ $button-transition-property: color, background-position, box-shadow;
 	text-align: center;
 	text-decoration: none;
 	@extend .border-radius--md;
-	padding: $spacing--15 $spacing--30;
+	padding: 0.85em 2em 0.95em;
 	background-color: transparent;
+	border-width: 3px;
+	border-style: solid;
+	border-color: transparent;
+
+	&--sm {
+		padding: 0.65em 1.35em;
+		border-width: 2px;
+	}
 }
 
-// @todo: change to global class.
+// @todo: Chocante - change to global class.
 .site-header,
 .mobile-menu,
-.search-products__form {
+.search-products__form,
+.woocommerce-cart {
 	.button {
 		&,
 		.woocommerce & {
@@ -89,8 +98,8 @@ $button-transition-property: color, background-position, box-shadow;
 		&--primary {
 			&:not([disabled]) {
 				@include button-color(
-					map.get($bg-colors, "accent-main"),
-					map.get($bg-colors, "accent-pattern"),
+					map.get($colors, "accent-main"),
+					map.get($colors, "accent-pattern"),
 					white,
 					white
 				);
@@ -101,8 +110,8 @@ $button-transition-property: color, background-position, box-shadow;
 					@include button-color(
 						white,
 						#e2dad3,
-						map.get($bg-colors, "primary-main"),
-						map.get($bg-colors, "primary-main")
+						map.get($colors, "primary-main"),
+						map.get($colors, "primary-main")
 					);
 				}
 			}
@@ -112,8 +121,8 @@ $button-transition-property: color, background-position, box-shadow;
 					@include button-color(
 						white,
 						#e2dad3,
-						map.get($bg-colors, "accent-main"),
-						map.get($bg-colors, "accent-main")
+						map.get($colors, "accent-main"),
+						map.get($colors, "accent-main")
 					);
 				}
 			}
@@ -121,8 +130,8 @@ $button-transition-property: color, background-position, box-shadow;
 			&.scheme--light {
 				&:not([disabled]) {
 					@include button-color(
-						map.get($bg-colors, "accent-main"),
-						map.get($bg-colors, "accent-pattern"),
+						map.get($colors, "accent-main"),
+						map.get($colors, "accent-pattern"),
 						white,
 						white
 					);
@@ -135,8 +144,8 @@ $button-transition-property: color, background-position, box-shadow;
 				@include button-color(
 					white,
 					#e2dad3,
-					map.get($bg-colors, "primary-main"),
-					map.get($bg-colors, "primary-main")
+					map.get($colors, "primary-main"),
+					map.get($colors, "primary-main")
 				);
 			}
 
@@ -146,7 +155,7 @@ $button-transition-property: color, background-position, box-shadow;
 						transparent,
 						white,
 						white,
-						map.get($bg-colors, "primary-main"),
+						map.get($colors, "primary-main"),
 						true
 					);
 				}
@@ -158,7 +167,7 @@ $button-transition-property: color, background-position, box-shadow;
 						transparent,
 						white,
 						white,
-						map.get($bg-colors, "accent-main"),
+						map.get($colors, "accent-main"),
 						true
 					);
 				}
@@ -168,12 +177,23 @@ $button-transition-property: color, background-position, box-shadow;
 				&:not([disabled]) {
 					@include button-color(
 						transparent,
-						map.get($bg-colors, "accent-main"),
-						map.get($bg-colors, "accent-main"),
-						white
+						map.get($colors, "accent-main"),
+						map.get($colors, "accent-main"),
+						white,
+						true
 					);
 				}
 			}
+		}
+	}
+
+	.link {
+		font-weight: bold;
+		text-decoration: underline;
+		@extend .transition--color;
+
+		&:hover {
+			@extend .color--primary-contrast;
 		}
 	}
 }

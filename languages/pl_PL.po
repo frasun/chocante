@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bricks Child Theme 1.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/bricks-child1\n"
-"POT-Creation-Date: 2024-10-22T12:55:01+00:00\n"
-"PO-Revision-Date: 2024-10-22 14:56+0200\n"
+"POT-Creation-Date: 2024-12-02T17:43:33+00:00\n"
+"PO-Revision-Date: 2024-12-02 18:44+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pl_PL\n"
@@ -38,63 +38,176 @@ msgstr ""
 msgid "Bricks"
 msgstr ""
 
-#: includes/class-chocante-woocommerce.php:71
+#: includes/class-chocante-woocommerce.php:133
 msgctxt "sorting option"
 msgid "Default"
 msgstr "Domyślnie"
 
-#: includes/class-chocante-woocommerce.php:72
+#: includes/class-chocante-woocommerce.php:134
 msgctxt "sorting option"
 msgid "Popularity"
 msgstr "Wg popularności"
 
-#: includes/class-chocante-woocommerce.php:73
+#: includes/class-chocante-woocommerce.php:135
 msgctxt "sorting option"
 msgid "Average rating"
 msgstr "Wg oceny"
 
-#: includes/class-chocante-woocommerce.php:74
+#: includes/class-chocante-woocommerce.php:136
 msgctxt "sorting option"
 msgid "Latest"
 msgstr "Od najnowszych"
 
-#: includes/class-chocante-woocommerce.php:75
+#: includes/class-chocante-woocommerce.php:137
 msgctxt "sorting option"
 msgid "Lowest price"
 msgstr "Od najtańszych"
 
-#: includes/class-chocante-woocommerce.php:76
+#: includes/class-chocante-woocommerce.php:138
 msgctxt "sorting option"
 msgid "Highest price"
 msgstr "Od najdroższych"
 
-#: includes/class-chocante.php:69
+#: includes/class-chocante-woocommerce.php:356
+msgid "Featured products"
+msgstr "Polecane produkty"
+
+#: includes/class-chocante-woocommerce.php:402
+msgctxt "product slider"
+msgid "Previous"
+msgstr "Poprzedni"
+
+#: includes/class-chocante-woocommerce.php:403
+msgctxt "product slider"
+msgid "Next"
+msgstr "Nastęony"
+
+#: includes/class-chocante-woocommerce.php:404
+msgctxt "product slider"
+msgid "Go to first"
+msgstr "Idź do pierwszego"
+
+#: includes/class-chocante-woocommerce.php:405
+msgctxt "product slider"
+msgid "Go to last"
+msgstr "Idź do ostatniego"
+
+#. translators: Go to product number.
+#: includes/class-chocante-woocommerce.php:407
+msgctxt "product slider"
+msgid "Go to %s"
+msgstr "Idź do %s"
+
+#. translators: Go to page number.
+#: includes/class-chocante-woocommerce.php:409
+msgctxt "product slider"
+msgid "Go to page %s"
+msgstr "Strona %s"
+
+#: includes/class-chocante-woocommerce.php:410
+msgctxt "product slider"
+msgid "Start autoplay"
+msgstr "Start"
+
+#: includes/class-chocante-woocommerce.php:411
+msgctxt "product slider"
+msgid "Pause autoplay"
+msgstr "Wstrzymaj"
+
+#: includes/class-chocante-woocommerce.php:412
+msgctxt "product slider"
+msgid "carousel"
+msgstr "karuzela"
+
+#: includes/class-chocante-woocommerce.php:413
+msgctxt "product slider"
+msgid "Select product to show"
+msgstr "Wybierz produkt"
+
+#: includes/class-chocante-woocommerce.php:414
+msgctxt "product slider"
+msgid "product"
+msgstr "produkt"
+
+#: includes/class-chocante-woocommerce.php:501
+msgid "Buy now"
+msgstr "Kup teraz"
+
+#: includes/class-chocante.php:78
 msgid "Main menu"
 msgstr "Główne menu strony"
 
-#: includes/class-chocante.php:135
+#: includes/class-chocante.php:142
 msgid "Header - top"
 msgstr "Nagłówek - w górnej części"
 
-#: includes/class-chocante.php:137 includes/class-chocante.php:149
-#: includes/class-chocante.php:161
+#: includes/class-chocante.php:144
 msgid "Widgets in this area will be shown in the top part of header."
 msgstr ""
 
-#: includes/class-chocante.php:147
+#: includes/class-chocante.php:154
 msgid "Mobile menu - after main menu"
 msgstr "Menu mobilne - za głównym menu"
 
-#: includes/class-chocante.php:159
+#: includes/class-chocante.php:156
+msgid ""
+"Widgets in this area will be shown in mobile menu after main navigation menu."
+msgstr ""
+
+#: includes/class-chocante.php:166
 msgid "Mobile menu - top"
 msgstr "Menu mobilne - w górnej części"
+
+#: includes/class-chocante.php:168
+msgid "Widgets in this area will be shown in the top part of mobile menu."
+msgstr ""
+
+#: includes/class-chocante.php:190
+msgid "Loading"
+msgstr "Wczytuję"
+
+#: template-parts/cart-empty.php:16
+msgid "Cart is empty"
+msgstr "Koszyk jest pusty"
+
+#: template-parts/cart-empty.php:19
+msgid ""
+"You have not added anything to your shopping cart yet. Go to our shop to "
+"select the products you are interested in."
+msgstr ""
+"Na razie nic nie dodałeś do koszyka. Przejdź do naszego sklepu, aby wybrać "
+"interesujące Cię produkty."
+
+#. translators: Safe shopping heading.
+#: template-parts/info-cart.php:17
+msgid "Safe shopping"
+msgstr "Bezpieczne zakupy"
+
+#. translators: Safe shopping content.
+#: template-parts/info-cart.php:19
+msgid ""
+"If the product we supply is faulty or damaged, you can return the goods and "
+"we will give you a refund or send you a new product."
+msgstr ""
+"Jeśli dostarczone przez nas produkt byłby wadliwy lub zniszczony możesz "
+"zwrócić zakuiony towar, a my oddamy Ci pieniądze lub wyślemy nowy produkt."
+
+#. translators: Fast shipping heading.
+#: template-parts/info-cart.php:34
+msgid "Fast shipping"
+msgstr "Szybka wysyłka"
+
+#. translators: Fast shipping content.
+#: template-parts/info-cart.php:36
+msgid "Order before 11 a.m. and we will ship it the same day."
+msgstr "Zamów do godziny 11, a wyślemy jeszcze dzisiaj."
 
 #: woocommerce/loop/result-count.php:28
 msgid "1 product"
 msgstr "1 produkt"
 
 #. translators: %d: total results
-#: woocommerce/loop/result-count.php:31
+#: woocommerce/loop/result-count.php:32
 msgid "%d product"
 msgid_plural "%d products"
 msgstr[0] "%d produkt"
@@ -102,7 +215,7 @@ msgstr[1] "%d produkty"
 msgstr[2] "%d produktów"
 
 #. translators: 1: first result 2: last result 3: total results
-#: woocommerce/loop/result-count.php:36
+#: woocommerce/loop/result-count.php:38
 msgctxt "with first and last result"
 msgid "%1$d&ndash;%2$d of %3$d product"
 msgid_plural "%1$d&ndash;%2$d of %3$d products"

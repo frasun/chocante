@@ -8,7 +8,7 @@ $transition-time: 0.35s;
 }
 
 .transition--color {
-	transition-property: background-color, color, opacity;
+	transition-property: background-color, color, opacity, box-shadow;
 	transition-duration: $transition-time;
 	transition-timing-function: $transition-fn;
 }

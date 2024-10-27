@@ -1,0 +1,682 @@
+@use "sass:map";
+
+.woocommerce-cart {
+	@at-root body#{&} {
+		@extend .bg--primary-light-bg;
+	}
+
+	&:not(.cart-empty) .page-title {
+		padding-top: $spacing--10;
+		padding-bottom: 0;
+		width: 100%;
+	}
+
+	.woocommerce {
+		@extend .container;
+		display: flex;
+		flex-direction: column;
+		gap: $spacing--20;
+
+		padding: $spacing--20 0 $spacing--50;
+
+		@include max-width($breakpoint--desktop-md) {
+			padding-left: $spacing--20;
+			padding-right: $spacing--20;
+		}
+
+		@include max-width($breakpoint--desktop-sm) {
+			padding: $spacing--20 $spacing--20 $spacing--30;
+		}
+
+		@include min-width($breakpoint--desktop-sm) {
+			flex-direction: row;
+			flex-wrap: wrap;
+			column-gap: $spacing--30;
+		}
+
+		.before-cart {
+			flex: 0 0 100%;
+
+			&.brxe-container {
+				width: 100%;
+			}
+		}
+
+		&-cart-form {
+			flex: 1 0 60%;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+			gap: $spacing--20;
+
+			@include min-width($breakpoint--desktop-sm) {
+				gap: $spacing--30;
+			}
+
+			&__contents {
+				thead,
+				.actions {
+					display: none;
+				}
+
+				tbody {
+					tr {
+						border: 0;
+						position: relative;
+					}
+
+					td {
+						padding: 0;
+
+						&[data-title]::before {
+							content: none;
+						}
+
+						&.product-quantity .quantity .qty {
+							width: inherit;
+							text-align: center;
+							-moz-appearance: textfield;
+
+							&::-webkit-outer-spin-button,
+							&::-webkit-inner-spin-button {
+								-webkit-appearance: none;
+								margin: 0;
+							}
+						}
+					}
+				}
+			}
+
+			&__cart-item {
+				display: grid;
+				grid-template-columns: 60px 1fr;
+				grid-template-rows: repeat(3, auto);
+				align-items: center;
+				column-gap: $spacing--20;
+				row-gap: $spacing--10;
+				padding: $spacing--15 0;
+
+				@include min-width($breakpoint--mobile-sm) {
+					grid-template-columns: 100px 1fr;
+				}
+
+				@include min-width($breakpoint--mobile) {
+					grid-template-columns: 130px 1fr;
+					padding: $spacing--20 0;
+				}
+
+				@include min-width($breakpoint--mobile-lg) {
+					grid-template-columns: 130px repeat(auto-fill, minmax(20%, 1fr));
+					grid-template-rows: repeat(2, auto);
+					row-gap: $spacing--15;
+				}
+
+				@include min-width($breakpoint--desktop-sm) {
+					padding: $spacing--30 0;
+				}
+
+				.product-remove {
+					position: absolute;
+					right: 0;
+					top: $spacing--5;
+
+					@include min-width($breakpoint--mobile) {
+						padding: $spacing--10 0;
+					}
+
+					@include min-width($breakpoint--desktop-sm) {
+						top: $spacing--10;
+					}
+
+					a {
+						width: 30px;
+						height: 30px;
+					}
+				}
+
+				.product-thumbnail {
+					grid-area: 1 / 1 / 2 / 2;
+					align-self: start;
+
+					@include min-width($breakpoint--mobile-sm) {
+						grid-row: 1 / 4;
+					}
+
+					@include min-width($breakpoint--mobile-lg) {
+						grid-row: 1 / 3;
+					}
+
+					a {
+						--border-radius: #{$border-radius--sm};
+						display: block;
+						@extend .border-radius;
+						overflow: hidden;
+
+						@include min-width($breakpoint--desktop-sm) {
+							--border-radius: #{$border-radius--md};
+						}
+
+						&:hover {
+							img {
+								transform: scale(1.07);
+							}
+						}
+					}
+
+					img {
+						width: 100%;
+						@extend .transition;
+					}
+				}
+
+				.product-name {
+					grid-area: 1 / 2 / 1 / 4;
+					align-self: start;
+					font-weight: bold;
+					line-height: 1.15;
+					@extend .color--primary-main;
+					@extend .font-size--normal;
+					padding-right: $spacing--30;
+
+					@include min-width($breakpoint--mobile) {
+						font-size: 1.125em;
+						padding-right: $spacing--40;
+					}
+
+					@include min-width($breakpoint--mobile-lg) {
+						grid-column: 2 / 5;
+					}
+
+					a:hover {
+						@extend .color--primary-contrast;
+						@extend .transition--color;
+					}
+
+					small {
+						display: block;
+						font-weight: $font-weight--body;
+						font-size: $font-size--input;
+						padding: 0.5em 0;
+						@extend .color--text;
+					}
+				}
+
+				.product-price {
+					grid-area: 2 / 1 / 2 / 4;
+					@extend .font-size--medium;
+					@extend .color--accent-main;
+					line-height: 1;
+
+					@include min-width($breakpoint--mobile-sm) {
+						grid-column: 2 / 4;
+					}
+
+					@include min-width($breakpoint--mobile-lg) {
+						grid-column: 2 / 3;
+						grid-row: 2 / 2;
+					}
+
+					.woocommerce {
+						&-Price-amount {
+							font-weight: bold;
+						}
+
+						&-price-suffix {
+							@extend .font-size--small;
+						}
+					}
+				}
+
+				.product-quantity {
+					grid-area: 3 / 1 / 3 / 3;
+
+					@include min-width($breakpoint--mobile-sm) {
+						grid-column: 2 / 3;
+					}
+
+					@include min-width($breakpoint--mobile-lg) {
+						grid-area: 2 / 3 / 2 / 4;
+						display: flex;
+						justify-content: center;
+					}
+				}
+
+				.product-subtotal {
+					grid-area: 3 / 3 / 3 / 4;
+					display: flex;
+					justify-content: end;
+					font-weight: bold;
+					line-height: 1;
+					@extend .font-size--medium;
+					@extend .color--accent-main;
+
+					@include min-width($breakpoint--mobile-sm) {
+						grid-column: 3 / 4;
+					}
+
+					@include min-width($breakpoint--mobile-lg) {
+						grid-column: 4 / 5;
+						grid-row: 2 / 2;
+						padding-right: $spacing--10;
+					}
+				}
+
+				& + .cart_item {
+					border-top: 1px solid map.get($colors, "grey-inactive");
+				}
+			}
+
+			.quantity {
+				position: relative;
+				width: 100px;
+
+				&:hover {
+					input.qty {
+						@extend .shadow--deep;
+					}
+				}
+
+				@include min-width($breakpoint--mobile-lg) {
+					width: 130px;
+				}
+
+				input.qty {
+					@extend .input, .input--secondary;
+					padding: $spacing--10 calc($spacing--20 + 24px);
+					overflow: hidden;
+					text-overflow: ellipsis;
+
+					@include min-width($breakpoint--mobile-lg) {
+						padding-top: $spacing--15;
+						padding-bottom: $spacing--15;
+					}
+				}
+
+				button {
+					@extend .flex--center;
+					background: transparent;
+					@extend .transition--color;
+					width: 24px;
+					height: 24px;
+					@extend .color--accent-main;
+					opacity: 1;
+
+					&:hover {
+						@extend .color--primary-contrast;
+
+						&:active {
+							transition: none;
+						}
+					}
+				}
+
+				&__plus,
+				&__minus {
+					position: absolute;
+					top: 50%;
+					transform: translateY(-50%);
+				}
+
+				&__plus {
+					right: $spacing--10;
+				}
+
+				&__minus {
+					left: $spacing--10;
+				}
+
+				// @todo: Chocante - Remove after switching from Bricks.
+				.action {
+					display: none;
+				}
+			}
+
+			.blockUI.blockOverlay {
+				background-color: map.get($colors, "primary-light-bg") !important;
+			}
+		}
+
+		.cart-collaterals {
+			flex: 1 1 33%;
+			float: none;
+			width: auto;
+
+			@include min-width($breakpoint--desktop-sm) {
+				margin-top: $spacing--10;
+			}
+
+			table {
+				border-collapse: collapse;
+				border-spacing: 0;
+
+				tbody {
+					tr {
+						display: flex;
+						align-items: baseline;
+					}
+
+					th {
+						flex-grow: 1;
+					}
+
+					th,
+					td {
+						padding: 0;
+					}
+				}
+			}
+
+			.cart_totals {
+				background: white;
+				@extend .border-radius--md;
+				padding: $spacing--20;
+
+				h2 {
+					@extend .font-style--section-label;
+
+					// @todo: Chocante - Bricks.
+					@extend .font--body;
+				}
+
+				table {
+					border: none;
+					line-height: inherit;
+					margin-top: $spacing--15;
+					margin-bottom: $spacing--30;
+				}
+
+				th {
+					font-weight: inherit;
+					text-align: left;
+				}
+
+				.cart-discount {
+					margin-top: $spacing--10;
+				}
+
+				.woocommerce {
+					&-shipping-totals {
+						display: flex;
+						flex-direction: column;
+						margin-top: $spacing--30;
+
+						th {
+							@extend .font-style--section-label;
+						}
+
+						td {
+							width: 100%;
+							margin-top: $spacing--10;
+						}
+					}
+
+					&-shipping-methods {
+						display: flex;
+						flex-direction: column;
+						gap: $spacing--15;
+						margin: $spacing--5 0 0;
+						padding: 0;
+
+						li {
+							margin: 0;
+							display: flex;
+							align-items: center;
+
+							label {
+								flex-grow: 1;
+							}
+						}
+
+						input[type="radio"] {
+							@extend .radio;
+							flex-shrink: 0;
+						}
+
+						.woocommerce-Price-amount,
+						.chocante-free-shipping {
+							font-weight: bold;
+						}
+
+						.chocante-delivery-time {
+							display: block;
+						}
+					}
+
+					&-shipping-destination {
+						@extend .font-size--small;
+						line-height: initial;
+						margin-top: $spacing--20;
+					}
+
+					&-shipping-calculator {
+						.shipping-calculator {
+							&-button {
+								@extend .link;
+								@extend .font-size--small;
+							}
+
+							&-form {
+								display: flex;
+								gap: $spacing--15;
+
+								@include max-width($breakpoint--mobile-sm) {
+									flex-direction: column;
+								}
+
+								p {
+									margin: $spacing--10 0 0;
+
+									&.form-row-wide {
+										flex-grow: 1;
+									}
+								}
+
+								.button {
+									@extend .button--sm, .button--secondary, .scheme--light;
+								}
+							}
+						}
+					}
+
+					&-form-coupon {
+						display: flex;
+						flex-direction: column;
+						gap: $spacing--15;
+						margin-top: $spacing--10;
+
+						@include min-width($breakpoint--mobile) {
+							display: grid;
+							grid-template-columns: 1fr auto;
+						}
+
+						@media (min-width: $breakpoint--desktop-sm) and (max-width: calc($breakpoint--desktop-md - 1px)) {
+							display: flex;
+							flex-direction: column;
+						}
+
+						p {
+							grid-column-start: 1;
+							grid-column-end: 3;
+							@extend .font-size--small;
+							margin: 0;
+						}
+
+						input[name="coupon_code"] {
+							@extend .input, .input--sm;
+						}
+
+						.button {
+							@extend .button--sm, .button--secondary, .scheme--light;
+						}
+					}
+
+					&-remove-coupon {
+						@extend .link;
+						@extend .font-size--small;
+					}
+				}
+
+				.coupon {
+					display: flex;
+					flex-direction: column;
+					margin-top: $spacing--30;
+
+					th {
+						@extend .font-style--section-label;
+					}
+
+					td {
+						width: 100%;
+						padding: 0;
+					}
+				}
+
+				.order-total {
+					margin-top: $spacing--30;
+
+					th,
+					td {
+						font-weight: bold;
+						@extend .font-size--medium;
+					}
+				}
+			}
+
+			.wc-proceed-to-checkout .checkout-button {
+				width: 100%;
+				@extend .button--primary;
+			}
+		}
+
+		.cart-info {
+			background-color: white;
+			@extend .border-radius--md;
+			display: flex;
+			padding: $spacing--15 $spacing--20;
+			gap: $spacing--20;
+
+			@include max-width($breakpoint--mobile-lg) {
+				flex-direction: column;
+			}
+
+			svg {
+				@extend .color--primary-contrast;
+				flex-shrink: 0;
+				width: auto;
+			}
+
+			&,
+			h6 {
+				@extend .font-size--small;
+			}
+
+			> div {
+				display: flex;
+				gap: $spacing--10;
+				flex: 1 1 33%;
+			}
+		}
+	}
+
+	// @todo: Chocante - Move to _input.scss after switching from Bricks.
+	.select2 {
+		&-selection {
+			@extend .input, .input--sm;
+			padding-left: $spacing--15;
+			padding-right: 35px;
+			height: auto;
+			position: relative;
+
+			.select2-selection__arrow {
+				border: 0;
+				top: 50%;
+				transform: translateY(-50%);
+				right: 15px;
+				height: auto;
+				width: auto;
+				line-height: 1;
+
+				b {
+					border: 0;
+					position: static;
+					margin: 0;
+
+					&::after {
+						@include icon-font();
+						content: "\0041";
+						border: 0;
+						position: static;
+						@extend .transition;
+						font-size: 0.75em;
+						@extend .color--text;
+						opacity: 0.5;
+					}
+				}
+			}
+		}
+
+		&-container--below {
+			&.select2-container--open {
+				.select2-selection {
+					background-color: white;
+					border-bottom-left-radius: 0;
+					border-bottom-right-radius: 0;
+					@extend .shadow--deep;
+
+					.select2-selection__arrow {
+						b {
+							border: 0;
+
+							&::after {
+								transform: rotate(180deg);
+							}
+						}
+					}
+				}
+			}
+		}
+
+		&-search {
+			&__field {
+				line-height: $line-height;
+			}
+		}
+
+		&-container .select2-selection--single .select2-selection__rendered {
+			padding-left: 0;
+			padding-right: 0;
+			line-height: inherit;
+		}
+
+		&-dropdown {
+			border-color: map.get($colors, "accent-main");
+			overflow: hidden;
+
+			&.select2-dropdown--below {
+				border-bottom-left-radius: #{$border-radius--xs};
+				border-bottom-right-radius: #{$border-radius--xs};
+			}
+
+			&.select2-dropdown--above {
+				border-top-left-radius: #{$border-radius--xs};
+				border-top-right-radius: #{$border-radius--xs};
+			}
+		}
+
+		&-results__option {
+			&--highlighted[data-selected] {
+				background-color: map.get($colors, "accent-pattern");
+			}
+
+			&[data-selected="true"] {
+				color: map.get($colors, "accent-main");
+				font-weight: bold;
+				background-color: transparent;
+			}
+		}
+	}
+
+	.coupon-error-notice {
+		@extend .woocommerce-error;
+	}
+}

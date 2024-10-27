@@ -1,6 +1,6 @@
 @use "sass:map";
 
-// @todo: change to global class.
+// @todo: Chocante - change to global class.
 .site-header,
 .mobile-menu__top {
 	.wpml-ls-legacy-dropdown,
@@ -82,7 +82,7 @@
 	.wcml-dropdown-click a.wcml-cs-item-toggle {
 		text-transform: uppercase;
 		font-weight: bold;
-		color: var(--text-color-secondary, map.get($bg-colors, "primary-light"));
+		color: var(--text-color-secondary, map.get($colors, "primary-light"));
 		@extend .transition--color;
 		padding: $spacing--10 $spacing--15;
 		display: flex;

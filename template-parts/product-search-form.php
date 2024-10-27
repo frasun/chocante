@@ -5,6 +5,7 @@
  * @package Chocante
  */
 
+defined( 'ABSPATH' ) || exit;
 ?>
 
 <aside class="search-products__form">

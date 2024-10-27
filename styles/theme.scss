@@ -11,6 +11,10 @@
 @import "utils/buttons";
 @import "utils/border-radius";
 @import "utils/icons";
+@import "utils/inputs";
+
+// 3rd party.
+@import "@splidejs/splide/css/core";
 
 // Components.
 @import "components/modal";
@@ -19,11 +23,15 @@
 @import "components/product-search";
 @import "components/menu";
 @import "components/currency-language-switcher";
+@import "components/notices";
+@import "components/product-section";
+@import "components/empty-screen";
 
 // Templates.
 @import "templates/body";
 @import "templates/header";
 @import "templates/blog";
+@import "templates/cart";
 
 // Pages.
 @import "components/cart";

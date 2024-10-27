@@ -1,6 +1,7 @@
 $border-radius: 30px;
 $border-radius--md: 25px;
 $border-radius--sm: 20px;
+$border-radius--s: 10px;
 $border-radius--xs: 5px;
 
 :root {
@@ -15,6 +16,11 @@ $border-radius--xs: 5px;
 	&--xs {
 		@extend .border-radius;
 		--border-radius: #{$border-radius--xs};
+	}
+
+	&--s {
+		@extend .border-radius;
+		--border-radius: #{$border-radius--s};
 	}
 
 	&--sm {

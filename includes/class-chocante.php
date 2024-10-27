@@ -26,22 +26,22 @@ class Chocante {
 		add_filter( 'get_custom_logo_image_attributes', array( self::class, 'set_custom_logo_attributes' ), 10, 2 );
 
 		// Menu.
-		// add_filter( 'nav_menu_css_class', array( self::class, 'set_menu_item_class' ), 10, 2 );
-		// add_filter( 'nav_menu_submenu_css_class', array( self::class, 'set_submenu_class' ) );
+		// add_filter( 'nav_menu_css_class', array( self::class, 'set_menu_item_class' ), 10, 2 );?
+		// add_filter( 'nav_menu_submenu_css_class', array( self::class, 'set_submenu_class' ) );?
 		if ( ! is_admin() ) {
-			add_action( 'wp_footer', array( self::class, 'output_mobile_menu' ) );
+			add_action( 'wp_footer', array( self::class, 'output_mobile_menu' ), 20 );
 		}
 
 		// WooCommerce.
 		if ( class_exists( 'WooCommerce' ) && function_exists( 'WC' ) ) {
 			require plugin_dir_path( __FILE__ ) . 'class-chocante-woocommerce.php';
 			Chocante_WooCommerce::init();
-		}
 
-		// ACF.
-		if ( class_exists( 'ACF' ) ) {
-			require plugin_dir_path( __FILE__ ) . 'class-chocante-acf.php';
-			Chocante_ACF::init();
+			// WooCommerce ACF.
+			if ( class_exists( 'ACF' ) ) {
+				require plugin_dir_path( __FILE__ ) . 'class-chocante-woocommerce-acf.php';
+				Chocante_WooCommerce_ACF::init();
+			}
 		}
 	}
 
@@ -109,29 +109,27 @@ class Chocante {
 	 * Enqueue scripts & styles
 	 */
 	public static function enqueue_scripts() {
-		if ( function_exists( 'bricks_is_builder_main' ) && ! bricks_is_builder_main() ) {
-			$styles = include get_stylesheet_directory() . '/build/styles.asset.php';
+		$styles = include get_stylesheet_directory() . '/build/styles.asset.php';
 
-			wp_enqueue_style(
-				'chocante',
-				get_stylesheet_directory_uri() . '/build/styles.css',
-				$styles['dependencies'],
-				$styles['version'],
-			);
+		wp_enqueue_style(
+			'chocante',
+			get_stylesheet_directory_uri() . '/build/styles.css',
+			$styles['dependencies'],
+			$styles['version'],
+		);
 
-			$scripts = include get_stylesheet_directory() . '/build/scripts.asset.php';
+		$scripts = include get_stylesheet_directory() . '/build/scripts.asset.php';
 
-			wp_enqueue_script(
-				'chocante',
-				get_stylesheet_directory_uri() . '/build/scripts.js',
-				array_merge( $scripts['dependencies'], array( 'wc-cart-fragments' ) ),
-				$scripts['version'],
-				array(
-					'in_footer' => true,
-					'strategy'  => 'defer',
-				)
-			);
-		}
+		wp_enqueue_script(
+			'chocante',
+			get_stylesheet_directory_uri() . '/build/scripts.js',
+			array_merge( $scripts['dependencies'], array( 'wc-cart-fragments' ) ),
+			$scripts['version'],
+			array(
+				'in_footer' => true,
+				'strategy'  => 'defer',
+			)
+		);
 	}
 
 	/**
@@ -185,6 +183,12 @@ class Chocante {
 		require get_stylesheet_directory() . "/icons/icon-{$filename}.svg";
 	}
 
+	/**
+	 * Insert spinner
+	 */
+	public static function spinner() {
+		echo '<img src="' . esc_url( get_stylesheet_directory_uri() . '/images/spinner-2x.gif' ) . '" alt="' . esc_attr__( 'Loading', 'chocante' ) . '" class="spinner">';
+	}
 
 	/**
 	 * Clean menu list item classes
@@ -213,5 +217,14 @@ class Chocante {
 	 */
 	public static function output_mobile_menu() {
 		get_template_part( 'template-parts/mobile-menu' );
+	}
+
+	/**
+	 * Display page title
+	 */
+	public static function get_page_title() {
+		$title = '<h1>' . get_the_title() . '</h1>';
+
+		echo wp_kses_post( apply_filters( 'chocante_page_title', $title, get_the_title() ) );
 	}
 }

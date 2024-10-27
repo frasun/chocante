@@ -1,0 +1,93 @@
+@use "sass:map";
+
+.input {
+	@extend .font-size--input;
+	@extend .border-radius--md;
+	border: 1px solid map.get($colors, "accent-main");
+	@extend .bg--primary-light-bg;
+	@extend .transition--color;
+	padding: $spacing--10 $spacing--20;
+	font-weight: inherit;
+	width: 100%;
+
+	@include min-width($breakpoint--mobile-lg) {
+		padding: $spacing--15 $spacing--20;
+	}
+
+	&:hover {
+		@extend .shadow--deep;
+	}
+
+	&:focus {
+		background-color: white;
+	}
+
+	&--secondary {
+		border: 1px solid map.get($colors, "primary-light");
+		font-weight: 600;
+	}
+
+	&--sm {
+		padding: $spacing--10 $spacing--15;
+		--border-radius: #{$border-radius--sm};
+		line-height: 1.25;
+	}
+
+	&::placeholder {
+		opacity: 0.5;
+		@extend .color--text;
+	}
+}
+
+.radio {
+	width: 25px;
+	height: 25px;
+	border-radius: 50%;
+	border: 1px solid map.get($colors, "accent-main");
+	@extend .flex--center;
+	display: inline-flex;
+	@extend .transition--color;
+	-webkit-appearance: none;
+	cursor: pointer;
+	padding: 0;
+	margin: 0;
+
+	&::after {
+		content: "";
+		background-color: white;
+		width: 5px;
+		height: 5px;
+		border-radius: 50%;
+		@extend .transition;
+		transform: scale(0);
+		transform-origin: center center;
+	}
+
+	&:hover {
+		@extend .shadow--deep;
+	}
+
+	&[checked] {
+		@extend .bg--accent-main;
+
+		&::after {
+			transform: scale(1);
+		}
+	}
+
+	& + label {
+		display: inline-block;
+		margin-left: $spacing--10;
+		margin-bottom: 0;
+		vertical-align: middle;
+		cursor: pointer;
+		@extend .font-size--input;
+	}
+}
+
+// @todo: Chocante - Bricks.
+label {
+	color: currentColor;
+	font-weight: $font-weight--body;
+}
+// END TODO.

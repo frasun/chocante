@@ -164,8 +164,8 @@
 		},
 		"typography": {
 			"fluid": {
-				"maxViewportWidth": "1440px",
-				"minViewportWidth": "600px"
+				"maxViewportWidth": "768px",
+				"minViewportWidth": "375px"
 			},
 			"fontFamilies": [
 				{

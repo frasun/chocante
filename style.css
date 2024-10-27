@@ -50,11 +50,8 @@
 	margin: 0.3em 0;
 }
 
-.product-content .chocante-omnibus .woocommerce-Price-amount,
-.chocante-omnibus .woocommerce-Price-amount {
+.product-content .chocante-omnibus .woocommerce-Price-amount {
 	font-size: inherit;
-	font-weight: 700;
-	color: inherit;
 }
 
 /* WooCommerce Product Page - price */
@@ -302,15 +299,19 @@ tr.chocante-delivery-point {
 	padding-bottom: 20px;
 }
 
-.woocommerce-info[data-type="chocante-free-shipping"] {
-	line-height: 40px;
-	gap: 5px;
-}
+/* .woocommerce-info[data-type="chocante-free-shipping"] { */
+/* line-height: 40px; */
+/* gap: 5px; */
+/* } */
 
-.woocommerce-info[data-type="chocante-free-shipping"] a {
+/* .woocommerce-info[data-type="chocante-free-shipping"] a {
 	border: 0;
 	margin: 0;
 	padding: 0;
+} */
+
+.woocommerce-info[data-type="chocante-free-shipping"] span {
+	font-weight: bold;
 }
 
 #brxe-mgcsri .woocommerce-shipping-totals {
@@ -331,9 +332,9 @@ ul.woocommerce-shipping-methods label {
 	line-height: 1.4;
 }
 
-ul.woocommerce-shipping-methods label small {
+/* ul.woocommerce-shipping-methods label small {
 	display: block;
-}
+} */
 
 .cart_totals .shop_table tbody {
 	display: block;
@@ -343,21 +344,21 @@ ul.woocommerce-shipping-methods label small {
 	width: 100% !important;
 }
 
-.cart-collaterals table tbody tr {
-	display: flex !important;
-	align-items: baseline;
-}
-
-.cart-collaterals table tbody tr th {
-	flex-grow: 1;
-}
-
 .shop_table.woocommerce-checkout-review-order-table tbody {
 	display: block;
 }
 
 .shop_table.woocommerce-checkout-review-order-table .cart_item .product-name {
 	flex-grow: 1;
+}
+
+.shop_table.woocommerce-checkout-review-order-table
+	.cart_item
+	.product-name
+	a
+	small {
+	font-size: 100%;
+	margin-left: 5px;
 }
 
 /* Product Filters */

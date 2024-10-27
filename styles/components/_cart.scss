@@ -1,18 +1,19 @@
-.remove_from_cart_button {
+.remove_from_cart_button,
+.woocommerce-cart-form__cart-item .remove {
 	@extend .flex--center;
 	@extend .transition--color;
+	@extend .color--primary-main;
 
 	svg {
-		width: 14px;
-		height: 14px;
+		width: 12px;
+		height: 12px;
 	}
 
 	&:hover {
-		opacity: 0.5;
+		@extend .color--primary-contrast;
 	}
 
 	&:active {
-		opacity: 1;
 		transition: none;
 	}
 }

@@ -1,6 +1,6 @@
-$z-index--dropdown: 100;
-$z-index--overlay: 200;
-$z-index--modal: 300;
+$z-index--dropdown: 1000;
+$z-index--overlay: 2000;
+$z-index--modal: 3000;
 
 .z-index--dropdown {
 	z-index: $z-index--dropdown;

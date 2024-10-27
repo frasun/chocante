@@ -1,13 +1,14 @@
-import * as Constants from './constants';
 import ModalService from './modal-service';
 import Modal from './modal';
 import ChocanteWooCommerce from './woocommerce';
 import MenuScroll from './menu-scroll';
 
 class Chocante {
+  static MOBILE_BREAKPOINT = 1024;
+
   constructor() {
     new ModalService();
-    new Modal('.mobile-menu', '.site-header__toggle', Constants.MOBILE_BREAKPOINT);
+    new Modal('.mobile-menu', '.site-header__toggle', Chocante.MOBILE_BREAKPOINT);
     new MenuScroll('.site-header');
 
     this.setDropdownSize();
@@ -32,15 +33,17 @@ jQuery(function ($) {
   // Include header when scrolling to notices.
   // @see: /plugins/woocommerce/assets/js/frontend/woocommerce.js:87
   const SCROLL_OFFSET = 15;
-  const SCTOLL_DURATION = 700;
+  const SCROLL_DURATION = 350;
 
   $.scroll_to_notices = function (scrollElement) {
     if (scrollElement.length) {
+      const adminBarHeight = $('#wpadminbar').length ? $('#wpadminbar').height() : 0;
+
       $('html, body').animate(
         {
-          scrollTop: scrollElement.offset().top - $('.site-header').height() - SCROLL_OFFSET - $('#wpadminbar').height(),
+          scrollTop: scrollElement.offset().top - $('.site-header').height() - SCROLL_OFFSET - adminBarHeight,
         },
-        SCTOLL_DURATION
+        SCROLL_DURATION
       );
     }
   };
