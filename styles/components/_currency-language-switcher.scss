@@ -109,8 +109,12 @@
 		}
 	}
 
-	.wcml-cs-active-currency:hover a.wcml-cs-item-toggle {
-		color: white;
+	.wpml-ls-legacy-dropdown a.wpml-ls-item-toggle,
+	.wcml-dropdown a.wcml-cs-item-toggle,
+	.wcml-cs-active-currency a.wcml-cs-item-toggle {
+		&:hover {
+			color: white;
+		}
 	}
 
 	.wcml-spinner {

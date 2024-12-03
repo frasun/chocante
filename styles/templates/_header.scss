@@ -81,7 +81,12 @@
 		display: grid;
 		grid-auto-flow: column;
 		flex: 1;
-		justify-content: space-between;
+		justify-content: center;
+		gap: $spacing--10;
+
+		@media (min-width: $breakpoint--desktop-sm) and (max-width: $breakpoint--desktop) {
+			align-self: center;
+		}
 
 		@extend .hide--mobile;
 
