@@ -44,6 +44,7 @@ class Chocante_WooCommerce {
 		add_action( 'woocommerce_cart_totals_before_order_total', array( self::class, 'display_coupon_form_in_cart' ) );
 		add_action( 'woocommerce_before_quantity_input_field', array( self::class, 'display_remove_quantity_button' ) );
 		add_action( 'woocommerce_after_quantity_input_field', array( self::class, 'display_add_quantity_button' ), 20 );
+		add_filter( 'woocommerce_cart_item_permalink', array( self::class, 'return_empty_permalink' ) );
 
 		if ( class_exists( 'Chocante_Free_Shipping' ) ) {
 			add_action( 'chocante_delivery_info', array( self::class, 'display_free_delivery_info' ) );
@@ -69,13 +70,6 @@ class Chocante_WooCommerce {
 		add_action( 'wp_ajax_get_products', array( self::class, 'ajax_get_products' ) );
 		add_action( 'wp_ajax_nopriv_get_products', array( self::class, 'ajax_get_products' ) );
 		add_action( 'woocommerce_after_product_object_save', array( self::class, 'clear_cached_products' ) );
-
-		add_action(
-			'init',
-			function () {
-				remove_all_filters( 'woocommerce_cart_item_permalink', 10 );
-			}
-		);
 
 		/**
 		 * Fix PHP notice in widgets page
@@ -574,5 +568,15 @@ class Chocante_WooCommerce {
 	 */
 	public static function display_coupon_form_in_cart() {
 		get_template_part( 'template-parts/cart', 'coupon' );
+	}
+
+	/**
+	 * Return # as a link to product in cart that chnaged status to out of stock in order to remain HTML structure
+	 *
+	 * @param string $link Product permalink.
+	 * @return string
+	 */
+	public static function return_empty_permalink( $link ) {
+		return empty( $link ) ? '#' : $link;
 	}
 }
