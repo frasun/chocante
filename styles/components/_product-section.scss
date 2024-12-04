@@ -265,8 +265,7 @@ $slider-navigation-size: 50px;
 
 				.woocommerce-Price-amount {
 					@extend .font-size--normal-sm;
-					@extend .color--text;
-					opacity: 0.5;
+					@extend .color--text-light;
 				}
 
 				&::after {
@@ -288,20 +287,6 @@ $slider-navigation-size: 50px;
 
 			ins {
 				text-decoration: none;
-			}
-		}
-
-		.chocante-omnibus {
-			@extend .color--text;
-			opacity: 0.5;
-			@extend .font-size--x-small;
-			letter-spacing: 0.065em;
-			line-height: 1.15;
-			margin: 0.2em 0 0;
-			text-transform: uppercase;
-
-			.woocommerce-Price-amount {
-				font-size: inherit;
 			}
 		}
 

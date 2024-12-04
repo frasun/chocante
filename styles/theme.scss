@@ -13,8 +13,10 @@
 @import "utils/icons";
 @import "utils/inputs";
 
-// 3rd party.
+// 3rd party plugins.
 @import "@splidejs/splide/css/core";
+@import "plugins/omnibus";
+@import "plugins/free-shipping";
 
 // Components.
 @import "components/modal";
@@ -26,12 +28,10 @@
 @import "components/notices";
 @import "components/product-section";
 @import "components/empty-screen";
+@import "components/cart";
 
 // Templates.
 @import "templates/body";
 @import "templates/header";
 @import "templates/blog";
 @import "templates/cart";
-
-// Pages.
-@import "components/cart";

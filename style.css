@@ -40,20 +40,6 @@
 	}
 }
 
-/* Chocante Omnibus - lowest price */
-.chocante-omnibus {
-	font-size: 13px;
-	letter-spacing: 0.65px;
-	color: rgba(71, 71, 71, 0.8);
-	text-transform: uppercase;
-	line-height: 1.4;
-	margin: 0.3em 0;
-}
-
-.product-content .chocante-omnibus .woocommerce-Price-amount {
-	font-size: inherit;
-}
-
 /* WooCommerce Product Page - price */
 .brxe-product-price {
 	margin-bottom: 1.2em;
@@ -297,21 +283,6 @@ tr.chocante-delivery-point {
 	display: flex;
 	flex-direction: column;
 	padding-bottom: 20px;
-}
-
-/* .woocommerce-info[data-type="chocante-free-shipping"] { */
-/* line-height: 40px; */
-/* gap: 5px; */
-/* } */
-
-/* .woocommerce-info[data-type="chocante-free-shipping"] a {
-	border: 0;
-	margin: 0;
-	padding: 0;
-} */
-
-.woocommerce-info[data-type="chocante-free-shipping"] span {
-	font-weight: bold;
 }
 
 #brxe-mgcsri .woocommerce-shipping-totals {

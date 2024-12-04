@@ -1,0 +1,16 @@
+.chocante-free-shipping {
+	.woocommerce-shipping-methods & {
+		font-weight: bold;
+	}
+}
+
+.woocommerce-cart
+	.woocommerce-notices-wrapper
+	.woocommerce-info[data-type="chocante-free-shipping"] {
+	@extend .notice--has-icon;
+	background-image: url(../icons/icon-shipping.svg);
+
+	span {
+		font-weight: bold;
+	}
+}

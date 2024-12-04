@@ -23,6 +23,7 @@ $notice-icon-size: 24px;
 	}
 }
 
+// @todo Chocante - Bricks, remove cart class.
 .woocommerce-cart {
 	.woocommerce-notices-wrapper {
 		display: flex;
@@ -49,11 +50,6 @@ $notice-icon-size: 24px;
 			&-info {
 				background-color: white;
 				color: inherit;
-
-				&[data-type="chocante-free-shipping"] {
-					@extend .notice--has-icon;
-					background-image: url(../icons/icon-shipping.svg);
-				}
 			}
 
 			&-message {
