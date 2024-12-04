@@ -235,7 +235,7 @@ $slider-navigation-size: 50px;
 
 				&__type {
 					display: block;
-					font-size: $font-size--input;
+					font-size: $font-size--normal-sm;
 					line-height: 1.15;
 					padding-top: 0.2em;
 				}
@@ -264,7 +264,7 @@ $slider-navigation-size: 50px;
 				top: -2px;
 
 				.woocommerce-Price-amount {
-					@extend .font-size--input;
+					@extend .font-size--normal-sm;
 					@extend .color--text;
 					opacity: 0.5;
 				}

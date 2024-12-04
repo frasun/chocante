@@ -62,7 +62,7 @@ $button-transition-property: color, background-position, box-shadow;
 }
 
 @mixin button() {
-	@extend .font-size--input;
+	@extend .font-size--normal-sm;
 	line-height: 1.15;
 	font-weight: bold;
 	display: inline-flex;

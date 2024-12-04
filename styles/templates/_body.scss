@@ -8,4 +8,8 @@ body {
 	@extend .color--text;
 	background-color: white;
 	overflow-x: hidden;
+
+	// @todo: Chocnate - Bricks forge.
+	--brf-p-font-size: #{$font-size--normal};
+	// END TODO.
 }

@@ -3,10 +3,6 @@
 $mini-cart--image-size: 50px;
 
 .mini-cart {
-	// @todo: Chocnate - Bricks forge.
-	font-size: #{$font-size--input};
-	// END TODO.
-
 	&__button {
 		position: relative;
 
@@ -134,6 +130,7 @@ $mini-cart--image-size: 50px;
 				padding-left: calc(
 					var(--mini-cart--image-size, $mini-cart--image-size) + $spacing--10
 				);
+				@extend .font-size--normal-sm;
 
 				&:hover {
 					text-decoration: underline;
@@ -170,7 +167,7 @@ $mini-cart--image-size: 50px;
 					margin-top: 0.15em;
 					@extend .flex--baseline;
 					gap: $spacing--5;
-					@extend .font-size--input;
+					@extend .font-size--normal-sm;
 
 					.woocommerce-price-suffix {
 						@extend .font-size--x-small;
@@ -223,6 +220,6 @@ $mini-cart--image-size: 50px;
 	border-radius: 9px;
 	padding: 3px;
 	@extend .flex--center;
-	@extend .font-size--input;
+	@extend .font-size--normal-sm;
 	font-weight: bold;
 }

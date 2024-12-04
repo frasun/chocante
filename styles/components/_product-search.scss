@@ -51,7 +51,7 @@
 				transition-property: color, border-color, box-shadow;
 				box-shadow: none;
 				line-height: 1;
-				@extend .font-size--input;
+				@extend .font-size--normal-sm;
 
 				&:hover {
 					box-shadow: map.get($shadows, "deep");

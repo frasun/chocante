@@ -1,7 +1,7 @@
 @use "sass:map";
 
 .input {
-	@extend .font-size--input;
+	@extend .font-size--normal-sm;
 	@extend .border-radius--md;
 	border: 1px solid map.get($colors, "accent-main");
 	@extend .bg--primary-light-bg;
@@ -81,7 +81,7 @@
 		margin-bottom: 0;
 		vertical-align: middle;
 		cursor: pointer;
-		@extend .font-size--input;
+		@extend .font-size--normal-sm;
 	}
 }
 

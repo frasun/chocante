@@ -47,7 +47,7 @@
 		.wcml-dropdown,
 		.wcml-dropdown-click {
 			a {
-				@extend .font-size--input;
+				@extend .font-size--normal-sm;
 
 				&.wpml-ls-item-toggle,
 				&.wcml-cs-item-toggle {

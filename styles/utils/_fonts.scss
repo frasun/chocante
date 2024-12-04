@@ -53,9 +53,9 @@ $font-size--big: var(--wp--preset--font-size--big, 24px);
 $font-size--medium: var(--wp--preset--font-size--medium, 20px);
 $font-size--medium-sm: var(--wp--preset--font-size--medium-sm, 18px);
 $font-size--normal: var(--wp--preset--font-size--normal, 16px);
+$font-size--normal-sm: var(--wp--preset--font-size--normal-sm, 15px);
 $font-size--small: var(--wp--preset--font-size--small, 14px);
 $font-size--x-small: var(--wp--preset--font-size--x-small, 12px);
-$font-size--input: var(--wp--preset--font-size--input, 15px);
 
 .font {
 	/* Font Family */
@@ -120,6 +120,11 @@ $font-size--input: var(--wp--preset--font-size--input, 15px);
 			line-height: $line-height;
 		}
 
+		&--normal-sm {
+			font-size: $font-size--normal-sm;
+			line-height: $line-height;
+		}
+
 		&--small {
 			font-size: $font-size--small;
 			line-height: $line-height;
@@ -127,11 +132,6 @@ $font-size--input: var(--wp--preset--font-size--input, 15px);
 
 		&--x-small {
 			font-size: $font-size--x-small;
-			line-height: $line-height;
-		}
-
-		&--input {
-			font-size: $font-size--input;
 			line-height: $line-height;
 		}
 	}
