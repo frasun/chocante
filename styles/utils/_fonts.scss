@@ -55,6 +55,7 @@ $font-size--medium-sm: var(--wp--preset--font-size--medium-sm, 18px);
 $font-size--normal: var(--wp--preset--font-size--normal, 16px);
 $font-size--normal-sm: var(--wp--preset--font-size--normal-sm, 15px);
 $font-size--small: var(--wp--preset--font-size--small, 14px);
+$font-size--small-sm: var(--wp--preset--font-size--small-sm, 13px);
 $font-size--x-small: var(--wp--preset--font-size--x-small, 12px);
 
 .font {
@@ -130,6 +131,11 @@ $font-size--x-small: var(--wp--preset--font-size--x-small, 12px);
 			line-height: $line-height;
 		}
 
+		&--small-sm {
+			font-size: $font-size--small-sm;
+			line-height: $line-height;
+		}
+
 		&--x-small {
 			font-size: $font-size--x-small;
 			line-height: $line-height;
@@ -140,6 +146,7 @@ $font-size--x-small: var(--wp--preset--font-size--x-small, 12px);
 	&-style {
 		&--section-label {
 			@extend .font-size--x-small;
+			@extend .font--body;
 			font-weight: bold;
 			text-transform: uppercase;
 			letter-spacing: 0.2em;

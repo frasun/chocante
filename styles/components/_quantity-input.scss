@@ -1,0 +1,73 @@
+.quantity {
+	position: relative;
+
+	&:hover {
+		input.qty {
+			@extend .shadow--deep;
+		}
+	}
+
+	&:active {
+		input.qty {
+			background-color: white;
+		}
+	}
+
+	input.qty {
+		@extend .input;
+		padding: $spacing--10 calc($spacing--20 + 24px);
+		overflow: hidden;
+		text-overflow: ellipsis;
+		text-align: center;
+		-moz-appearance: textfield;
+
+		&::-webkit-outer-spin-button,
+		&::-webkit-inner-spin-button {
+			-webkit-appearance: none;
+			margin: 0;
+		}
+
+		@include min-width($breakpoint--mobile-lg) {
+			padding-top: $spacing--15;
+			padding-bottom: $spacing--15;
+		}
+	}
+
+	button {
+		@extend .flex--center;
+		background: transparent;
+		@extend .transition--color;
+		width: 24px;
+		height: 24px;
+		@extend .color--accent-main;
+		opacity: 1;
+
+		&:hover {
+			@extend .color--primary-contrast;
+
+			&:active {
+				transition: none;
+			}
+		}
+	}
+
+	&__plus,
+	&__minus {
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+	}
+
+	&__plus {
+		right: $spacing--10;
+	}
+
+	&__minus {
+		left: $spacing--10;
+	}
+
+	// @todo: Chocante - Remove after switching from Bricks.
+	.action {
+		display: none;
+	}
+}

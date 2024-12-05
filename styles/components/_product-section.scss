@@ -2,25 +2,41 @@ $slider-navigation-size: 50px;
 
 .product-section {
 	background-color: white;
-	padding: $spacing--30 $spacing--20;
+	padding-top: $spacing--30;
+	padding-bottom: $spacing--30;
 	overflow: hidden;
 	min-height: 500px;
 
-	// @todo: Chocante - Bricks footer - join group.
-	padding-bottom: 150px;
-
-	@include min-width($breakpoint--desktop-sm) {
-		padding-bottom: 200px;
+	@include min-width($breakpoint--desktop) {
+		padding: $spacing--40 0;
 	}
 
-	// @include min-width($breakpoint--desktop) {
-	// 	padding: $spacing--40 0;
-	// }
-	// END TODO.
+	&__header {
+		@extend .container;
+		display: flex;
+		gap: $spacing--20;
+		align-items: end;
+		padding-bottom: $spacing--20;
+		padding-top: $spacing--15;
+
+		a {
+			@extend .button, .button--secondary, .scheme--light;
+			flex-shrink: 0;
+			@extend .hide--mobile;
+		}
+	}
 
 	&__heading {
 		@extend .font-style--page-title;
-		@extend .container;
+		padding: 0;
+		flex-grow: 1;
+
+		span {
+			@extend .font-style--section-label;
+			@extend .color--text-light;
+			display: block;
+			padding-bottom: 0.75em;
+		}
 	}
 
 	&__empty {
@@ -35,6 +51,9 @@ $slider-navigation-size: 50px;
 	}
 
 	.splide {
+		padding-left: $spacing--20;
+		padding-right: $spacing--20;
+
 		&.is-initialized {
 			.product {
 				opacity: 0.3;
@@ -47,6 +66,8 @@ $slider-navigation-size: 50px;
 
 		&__track {
 			@extend .container;
+			padding-left: 0;
+			padding-right: 0;
 			padding-top: $spacing--10;
 			overflow: visible;
 
@@ -197,15 +218,6 @@ $slider-navigation-size: 50px;
 						left: $spacing--20;
 						top: $spacing--15;
 						z-index: 10;
-						padding: $spacing--5 $spacing--10;
-						@extend .border-radius--s;
-						@extend .bg--primary-contrast;
-						letter-spacing: 0.2em;
-						text-transform: uppercase;
-						@extend .font--labels;
-						@extend .font-size--x-small;
-						line-height: 1;
-						color: white;
 					}
 				}
 
@@ -239,54 +251,6 @@ $slider-navigation-size: 50px;
 					line-height: 1.15;
 					padding-top: 0.2em;
 				}
-			}
-
-			&-Price-amount {
-				@extend .font-size--big;
-				font-weight: bold;
-				@extend .color--accent-main;
-			}
-
-			&-price-suffix {
-				@extend .font-size--small;
-			}
-		}
-
-		.price {
-			@extend .font-size--medium-sm;
-			margin-top: $spacing--10;
-			display: block;
-
-			del {
-				margin-right: 0.2em;
-				text-decoration: none;
-				position: relative;
-				top: -2px;
-
-				.woocommerce-Price-amount {
-					@extend .font-size--normal-sm;
-					@extend .color--text-light;
-				}
-
-				&::after {
-					content: "";
-					position: absolute;
-					top: 2px;
-					left: 0;
-					z-index: 2;
-					height: 100%;
-					width: 100%;
-					background: linear-gradient(
-						to top left,
-						transparent calc(50% - 1px),
-						map-get($colors, "accent-main"),
-						transparent calc(50% + 1px)
-					);
-				}
-			}
-
-			ins {
-				text-decoration: none;
 			}
 		}
 

@@ -8,7 +8,7 @@
 defined( 'ABSPATH' ) || exit;
 ?>
 
-<aside class="cart-info">
+<aside class="infobox">
 	<?php
 		/**
 		 * Safe shopping
@@ -30,19 +30,7 @@ defined( 'ABSPATH' ) || exit;
 		/**
 		 * Fast shipping
 		 */
-		// translators: Fast shipping heading.
-		$heading = __( 'Fast shipping', 'chocante' );
-		// translators: Fast shipping content.
-		$content = __( 'Order before 11 a.m. and we will ship it the same day.', 'chocante' );
-		get_template_part(
-			'template-parts/info',
-			'section',
-			array(
-				'icon'    => 'clock',
-				'heading' => $heading,
-				'content' => $content,
-			)
-		);
+		get_template_part( 'template-parts/info', 'shipping' );
 
 		do_action( 'chocante_delivery_info' );
 		?>

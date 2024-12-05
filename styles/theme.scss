@@ -20,6 +20,7 @@
 @import "plugins/photoswipe";
 @import "plugins/delivery-time";
 @import "plugins/flexible-shipping";
+@import "plugins/cwg-instock";
 
 // Components.
 @import "components/modal";
@@ -32,9 +33,16 @@
 @import "components/product-section";
 @import "components/empty-screen";
 @import "components/cart";
+@import "components/badge";
+@import "components/spinner";
+@import "components/breadcrumbs";
+@import "components/quantity-input";
+@import "components/price";
+@import "components/infobox";
 
 // Templates.
 @import "templates/body";
 @import "templates/header";
 @import "templates/blog";
 @import "templates/cart";
+@import "templates/single-product";

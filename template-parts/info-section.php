@@ -20,14 +20,14 @@ $content = isset( $args['content'] ) ? $args['content'] : null;
 	?>
   
 	<div>
-	<?php
-	if ( isset( $heading ) ) {
-		echo '<h6>' . wp_kses_post( $heading ) . '</h6>';
-	}
+		<?php
+		if ( isset( $heading ) ) {
+			echo '<h6>' . wp_kses_post( $heading ) . '</h6>';
+		}
 
-	if ( isset( $content ) ) {
-		echo '<p>' . wp_kses_post( $content ) . '</p>';
-	}
-	?>
-</div>
+		if ( isset( $content ) ) {
+			echo '<p>' . wp_kses_post( $content ) . '</p>';
+		}
+		?>
+	</div>
 </div>

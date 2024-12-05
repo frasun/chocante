@@ -1,6 +1,6 @@
 <?php
 /**
- * Chocante ACF
+ * Chocante WooCommerce ACF
  *
  * @package Chocante
  */
@@ -8,14 +8,14 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * The Chocante_WooCommerce class.
+ * The Chocante_Woocommerce_ACF class.
  */
 class Chocante_Woocommerce_ACF {
 	const ACF_PRODUCT_TITLE = 'tekst_przed_tytulem';
 	const ACF_PRODUCT_TYPE  = 'tekst_po_tytule';
 
 	/**
-	 * Class constructor.
+	 * Init hooks.
 	 */
 	public static function init() {
 		// Product custom title.
@@ -25,6 +25,12 @@ class Chocante_Woocommerce_ACF {
 		add_action( 'woocommerce_after_shop_loop_item_title', array( self::class, 'display_loop_item_type' ), 3 );
 		remove_action( 'woocommerce_shop_loop_item_title', 'woocommerce_template_loop_product_title', 10 );
 		add_action( 'woocommerce_shop_loop_item_title', array( self::class, 'modify_loop_item_title' ) );
+
+		// Product page.
+		add_filter( 'the_title', array( self::class, 'modify_product_page_title' ), 10, 2 );
+		add_filter( 'woocommerce_display_product_attributes', array( self::class, 'add_product_attributes' ), 20, 2 );
+		add_action( 'woocommerce_single_product_summary', array( self::class, 'display_nutritional_data' ), 36 );
+		add_action( 'woocommerce_before_single_product_summary', array( self::class, 'display_diet_icons' ), 25 );
 	}
 
 	/**
@@ -87,5 +93,123 @@ class Chocante_Woocommerce_ACF {
 		$product_title = $product_name ? $product_name : get_the_title();
 
 		echo '<h2 class="' . esc_attr( apply_filters( 'woocommerce_product_loop_title_classes', 'woocommerce-loop-product__title' ) ) . '">' . $product_title . '</h2>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+	}
+
+	/**
+	 * Display ACF fields in product page title
+	 *
+	 * @param string $title Product name.
+	 * @param int    $id Product ID.
+	 * @return string
+	 */
+	public static function modify_product_page_title( $title, $id ) {
+		$product_title = $title;
+
+		if ( 'product' === get_post_type( $id ) ) {
+			$product_short_name = get_field( self::ACF_PRODUCT_TITLE, $id );
+			$product_type       = get_field( self::ACF_PRODUCT_TYPE, $id );
+
+			if ( $product_short_name ) {
+				$product_title = $product_short_name;
+
+				if ( $product_type ) {
+					$product_title .= " {$product_type}";
+				}
+			}
+		}
+
+		return $product_title;
+	}
+
+	/**
+	 * Add ACF product attributes
+	 *
+	 * @param array      $product_attributes Product attributes.
+	 * @param WC_Product $product Product object.
+	 * @return array
+	 */
+	public static function add_product_attributes( $product_attributes, $product ) {
+		$field_name = 'szczegoly_produktu';
+		$attributes = get_field( $field_name, $product->get_id() );
+
+		if ( $attributes ) {
+			$index = 0;
+			foreach ( $attributes as $attribute ) {
+				$product_attributes[ $field_name . '_' . $index ] = array(
+					'label' => $attribute['nazwa_parametru'],
+					'value' => $attribute['wartosc_parametru'],
+				);
+				++$index;
+			}
+		}
+
+		return $product_attributes;
+	}
+
+	/**
+	 * Display nutritional data table
+	 */
+	public static function display_nutritional_data() {
+		global $product;
+
+		$data_field = get_field( 'tabela_odzywcza', $product->get_id() );
+
+		if ( ! $data_field ) {
+			return;
+		}
+
+		$data = array();
+
+		foreach ( $data_field as $field ) {
+			if ( empty( $field ) ) {
+				continue;
+			}
+
+			array_push(
+				$data,
+				array(
+					'label' => $field['parametry_'],
+					'value' => $field['wartosc_parametru'],
+				)
+			);
+		}
+
+		get_template_part(
+			'template-parts/product',
+			'nutritional-data',
+			array(
+				'data' => $data,
+			)
+		);
+	}
+
+	/**
+	 * Display diet information
+	 */
+	public static function display_diet_icons() {
+		global $product;
+
+		$data_field = get_field( 'ikonki', $product->get_id() );
+
+		if ( ! $data_field ) {
+			return;
+		}
+
+		$data = array();
+
+		foreach ( $data_field as $field ) {
+			array_push(
+				$data,
+				$field['ikonka']
+			);
+		}
+
+		get_template_part(
+			'template-parts/product',
+			'diet-info',
+			array(
+				'data' => $data,
+			)
+		);
 	}
 }

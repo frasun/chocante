@@ -38,9 +38,9 @@ $button-transition-property: color, background-position, box-shadow;
 ) {
 	background-image: linear-gradient(to right, $bg-hover 50%, $bg 50%);
 	color: $color;
-	background-size: 205% 105%;
+	background-size: calc(200% + 12px) calc(100% + 6px);
 	@extend .transition;
-	background-position: right center;
+	background-position: calc(100% + 3px);
 	box-shadow: none;
 
 	@if $border {
@@ -51,7 +51,7 @@ $button-transition-property: color, background-position, box-shadow;
 	}
 
 	&:hover {
-		background-position: left center;
+		background-position: -3px;
 		color: $hover-color;
 		box-shadow: map.get($shadows, "natural");
 	}
@@ -65,7 +65,7 @@ $button-transition-property: color, background-position, box-shadow;
 	@extend .font-size--normal-sm;
 	line-height: 1.15;
 	font-weight: bold;
-	display: inline-flex;
+	display: inline-block;
 	justify-content: center;
 	align-items: center;
 	text-align: center;
@@ -76,6 +76,9 @@ $button-transition-property: color, background-position, box-shadow;
 	border-width: 3px;
 	border-style: solid;
 	border-color: transparent;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
 
 	&--sm {
 		padding: 0.65em 1.35em;
@@ -87,7 +90,8 @@ $button-transition-property: color, background-position, box-shadow;
 .site-header,
 .mobile-menu,
 .search-products__form,
-.woocommerce-cart {
+.woocommerce-cart,
+.single-product {
 	.button {
 		&,
 		.woocommerce & {
@@ -188,6 +192,7 @@ $button-transition-property: color, background-position, box-shadow;
 	}
 
 	.link {
+		display: inline;
 		font-weight: bold;
 		text-decoration: underline;
 		@extend .transition--color;

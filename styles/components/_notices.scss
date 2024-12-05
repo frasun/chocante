@@ -10,8 +10,12 @@ $notice-icon-size: 24px;
 	text-align: left;
 	list-style: none;
 	width: 100%;
+	background-color: var(
+		--background-color,
+		map.get($colors, "primary-light-bg")
+	);
 
-	a {
+	a:not(.button) {
 		@extend .link;
 	}
 
@@ -38,7 +42,8 @@ $notice-icon-size: 24px;
 }
 
 // @todo Chocante - Bricks, remove cart class.
-.woocommerce-cart {
+.woocommerce-cart,
+.single-product {
 	.woocommerce-notices-wrapper {
 		display: flex;
 		flex-direction: column;
@@ -61,25 +66,13 @@ $notice-icon-size: 24px;
 				@extend .notice;
 			}
 
-			&-info {
-				background-color: white;
-				color: inherit;
-			}
-
 			&-message {
-				background-color: white;
-				color: inherit;
 				@extend .notice--has-icon;
 				background-image: url(../icons/icon-info.svg);
 
 				svg {
 					@extend .color--primary-contrast;
 				}
-			}
-
-			&-success {
-				background-color: white;
-				color: inherit;
 			}
 
 			&-error {

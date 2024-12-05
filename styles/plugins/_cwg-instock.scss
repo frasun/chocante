@@ -1,0 +1,57 @@
+@use "sass:map";
+
+.cwginstock-subscribe-form {
+	form.cart & {
+		grid-column: 1 / span 3;
+	}
+
+	.form-group {
+		display: flex;
+		flex-direction: column;
+		gap: $spacing--15;
+
+		@include min-width($breakpoint--mobile-sm) {
+			&:first-child {
+				flex-direction: row;
+			}
+		}
+	}
+
+	h4 {
+		padding: 0.35em 0;
+		text-align: left !important;
+		@extend .font-size--medium;
+	}
+}
+
+.cwgstock {
+	&_name,
+	&_email {
+		@extend .input, .input--sm;
+		text-align: left !important;
+		font-size: $font-size--normal-sm !important; // @todo: Chocante - Bricks.
+	}
+
+	&_button {
+		@extend .button, .button--primary;
+		margin-top: $spacing--15;
+	}
+
+	&_output {
+		> div {
+			@extend .notice;
+			margin-top: $spacing--15;
+		}
+
+		.cwginstock {
+			&error {
+				@extend .bg--error;
+				color: map.get($colors, "error-text") !important;
+			}
+
+			&success {
+				color: map.get($colors, "text") !important;
+			}
+		}
+	}
+}

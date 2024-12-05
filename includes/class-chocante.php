@@ -32,6 +32,9 @@ class Chocante {
 			add_action( 'wp_footer', array( self::class, 'output_mobile_menu' ), 20 );
 		}
 
+		// Images.
+		add_filter( 'wp_get_attachment_image_attributes', array( self::class, 'set_image_lazy_loading' ) );
+
 		// WooCommerce.
 		if ( class_exists( 'WooCommerce' ) && function_exists( 'WC' ) ) {
 			require plugin_dir_path( __FILE__ ) . 'class-chocante-woocommerce.php';
@@ -226,5 +229,23 @@ class Chocante {
 		$title = '<h1>' . get_the_title() . '</h1>';
 
 		echo wp_kses_post( apply_filters( 'chocante_page_title', $title, get_the_title() ) );
+	}
+
+	/**
+	 * Add lazy loading to images.
+	 *
+	 * @param array $atts Image attributes.
+	 * @return array
+	 */
+	public static function set_image_lazy_loading( $atts ) {
+		// @todo: Chocante - Bricks hack.
+		if ( class_exists( 'Chocante_WooCommerce' ) && Chocante_WooCommerce::bricks_disabled() ) {
+			$atts['_brx_disable_lazy_loading'] = true;
+		}
+		// END TODO.
+
+		$atts['loading'] = 'lazy';
+
+		return $atts;
 	}
 }

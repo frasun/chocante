@@ -9,9 +9,9 @@ if ( $bricks_data ) {
 	while ( have_posts() ) :
 		the_post();
 		if ( is_cart() ) { ?>
-		<main>
+		<main role="main">
 			<?php the_content(); ?>
-			<?php do_action( 'chocante_after_main' ); ?>
+			<?php do_action( 'chocante_after_cart' ); ?>
 		</main>
 			<?php
 		} else {

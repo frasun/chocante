@@ -1,14 +1,9 @@
 import QuantityInput from "./quantity-input";
-import ProductSlider from "./product-slider";
-
-new ProductSlider('.product-section--featured', `${chocante.ajaxurl}?nonce=${chocante.nonce}&lang=${chocante.lang}&action=get_products&type=featured`);
 
 jQuery(function ($) {
   // Quantity.
   initQuantityInputs();
   $(document.body).on('updated_wc_div', initQuantityInputs);
-  $(document.body).on('click', `.quantity__plus`, (event) => setQuantity(event, 1));
-  $(document.body).on('click', `.quantity__minus`, (event) => setQuantity(event, -1));
   $(document.body).on('quantityInputChanged', `input.qty`, submitCartForm);
 
   // Coupon.
@@ -24,22 +19,9 @@ jQuery(function ($) {
   $(document.body).on('wc_cart_emptied', handleEmptyCart);
 
   function initQuantityInputs() {
-    $('input.qty').each((index, input) => {
-      new QuantityInput(input);
+    $('.woocommerce-cart-form .quantity').each((index, quantityEl) => {
+      new QuantityInput(quantityEl);
     });
-  }
-
-  function setQuantity(event, quantity) {
-    event.preventDefault();
-
-    const input = $(event.currentTarget).closest('.quantity').find('input.qty');
-
-    if (!input) return;
-
-    const newValue = parseInt($(input).val()) + quantity;
-
-    $(input).val(newValue);
-    submitCartForm();
   }
 
   function submitCartForm() {

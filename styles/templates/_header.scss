@@ -18,6 +18,10 @@
 		}
 	}
 
+	.container {
+		padding: 0;
+	}
+
 	&__top {
 		width: 100%;
 		display: flex;
@@ -215,6 +219,7 @@
 	.custom-logo-link {
 		flex: 1 0 120px;
 		max-width: 210px;
+		max-height: 40px;
 		display: flex;
 		justify-content: start;
 

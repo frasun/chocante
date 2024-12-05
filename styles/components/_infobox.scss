@@ -1,0 +1,28 @@
+.infobox {
+	@extend .bg--primary-light-bg;
+	@extend .border-radius--md;
+	display: flex;
+	padding: $spacing--15 $spacing--20;
+	gap: $spacing--20;
+
+	@include max-width($breakpoint--mobile-lg) {
+		flex-direction: column;
+	}
+
+	svg {
+		@extend .color--primary-contrast;
+		flex-shrink: 0;
+		width: auto;
+	}
+
+	&,
+	h6 {
+		@extend .font-size--small;
+	}
+
+	> div {
+		display: flex;
+		gap: $spacing--10;
+		flex: 1 1 33%;
+	}
+}

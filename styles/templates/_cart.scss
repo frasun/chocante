@@ -16,22 +16,17 @@
 		display: flex;
 		flex-direction: column;
 		gap: $spacing--20;
-
-		padding: $spacing--20 0 $spacing--50;
-
-		@include max-width($breakpoint--desktop-md) {
-			padding-left: $spacing--20;
-			padding-right: $spacing--20;
-		}
-
-		@include max-width($breakpoint--desktop-sm) {
-			padding: $spacing--20 $spacing--20 $spacing--30;
-		}
+		padding-top: $spacing--20;
+		padding-bottom: $spacing--50;
 
 		@include min-width($breakpoint--desktop-sm) {
 			flex-direction: row;
 			flex-wrap: wrap;
 			column-gap: $spacing--30;
+		}
+
+		@include max-width($breakpoint--desktop-sm) {
+			padding-bottom: $spacing--30;
 		}
 
 		.before-cart {
@@ -70,18 +65,6 @@
 
 						&[data-title]::before {
 							content: none;
-						}
-
-						&.product-quantity .quantity .qty {
-							width: inherit;
-							text-align: center;
-							-moz-appearance: textfield;
-
-							&::-webkit-outer-spin-button,
-							&::-webkit-inner-spin-button {
-								-webkit-appearance: none;
-								margin: 0;
-							}
 						}
 					}
 				}
@@ -267,67 +250,14 @@
 			}
 
 			.quantity {
-				position: relative;
 				width: 100px;
 
-				&:hover {
-					input.qty {
-						@extend .shadow--deep;
-					}
+				input.qty {
+					@extend .input--secondary;
 				}
 
 				@include min-width($breakpoint--mobile-lg) {
 					width: 130px;
-				}
-
-				input.qty {
-					@extend .input, .input--secondary;
-					padding: $spacing--10 calc($spacing--20 + 24px);
-					overflow: hidden;
-					text-overflow: ellipsis;
-
-					@include min-width($breakpoint--mobile-lg) {
-						padding-top: $spacing--15;
-						padding-bottom: $spacing--15;
-					}
-				}
-
-				button {
-					@extend .flex--center;
-					background: transparent;
-					@extend .transition--color;
-					width: 24px;
-					height: 24px;
-					@extend .color--accent-main;
-					opacity: 1;
-
-					&:hover {
-						@extend .color--primary-contrast;
-
-						&:active {
-							transition: none;
-						}
-					}
-				}
-
-				&__plus,
-				&__minus {
-					position: absolute;
-					top: 50%;
-					transform: translateY(-50%);
-				}
-
-				&__plus {
-					right: $spacing--10;
-				}
-
-				&__minus {
-					left: $spacing--10;
-				}
-
-				// @todo: Chocante - Remove after switching from Bricks.
-				.action {
-					display: none;
 				}
 			}
 
@@ -547,33 +477,12 @@
 			}
 		}
 
-		.cart-info {
+		.infobox {
 			background-color: white;
-			@extend .border-radius--md;
-			display: flex;
-			padding: $spacing--15 $spacing--20;
-			gap: $spacing--20;
+		}
 
-			@include max-width($breakpoint--mobile-lg) {
-				flex-direction: column;
-			}
-
-			svg {
-				@extend .color--primary-contrast;
-				flex-shrink: 0;
-				width: auto;
-			}
-
-			&,
-			h6 {
-				@extend .font-size--small;
-			}
-
-			> div {
-				display: flex;
-				gap: $spacing--10;
-				flex: 1 1 33%;
-			}
+		&-notices-wrapper {
+			--background-color: white;
 		}
 	}
 
@@ -678,4 +587,14 @@
 	.coupon-error-notice {
 		@extend .woocommerce-error;
 	}
+
+	// @todo: Chocante - Bricks footer - join group.
+	.product-section {
+		padding-bottom: 150px;
+
+		@include min-width($breakpoint--desktop-sm) {
+			padding-bottom: 200px;
+		}
+	}
+	// END TODO.
 }

@@ -9,6 +9,7 @@
 	padding: $spacing--10 $spacing--20;
 	font-weight: inherit;
 	width: 100%;
+	line-height: 1.2;
 
 	@include min-width($breakpoint--mobile-lg) {
 		padding: $spacing--15 $spacing--20;
@@ -91,3 +92,11 @@ label {
 	font-weight: $font-weight--body;
 }
 // END TODO.
+
+select {
+	background-image: url(../images/select-arrow.svg);
+	background-repeat: no-repeat;
+	background-position: calc(100% - 13px) center;
+	background-size: 12px 8px;
+	padding-right: 40px;
+}

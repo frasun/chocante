@@ -554,3 +554,7 @@ ul.woocommerce-shipping-methods label {
 #brxe-wxgvzc h3 {
 	font-weight: 500 !important;
 }
+
+.single-product #brx-footer {
+	margin-top: 120px;
+}

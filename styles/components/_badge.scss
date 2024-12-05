@@ -1,0 +1,21 @@
+.badge {
+	padding: $spacing--5 $spacing--10;
+	@extend .border-radius--s;
+	@extend .bg--primary-contrast;
+	letter-spacing: 0.2em;
+	text-transform: uppercase;
+	@extend .font--labels;
+	@extend .font-size--x-small;
+	line-height: 1;
+	color: white;
+
+	// @todo: Chocante - Bricks feature verify?
+	&.new {
+		display: none;
+	}
+	// END TODO.
+}
+
+.onsale {
+	@extend .badge;
+}
