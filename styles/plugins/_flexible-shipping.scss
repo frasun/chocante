@@ -1,0 +1,8 @@
+.woocommerce-shipping-methods {
+	li {
+		.shipping-method-description {
+			grid-column-start: 2;
+			@extend small;
+		}
+	}
+}

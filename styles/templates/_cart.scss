@@ -419,25 +419,23 @@
 
 						li {
 							margin: 0;
-							display: flex;
+							display: grid;
+							grid-template-columns: auto 1fr;
 							align-items: center;
-
-							label {
-								flex-grow: 1;
-							}
+							column-gap: $spacing--10;
 						}
 
 						input[type="radio"] {
 							@extend .radio;
-							flex-shrink: 0;
+							grid-row: 1 / span 2;
+
+							& + label {
+								margin: 0;
+							}
 						}
 
 						.woocommerce-Price-amount {
 							font-weight: bold;
-						}
-
-						.chocante-delivery-time {
-							display: block;
 						}
 					}
 
@@ -448,6 +446,8 @@
 					}
 
 					&-shipping-calculator {
+						padding-bottom: $spacing--5;
+
 						.shipping-calculator {
 							&-button {
 								@extend .link;
