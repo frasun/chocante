@@ -15,6 +15,20 @@ $notice-icon-size: 24px;
 		@extend .link;
 	}
 
+	.button {
+		@extend .link;
+
+		&,
+		&:hover {
+			background: none;
+			box-shadow: none;
+			color: inherit;
+			padding: 0;
+			border-radius: 0;
+			font-size: inherit;
+		}
+	}
+
 	&--has-icon {
 		background-repeat: no-repeat;
 		background-position: $spacing--20;
