@@ -27,7 +27,8 @@ class Chocante_Woocommerce_ACF {
 		add_action( 'woocommerce_shop_loop_item_title', array( self::class, 'modify_loop_item_title' ) );
 
 		// Product page.
-		add_filter( 'the_title', array( self::class, 'modify_product_page_title' ), 10, 2 );
+		add_action( 'woocommerce_before_single_product_summary', array( self::class, 'modify_product_breadcrumb_title' ), 6 );
+		add_action( 'woocommerce_before_single_product_summary', array( self::class, 'modify_product_page_title' ), 15 );
 		add_filter( 'woocommerce_display_product_attributes', array( self::class, 'add_product_attributes' ), 20, 2 );
 		add_action( 'woocommerce_single_product_summary', array( self::class, 'display_nutritional_data' ), 36 );
 		add_action( 'woocommerce_before_single_product_summary', array( self::class, 'display_diet_icons' ), 25 );
@@ -95,30 +96,60 @@ class Chocante_Woocommerce_ACF {
 		echo '<h2 class="' . esc_attr( apply_filters( 'woocommerce_product_loop_title_classes', 'woocommerce-loop-product__title' ) ) . '">' . $product_title . '</h2>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
 
+
 	/**
-	 * Display ACF fields in product page title
+	 * Display ACF short name in breadcrumbs
+	 */
+	public static function modify_product_breadcrumb_title() {
+		add_filter( 'the_title', array( self::class, 'get_product_page_short_title' ), 10, 2 );
+	}
+
+	/**
+	 * Replace default product name with ACF fields
 	 *
 	 * @param string $title Product name.
 	 * @param int    $id Product ID.
 	 * @return string
 	 */
-	public static function modify_product_page_title( $title, $id ) {
-		$product_title = $title;
+	public static function get_product_page_short_title( $title, $id ) {
+		$product_short_name = get_field( self::ACF_PRODUCT_TITLE, $id );
 
-		if ( 'product' === get_post_type( $id ) ) {
-			$product_short_name = get_field( self::ACF_PRODUCT_TITLE, $id );
-			$product_type       = get_field( self::ACF_PRODUCT_TYPE, $id );
-
-			if ( $product_short_name ) {
-				$product_title = $product_short_name;
-
-				if ( $product_type ) {
-					$product_title .= " {$product_type}";
-				}
-			}
+		if ( $product_short_name ) {
+			return $product_short_name;
 		}
 
-		return $product_title;
+		return $title;
+	}
+
+	/**
+	 * Display ACF fields in product page title
+	 */
+	public static function modify_product_page_title() {
+		add_filter( 'the_title', array( self::class, 'get_product_page_title' ), 10, 2 );
+	}
+
+	/**
+	 * Replace default product name with ACF fields
+	 *
+	 * @param string $title Product name.
+	 * @param int    $id Product ID.
+	 * @return string
+	 */
+	public static function get_product_page_title( $title, $id ) {
+		$product_short_name = get_field( self::ACF_PRODUCT_TITLE, $id );
+		$product_type       = get_field( self::ACF_PRODUCT_TYPE, $id );
+
+		if ( $product_short_name ) {
+			$product_title = $product_short_name;
+
+			if ( $product_type ) {
+				$product_title .= " {$product_type}";
+			}
+
+			return $product_title;
+		}
+
+		return $title;
 	}
 
 	/**

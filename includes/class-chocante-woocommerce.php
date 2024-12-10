@@ -91,7 +91,7 @@ class Chocante_WooCommerce {
 		add_action( 'woocommerce_before_single_product_summary', array( self::class, 'open_product_info_section' ), 9 );
 		add_action( 'woocommerce_before_single_product_summary', array( self::class, 'open_product_header' ), 13 );
 		add_action( 'woocommerce_before_single_product_summary', 'woocommerce_show_product_sale_flash', 14 );
-		add_action( 'woocommerce_before_single_product_summary', 'woocommerce_template_single_title', 15 );
+		add_action( 'woocommerce_before_single_product_summary', 'woocommerce_template_single_title', 16 );
 		add_action( 'woocommerce_before_single_product_summary', array( self::class, 'close_product_header' ), 18 );
 
 		remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_title', 5 );
