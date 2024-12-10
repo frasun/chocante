@@ -129,6 +129,9 @@ class Chocante_WooCommerce {
 		add_filter( 'woocommerce_breadcrumb_defaults', array( self::class, 'modify_breadcrumbs' ), 20 );
 		// END TODO.
 
+		// Product page footer.
+		add_action( 'template_redirect', array( self::class, 'display_join_group' ) );
+
 		/**
 		 * Fix PHP notice in widgets page
 		 *
@@ -693,10 +696,10 @@ class Chocante_WooCommerce {
 			wp_dequeue_style( 'bricks-woocommerce-rtl' );
 			wp_dequeue_script( 'bricks-scripts' );
 			wp_dequeue_script( 'bricks-filters' );
-			// wp_deregister_style( 'bricks-frontend' );
-			// wp_dequeue_style( 'bricks-frontend' );
-			// wp_dequeue_style( 'bricks-frontend-rtl' );
-			// wp_dequeue_style( 'bricks-default-content' );
+			wp_deregister_style( 'bricks-frontend' );
+			wp_dequeue_style( 'bricks-frontend' );
+			wp_dequeue_style( 'bricks-frontend-rtl' );
+			wp_dequeue_style( 'bricks-default-content' );
 		}
 	}
 
@@ -876,5 +879,15 @@ class Chocante_WooCommerce {
 		}
 
 		return $weight_string;
+	}
+
+	/**
+	 * Change display of join group section on product page
+	 */
+	public static function display_join_group() {
+		if ( is_product() ) {
+			remove_action( 'chocante_before_footer', array( Chocante::class, 'display_join_group' ) );
+			add_action( 'woocommerce_after_main_content', array( Chocante::class, 'display_join_group' ), 5 );
+		}
 	}
 }

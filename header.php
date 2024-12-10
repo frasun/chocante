@@ -12,11 +12,16 @@
 <head>
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-	<?php do_action( 'bricks_meta_tags' ); ?>
+	<?php
+		// @todo: Chocante - Bricks - replace meta tags.
+		do_action( 'bricks_meta_tags' );
+		// END TODO.
+	?>
 	<?php wp_head(); ?>
 </head>
 
 <?php
+// @todo: Chocante - Bricks
 do_action( 'bricks_body' );
 
 do_action( 'bricks_before_site_wrapper' );
@@ -26,6 +31,7 @@ do_action( 'bricks_before_header' );
 do_action( 'render_header' );
 
 do_action( 'bricks_after_header' );
+// END TODO.
 ?>
 
 <header class="site-header">

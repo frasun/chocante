@@ -1,0 +1,57 @@
+.join-group {
+	position: relative;
+	overflow: hidden;
+
+	&__wrapper {
+		@extend .scheme--primary;
+		color: var(--text-color);
+		background: var(--background-color) url(../images/pattern-main.png);
+		padding-top: $spacing--50;
+		margin-top: 100px;
+
+		@include min-width($breakpoint--mobile-lg) {
+			margin-top: 180px;
+		}
+	}
+
+	&__content {
+		max-width: 600px;
+		margin: auto;
+		text-align: center;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		padding: 100px $spacing--20;
+
+		a {
+			@extend .button, .scheme--primary;
+			margin-top: $spacing--30;
+		}
+	}
+
+	&__heading {
+		@extend .font-style--page-title;
+		padding-bottom: 0.5em;
+	}
+
+	&__subheading {
+		@extend .font-style--section-label;
+	}
+
+	&__image {
+		margin: auto;
+		display: block;
+		position: absolute;
+		top: 0;
+		left: 50%;
+		transform: translateX(-50%);
+		z-index: 2;
+		max-width: 1170px;
+		max-height: 295px;
+
+		@include max-width($breakpoint--mobile-lg) {
+			max-width: 768px;
+			max-height: 194px;
+		}
+	}
+}

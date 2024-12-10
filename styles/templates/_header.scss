@@ -71,7 +71,7 @@
 			padding-bottom: $spacing--15;
 		}
 
-		@include min-width($breakpoint--desktop-md) {
+		@include min-width($breakpoint--desktop-md + 40px) {
 			padding-left: 0;
 			padding-right: 0;
 		}
@@ -190,8 +190,9 @@
 		border-bottom: 1px solid var(--border-color);
 		@extend .hide--mobile;
 
-		@include max-width($breakpoint--desktop) {
+		@include max-width($breakpoint--desktop-md) {
 			padding-right: $spacing--10;
+			padding-left: $spacing--10;
 		}
 
 		.menu {

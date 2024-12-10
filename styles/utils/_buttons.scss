@@ -91,7 +91,9 @@ $button-transition-property: color, background-position, box-shadow;
 .mobile-menu,
 .search-products__form,
 .woocommerce-cart,
-.single-product {
+.single-product,
+.join-group,
+.site-footer {
 	.button {
 		&,
 		.woocommerce & {

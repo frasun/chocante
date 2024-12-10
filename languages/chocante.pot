@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-12-09T10:51:10+00:00\n"
+"POT-Creation-Date: 2024-12-12T07:10:00+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: chocante\n"
@@ -35,134 +35,191 @@ msgstr ""
 msgid "Bricks"
 msgstr ""
 
-#: includes/class-chocante-woocommerce.php:201
-msgctxt "sorting option"
-msgid "Default"
+#: footer.php:16
+msgctxt "footer nav"
+msgid "Products"
 msgstr ""
 
-#: includes/class-chocante-woocommerce.php:202
-msgctxt "sorting option"
-msgid "Popularity"
+#: footer.php:42
+msgctxt "footer nav"
+msgid "Shop"
 msgstr ""
 
-#: includes/class-chocante-woocommerce.php:203
-msgctxt "sorting option"
-msgid "Average rating"
+#: footer.php:79
+msgctxt "footer"
+msgid "All Rights Reserved"
 msgstr ""
 
 #: includes/class-chocante-woocommerce.php:204
 msgctxt "sorting option"
-msgid "Latest"
+msgid "Default"
 msgstr ""
 
 #: includes/class-chocante-woocommerce.php:205
 msgctxt "sorting option"
-msgid "Lowest price"
+msgid "Popularity"
 msgstr ""
 
 #: includes/class-chocante-woocommerce.php:206
 msgctxt "sorting option"
+msgid "Average rating"
+msgstr ""
+
+#: includes/class-chocante-woocommerce.php:207
+msgctxt "sorting option"
+msgid "Latest"
+msgstr ""
+
+#: includes/class-chocante-woocommerce.php:208
+msgctxt "sorting option"
+msgid "Lowest price"
+msgstr ""
+
+#: includes/class-chocante-woocommerce.php:209
+msgctxt "sorting option"
 msgid "Highest price"
 msgstr ""
 
-#: includes/class-chocante-woocommerce.php:400
+#: includes/class-chocante-woocommerce.php:403
 msgid "Featured products"
 msgstr ""
 
-#: includes/class-chocante-woocommerce.php:424
+#: includes/class-chocante-woocommerce.php:427
 msgid "Products from category"
 msgstr ""
 
-#: includes/class-chocante-woocommerce.php:582
+#: includes/class-chocante-woocommerce.php:586
 msgctxt "product slider"
 msgid "Previous"
 msgstr ""
 
-#: includes/class-chocante-woocommerce.php:583
+#: includes/class-chocante-woocommerce.php:587
 msgctxt "product slider"
 msgid "Next"
 msgstr ""
 
-#: includes/class-chocante-woocommerce.php:584
+#: includes/class-chocante-woocommerce.php:588
 msgctxt "product slider"
 msgid "Go to first"
 msgstr ""
 
-#: includes/class-chocante-woocommerce.php:585
+#: includes/class-chocante-woocommerce.php:589
 msgctxt "product slider"
 msgid "Go to last"
 msgstr ""
 
 #. translators: Go to product number.
-#: includes/class-chocante-woocommerce.php:587
+#: includes/class-chocante-woocommerce.php:591
 msgctxt "product slider"
 msgid "Go to %s"
 msgstr ""
 
 #. translators: Go to page number.
-#: includes/class-chocante-woocommerce.php:589
+#: includes/class-chocante-woocommerce.php:593
 msgctxt "product slider"
 msgid "Go to page %s"
 msgstr ""
 
-#: includes/class-chocante-woocommerce.php:590
+#: includes/class-chocante-woocommerce.php:594
 msgctxt "product slider"
 msgid "Start autoplay"
 msgstr ""
 
-#: includes/class-chocante-woocommerce.php:591
+#: includes/class-chocante-woocommerce.php:595
 msgctxt "product slider"
 msgid "Pause autoplay"
 msgstr ""
 
-#: includes/class-chocante-woocommerce.php:592
+#: includes/class-chocante-woocommerce.php:596
 msgctxt "product slider"
 msgid "carousel"
 msgstr ""
 
-#: includes/class-chocante-woocommerce.php:593
+#: includes/class-chocante-woocommerce.php:597
 msgctxt "product slider"
 msgid "Select product to show"
 msgstr ""
 
-#: includes/class-chocante-woocommerce.php:594
+#: includes/class-chocante-woocommerce.php:598
 msgctxt "product slider"
 msgid "product"
 msgstr ""
 
-#: includes/class-chocante-woocommerce.php:682
+#: includes/class-chocante-woocommerce.php:686
 msgid "Buy now"
 msgstr ""
 
-#: includes/class-chocante.php:81
+#: includes/class-chocante.php:85
+msgctxt "menu"
 msgid "Main menu"
 msgstr ""
 
-#: includes/class-chocante.php:145
+#: includes/class-chocante.php:86
+msgctxt "menu"
+msgid "Footer - Chocante"
+msgstr ""
+
+#: includes/class-chocante.php:87
+msgctxt "menu"
+msgid "Footer - Products"
+msgstr ""
+
+#: includes/class-chocante.php:88
+msgctxt "menu"
+msgid "Footer - Shop"
+msgstr ""
+
+#: includes/class-chocante.php:89
+msgctxt "menu"
+msgid "Footer - Social media"
+msgstr ""
+
+#: includes/class-chocante.php:90
+msgctxt "menu"
+msgid "Footer - Terms"
+msgstr ""
+
+#: includes/class-chocante.php:154
 msgid "Header - top"
 msgstr ""
 
-#: includes/class-chocante.php:147
+#: includes/class-chocante.php:156
 msgid "Widgets in this area will be shown in the top part of header."
 msgstr ""
 
-#: includes/class-chocante.php:157
+#: includes/class-chocante.php:166
 msgid "Mobile menu - after main menu"
 msgstr ""
 
-#: includes/class-chocante.php:159
+#: includes/class-chocante.php:168
 msgid "Widgets in this area will be shown in mobile menu after main navigation menu."
 msgstr ""
 
-#: includes/class-chocante.php:169
+#: includes/class-chocante.php:178
 msgid "Mobile menu - top"
 msgstr ""
 
-#: includes/class-chocante.php:171
+#: includes/class-chocante.php:180
 msgid "Widgets in this area will be shown in the top part of mobile menu."
 msgstr ""
 
-#: includes/class-chocante.php:193
+#: includes/class-chocante.php:190
+msgid "Footer - bottom left"
+msgstr ""
+
+#: includes/class-chocante.php:192
+msgid "Widgets in this area will be shown in the bottom left part of footer."
+msgstr ""
+
+#: includes/class-chocante.php:202
+msgid "Footer - bottom mobile"
+msgstr ""
+
+#: includes/class-chocante.php:204
+msgid "Widgets in this area will be shown in the bottom right part of footer."
+msgstr ""
+
+#: includes/class-chocante.php:226
 msgid "Loading"
 msgstr ""
 
@@ -188,6 +245,30 @@ msgstr ""
 
 #: template-parts/info-stock.php:15
 msgid "In stock"
+msgstr ""
+
+#: template-parts/join-group.php:15
+#: template-parts/join-group.php:19
+msgctxt "join group"
+msgid "Join the group"
+msgstr ""
+
+#: template-parts/join-group.php:20
+msgctxt "join group"
+msgid "Cacao at a discount"
+msgstr ""
+
+#: template-parts/join-group.php:23
+msgctxt "join group"
+msgid ""
+"Join the cacao group and return to the shop with a discount code. Buy ceremonial cacao, beans or cocoa butter at a better price. \n"
+"\n"
+"Discount code within the posts."
+msgstr ""
+
+#: template-parts/join-group.php:25
+msgctxt "join group"
+msgid "Join"
 msgstr ""
 
 #: template-parts/product-details.php:13

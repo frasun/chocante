@@ -41,7 +41,7 @@ $content-size: var(--wp--style--global--content-size, 768px);
 .container {
 	max-width: $wide-size;
 
-	@include max-width($breakpoint--desktop-md) {
+	@include max-width($breakpoint--desktop-md + 40px) {
 		padding-left: $spacing--20;
 		padding-right: $spacing--20;
 	}

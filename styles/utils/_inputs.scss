@@ -3,7 +3,7 @@
 .input {
 	@extend .font-size--normal-sm;
 	@extend .border-radius--md;
-	border: 1px solid map.get($colors, "accent-main");
+	border: 1px solid map.get($colors, "primary-light");
 	@extend .bg--primary-light-bg;
 	@extend .transition--color;
 	padding: $spacing--10 $spacing--20;
@@ -21,11 +21,6 @@
 
 	&:focus {
 		background-color: white;
-	}
-
-	&--secondary {
-		border: 1px solid map.get($colors, "primary-light");
-		font-weight: 600;
 	}
 
 	&--sm {
@@ -99,4 +94,5 @@ select {
 	background-position: calc(100% - 13px) center;
 	background-size: 12px 8px;
 	padding-right: 40px;
+	@extend .color--text;
 }

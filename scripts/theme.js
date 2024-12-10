@@ -3,12 +3,12 @@ import Modal from './modal';
 import ChocanteWooCommerce from './woocommerce';
 import MenuScroll from './menu-scroll';
 
-class Chocante {
-  static MOBILE_BREAKPOINT = 1024;
+const MOBILE_BREAKPOINT = 1024;
 
+class Chocante {
   constructor() {
     new ModalService();
-    new Modal('.mobile-menu', '.site-header__toggle', Chocante.MOBILE_BREAKPOINT);
+    new Modal('.mobile-menu', '.site-header__toggle', MOBILE_BREAKPOINT);
     new MenuScroll('.site-header');
 
     this.setDropdownSize();
@@ -47,4 +47,21 @@ jQuery(function ($) {
       );
     }
   };
+
+  // Footer menu mobile.
+  $('.site-footer__nav .site-footer__nav-header').on('click', (event) => {
+    if (window.innerWidth >= MOBILE_BREAKPOINT) {
+      return;
+    }
+
+    $(event.target).parent().find('.menu').slideToggle();
+    $(event.target).parent().toggleClass('site-footer__nav--open');
+  });
+
+  $(window).on('resize', () => {
+    if (window.innerWidth >= MOBILE_BREAKPOINT) {
+      $('.site-footer__nav--open').removeClass('site-footer__nav--open');
+      $('.site-footer__nav .menu').removeAttr('style');
+    }
+  });
 });

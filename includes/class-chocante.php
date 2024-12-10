@@ -31,6 +31,10 @@ class Chocante {
 		if ( ! is_admin() ) {
 			add_action( 'wp_footer', array( self::class, 'output_mobile_menu' ), 20 );
 		}
+		add_filter( 'nav_menu_item_title', array( self::class, 'social_media_icons' ), 10, 3 );
+
+		// Footer.
+		add_action( 'chocante_before_footer', array( self::class, 'display_join_group' ) );
 
 		// Images.
 		add_filter( 'wp_get_attachment_image_attributes', array( self::class, 'set_image_lazy_loading' ) );
@@ -78,7 +82,12 @@ class Chocante {
 	public static function register_nav_menus() {
 		register_nav_menus(
 			array(
-				'chocante_menu_main' => __( 'Main menu', 'chocante' ),
+				'chocante_menu_main'       => _x( 'Main menu', 'menu', 'chocante' ),
+				'chocante_footer_chocante' => _x( 'Footer - Chocante', 'menu', 'chocante' ),
+				'chocante_footer_products' => _x( 'Footer - Products', 'menu', 'chocante' ),
+				'chocante_footer_shop'     => _x( 'Footer - Shop', 'menu', 'chocante' ),
+				'chocante_footer_social'   => _x( 'Footer - Social media', 'menu', 'chocante' ),
+				'chocante_footer_terms'    => _x( 'Footer - Terms', 'menu', 'chocante' ),
 			)
 		);
 	}
@@ -175,6 +184,30 @@ class Chocante {
 				'after_sidebar'  => '</div>',
 			)
 		);
+
+		register_sidebar(
+			array(
+				'name'           => __( 'Footer - bottom left', 'chocante' ),
+				'id'             => 'footer-bottom-left',
+				'description'    => __( 'Widgets in this area will be shown in the bottom left part of footer.', 'chocante' ),
+				'before_widget'  => '',
+				'after_widget'   => '',
+				'before_sidebar' => '<div class="site-footer__bottom-left">',
+				'after_sidebar'  => '</div>',
+			)
+		);
+
+		register_sidebar(
+			array(
+				'name'           => __( 'Footer - bottom mobile', 'chocante' ),
+				'id'             => 'footer-bottom-mobile',
+				'description'    => __( 'Widgets in this area will be shown in the bottom right part of footer.', 'chocante' ),
+				'before_widget'  => '',
+				'after_widget'   => '',
+				'before_sidebar' => '<div class="site-footer__bottom-mobile hide--desktop">',
+				'after_sidebar'  => '</div>',
+			)
+		);
 	}
 
 	/**
@@ -247,5 +280,40 @@ class Chocante {
 		$atts['loading'] = 'lazy';
 
 		return $atts;
+	}
+
+	/**
+	 * Display join Facebook group section
+	 */
+	public static function display_join_group() {
+		if ( class_exists( 'WooCommerce' ) && function_exists( 'WC' ) ) {
+			if ( ! ( is_checkout() || is_account_page() ) ) {
+				get_template_part( 'template-parts/join', 'group' );
+			}
+		} else {
+			get_template_part( 'template-parts/join', 'group' );
+		}
+	}
+
+	/**
+	 * Display social media icons instead of title
+	 *
+	 * @param string   $title     The menu item's title.
+	 * @param WP_Post  $menu_item The current menu item object.
+	 * @param stdClass $args      An object of wp_nav_menu() arguments.
+	 * @return string
+	 */
+	public static function social_media_icons( $title, $menu_item, $args ) {
+		if ( 'chocante_footer_social' === $args->theme_location ) {
+			ob_start();
+			self::icon( $menu_item->post_name );
+			$icon = ob_get_clean();
+
+			if ( ! empty( $icon ) ) {
+				return $icon;
+			}
+		}
+
+		return $title;
 	}
 }

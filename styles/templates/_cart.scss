@@ -252,10 +252,6 @@
 			.quantity {
 				width: 100px;
 
-				input.qty {
-					@extend .input--secondary;
-				}
-
 				@include min-width($breakpoint--mobile-lg) {
 					width: 130px;
 				}
@@ -588,13 +584,7 @@
 		@extend .woocommerce-error;
 	}
 
-	// @todo: Chocante - Bricks footer - join group.
-	.product-section {
-		padding-bottom: 150px;
-
-		@include min-width($breakpoint--desktop-sm) {
-			padding-bottom: 200px;
-		}
+	.join-group {
+		background-color: white;
 	}
-	// END TODO.
 }
