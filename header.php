@@ -35,7 +35,7 @@ do_action( 'bricks_after_header' );
 ?>
 
 <header class="site-header">
-	<div class="container">
+	<div class="site-header__container">
 		<?php get_template_part( 'template-parts/menu-top' ); ?>		
 
 		<div class="site-header__menu">

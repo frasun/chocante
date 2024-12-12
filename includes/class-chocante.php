@@ -204,7 +204,7 @@ class Chocante {
 				'description'    => __( 'Widgets in this area will be shown in the bottom right part of footer.', 'chocante' ),
 				'before_widget'  => '',
 				'after_widget'   => '',
-				'before_sidebar' => '<div class="site-footer__bottom-mobile hide--desktop">',
+				'before_sidebar' => '<div class="site-footer__bottom-mobile">',
 				'after_sidebar'  => '</div>',
 			)
 		);

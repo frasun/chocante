@@ -1,5 +1,3 @@
-@use "sass:map";
-
 .cwginstock-subscribe-form {
 	form.cart & {
 		grid-column: 1 / span 3;
@@ -8,7 +6,7 @@
 	.form-group {
 		display: flex;
 		flex-direction: column;
-		gap: $spacing--15;
+		gap: var(--spacing--15);
 
 		@include min-width($breakpoint--mobile-sm) {
 			&:first-child {
@@ -20,37 +18,42 @@
 	h4 {
 		padding: 0.35em 0;
 		text-align: left !important;
-		@extend .font-size--medium;
+		@include font-size(medium);
 	}
 }
 
 .cwgstock {
 	&_name,
 	&_email {
-		@extend .input, .input--sm;
-		text-align: left !important;
-		font-size: $font-size--normal-sm !important; // @todo: Chocante - Bricks.
+		@include input(sm);
+
+		& {
+			text-align: left !important;
+			font-size: var(
+				--font-size--normal-sm
+			) !important; // @todo: Chocante - Bricks.
+		}
 	}
 
 	&_button {
-		@extend .button, .button--primary;
-		margin-top: $spacing--15;
+		@include button;
+		margin-top: var(--spacing--15);
 	}
 
 	&_output {
 		> div {
-			@extend .notice;
-			margin-top: $spacing--15;
+			@include notice;
+			margin-top: var(--spacing--15);
 		}
 
 		.cwginstock {
 			&error {
-				@extend .bg--error;
-				color: map.get($colors, "error-text") !important;
+				@include bg(red-3);
+				color: var(--color--red-2) !important;
 			}
 
 			&success {
-				color: map.get($colors, "text") !important;
+				color: var(--color--grey-1) !important;
 			}
 		}
 	}

@@ -1,14 +1,14 @@
 .woocommerce-breadcrumb {
-	@extend .font-size--x-small;
-	@extend .color--text-light;
-	padding: $spacing--20 0;
+	@include font-size(x-small);
+	@include color(grey-2);
+	padding: var(--spacing--20) 0;
 
 	a {
-		@extend .transition--color;
-		font-weight: $font-weight--labels;
+		@include transition(colors);
+		font-weight: var(--font-weight--semibold);
 
 		&:hover {
-			@extend .color--primary-contrast;
+			@include color(red-1);
 		}
 	}
 }

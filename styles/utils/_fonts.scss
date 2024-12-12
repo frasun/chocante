@@ -1,5 +1,7 @@
 // Line height.
-$line-height: 1.5;
+:root {
+	--line-height: 1.5;
+}
 
 // Font family.
 $font-family--body-default:
@@ -23,146 +25,147 @@ $font-family--headings-default:
 	Source Serif Pro,
 	serif;
 
-$font-family--body: var(
-	--wp--preset--font-family--body,
-	$font-family--body-default
-);
-$font-weight--body: 500;
-$font-family--headings: var(
-	--wp--preset--font-family--headings,
-	$font-family--headings-default
-);
-$font-weight--headings: 500;
-$font-family--labels: var(
-	--wp--preset--font-family--body,
-	$font-family--body-default
-);
-$font-weight--labels: 600;
+:root {
+	--font-family--body: var(
+		--wp--preset--font-family--body,
+		#{$font-family--body-default}
+	);
+	--font-family--headings: var(
+		--wp--preset--font-family--headings,
+		#{$font-family--headings-default}
+	);
+}
+
+@mixin font($family) {
+	@if $family == body {
+		font-family: var(--font-family--body);
+		font-weight: var(--font-weight--normal);
+	}
+
+	@if $family == headings {
+		font-family: var(--font-family--headings);
+		font-weight: var(--font-weight--normal);
+	}
+
+	@if $family == labels {
+		font-family: var(--font-family--body);
+		font-weight: var(--font-weight--semibold);
+	}
+}
+
+// Font weight.
+:root {
+	--font-weight--normal: 500;
+	--font-weight--semibold: 600;
+	--font-weight--bold: 700;
+}
 
 // Font size.
-$font-size--huge: var(
-	--wp--preset--font-size--huge,
-	clamp(50px, 3.125rem + ((1vw - 6px) * 4.762), 90px)
-);
-$font-size--x-large: var(
-	--wp--preset--font-size--x-large,
-	clamp(30px, 1.875rem + ((1vw - 6px) * 2.381), 50px)
-);
-$font-size--large: var(--wp--preset--font-size--large, 30px);
-$font-size--big: var(--wp--preset--font-size--big, 24px);
-$font-size--medium: var(--wp--preset--font-size--medium, 20px);
-$font-size--medium-sm: var(--wp--preset--font-size--medium-sm, 18px);
-$font-size--normal: var(--wp--preset--font-size--normal, 16px);
-$font-size--normal-sm: var(--wp--preset--font-size--normal-sm, 15px);
-$font-size--small: var(--wp--preset--font-size--small, 14px);
-$font-size--small-sm: var(--wp--preset--font-size--small-sm, 13px);
-$font-size--x-small: var(--wp--preset--font-size--x-small, 12px);
+:root {
+	--font-size--huge: var(
+		--wp--preset--font-size--huge,
+		clamp(50px, 3.125rem + ((1vw - 6px) * 4.762), 90px)
+	);
+	--font-size--x-large: var(
+		--wp--preset--font-size--x-large,
+		clamp(30px, 1.875rem + ((1vw - 6px) * 2.381), 50px)
+	);
+	--font-size--large: var(--wp--preset--font-size--large, 30px);
+	--font-size--big: var(--wp--preset--font-size--big, 24px);
+	--font-size--medium: var(--wp--preset--font-size--medium, 20px);
+	--font-size--medium-sm: var(--wp--preset--font-size--medium-sm, 18px);
+	--font-size--normal: var(--wp--preset--font-size--normal, 16px);
+	--font-size--normal-sm: var(--wp--preset--font-size--normal-sm, 15px);
+	--font-size--small: var(--wp--preset--font-size--small, 14px);
+	--font-size--small-sm: var(--wp--preset--font-size--small-sm, 13px);
+	--font-size--x-small: var(--wp--preset--font-size--x-small, 12px);
+}
 
-.font {
-	/* Font Family */
-	&--body {
-		font-family: $font-family--body;
-		font-weight: $font-weight--body;
-	}
+@mixin font-size($size) {
+	@if $size == huge {
+		font-size: var(--font-size--huge);
+		line-height: 1.2;
 
-	&--headings {
-		font-family: $font-family--headings;
-		font-weight: $font-weight--headings;
-	}
-
-	&--labels {
-		font-family: $font-family--labels;
-		font-weight: $font-weight--labels;
-	}
-
-	/* Font Size */
-	&-size {
-		&--huge {
-			font-size: $font-size--huge;
-			line-height: 1.2;
-
-			@include min-width($breakpoint--mobile-lg) {
-				line-height: 1.4;
-			}
-		}
-
-		&--x-large {
-			font-size: $font-size--x-large;
-			line-height: 1.15;
-			letter-spacing: 0.05em;
-
-			@include min-width($breakpoint--mobile-lg) {
-				line-height: 1.1;
-			}
-		}
-
-		&--large {
-			font-size: $font-size--large;
-			line-height: 1.15;
-		}
-
-		&--big {
-			font-size: $font-size--big;
-			line-height: $line-height;
-		}
-
-		&--medium {
-			font-size: $font-size--medium;
-			line-height: $line-height;
-		}
-
-		&--medium-sm {
-			font-size: $font-size--medium-sm;
-			line-height: 1.15;
-		}
-
-		&--normal {
-			font-size: $font-size--normal;
-			line-height: $line-height;
-		}
-
-		&--normal-sm {
-			font-size: $font-size--normal-sm;
-			line-height: $line-height;
-		}
-
-		&--small {
-			font-size: $font-size--small;
-			line-height: $line-height;
-		}
-
-		&--small-sm {
-			font-size: $font-size--small-sm;
-			line-height: $line-height;
-		}
-
-		&--x-small {
-			font-size: $font-size--x-small;
-			line-height: $line-height;
+		@include min-width($breakpoint--mobile-lg) {
+			line-height: 1.4;
 		}
 	}
 
-	/* Font Style */
-	&-style {
-		&--section-label {
-			@extend .font-size--x-small;
-			@extend .font--body;
-			font-weight: bold;
-			text-transform: uppercase;
-			letter-spacing: 0.2em;
-			line-height: inherit;
-		}
+	@if $size == x-large {
+		font-size: var(--font-size--x-large);
+		line-height: 1.15;
+		letter-spacing: 0.05em;
 
-		&--page-title {
-			@extend .font-size--x-large;
-			@extend .font--headings;
-			padding-top: 0.35em;
-			padding-bottom: 0.35em;
+		@include min-width($breakpoint--mobile-lg) {
+			line-height: 1.1;
 		}
+	}
+
+	@if $size == large {
+		font-size: var(--font-size--large);
+		line-height: 1.15;
+	}
+
+	@if $size == big {
+		font-size: var(--font-size--big);
+		line-height: var(--line-height);
+	}
+
+	@if $size == medium {
+		font-size: var(--font-size--medium);
+		line-height: var(--line-height);
+	}
+
+	@if $size == medium-sm {
+		font-size: var(--font-size--medium-sm);
+		line-height: 1.15;
+	}
+
+	@if $size == normal {
+		font-size: var(--font-size--normal);
+		line-height: var(--line-height);
+	}
+
+	@if $size == normal-sm {
+		font-size: var(--font-size--normal-sm);
+		line-height: var(--line-height);
+	}
+
+	@if $size == small {
+		font-size: var(--font-size--small);
+		line-height: var(--line-height);
+	}
+
+	@if $size == small-sm {
+		font-size: var(--font-size--small-sm);
+		line-height: var(--line-height);
+	}
+
+	@if $size == x-small {
+		font-size: var(--font-size--x-small);
+		line-height: var(--line-height);
+	}
+}
+
+@mixin font-style($style: "") {
+	@if $style == page-title {
+		padding-top: 0.35em;
+		padding-bottom: 0.35em;
+		@include font(headings);
+		@include font-size(x-large);
+	}
+
+	@if $style == section-label {
+		font-family: var(--font-family--body);
+		font-weight: var(--font-weight--bold);
+		text-transform: uppercase;
+		letter-spacing: 0.2em;
+		line-height: inherit;
+		@include font-size(x-small);
 	}
 }
 
 .page-title {
-	@extend .font-style--page-title;
-	@extend .color--primary-main;
+	@include color(brown-4);
+	@include font-style(page-title);
 }

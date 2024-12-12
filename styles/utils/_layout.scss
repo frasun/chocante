@@ -7,19 +7,6 @@ $breakpoint--desktop-md: 1180px;
 $breakpoint--desktop: 1280px;
 $breakpoint--desktop-lg: 1440px;
 
-// Spacing.
-$spacing--5: var(--wp--preset--spacing--5, 5px);
-$spacing--10: var(--wp--preset--spacing--10, 10px);
-$spacing--15: var(--wp--preset--spacing--15, 15px);
-$spacing--20: var(--wp--preset--spacing--20, 20px);
-$spacing--30: var(--wp--preset--spacing--30, 30px);
-$spacing--40: var(--wp--preset--spacing--40, 40px);
-$spacing--50: var(--wp--preset--spacing--50, 50px);
-
-// Content size.
-$wide-size: var(--wp--style--global--wide-size, 1180px);
-$content-size: var(--wp--style--global--content-size, 768px);
-
 @mixin max-width($breakpoint) {
 	@media (max-width: calc($breakpoint - 1px)) {
 		@content;
@@ -32,49 +19,63 @@ $content-size: var(--wp--style--global--content-size, 768px);
 	}
 }
 
-.container,
-.content {
+// Spacing.
+:root {
+	--spacing--5: var(--wp--preset--spacing--5, 5px);
+	--spacing--10: var(--wp--preset--spacing--10, 10px);
+	--spacing--15: var(--wp--preset--spacing--15, 15px);
+	--spacing--20: var(--wp--preset--spacing--20, 20px);
+	--spacing--30: var(--wp--preset--spacing--30, 30px);
+	--spacing--40: var(--wp--preset--spacing--40, 40px);
+	--spacing--50: var(--wp--preset--spacing--50, 50px);
+}
+
+// Content size.
+:root {
+	--size--container: var(--wp--style--global--wide-size, 1180px);
+	--size--content: var(--wp--style--global--content-size, 768px);
+}
+
+@mixin container($type: "") {
 	width: 100%;
 	margin: auto;
-}
 
-.container {
-	max-width: $wide-size;
+	@if $type == content {
+		max-width: var(--size--content);
 
-	@include max-width($breakpoint--desktop-md + 40px) {
-		padding-left: $spacing--20;
-		padding-right: $spacing--20;
+		@include max-width($breakpoint--mobile-lg) {
+			padding-left: var(--spacing--20);
+			padding-right: var(--spacing--20);
+		}
+	} @else {
+		max-width: var(--size--container);
+
+		@include max-width($breakpoint--desktop-md + 40px) {
+			padding-left: var(--spacing--20);
+			padding-right: var(--spacing--20);
+		}
 	}
 }
 
-.content {
-	max-width: $content-size;
-
-	@include max-width($breakpoint--mobile-lg) {
-		padding-left: $spacing--20;
-		padding-right: $spacing--20;
-	}
-}
-
-.flex--center {
+@mixin flex($align: "") {
 	display: flex;
-	align-items: center;
-	justify-content: center;
-}
 
-.flex--baseline {
-	display: flex;
-	align-items: baseline;
-}
-
-.hide--desktop {
-	@include min-width($breakpoint--desktop-sm) {
-		display: none !important;
+	@if $align == center {
+		align-items: center;
+		justify-content: center;
+	} @else if $align == baseline {
+		align-items: baseline;
 	}
 }
 
-.hide--mobile {
-	@include max-width($breakpoint--desktop-sm) {
-		display: none !important;
+@mixin hide($device: "") {
+	@if $device == desktop {
+		@include min-width($breakpoint--desktop-sm) {
+			display: none !important;
+		}
+	} @else if $device == mobile {
+		@include max-width($breakpoint--desktop-sm) {
+			display: none !important;
+		}
 	}
 }

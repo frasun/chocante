@@ -1,29 +1,28 @@
-@use "sass:map";
-
 .site-footer {
-	@extend .bg--primary-dark;
-	@extend .color--primary-light;
+	@include bg(brown-2);
+	@include color(brown-6);
 
 	.menu a {
-		font-weight: 600;
+		font-weight: var(--font-weight--semibold);
 		text-transform: uppercase;
 		padding: 0.35em 0;
 		display: block;
-		@extend .font-size--small;
-		@extend .transition--color;
+		@include font-size(small);
+		@include transition(colors);
 	}
 
 	&__nav {
-		padding-top: $spacing--20;
+		padding-top: var(--spacing--20);
 		display: flex;
 		flex-direction: column;
+		@include container;
 
 		@include min-width($breakpoint--desktop-sm) {
-			padding-top: $spacing--40;
-			padding-bottom: $spacing--40;
+			padding-top: var(--spacing--40);
+			padding-bottom: var(--spacing--40);
 			display: grid;
 			grid-template-columns: repeat(3, 1fr);
-			gap: $spacing--30;
+			gap: var(--spacing--30);
 		}
 
 		@include min-width($breakpoint--desktop-md) {
@@ -32,36 +31,36 @@
 
 		&-menu {
 			@include max-width($breakpoint--desktop-sm) {
-				border-bottom: 1px solid map.get($colors, "primary-dark-border");
+				@include border(brown-3, 0 0 1px);
 			}
 		}
 
 		&-header {
-			@extend .font-size--normal-sm;
-			font-weight: 600;
+			@include font-size(normal-sm);
+			font-weight: var(--font-weight--semibold);
 			color: white;
 			text-transform: uppercase;
 			letter-spacing: 0.4em;
-			padding-top: $spacing--15;
-			padding-bottom: $spacing--15;
+			padding-top: var(--spacing--15);
+			padding-bottom: var(--spacing--15);
 			display: flex;
 			justify-content: space-between;
 			align-items: center;
-			gap: $spacing--5;
+			gap: var(--spacing--5);
 
 			@include max-width($breakpoint--desktop-sm) {
 				cursor: pointer;
 			}
 
 			&::after {
-				@include icon-font();
+				@include icon-font;
 				content: "\0041";
-				@extend .transition;
-				@extend .hide--desktop;
+				@include transition;
 				transform-origin: center;
 				width: 15px;
 				height: 15px;
 				display: block;
+				@include hide(desktop);
 			}
 		}
 
@@ -74,7 +73,7 @@
 		.menu {
 			display: flex;
 			flex-direction: column;
-			gap: $spacing--10;
+			gap: var(--spacing--10);
 
 			a:hover {
 				color: white;
@@ -82,7 +81,7 @@
 
 			@include max-width($breakpoint--desktop-sm) {
 				display: none;
-				padding-bottom: $spacing--20;
+				padding-bottom: var(--spacing--20);
 			}
 		}
 
@@ -97,44 +96,46 @@
 	}
 
 	&__bottom {
+		display: flex;
+		align-items: center;
 		justify-content: space-between;
+		@include container;
 
 		@include max-width($breakpoint--desktop-sm) {
 			flex-direction: column;
 		}
 
 		@include min-width($breakpoint--desktop-sm) {
-			gap: $spacing--10;
-			padding-top: $spacing--20;
-			padding-bottom: $spacing--20;
-			border-top: 1px solid map.get($colors, "primary-dark-border");
+			gap: var(--spacing--10);
+			padding-top: var(--spacing--20);
+			padding-bottom: var(--spacing--20);
+			@include border(brown-3, 1px 0 0);
 		}
 
 		@include min-width($breakpoint--desktop-md) {
-			gap: $spacing--30;
+			gap: var(--spacing--30);
 		}
 
-		&,
 		&-left,
 		&-mobile,
 		.menu {
-			@extend .flex--center;
+			@include flex(center);
 		}
 
 		&-left,
 		.menu {
-			padding-top: $spacing--20;
-			padding-bottom: $spacing--20;
+			padding-top: var(--spacing--20);
+			padding-bottom: var(--spacing--20);
 
 			@include max-width($breakpoint--desktop-sm) {
 				width: 100%;
-				border-bottom: 1px solid map.get($colors, "primary-dark-border");
+				@include border(brown-3, 0 0 1px);
 			}
 		}
 
 		&-left,
 		.menu {
-			gap: $spacing--20;
+			gap: var(--spacing--20);
 		}
 
 		&-left {
@@ -156,15 +157,16 @@
 		}
 
 		&-mobile {
-			gap: $spacing--10;
+			gap: var(--spacing--10);
+			@include hide(desktop);
 
 			@include max-width($breakpoint--desktop-sm) {
-				padding-top: $spacing--15;
-				padding-bottom: $spacing--15;
+				padding-top: var(--spacing--15);
+				padding-bottom: var(--spacing--15);
 			}
 
 			@include min-width($breakpoint--desktop-sm) {
-				gap: $spacing--20;
+				gap: var(--spacing--20);
 			}
 		}
 	}
@@ -174,7 +176,7 @@
 			padding: 0;
 
 			&:not(:hover) {
-				@extend .color--primary-pattern;
+				@include color(brown-5);
 			}
 
 			svg {
@@ -185,20 +187,21 @@
 
 	&__copy {
 		background-color: #14110e;
-		@extend .color--primary-main;
-		padding-top: $spacing--20;
-		padding-bottom: $spacing--20;
+		@include color(brown-4);
+		padding-top: var(--spacing--20);
+		padding-bottom: var(--spacing--20);
 
 		@include min-width($breakpoint--desktop-sm) {
-			padding-top: $spacing--30;
-			padding-bottom: $spacing--30;
+			padding-top: var(--spacing--30);
+			padding-bottom: var(--spacing--30);
 		}
 
-		.container {
+		&-container {
 			display: flex;
 			justify-content: space-between;
 			align-items: baseline;
-			@extend .font-size--small;
+			@include font-size(small);
+			@include container;
 
 			@include max-width($breakpoint--desktop-sm) {
 				flex-direction: column;
@@ -207,7 +210,7 @@
 
 				.site-footer__copy-text {
 					order: 2;
-					margin-top: $spacing--20;
+					margin-top: var(--spacing--20);
 				}
 
 				.menu {
@@ -216,8 +219,8 @@
 			}
 
 			.menu {
-				@extend .flex--baseline;
-				column-gap: $spacing--30;
+				@include flex(baseline);
+				column-gap: var(--spacing--30);
 
 				@include max-width($breakpoint--desktop-sm) {
 					flex-direction: column;
@@ -226,7 +229,7 @@
 
 				a {
 					&:hover {
-						@extend .color--primary-light;
+						@include color(brown-6);
 					}
 				}
 			}
@@ -237,7 +240,7 @@
 	.wcml-dropdown-click .wcml-cs-submenu,
 	.wpml-ls-legacy-dropdown .wpml-ls-sub-menu,
 	.wpml-ls-legacy-dropdown-click .wpml-ls-sub-menu {
-		transform: translateY($spacing--5);
+		transform: translateY(var(--spacing--5));
 	}
 
 	.wcml-dropdown .wcml-cs-submenu,

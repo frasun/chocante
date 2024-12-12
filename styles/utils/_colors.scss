@@ -1,91 +1,43 @@
-@use "sass:list";
 @use "sass:map";
 
 $colors: (
-	"primary-main": var(--wp--preset--color--bronze-main, #3f362e),
-	"primary-pattern": var(--wp--preset--color--bronze-pattern, #493f36),
-	"primary-dark": var(--wp--preset--color--bronze-dark, #231e19),
-	"primary-dark-border": #37312b,
-	"primary-light": var(--wp--preset--color--bronze-light, #958b83),
-	"primary-light-bg": var(--wp--preset--color--bronze-light-bg, #f8f6f4),
-	"primary-light-text": var(--wp--preset--color--bronze-light-text, #e6dad3),
-	"primary-contrast": var(--wp--preset--color--red-main, #9d2f51),
-	"accent-main": var(--wp--preset--color--green-main, #333f2e),
-	"accent-pattern": var(--wp--preset--color--green-pattern, #42513d),
-	"text": var(--wp--preset--color--grey, #454545),
-	"text-light": var(--wp--preset--color--grey-light, #aba7a4),
-	"grey-inactive": var(--wp--preset--color--grey-inactive, #d6d6d6),
-	"success": "",
-	"error": var(--wp--preset--color--error-bg, #ffdfdf),
-	"error-text": var(--wp--preset--color--error, #d12121),
-	"grey-light": #f2f2f2,
+	"brown-1": #14110e,
+	"brown-2": var(--wp--preset--color--bronze-dark, #231e19),
+	"brown-3": #37312b,
+	"brown-4": var(--wp--preset--color--bronze-main, #3f362e),
+	"brown-5": var(--wp--preset--color--bronze-pattern, #493f36),
+	"brown-6": var(--wp--preset--color--bronze-light, #958b83),
+	"brown-7": #e2dad3,
+	"brown-8": var(--wp--preset--color--bronze-light-text, #e6dad3),
+	"brown-9": #675e56,
+	"green-1": var(--wp--preset--color--green-main, #333f2e),
+	"green-2": var(--wp--preset--color--green-pattern, #42513d),
+	"red-1": var(--wp--preset--color--red-main, #9d2f51),
+	"red-2": var(--wp--preset--color--error, #d12121),
+	"red-3": var(--wp--preset--color--error-bg, #ffdfdf),
+	"grey-1": var(--wp--preset--color--grey, #454545),
+	"grey-2": var(--wp--preset--color--grey-light, #aba7a4),
+	"grey-3": var(--wp--preset--color--grey-inactive, #d6d6d6),
+	"grey-4": #f2f2f2,
+	"grey-5": var(--wp--preset--color--bronze-light-bg, #f8f6f4),
 );
 
-/* Background color */
-@each $color, $value in $colors {
-	@if $value != "" {
-		.bg--#{$color} {
-			background-color: $value;
-		}
+:root {
+	@each $color, $value in $colors {
+		--color--#{$color}: #{$value};
 	}
 }
 
-/* Text color */
-@each $color, $value in $colors {
-	@if $value != "" {
-		.color--#{$color} {
-			color: $value;
-		}
-	}
+@mixin color($color) {
+	color: map.get($colors, $color);
 }
 
-/*
-(
-	background-color,
-	text-color,
-	text-color-secondary,
-	border-color,
-	pattern-color
-)
-*/
+@mixin bg($color) {
+	background-color: map.get($colors, $color);
+}
 
-$schemes: (
-	"primary": (
-		map.get($colors, "primary-main"),
-		white,
-		map.get($colors, "primary-light"),
-		#675e56,
-		map.get($colors, "primary-pattern"),
-	),
-	"primary-light": (
-		map.get($colors, "primary-light"),
-		white,
-		map.get($colors, "text-light"),
-		map.get($colors, "text-light"),
-		rgba(255, 2555, 255, 0.5),
-	),
-	"accent": (
-		map.get($colors, "accent-main"),
-		white,
-		white,
-		map.get($colors, "accent-pattern"),
-		map.get($colors, "accent-pattern"),
-	),
-	"light": (
-		white,
-		map.get($colors, "text"),
-		map.get($colors, "text"),
-		map.get($colors, "accent-pattern"),
-		map.get($colors, "text-light"),
-	),
-);
-
-@each $name, $colors in $schemes {
-	.scheme--#{$name} {
-		--background-color: #{list.nth($colors, 1)};
-		--text-color: #{list.nth($colors, 2)};
-		--text-color-secondary: #{list.nth($colors, 3)};
-		--border-color: #{list.nth($colors, 4)};
-		--pattern-color: #{list.nth($colors, 5)};
-	}
+@mixin border($color, $width: 1px, $style: solid) {
+	border-width: $width;
+	border-style: $style;
+	border-color: map.get($colors, $color);
 }

@@ -1,0 +1,111 @@
+// Input.
+@mixin input(
+	$size: "",
+	$bg: var(--color--grey-5),
+	$bg-focus: white,
+	$border: var(--color--brown-6),
+	$border-focus: var(--color--green-1),
+	$color: var(--color--grey-1),
+	$placeholder: var(--color--grey-1)
+) {
+	@include font-size(normal-sm);
+	border: 1px solid $border;
+	background-color: $bg;
+	color: $color;
+	@include transition(colors);
+	font-weight: inherit;
+	width: 100%;
+
+	@if $size == sm {
+		padding: var(--spacing--10) var(--spacing--15);
+		border-radius: var(--border-radius--md);
+		--line-height: 1.25;
+	} @else {
+		padding: var(--spacing--10) var(--spacing--20);
+		border-radius: var(--border-radius);
+		--line-height: 1.2;
+
+		@include min-width($breakpoint--mobile-lg) {
+			padding: var(--spacing--15) var(--spacing--20);
+		}
+	}
+
+	&:hover {
+		box-shadow: var(--shadow--2);
+	}
+
+	&:focus {
+		background-color: $bg-focus;
+		border-color: $border-focus;
+	}
+
+	&::placeholder {
+		opacity: 0.5;
+		color: $placeholder;
+	}
+}
+
+// Radio.
+@mixin radio {
+	width: 25px;
+	height: 25px;
+	border-radius: 50%;
+	@include border(green-1);
+	@include flex(center);
+	display: inline-flex;
+	@include transition(colors);
+	-webkit-appearance: none;
+	cursor: pointer;
+	padding: 0;
+	margin: 0;
+
+	&::after {
+		content: "";
+		background-color: white;
+		width: 5px;
+		height: 5px;
+		border-radius: 50%;
+		@include transition;
+		transform: scale(0);
+		transform-origin: center center;
+	}
+
+	&:hover {
+		box-shadow: var(--shadow--2);
+	}
+
+	&[checked] {
+		@include bg(green-1);
+
+		&::after {
+			transform: scale(1);
+		}
+	}
+
+	& + label {
+		display: inline-block;
+		margin-left: var(--spacing--10);
+		margin-bottom: 0;
+		vertical-align: middle;
+		cursor: pointer;
+		@include font-size(normal-sm);
+	}
+}
+
+// Label.
+// @todo: Chocante - Bricks.
+label {
+	color: currentColor;
+	font-weight: var(--font-weight--normal);
+}
+// END TODO.
+
+// Select.
+select {
+	background-image: url(../images/select-arrow.svg);
+	background-repeat: no-repeat;
+	background-position: calc(100% - 13px) center;
+	background-size: 12px 8px;
+	padding-right: 40px;
+	@include color(grey-1);
+}

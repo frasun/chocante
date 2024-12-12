@@ -7,15 +7,15 @@
 		url("../fonts/glyphter.woff") format("woff"),
 		url("../fonts/glyphter.ttf") format("truetype"),
 		url("../fonts/glyphter.svg#Glyphter") format("svg");
-	font-weight: normal;
+	font-weight: var(--font-weight--normal);
 	font-style: normal;
 }
 
-@mixin icon-font() {
+@mixin icon-font {
 	display: inline-block;
 	font-family: "Glyphter";
 	font-style: normal;
-	font-weight: normal;
+	font-weight: var(--font-weight--normal);
 	line-height: 1;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;

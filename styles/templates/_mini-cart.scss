@@ -1,8 +1,24 @@
-@use "sass:map";
+@mixin counter-badge($color: "", $bg: "") {
+	min-width: 18px;
+	height: 18px;
+	border-radius: 9px;
+	padding: 3px;
+	@include flex(center);
+	@include font-size(normal-sm);
+	font-weight: var(--font-weight--bold);
 
-$mini-cart--image-size: 50px;
+	@if $color != "" {
+		color: var(--color--#{$color});
+	}
+
+	@if $bg != "" {
+		background-color: var(--color--#{$bg});
+	}
+}
 
 .mini-cart {
+	--mini-cart--image-size: 50px;
+
 	&__button {
 		position: relative;
 
@@ -14,26 +30,25 @@ $mini-cart--image-size: 50px;
 	&__count {
 		position: absolute;
 		right: 0;
-		top: $spacing--5;
+		top: var(--spacing--5);
 		background-color: white;
-		@extend .color--primary-main;
-		@extend .counter-badge;
+		@include counter-badge(brown-4);
 
 		@include min-width($breakpoint--desktop-sm) {
-			top: $spacing--10;
+			top: var(--spacing--10);
 		}
 	}
 
 	&__content {
-		@extend .dropdown;
+		@include dropdown;
 
 		top: 100%;
 		right: 0;
 		width: 100vw;
 		overflow-y: hidden;
 		max-width: 360px;
-		padding-top: $spacing--20;
-		padding-bottom: $spacing--20;
+		padding-top: var(--spacing--20);
+		padding-bottom: var(--spacing--20);
 		display: flex;
 
 		@include max-width(400px) {
@@ -42,22 +57,21 @@ $mini-cart--image-size: 50px;
 	}
 
 	&:hover &__content {
-		@include dropdown-active();
+		@include dropdown-active;
 	}
 
 	&__content-title {
 		display: flex;
 		align-items: center;
-		gap: $spacing--5;
-		@extend .font-size--medium;
-		font-weight: 600;
+		gap: var(--spacing--5);
+		@include font-size(medium);
+		font-weight: var(--font-weight--semibold);
 		width: 100%;
-		padding-left: $spacing--20;
-		padding-right: $spacing--20;
+		padding-left: var(--spacing--20);
+		padding-right: var(--spacing--20);
 
 		.count {
-			@extend .counter-badge;
-			@extend .bg--primary-main;
+			@include counter-badge($bg: brown-4);
 			color: white;
 			font-size: 0.55em;
 		}
@@ -67,7 +81,7 @@ $mini-cart--image-size: 50px;
 		display: grid;
 		grid-template-rows: repeat(3, auto);
 		grid-template-columns: 1fr auto;
-		gap: $spacing--5;
+		gap: var(--spacing--5);
 		width: 100%;
 
 		.woocommerce-mini-cart {
@@ -78,16 +92,16 @@ $mini-cart--image-size: 50px;
 
 			&__buttons {
 				grid-column-start: 2;
-				padding-right: $spacing--15;
+				padding-right: var(--spacing--15);
 			}
 
 			&__total {
-				padding-left: $spacing--20;
+				padding-left: var(--spacing--20);
 			}
 
 			&__buttons,
 			&__total {
-				padding-top: $spacing--10;
+				padding-top: var(--spacing--10);
 			}
 		}
 
@@ -99,38 +113,37 @@ $mini-cart--image-size: 50px;
 
 	.woocommerce-mini-cart {
 		display: grid;
-		gap: $spacing--5;
+		gap: var(--spacing--5);
 
 		&-item {
 			display: grid;
 			grid-template-columns: auto min-content;
 			grid-template-rows: auto auto;
-			column-gap: $spacing--10;
+			column-gap: var(--spacing--10);
 			align-items: start;
-			padding-top: $spacing--10;
-			padding-bottom: $spacing--10;
-			margin-left: $spacing--20;
-			margin-right: $spacing--20;
+			padding-top: var(--spacing--10);
+			padding-bottom: var(--spacing--10);
+			margin-left: var(--spacing--20);
+			margin-right: var(--spacing--20);
 
 			&:not(:last-child) {
-				border-bottom: 1px solid map.get($colors, "grey-inactive");
+				@include border(grey-3, 0 0 1px);
 			}
 
 			.remove_from_cart_button {
 				grid-column-start: 2;
 				grid-row-start: 1;
+				@include remove-button;
 			}
 
 			> a:not(.remove_from_cart_button) {
 				grid-column-start: 1;
 				grid-row-start: 1;
-				font-weight: 600;
-				line-height: 1.15;
+				--line-height: 1.15;
+				font-weight: var(--font-weight--semibold);
 				position: relative;
-				padding-left: calc(
-					var(--mini-cart--image-size, $mini-cart--image-size) + $spacing--10
-				);
-				@extend .font-size--normal-sm;
+				padding-left: calc(var(--mini-cart--image-size) + var(--spacing--10));
+				@include font-size(normal-sm);
 
 				&:hover {
 					text-decoration: underline;
@@ -139,17 +152,17 @@ $mini-cart--image-size: 50px;
 				small {
 					display: block;
 					padding-top: 0.15em;
-					@extend .font-size--small;
-					font-weight: 500;
-					@extend .color--text;
+					@include font-size(small);
+					font-weight: var(--font-weight--normal);
+					@include color(grey-1);
 				}
 			}
 
 			img {
-				width: var(--mini-cart--image-size, $mini-cart--image-size);
-				height: var(--mini-cart--image-size, $mini-cart--image-size);
-				@extend .border-radius--xs;
-				border: 1px solid var(--wp--preset--color--grey-inactive);
+				width: var(--mini-cart--image-size);
+				height: var(--mini-cart--image-size);
+				border-radius: var(--border-radius--xs);
+				@include border(grey-3);
 				position: absolute;
 				left: 0;
 				top: 0;
@@ -159,18 +172,18 @@ $mini-cart--image-size: 50px;
 				grid-column-start: 1;
 				grid-column-end: span 2;
 				grid-row-start: 2;
-				@extend .flex--baseline;
+				@include flex(baseline);
 				justify-content: space-between;
 				padding-left: 60px;
 
 				.quantity {
 					margin-top: 0.15em;
-					@extend .flex--baseline;
-					gap: $spacing--5;
-					@extend .font-size--normal-sm;
+					@include flex(baseline);
+					gap: var(--spacing--5);
+					@include font-size(normal-sm);
 
 					.woocommerce-price-suffix {
-						@extend .font-size--x-small;
+						@include font-size(x-small);
 					}
 				}
 			}
@@ -183,14 +196,14 @@ $mini-cart--image-size: 50px;
 			justify-content: center;
 
 			> strong {
-				font-weight: normal;
+				font-weight: var(--font-weight--normal);
 			}
 
 			.woocommerce-Price-amount {
 				display: block;
-				font-weight: bold;
-				@extend .font-size--big;
-				line-height: 1;
+				font-weight: var(--font-weight--bold);
+				--line-height: 1;
+				@include font-size(big);
 			}
 		}
 
@@ -200,26 +213,17 @@ $mini-cart--image-size: 50px;
 			align-items: end;
 
 			.button {
-				@extend .button--primary, .scheme--light, .button--sm;
+				@include button-primary;
+				@include button-sm;
 				width: 100%;
 			}
 		}
 
 		&__empty-message {
-			padding-left: $spacing--20;
-			padding-right: $spacing--20;
-			padding-top: $spacing--10;
+			padding-left: var(--spacing--20);
+			padding-right: var(--spacing--20);
+			padding-top: var(--spacing--10);
 			width: 100%;
 		}
 	}
-}
-
-.counter-badge {
-	min-width: 18px;
-	height: 18px;
-	border-radius: 9px;
-	padding: 3px;
-	@extend .flex--center;
-	@extend .font-size--normal-sm;
-	font-weight: bold;
 }

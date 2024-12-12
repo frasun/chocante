@@ -1,32 +1,32 @@
-@use "sass:map";
-
 .woocommerce-cart {
+	--notice--background-color: white;
+
 	@at-root body#{&} {
-		@extend .bg--primary-light-bg;
+		@include bg(grey-5);
 	}
 
 	&:not(.cart-empty) .page-title {
-		padding-top: $spacing--10;
+		padding-top: var(--spacing--10);
 		padding-bottom: 0;
 		width: 100%;
 	}
 
 	.woocommerce {
-		@extend .container;
 		display: flex;
 		flex-direction: column;
-		gap: $spacing--20;
-		padding-top: $spacing--20;
-		padding-bottom: $spacing--50;
+		gap: var(--spacing--20);
+		padding-top: var(--spacing--20);
+		padding-bottom: var(--spacing--50);
+		@include container;
 
 		@include min-width($breakpoint--desktop-sm) {
 			flex-direction: row;
 			flex-wrap: wrap;
-			column-gap: $spacing--30;
+			column-gap: var(--spacing--30);
 		}
 
 		@include max-width($breakpoint--desktop-sm) {
-			padding-bottom: $spacing--30;
+			padding-bottom: var(--spacing--30);
 		}
 
 		.before-cart {
@@ -42,10 +42,10 @@
 			display: flex;
 			flex-direction: column;
 			justify-content: space-between;
-			gap: $spacing--20;
+			gap: var(--spacing--20);
 
 			@include min-width($breakpoint--desktop-sm) {
-				gap: $spacing--30;
+				gap: var(--spacing--30);
 			}
 
 			&__contents {
@@ -75,9 +75,9 @@
 				grid-template-columns: 60px 1fr;
 				grid-template-rows: repeat(3, auto);
 				align-items: center;
-				column-gap: $spacing--20;
-				row-gap: $spacing--10;
-				padding: $spacing--15 0;
+				column-gap: var(--spacing--20);
+				row-gap: var(--spacing--10);
+				padding: var(--spacing--15) 0;
 
 				@include min-width($breakpoint--mobile-sm) {
 					grid-template-columns: 100px 1fr;
@@ -85,33 +85,34 @@
 
 				@include min-width($breakpoint--mobile) {
 					grid-template-columns: 130px 1fr;
-					padding: $spacing--20 0;
+					padding: var(--spacing--20) 0;
 				}
 
 				@include min-width($breakpoint--mobile-lg) {
 					grid-template-columns: 130px repeat(auto-fill, minmax(20%, 1fr));
 					grid-template-rows: repeat(2, auto);
-					row-gap: $spacing--15;
+					row-gap: var(--spacing--15);
 				}
 
 				@include min-width($breakpoint--desktop-sm) {
-					padding: $spacing--30 0;
+					padding: var(--spacing--30) 0;
 				}
 
 				.product-remove {
 					position: absolute;
 					right: 0;
-					top: $spacing--5;
+					top: var(--spacing--5);
 
 					@include min-width($breakpoint--mobile) {
-						padding: $spacing--10 0;
+						padding: var(--spacing--10) 0;
 					}
 
 					@include min-width($breakpoint--desktop-sm) {
-						top: $spacing--10;
+						top: var(--spacing--10);
 					}
 
-					a {
+					.remove {
+						@include remove-button;
 						width: 30px;
 						height: 30px;
 					}
@@ -130,13 +131,12 @@
 					}
 
 					a {
-						--border-radius: #{$border-radius--sm};
 						display: block;
-						@extend .border-radius;
+						border-radius: var(--border-radius);
 						overflow: hidden;
 
-						@include min-width($breakpoint--desktop-sm) {
-							--border-radius: #{$border-radius--md};
+						@include max-width($breakpoint--desktop-sm) {
+							border-radius: var(--border-radius--md);
 						}
 
 						&:hover {
@@ -148,22 +148,22 @@
 
 					img {
 						width: 100%;
-						@extend .transition;
+						@include transition;
 					}
 				}
 
 				.product-name {
+					--line-height: 1.15;
 					grid-area: 1 / 2 / 1 / 4;
 					align-self: start;
-					font-weight: bold;
-					line-height: 1.15;
-					@extend .color--primary-main;
-					@extend .font-size--normal;
-					padding-right: $spacing--30;
+					font-weight: var(--font-weight--bold);
+					@include color(brown-4);
+					@include font-size(normal);
+					padding-right: var(--spacing--30);
 
 					@include min-width($breakpoint--mobile) {
-						font-size: 1.125em;
-						padding-right: $spacing--40;
+						--font-size--normal: 1.125em;
+						padding-right: var(--spacing--40);
 					}
 
 					@include min-width($breakpoint--mobile-lg) {
@@ -171,24 +171,24 @@
 					}
 
 					a:hover {
-						@extend .color--primary-contrast;
-						@extend .transition--color;
+						@include color(red-1);
+						@include transition(colors);
 					}
 
 					small {
 						display: block;
-						font-weight: $font-weight--body;
-						font-size: $font-size--normal-sm;
+						font-weight: var(--font-weight--normal);
+						font-size: var(--font-size--normal-sm);
 						padding: 0.5em 0;
-						@extend .color--text;
+						@include color(grey-1);
 					}
 				}
 
 				.product-price {
 					grid-area: 2 / 1 / 2 / 4;
-					@extend .font-size--medium;
-					@extend .color--accent-main;
-					line-height: 1;
+					@include font-size(medium);
+					@include color(green-1);
+					--line-height: 1;
 
 					@include min-width($breakpoint--mobile-sm) {
 						grid-column: 2 / 4;
@@ -201,11 +201,11 @@
 
 					.woocommerce {
 						&-Price-amount {
-							font-weight: bold;
+							font-weight: var(--font-weight--bold);
 						}
 
 						&-price-suffix {
-							@extend .font-size--small;
+							@include font-size(small);
 						}
 					}
 				}
@@ -228,10 +228,10 @@
 					grid-area: 3 / 3 / 3 / 4;
 					display: flex;
 					justify-content: end;
-					font-weight: bold;
-					line-height: 1;
-					@extend .font-size--medium;
-					@extend .color--accent-main;
+					font-weight: var(--font-weight--bold);
+					--line-height: 1;
+					@include font-size(medium);
+					@include color(green-1);
 
 					@include min-width($breakpoint--mobile-sm) {
 						grid-column: 3 / 4;
@@ -240,12 +240,12 @@
 					@include min-width($breakpoint--mobile-lg) {
 						grid-column: 4 / 5;
 						grid-row: 2 / 2;
-						padding-right: $spacing--10;
+						padding-right: var(--spacing--10);
 					}
 				}
 
 				& + .cart_item {
-					border-top: 1px solid map.get($colors, "grey-inactive");
+					@include border(grey-3, 1px 0 0);
 				}
 			}
 
@@ -258,7 +258,7 @@
 			}
 
 			.blockUI.blockOverlay {
-				background-color: map.get($colors, "primary-light-bg") !important;
+				background-color: var(--color--grey-5) !important;
 			}
 		}
 
@@ -268,7 +268,7 @@
 			width: auto;
 
 			@include min-width($breakpoint--desktop-sm) {
-				margin-top: $spacing--10;
+				margin-top: var(--spacing--10);
 			}
 
 			table {
@@ -294,21 +294,22 @@
 
 			.cart_totals {
 				background: white;
-				@extend .border-radius--md;
-				padding: $spacing--20;
+				border-radius: var(--border-radius);
+				padding: var(--spacing--20);
 
 				h2 {
-					@extend .font-style--section-label;
+					@include font-style(section-label);
 
 					// @todo: Chocante - Bricks.
-					@extend .font--body;
+					font-family: var(--font-family--body);
+					// END TODO.
 				}
 
 				table {
 					border: none;
 					line-height: inherit;
-					margin-top: $spacing--15;
-					margin-bottom: $spacing--30;
+					margin-top: var(--spacing--15);
+					margin-bottom: var(--spacing--30);
 				}
 
 				th {
@@ -317,30 +318,30 @@
 				}
 
 				.cart-discount {
-					margin-top: $spacing--10;
+					margin-top: var(--spacing--10);
 				}
 
 				.woocommerce {
 					&-shipping-totals {
 						display: flex;
 						flex-direction: column;
-						margin-top: $spacing--30;
+						margin-top: var(--spacing--30);
 
 						th {
-							@extend .font-style--section-label;
+							@include font-style(section-label);
 						}
 
 						td {
 							width: 100%;
-							margin-top: $spacing--10;
+							margin-top: var(--spacing--10);
 						}
 					}
 
 					&-shipping-methods {
 						display: flex;
 						flex-direction: column;
-						gap: $spacing--15;
-						margin: $spacing--5 0 0;
+						gap: var(--spacing--15);
+						margin: var(--spacing--5) 0 0;
 						padding: 0;
 
 						li {
@@ -348,11 +349,11 @@
 							display: grid;
 							grid-template-columns: auto 1fr;
 							align-items: center;
-							column-gap: $spacing--10;
+							column-gap: var(--spacing--10);
 						}
 
 						input[type="radio"] {
-							@extend .radio;
+							@include radio;
 							grid-row: 1 / span 2;
 
 							& + label {
@@ -361,35 +362,35 @@
 						}
 
 						.woocommerce-Price-amount {
-							font-weight: bold;
+							font-weight: var(--font-weight--bold);
 						}
 					}
 
 					&-shipping-destination {
-						@extend .font-size--small;
-						line-height: initial;
-						margin-top: $spacing--20;
+						@include font-size(small);
+						--line-height: initial;
+						margin-top: var(--spacing--20);
 					}
 
 					&-shipping-calculator {
-						padding-bottom: $spacing--5;
+						padding-bottom: var(--spacing--5);
 
 						.shipping-calculator {
 							&-button {
-								@extend .link;
-								@extend .font-size--small;
+								@include link;
+								@include font-size(small);
 							}
 
 							&-form {
 								display: flex;
-								gap: $spacing--15;
+								gap: var(--spacing--15);
 
 								@include max-width($breakpoint--mobile-sm) {
 									flex-direction: column;
 								}
 
 								p {
-									margin: $spacing--10 0 0;
+									margin: var(--spacing--10) 0 0;
 
 									&.form-row-wide {
 										flex-grow: 1;
@@ -397,7 +398,8 @@
 								}
 
 								.button {
-									@extend .button--sm, .button--secondary, .scheme--light;
+									@include button-secondary;
+									@include button-sm;
 								}
 							}
 						}
@@ -406,8 +408,8 @@
 					&-form-coupon {
 						display: flex;
 						flex-direction: column;
-						gap: $spacing--15;
-						margin-top: $spacing--10;
+						gap: var(--spacing--15);
+						margin-top: var(--spacing--10);
 
 						@include min-width($breakpoint--mobile) {
 							display: grid;
@@ -422,32 +424,33 @@
 						p {
 							grid-column-start: 1;
 							grid-column-end: 3;
-							@extend .font-size--small;
+							@include font-size(small);
 							margin: 0;
 						}
 
 						input[name="coupon_code"] {
-							@extend .input, .input--sm;
+							@include input(sm);
 						}
 
 						.button {
-							@extend .button--sm, .button--secondary, .scheme--light;
+							@include button-secondary;
+							@include button-sm;
 						}
 					}
 
 					&-remove-coupon {
-						@extend .link;
-						@extend .font-size--small;
+						@include link;
+						@include font-size(small);
 					}
 				}
 
 				.coupon {
 					display: flex;
 					flex-direction: column;
-					margin-top: $spacing--30;
+					margin-top: var(--spacing--30);
 
 					th {
-						@extend .font-style--section-label;
+						@include font-style(section-label);
 					}
 
 					td {
@@ -457,19 +460,19 @@
 				}
 
 				.order-total {
-					margin-top: $spacing--30;
+					margin-top: var(--spacing--30);
 
 					th,
 					td {
-						font-weight: bold;
-						@extend .font-size--medium;
+						font-weight: var(--font-weight--bold);
+						@include font-size(medium);
 					}
 				}
 			}
 
 			.wc-proceed-to-checkout .checkout-button {
 				width: 100%;
-				@extend .button--primary;
+				@include button;
 			}
 		}
 
@@ -478,18 +481,26 @@
 		}
 
 		&-notices-wrapper {
-			--background-color: white;
+			.woocommerce {
+				&-info,
+				&-message {
+					--notice--background-color: white;
+				}
+			}
 		}
 	}
 
 	// @todo: Chocante - Move to _input.scss after switching from Bricks.
 	.select2 {
 		&-selection {
-			@extend .input, .input--sm;
-			padding-left: $spacing--15;
-			padding-right: 35px;
-			height: auto;
-			position: relative;
+			@include input(sm);
+
+			& {
+				padding-left: var(--spacing--15);
+				padding-right: 35px;
+				height: auto;
+				position: relative;
+			}
 
 			.select2-selection__arrow {
 				border: 0;
@@ -506,34 +517,33 @@
 					margin: 0;
 
 					&::after {
-						@include icon-font();
+						@include icon-font;
 						content: "\0041";
 						border: 0;
 						position: static;
-						@extend .transition;
+						@include transition;
 						font-size: 0.75em;
-						@extend .color--text;
+						@include color(grey-1);
 						opacity: 0.5;
 					}
 				}
 			}
 		}
 
-		&-container--below {
-			&.select2-container--open {
-				.select2-selection {
-					background-color: white;
-					border-bottom-left-radius: 0;
-					border-bottom-right-radius: 0;
-					@extend .shadow--deep;
+		&.select2-container--open {
+			.select2-selection {
+				background-color: white;
+				border-bottom-left-radius: 0;
+				border-bottom-right-radius: 0;
+				box-shadow: var(--shadow--2);
+				@include border(green-1);
 
-					.select2-selection__arrow {
-						b {
-							border: 0;
+				.select2-selection__arrow {
+					b {
+						border: 0;
 
-							&::after {
-								transform: rotate(180deg);
-							}
+						&::after {
+							transform: rotate(180deg);
 						}
 					}
 				}
@@ -542,7 +552,7 @@
 
 		&-search {
 			&__field {
-				line-height: $line-height;
+				line-height: var(--line-height);
 			}
 		}
 
@@ -553,35 +563,39 @@
 		}
 
 		&-dropdown {
-			border-color: map.get($colors, "accent-main");
+			border-color: var(--color--green-1);
 			overflow: hidden;
 
 			&.select2-dropdown--below {
-				border-bottom-left-radius: #{$border-radius--xs};
-				border-bottom-right-radius: #{$border-radius--xs};
+				border-bottom-left-radius: var(--border-radius--xs);
+				border-bottom-right-radius: var(--border-radius--xs);
 			}
 
 			&.select2-dropdown--above {
-				border-top-left-radius: #{$border-radius--xs};
-				border-top-right-radius: #{$border-radius--xs};
+				border-top-left-radius: var(--border-radius--xs);
+				border-top-right-radius: var(--border-radius--xs);
 			}
 		}
 
 		&-results__option {
 			&--highlighted[data-selected] {
-				background-color: map.get($colors, "accent-pattern");
+				@include bg(green-2);
 			}
 
 			&[data-selected="true"] {
-				color: map.get($colors, "accent-main");
-				font-weight: bold;
+				@include color(green-1);
+				font-weight: var(--font-weight--bold);
 				background-color: transparent;
 			}
 		}
 	}
 
 	.coupon-error-notice {
-		@extend .woocommerce-error;
+		@include notice(
+			var(--color--red-3),
+			var(--color--red-2),
+			$icon: "../icons/icon-error.svg"
+		);
 	}
 
 	.join-group {

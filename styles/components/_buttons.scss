@@ -1,0 +1,167 @@
+// Button.
+@mixin button($style: primary, $scheme: light, $size: "") {
+	@include font-size(normal-sm);
+	--line-height: 1.15;
+	font-weight: var(--font-weight--bold);
+	display: inline-block;
+	text-align: center;
+	text-decoration: none;
+	border-radius: var(--border-radius);
+	background-color: transparent;
+	border-style: solid;
+	border-color: transparent;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+
+	@if $size == sm {
+		@include button-sm;
+	} @else {
+		padding: 0.85em 2em 0.95em;
+		border-width: 3px;
+	}
+
+	@if $style == primary {
+		@include button-primary($scheme);
+	}
+
+	@if $style == secondary {
+		@include button-secondary($scheme);
+	}
+
+	&[disabled] {
+		cursor: not-allowed;
+		opacity: 0.75;
+	}
+}
+
+@mixin button-sm {
+	padding: 0.65em 1.35em;
+	border-width: 2px;
+}
+
+@mixin button-primary($theme: light) {
+	@if $theme == light {
+		@include button-color(
+			$bg: var(--color--green-1),
+			$bg-hover: var(--color--green-2),
+			$color: white,
+			$hover-color: white
+		);
+	}
+
+	@if $theme == dark {
+		@include button-color(
+			$bg: white,
+			$bg-hover: var(--color--brown-7),
+			$color: var(--color--brown-4),
+			$hover-color: var(--color--brown-4)
+		);
+	}
+}
+
+@mixin button-secondary($theme: light) {
+	@if $theme == light {
+		@include button-color(
+			$bg: transparent,
+			$bg-hover: var(--color--green-2),
+			$color: var(--color--green-1),
+			$hover-color: white,
+			$border: true
+		);
+	}
+
+	@if $theme == dark {
+		@include button-color(
+			$bg: transparent,
+			$bg-hover: white,
+			$color: white,
+			$hover-color: var(--color--brown-4),
+			$border: true
+		);
+	}
+}
+
+@mixin button-color(
+	$bg,
+	$bg-hover: transparent,
+	$color: currentColor,
+	$hover-color: currentColor,
+	$border: false
+) {
+	background-image: linear-gradient(to right, $bg-hover 50%, $bg 50%);
+	color: $color;
+	background-size: calc(200% + 12px) calc(100% + 6px);
+	@include transition("color, background-position, box-shadow");
+	background-position: calc(100% + 3px);
+	box-shadow: none;
+
+	@if $border {
+		border-color: $bg-hover;
+	}
+
+	&:hover {
+		background-position: -3px;
+		color: $hover-color;
+		box-shadow: var(--shadow--1);
+	}
+
+	&:active {
+		opacity: 0.9;
+	}
+}
+
+// Icon button.
+@mixin icon-button {
+	--icon-button-size: 40px;
+
+	@include flex(center);
+	min-width: var(--icon-button-size);
+	height: var(--icon-button-size);
+	color: currentColor;
+	background-color: transparent;
+
+	svg {
+		opacity: 1;
+		@include transition(colors);
+	}
+
+	&:hover svg {
+		opacity: 0.5;
+	}
+
+	&:active svg,
+	&.active svg {
+		opacity: 1;
+		transition: none;
+	}
+}
+
+// Link.
+@mixin link {
+	display: inline;
+	font-weight: var(--font-weight--bold);
+	text-decoration: underline;
+	@include transition(colors);
+
+	&:hover {
+		@include color(red-1);
+	}
+}
+
+// @todo: Chocante - change to global class.
+.site-header,
+.mobile-menu,
+.search-products__form,
+.woocommerce-cart,
+.single-product,
+.join-group,
+.site-footer {
+	.button {
+		&,
+		.woocommerce & {
+			@include button;
+		}
+	}
+}
+// END TODO.

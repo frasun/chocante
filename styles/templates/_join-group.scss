@@ -1,12 +1,14 @@
 .join-group {
+	--background-color: var(--color--brown-4);
+	--text-color: white;
+
 	position: relative;
 	overflow: hidden;
 
 	&__wrapper {
-		@extend .scheme--primary;
 		color: var(--text-color);
 		background: var(--background-color) url(../images/pattern-main.png);
-		padding-top: $spacing--50;
+		padding-top: var(--spacing--50);
 		margin-top: 100px;
 
 		@include min-width($breakpoint--mobile-lg) {
@@ -21,21 +23,24 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		padding: 100px $spacing--20;
+		padding: 100px var(--spacing--20);
 
 		a {
-			@extend .button, .scheme--primary;
-			margin-top: $spacing--30;
+			@include button($scheme: dark);
+			margin-top: var(--spacing--30);
 		}
 	}
 
 	&__heading {
-		@extend .font-style--page-title;
-		padding-bottom: 0.5em;
+		@include font-style(page-title);
+
+		& {
+			padding-bottom: 0.5em;
+		}
 	}
 
 	&__subheading {
-		@extend .font-style--section-label;
+		@include font-style(section-label);
 	}
 
 	&__image {

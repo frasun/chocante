@@ -1,15 +1,15 @@
 html[chocante] {
-	@extend .bg--primary-main;
+	@include bg(brown-4);
 }
 
 body {
-	@extend .font--body;
-	@extend .color--text;
+	@include font(body);
+	@include color(grey-1);
 	background-color: white;
 	overflow-x: hidden;
 
 	// @todo: Chocnate - Bricks forge.
-	--brf-p-font-size: #{$font-size--normal};
-	@extend .font-size--normal;
+	--brf-p-font-size: var(--font-size--normal);
+	@include font-size(normal);
 	// END TODO.
 }

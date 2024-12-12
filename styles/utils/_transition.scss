@@ -1,14 +1,20 @@
-$transition-fn: ease-out;
-$transition-time: 0.35s;
-
-.transition {
-	transition-property: transform, opacity;
-	transition-duration: $transition-time;
-	transition-timing-function: $transition-fn;
+:root {
+	--transition-fn: ease-out;
+	--transition-time: 0.35s;
 }
 
-.transition--color {
-	transition-property: background-color, color, opacity, box-shadow;
-	transition-duration: $transition-time;
-	transition-timing-function: $transition-fn;
+@mixin transition($property: "transform, opacity") {
+	transition-duration: var(--transition-time);
+	transition-timing-function: var(--transition-fn);
+
+	@if $property == colors {
+		transition-property: background-color, color, opacity, box-shadow,
+			border-color;
+	} @else {
+		transition-property: unquote($property);
+	}
+}
+
+.transition {
+	@include transition;
 }

@@ -1,26 +1,74 @@
-@use "sass:map";
+@mixin notice(
+	$bg: var(--color--grey-5),
+	$color: var(--color--grey-1),
+	$icon: ""
+) {
+	--notice--background-color: #{$bg};
+	--notice--color: #{$color};
+
+	display: block;
+	border-radius: var(--border-radius);
+	padding: var(--spacing--15) var(--spacing--20);
+	@include font-size(small);
+	text-align: left;
+	list-style: none;
+	width: 100%;
+	background-color: var(--notice--background-color);
+	color: var(--notice--color);
+
+	@if $icon != "" {
+		@include notice-with-icon($icon);
+	}
+
+	a:not(.button) {
+		@include link;
+	}
+
+	.button {
+		@include link;
+
+		&,
+		&:hover {
+			background: none;
+			box-shadow: none;
+			color: inherit;
+			padding: 0;
+			border-radius: 0;
+			font-size: inherit;
+		}
+	}
+}
+
+@mixin notice-with-icon($url) {
+	--notice-icon-size: 24px;
+
+	background-image: url($url);
+	background-repeat: no-repeat;
+	background-position: var(--spacing--20);
+	background-size: var(--notice-icon-size);
+	padding-left: calc(
+		var(--spacing--20) + var(--notice-icon-size) + var(--spacing--10)
+	);
+}
 
 $notice-icon-size: 24px;
 
 .notice {
 	display: block;
-	@extend .border-radius--md;
-	padding: $spacing--15 $spacing--20;
-	@extend .font-size--small;
+	border-radius: var(--border-radius);
+	padding: var(--spacing--15) var(--spacing--20);
+	@include font-size(small);
 	text-align: left;
 	list-style: none;
 	width: 100%;
-	background-color: var(
-		--background-color,
-		map.get($colors, "primary-light-bg")
-	);
+	background-color: var(--background-color, var(--color--grey-5));
 
 	a:not(.button) {
-		@extend .link;
+		@include link;
 	}
 
 	.button {
-		@extend .link;
+		@include link;
 
 		&,
 		&:hover {
@@ -35,9 +83,11 @@ $notice-icon-size: 24px;
 
 	&--has-icon {
 		background-repeat: no-repeat;
-		background-position: $spacing--20;
+		background-position: var(--spacing--20);
 		background-size: $notice-icon-size;
-		padding-left: calc($spacing--20 + $notice-icon-size + $spacing--10);
+		padding-left: calc(
+			var(--spacing--20) + $notice-icon-size + var(--spacing--10)
+		);
 	}
 }
 
@@ -47,7 +97,7 @@ $notice-icon-size: 24px;
 	.woocommerce-notices-wrapper {
 		display: flex;
 		flex-direction: column;
-		gap: $spacing--20;
+		gap: var(--spacing--20);
 		width: 100%;
 
 		&:not(:empty) {
@@ -60,27 +110,24 @@ $notice-icon-size: 24px;
 
 		.woocommerce {
 			&-info,
-			&-message,
-			&-success,
-			&-error {
-				@extend .notice;
+			&-success {
+				@include notice;
 			}
 
 			&-message {
-				@extend .notice--has-icon;
-				background-image: url(../icons/icon-info.svg);
+				@include notice($icon: "../icons/icon-info.svg");
 
 				svg {
-					@extend .color--primary-contrast;
+					@include color(red-1);
 				}
 			}
 
 			&-error {
-				@extend .bg--error;
-				@extend .color--error-text;
-
-				@extend .notice--has-icon;
-				background-image: url(../icons/icon-error.svg);
+				@include notice(
+					var(--color--red-3),
+					var(--color--red-2),
+					$icon: "../icons/icon-error.svg"
+				);
 			}
 		}
 	}

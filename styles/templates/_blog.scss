@@ -2,7 +2,9 @@ body {
 	&.blog,
 	&.single-post {
 		.site-header {
-			@extend .scheme--primary-light;
+			--background-color: var(--color--brown-6);
+			--text-color-secondary: var(--color--grey-3);
+			--border-color: var(--color--grey-2);
 		}
 	}
 }

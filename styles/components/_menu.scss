@@ -5,27 +5,27 @@
 }
 
 .mobile-menu {
-	@extend .side-nav;
 	display: flex;
 	flex-direction: column;
-	gap: $spacing--20;
+	gap: var(--spacing--20);
+	@include side-nav;
 
 	&__nav {
-		gap: $spacing--15;
+		gap: var(--spacing--15);
 
 		> li {
 			> a {
-				font-family: $font-family--headings;
-				font-weight: $font-weight--headings;
+				font-family: var(--font-family--headings);
+				font-weight: var(--font-weight--normal);
 				font-size: 40px;
 				line-height: 1.125;
 				letter-spacing: 0.05em;
-				padding: $spacing--10 0;
+				padding: var(--spacing--10) 0;
 				display: block;
 			}
 
 			> ul {
-				padding-bottom: $spacing--10;
+				padding-bottom: var(--spacing--10);
 			}
 		}
 	}
@@ -33,9 +33,9 @@
 	&__nav,
 	&__after-nav {
 		a {
-			font-weight: 600;
-			font-size: $font-size--medium;
-			padding: $spacing--10 0;
+			font-weight: var(--font-weight--semibold);
+			font-size: var(--font-size--medium);
+			padding: var(--spacing--10) 0;
 			display: block;
 		}
 
@@ -52,18 +52,18 @@
 	&__top {
 		display: flex;
 		align-items: start;
-		gap: $spacing--20;
+		gap: var(--spacing--20);
 
 		.wpml-ls-legacy-dropdown,
 		.wpml-ls-legacy-dropdown-click,
 		.wcml-dropdown,
 		.wcml-dropdown-click {
 			a {
-				@extend .font-size--medium;
+				@include font-size(medium);
 
 				&.wpml-ls-item-toggle,
 				&.wcml-cs-item-toggle {
-					@extend .font-size--normal;
+					@include font-size(normal);
 				}
 			}
 
@@ -85,6 +85,6 @@
 		flex-grow: 1;
 		display: flex;
 		justify-content: end;
-		gap: $spacing--20;
+		gap: var(--spacing--20);
 	}
 }

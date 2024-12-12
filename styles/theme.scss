@@ -8,43 +8,43 @@
 @import "utils/shadows";
 @import "utils/z-index";
 @import "utils/transition";
-@import "utils/buttons";
 @import "utils/border-radius";
 @import "utils/icons";
-@import "utils/inputs";
-
-// 3rd party plugins.
-@import "@splidejs/splide/css/core";
-@import "plugins/omnibus";
-@import "plugins/free-shipping";
-@import "plugins/photoswipe";
-@import "plugins/delivery-time";
-@import "plugins/flexible-shipping";
-@import "plugins/cwg-instock";
 
 // Components.
+@import "components/buttons";
+@import "components/inputs";
 @import "components/modal";
 @import "components/dropdown";
-@import "components/mini-cart";
-@import "components/product-search";
 @import "components/menu";
-@import "components/currency-language-switcher";
 @import "components/notices";
-@import "components/product-section";
 @import "components/empty-screen";
-@import "components/cart";
+@import "components/product-section";
 @import "components/badge";
 @import "components/spinner";
 @import "components/breadcrumbs";
 @import "components/quantity-input";
 @import "components/price";
 @import "components/infobox";
+@import "@splidejs/splide/css/core";
+@import "components/remove";
 
 // Templates.
 @import "templates/body";
 @import "templates/header";
+@import "templates/mini-cart";
+@import "templates/product-search";
 @import "templates/blog";
 @import "templates/cart";
 @import "templates/single-product";
 @import "templates/join-group";
 @import "templates/footer";
+
+// 3rd party plugins.
+@import "plugins/omnibus";
+@import "plugins/free-shipping";
+@import "plugins/photoswipe";
+@import "plugins/delivery-time";
+@import "plugins/flexible-shipping";
+@import "plugins/currency-language-switcher";
+@import "plugins/cwg-instock";

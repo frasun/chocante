@@ -2,57 +2,63 @@ $slider-navigation-size: 50px;
 
 .product-section {
 	background-color: white;
-	padding-top: $spacing--30;
-	padding-bottom: $spacing--30;
+	padding-top: var(--spacing--30);
+	padding-bottom: var(--spacing--30);
 	overflow: hidden;
 	min-height: 500px;
 
 	@include min-width($breakpoint--desktop) {
-		padding: $spacing--40 0;
+		padding: var(--spacing--40) 0;
 	}
 
 	&__header {
-		@extend .container;
 		display: flex;
-		gap: $spacing--20;
+		gap: var(--spacing--20);
 		align-items: end;
-		padding-bottom: $spacing--20;
-		padding-top: $spacing--15;
+		padding-bottom: var(--spacing--20);
+		padding-top: var(--spacing--15);
+		@include container();
 
 		a {
-			@extend .button, .button--secondary, .scheme--light;
+			@include button(secondary);
 			flex-shrink: 0;
-			@extend .hide--mobile;
+			@include hide(mobile);
 		}
 	}
 
 	&__heading {
-		@extend .font-style--page-title;
-		padding: 0;
-		flex-grow: 1;
+		@include font-style(page-title);
+
+		& {
+			padding: 0;
+			flex-grow: 1;
+		}
 
 		span {
-			@extend .font-style--section-label;
-			@extend .color--text-light;
+			@include font-style(section-label);
+			@include color(grey-2);
 			display: block;
 			padding-bottom: 0.75em;
 		}
 	}
 
 	&__empty {
-		@extend .empty-screen;
-		min-height: 300px;
-		position: relative;
+		@include empty-screen;
+
+		& {
+			min-height: 300px;
+			position: relative;
+		}
 	}
 
 	&__spinner {
-		@extend .flex--center;
+		@include flex(center);
 		min-height: 300px;
 	}
 
 	.splide {
-		padding-left: $spacing--20;
-		padding-right: $spacing--20;
+		padding-left: var(--spacing--20);
+		padding-right: var(--spacing--20);
 
 		&.is-initialized {
 			.product {
@@ -65,15 +71,15 @@ $slider-navigation-size: 50px;
 		}
 
 		&__track {
-			@extend .container;
 			padding-left: 0;
 			padding-right: 0;
-			padding-top: $spacing--10;
+			padding-top: var(--spacing--10);
 			overflow: visible;
+			@include container();
 
 			@include min-width($breakpoint--desktop) {
-				padding-top: $spacing--20;
-				padding-bottom: $spacing--20;
+				padding-top: var(--spacing--20);
+				padding-bottom: var(--spacing--20);
 			}
 		}
 
@@ -81,14 +87,14 @@ $slider-navigation-size: 50px;
 			width: $slider-navigation-size;
 			height: $slider-navigation-size;
 			border-radius: 50%;
-			@extend .bg--accent-main;
+			@include bg(green-1);
 			color: white;
-			@extend .flex--center;
+			@include flex(center);
 			position: absolute;
 			top: 100%;
 			z-index: 10;
-			@extend .transition--color;
-			margin-top: $spacing--15;
+			@include transition(colors);
+			margin-top: var(--spacing--15);
 
 			@include min-width($breakpoint--desktop + $slider-navigation-size) {
 				top: 50%;
@@ -96,14 +102,14 @@ $slider-navigation-size: 50px;
 			}
 
 			svg {
-				@extend .transition;
+				@include transition;
 			}
 
 			&:hover {
-				@extend .shadow--natural;
+				box-shadow: var(--shadow--1);
 
 				&:not(:active) {
-					@extend .bg--accent-pattern;
+					@include bg(green-2);
 
 					svg {
 						transform: scale(1.25);
@@ -141,20 +147,19 @@ $slider-navigation-size: 50px;
 		&__pagination {
 			display: flex;
 			justify-content: center;
-			padding: $spacing--30 70px 0;
-			gap: $spacing--10;
+			padding: var(--spacing--30) 70px 0;
+			gap: var(--spacing--10);
 
 			&__page {
 				width: 5px;
 				height: 5px;
 				border-radius: 2px;
-				@extend .transition--color;
-				transition-property: bacground-color, width;
-				@extend .bg--accent-main;
+				@include transition("background-color, width");
+				@include bg(green-1);
 				cursor: default;
 
 				&.is-active {
-					background-color: map-get($colors, "grey-inactive");
+					@include bg(grey-3);
 					width: 25px;
 				}
 			}
@@ -162,7 +167,7 @@ $slider-navigation-size: 50px;
 	}
 
 	.product {
-		@extend .transition--color;
+		@include transition(colors);
 		transition-timing-function: ease-in;
 
 		@include max-width($breakpoint--desktop-md) {
@@ -176,28 +181,28 @@ $slider-navigation-size: 50px;
 		.woocommerce {
 			&-loop-product {
 				&__title {
-					@extend .font-size--medium-sm;
-					font-weight: bold;
-					@extend .color--primary-main;
+					@include font-size(medium-sm);
+					font-weight: var(--font-weight--bold);
+					@include color(brown-4);
 					margin: 0 0 0.2em;
 
 					// @todo: Chocante - Bricks.
-					@extend .font--body;
+					font-family: var(--font-family--body);
 					letter-spacing: normal;
 					// END TODO.
 				}
 
 				&__link {
-					@extend .border-radius--md;
-					@extend .transition--color;
+					border-radius: var(--border-radius);
+					@include transition(colors);
 					overflow: hidden;
 					background-color: white;
-					border: 1px solid map-get($colors, "grey-light");
+					@include border(grey-4);
 					position: relative;
 					display: block;
 
 					&:hover {
-						@extend .shadow--deep;
+						box-shadow: var(--shadow--2);
 
 						img {
 							transform: translateY(-2%);
@@ -209,14 +214,14 @@ $slider-navigation-size: 50px;
 					}
 
 					img {
-						@extend .transition;
+						@include transition;
 						transform: translateY(0);
 					}
 
 					.onsale {
 						position: absolute;
-						left: $spacing--20;
-						top: $spacing--15;
+						left: var(--spacing--20);
+						top: var(--spacing--15);
 						z-index: 10;
 					}
 				}
@@ -228,18 +233,18 @@ $slider-navigation-size: 50px;
 					top: 5px;
 					z-index: -1;
 					transform: translateY(-100%);
-					padding: $spacing--10 $spacing--20 $spacing--15;
+					padding: var(--spacing--10) var(--spacing--20) var(--spacing--15);
 					background: white;
 
 					&-wrapper {
-						padding: $spacing--5 $spacing--20 $spacing--20;
+						padding: var(--spacing--5) var(--spacing--20) var(--spacing--20);
 						display: flex;
 						flex-direction: column;
-						gap: $spacing--10;
+						gap: var(--spacing--10);
 						align-items: start;
 						position: relative;
 						transform: translateY(100%);
-						@extend .transition;
+						@include transition;
 						background-color: white;
 						margin-top: 2em;
 					}
@@ -247,7 +252,7 @@ $slider-navigation-size: 50px;
 
 				&__type {
 					display: block;
-					font-size: $font-size--normal-sm;
+					font-size: var(--font-size--normal-sm);
 					line-height: 1.15;
 					padding-top: 0.2em;
 				}
@@ -255,7 +260,7 @@ $slider-navigation-size: 50px;
 		}
 
 		&.outofstock .button {
-			@extend .button--secondary, .scheme--light;
+			@include button(secondary);
 		}
 	}
 }

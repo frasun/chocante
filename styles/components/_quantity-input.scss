@@ -3,7 +3,7 @@
 
 	&:hover {
 		input.qty {
-			@extend .shadow--deep;
+			box-shadow: var(--shadow--2);
 		}
 	}
 
@@ -14,36 +14,39 @@
 	}
 
 	input.qty {
-		@extend .input;
-		padding: $spacing--10 calc($spacing--20 + 24px);
-		overflow: hidden;
-		text-overflow: ellipsis;
-		text-align: center;
-		-moz-appearance: textfield;
+		@include input;
 
-		&::-webkit-outer-spin-button,
-		&::-webkit-inner-spin-button {
-			-webkit-appearance: none;
-			margin: 0;
-		}
+		& {
+			padding: var(--spacing--10) calc(var(--spacing--20) + 24px);
+			overflow: hidden;
+			text-overflow: ellipsis;
+			text-align: center;
+			-moz-appearance: textfield;
 
-		@include min-width($breakpoint--mobile-lg) {
-			padding-top: $spacing--15;
-			padding-bottom: $spacing--15;
+			&::-webkit-outer-spin-button,
+			&::-webkit-inner-spin-button {
+				-webkit-appearance: none;
+				margin: 0;
+			}
+
+			@include min-width($breakpoint--mobile-lg) {
+				padding-top: var(--spacing--15);
+				padding-bottom: var(--spacing--15);
+			}
 		}
 	}
 
 	button {
-		@extend .flex--center;
+		@include flex(center);
 		background: transparent;
-		@extend .transition--color;
+		@include transition(colors);
 		width: 24px;
 		height: 24px;
-		@extend .color--accent-main;
+		@include color(green-1);
 		opacity: 1;
 
 		&:hover {
-			@extend .color--primary-contrast;
+			@include color(red-1);
 
 			&:active {
 				transition: none;
@@ -59,11 +62,11 @@
 	}
 
 	&__plus {
-		right: $spacing--10;
+		right: var(--spacing--10);
 	}
 
 	&__minus {
-		left: $spacing--10;
+		left: var(--spacing--10);
 	}
 
 	// @todo: Chocante - Remove after switching from Bricks.

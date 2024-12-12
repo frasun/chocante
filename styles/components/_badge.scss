@@ -1,12 +1,12 @@
-.badge {
-	padding: $spacing--5 $spacing--10;
-	@extend .border-radius--s;
-	@extend .bg--primary-contrast;
+@mixin badge {
+	padding: var(--spacing--5) var(--spacing--10);
+	border-radius: var(--border-radius--sm);
+	@include bg(red-1);
 	letter-spacing: 0.2em;
 	text-transform: uppercase;
-	@extend .font--labels;
-	@extend .font-size--x-small;
-	line-height: 1;
+	@include font(labels);
+	@include font-size(x-small);
+	--line-height: 1;
 	color: white;
 
 	// @todo: Chocante - Bricks feature verify?
@@ -16,6 +16,7 @@
 	// END TODO.
 }
 
+.badge,
 .onsale {
-	@extend .badge;
+	@include badge;
 }

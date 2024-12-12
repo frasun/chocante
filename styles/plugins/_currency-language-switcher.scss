@@ -1,5 +1,3 @@
-@use "sass:map";
-
 .wpml-ls-legacy-dropdown,
 .wpml-ls-legacy-dropdown-click,
 .wcml-dropdown,
@@ -11,20 +9,20 @@
 .wpml-ls-legacy-dropdown-click .wpml-ls-sub-menu,
 .wcml-dropdown .wcml-cs-submenu,
 .wcml-dropdown-click .wcml-cs-submenu {
-	@extend .dropdown;
+	@include dropdown;
 
-	padding-top: $spacing--10;
-	padding-bottom: $spacing--10;
+	padding-top: var(--spacing--10);
+	padding-bottom: var(--spacing--10);
 	width: fit-content;
 	margin-left: -5px;
 	overflow-y: auto;
 
 	a {
-		font-weight: 600;
-		@extend .color--primary-main;
+		font-weight: var(--font-weight--semibold);
+		@include color(brown-4);
 		display: flex;
-		gap: $spacing--5;
-		padding: $spacing--10 $spacing--20;
+		gap: var(--spacing--5);
+		padding: var(--spacing--10) var(--spacing--20);
 
 		&:hover {
 			text-decoration: underline;
@@ -78,20 +76,20 @@
 .wcml-dropdown a.wcml-cs-item-toggle,
 .wcml-dropdown-click a.wcml-cs-item-toggle {
 	text-transform: uppercase;
-	font-weight: bold;
-	color: var(--text-color-secondary, map.get($colors, "primary-light"));
-	@extend .transition--color;
-	padding: $spacing--10 $spacing--15;
+	font-weight: var(--font-weight--bold);
+	color: var(--text-color-secondary, var(--color--brown-6));
+	@include transition(colors);
+	padding: var(--spacing--10) var(--spacing--15);
 	display: flex;
-	gap: $spacing--10;
+	gap: var(--spacing--10);
 	align-items: baseline;
 
 	&::after {
-		@include icon-font();
+		@include icon-font;
 		content: "\0041";
 		border: 0;
 		position: static;
-		@extend .transition;
+		@include transition;
 		font-size: 0.75em;
 	}
 }
