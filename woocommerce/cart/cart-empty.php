@@ -16,6 +16,8 @@
  */
 
 defined( 'ABSPATH' ) || exit;
+
+do_action( 'woocommerce_cart_is_empty' );
 ?>
 
 <div class="wc-empty-cart-message empty-screen">
