@@ -1,0 +1,85 @@
+/* Forms */
+// @todo: Chocante - change to global class.
+.site-header,
+.mobile-menu,
+.search-products__form,
+.woocommerce-cart,
+.single-product,
+.join-group,
+.site-footer {
+	.button {
+		&,
+		.woocommerce & {
+			// Button not inside notice.
+			&:not(.wc-forward) {
+				@include button;
+			}
+		}
+	}
+}
+// END TODO.
+
+// Notice.
+// @todo Chocante - Bricks, remove cart class.
+.woocommerce-notices-wrapper {
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing--20);
+	width: 100%;
+
+	&:not(:empty) {
+		margin: 0;
+	}
+
+	&:empty {
+		display: none;
+	}
+
+	.woocommerce {
+		&-info,
+		&-success {
+			@include notice;
+		}
+
+		&-message {
+			@include notice($icon: "../icons/icon-info.svg");
+
+			svg {
+				@include color(red-1);
+			}
+		}
+
+		&-error {
+			@include notice(
+				var(--color--red-3),
+				var(--color--red-2),
+				$icon: "../icons/icon-error.svg"
+			);
+		}
+	}
+}
+// END TODO.
+
+// Transition.
+.transition {
+	@include transition;
+}
+
+/* Forms */
+// Label.
+// @todo: Chocante - Bricks.
+label {
+	color: currentColor;
+	font-weight: var(--font-weight--normal);
+}
+// END TODO.
+
+// Select.
+select {
+	background-image: url(../images/select-arrow.svg);
+	background-repeat: no-repeat;
+	background-position: calc(100% - 13px) center;
+	background-size: 12px 8px;
+	padding-right: 40px;
+	@include color(grey-1);
+}

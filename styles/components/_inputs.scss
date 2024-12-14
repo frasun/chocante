@@ -21,13 +21,9 @@
 		border-radius: var(--border-radius--md);
 		--line-height: 1.25;
 	} @else {
-		padding: var(--spacing--10) var(--spacing--20);
+		padding: var(--spacing--15) var(--spacing--20);
 		border-radius: var(--border-radius);
 		--line-height: 1.2;
-
-		@include min-width($breakpoint--mobile-lg) {
-			padding: var(--spacing--15) var(--spacing--20);
-		}
 	}
 
 	&:hover {
@@ -90,22 +86,4 @@
 		cursor: pointer;
 		@include font-size(normal-sm);
 	}
-}
-
-// Label.
-// @todo: Chocante - Bricks.
-label {
-	color: currentColor;
-	font-weight: var(--font-weight--normal);
-}
-// END TODO.
-
-// Select.
-select {
-	background-image: url(../images/select-arrow.svg);
-	background-repeat: no-repeat;
-	background-position: calc(100% - 13px) center;
-	background-size: 12px 8px;
-	padding-right: 40px;
-	@include color(grey-1);
 }

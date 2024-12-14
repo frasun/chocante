@@ -1,6 +1,6 @@
 <?php
 /**
- * Chocante WooCommerce ACF
+ * Chocante ACF
  *
  * @package Chocante
  */
@@ -8,9 +8,9 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * The Chocante_Woocommerce_ACF class.
+ * Chocante_ACF class.
  */
-class Chocante_Woocommerce_ACF {
+class Chocante_ACF {
 	const ACF_PRODUCT_TITLE = 'tekst_przed_tytulem';
 	const ACF_PRODUCT_TYPE  = 'tekst_po_tytule';
 
@@ -18,7 +18,7 @@ class Chocante_Woocommerce_ACF {
 	 * Init hooks.
 	 */
 	public static function init() {
-		// Product custom title.
+		// Cart & mini-cart.
 		add_filter( 'woocommerce_cart_item_name', array( self::class, 'get_custom_product_title' ), 10, 2 );
 
 		// Product loop item.

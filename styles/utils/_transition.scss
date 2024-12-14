@@ -1,8 +1,3 @@
-:root {
-	--transition-fn: ease-out;
-	--transition-time: 0.35s;
-}
-
 @mixin transition($property: "transform, opacity") {
 	transition-duration: var(--transition-time);
 	transition-timing-function: var(--transition-fn);
@@ -13,8 +8,4 @@
 	} @else {
 		transition-property: unquote($property);
 	}
-}
-
-.transition {
-	@include transition;
 }

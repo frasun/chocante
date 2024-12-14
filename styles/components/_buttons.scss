@@ -29,9 +29,10 @@
 		@include button-secondary($scheme);
 	}
 
-	&[disabled] {
+	&[disabled],
+	&.disabled {
 		cursor: not-allowed;
-		opacity: 0.75;
+		opacity: 0.5;
 	}
 }
 
@@ -92,7 +93,7 @@
 	background-image: linear-gradient(to right, $bg-hover 50%, $bg 50%);
 	color: $color;
 	background-size: calc(200% + 12px) calc(100% + 6px);
-	@include transition("color, background-position, box-shadow");
+	@include transition("color, background-position, box-shadow, opacity");
 	background-position: calc(100% + 3px);
 	box-shadow: none;
 
@@ -100,14 +101,16 @@
 		border-color: $bg-hover;
 	}
 
-	&:hover {
-		background-position: -3px;
-		color: $hover-color;
-		box-shadow: var(--shadow--1);
-	}
+	&:not(.disabled):not([disabled]) {
+		&:hover {
+			background-position: -3px;
+			color: $hover-color;
+			box-shadow: var(--shadow--1);
+		}
 
-	&:active {
-		opacity: 0.9;
+		&:active {
+			opacity: 0.9;
+		}
 	}
 }
 
@@ -148,20 +151,3 @@
 		@include color(red-1);
 	}
 }
-
-// @todo: Chocante - change to global class.
-.site-header,
-.mobile-menu,
-.search-products__form,
-.woocommerce-cart,
-.single-product,
-.join-group,
-.site-footer {
-	.button {
-		&,
-		.woocommerce & {
-			@include button;
-		}
-	}
-}
-// END TODO.

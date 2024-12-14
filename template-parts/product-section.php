@@ -11,7 +11,7 @@ $heading    = isset( $args['heading'] ) ? $args['heading'] : __( 'Related produc
 $subheading = isset( $args['subheading'] ) ? $args['subheading'] : null;
 $cta_link   = isset( $args['cta_link'] ) ? $args['cta_link'] : null;
 ?>
-<aside class="product-section product-section--<?php echo esc_attr( wp_rand() ); ?>"<?php Chocante_WooCommerce::output_product_section_atts( $args ); ?>>
+<aside class="product-section product-section--<?php echo esc_attr( wp_rand() ); ?>"<?php Chocante_Product_Section::output_product_section_atts( $args ); ?>>
 	<header class="product-section__header">
 		<h3 class="product-section__heading">
 			<?php if ( isset( $subheading ) ) : ?>		

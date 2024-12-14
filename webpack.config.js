@@ -12,11 +12,13 @@ module.exports = {
 	...defaultConfig,
 	...{
 		entry: {
-			'styles': path.resolve(process.cwd(), 'styles', 'theme.scss'),
-			'scripts': path.resolve(process.cwd(), 'scripts', 'theme.js'),
-			'cart': path.resolve(process.cwd(), 'scripts', 'cart.js'),
-			'single-product': path.resolve(process.cwd(), 'scripts', 'single-product.js'),
+			'chocante': path.resolve(process.cwd(), 'styles', 'theme.scss'),
+			'chocante-scripts': path.resolve(process.cwd(), 'scripts', 'theme.js'),
 			'product-section': path.resolve(process.cwd(), 'scripts', 'product-section.js'),
+			'cart': path.resolve(process.cwd(), 'styles', 'cart.scss'),
+			'cart-scripts': path.resolve(process.cwd(), 'scripts', 'cart.js'),
+			'single-product': path.resolve(process.cwd(), 'styles', 'single-product.scss'),
+			'single-product-scripts': path.resolve(process.cwd(), 'scripts', 'single-product.js'),
 		},
 		plugins: [
 			// Include WP's plugin config.

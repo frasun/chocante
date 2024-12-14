@@ -2,14 +2,8 @@
 @import "utils/reset";
 
 // Theme variables & utility classes.
-@import "utils/layout";
-@import "utils/colors";
-@import "utils/fonts";
-@import "utils/shadows";
-@import "utils/z-index";
-@import "utils/transition";
-@import "utils/border-radius";
-@import "utils/icons";
+@import "utils/mixins";
+@import "utils/variables";
 
 // Components.
 @import "components/buttons";
@@ -22,7 +16,6 @@
 @import "components/product-section";
 @import "components/badge";
 @import "components/spinner";
-@import "components/breadcrumbs";
 @import "components/quantity-input";
 @import "components/price";
 @import "components/infobox";
@@ -31,20 +24,14 @@
 
 // Templates.
 @import "templates/body";
+@import "templates/common";
 @import "templates/header";
 @import "templates/mini-cart";
 @import "templates/product-search";
 @import "templates/blog";
-@import "templates/cart";
-@import "templates/single-product";
 @import "templates/join-group";
 @import "templates/footer";
 
 // 3rd party plugins.
 @import "plugins/omnibus";
-@import "plugins/free-shipping";
-@import "plugins/photoswipe";
-@import "plugins/delivery-time";
-@import "plugins/flexible-shipping";
 @import "plugins/currency-language-switcher";
-@import "plugins/cwg-instock";

@@ -22,12 +22,6 @@ $colors: (
 	"grey-5": var(--wp--preset--color--bronze-light-bg, #f8f6f4),
 );
 
-:root {
-	@each $color, $value in $colors {
-		--color--#{$color}: #{$value};
-	}
-}
-
 @mixin color($color) {
 	color: map.get($colors, $color);
 }

@@ -19,23 +19,6 @@ $breakpoint--desktop-lg: 1440px;
 	}
 }
 
-// Spacing.
-:root {
-	--spacing--5: var(--wp--preset--spacing--5, 5px);
-	--spacing--10: var(--wp--preset--spacing--10, 10px);
-	--spacing--15: var(--wp--preset--spacing--15, 15px);
-	--spacing--20: var(--wp--preset--spacing--20, 20px);
-	--spacing--30: var(--wp--preset--spacing--30, 30px);
-	--spacing--40: var(--wp--preset--spacing--40, 40px);
-	--spacing--50: var(--wp--preset--spacing--50, 50px);
-}
-
-// Content size.
-:root {
-	--size--container: var(--wp--style--global--wide-size, 1180px);
-	--size--content: var(--wp--style--global--content-size, 768px);
-}
-
 @mixin container($type: "") {
 	width: 100%;
 	margin: auto;

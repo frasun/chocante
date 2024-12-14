@@ -1,0 +1,68 @@
+:root {
+	// Z-index.
+	--z-index--dropdown: 1000;
+	--z-index--overlay: 2000;
+	--z-index--modal-backdrop: 2999;
+	--z-index--modal: 3000;
+	// Transition.
+	--transition-fn: ease-out;
+	--transition-time: 0.35s;
+	// Shadows.
+	@for $i from 1 through length($shadows) {
+		--shadow--#{$i}: #{nth($shadows, $i)};
+	}
+	// Spacing.
+	--spacing--5: var(--wp--preset--spacing--5, 5px);
+	--spacing--10: var(--wp--preset--spacing--10, 10px);
+	--spacing--15: var(--wp--preset--spacing--15, 15px);
+	--spacing--20: var(--wp--preset--spacing--20, 20px);
+	--spacing--30: var(--wp--preset--spacing--30, 30px);
+	--spacing--40: var(--wp--preset--spacing--40, 40px);
+	--spacing--50: var(--wp--preset--spacing--50, 50px);
+	// Content size.
+	--size--container: var(--wp--style--global--wide-size, 1180px);
+	--size--content: var(--wp--style--global--content-size, 768px);
+	// Line height.
+	--line-height: 1.5;
+	// Font family.
+	--font-family--body: var(
+		--wp--preset--font-family--body,
+		#{$font-family--body-default}
+	);
+	--font-family--headings: var(
+		--wp--preset--font-family--headings,
+		#{$font-family--headings-default}
+	);
+	// Font weight.
+	--font-weight--normal: 500;
+	--font-weight--semibold: 600;
+	--font-weight--bold: 700;
+	// Font size.
+	--font-size--huge: var(
+		--wp--preset--font-size--huge,
+		clamp(50px, 3.125rem + ((1vw - 6px) * 4.762), 90px)
+	);
+	--font-size--x-large: var(
+		--wp--preset--font-size--x-large,
+		clamp(30px, 1.875rem + ((1vw - 6px) * 2.381), 50px)
+	);
+	--font-size--large: var(--wp--preset--font-size--large, 30px);
+	--font-size--big: var(--wp--preset--font-size--big, 24px);
+	--font-size--medium: var(--wp--preset--font-size--medium, 20px);
+	--font-size--medium-sm: var(--wp--preset--font-size--medium-sm, 18px);
+	--font-size--normal: var(--wp--preset--font-size--normal, 16px);
+	--font-size--normal-sm: var(--wp--preset--font-size--normal-sm, 15px);
+	--font-size--small: var(--wp--preset--font-size--small, 14px);
+	--font-size--small-sm: var(--wp--preset--font-size--small-sm, 13px);
+	--font-size--x-small: var(--wp--preset--font-size--x-small, 12px);
+	// Colors.
+	@each $color, $value in $colors {
+		--color--#{$color}: #{$value};
+	}
+	// Border radius.
+	--border-radius--lg: 30px;
+	--border-radius: 25px;
+	--border-radius--md: 20px;
+	--border-radius--sm: 10px;
+	--border-radius--xs: 5px;
+}

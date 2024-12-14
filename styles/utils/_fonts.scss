@@ -1,8 +1,3 @@
-// Line height.
-:root {
-	--line-height: 1.5;
-}
-
 // Font family.
 $font-family--body-default:
 	Montserrat,
@@ -25,17 +20,6 @@ $font-family--headings-default:
 	Source Serif Pro,
 	serif;
 
-:root {
-	--font-family--body: var(
-		--wp--preset--font-family--body,
-		#{$font-family--body-default}
-	);
-	--font-family--headings: var(
-		--wp--preset--font-family--headings,
-		#{$font-family--headings-default}
-	);
-}
-
 @mixin font($family) {
 	@if $family == body {
 		font-family: var(--font-family--body);
@@ -51,34 +35,6 @@ $font-family--headings-default:
 		font-family: var(--font-family--body);
 		font-weight: var(--font-weight--semibold);
 	}
-}
-
-// Font weight.
-:root {
-	--font-weight--normal: 500;
-	--font-weight--semibold: 600;
-	--font-weight--bold: 700;
-}
-
-// Font size.
-:root {
-	--font-size--huge: var(
-		--wp--preset--font-size--huge,
-		clamp(50px, 3.125rem + ((1vw - 6px) * 4.762), 90px)
-	);
-	--font-size--x-large: var(
-		--wp--preset--font-size--x-large,
-		clamp(30px, 1.875rem + ((1vw - 6px) * 2.381), 50px)
-	);
-	--font-size--large: var(--wp--preset--font-size--large, 30px);
-	--font-size--big: var(--wp--preset--font-size--big, 24px);
-	--font-size--medium: var(--wp--preset--font-size--medium, 20px);
-	--font-size--medium-sm: var(--wp--preset--font-size--medium-sm, 18px);
-	--font-size--normal: var(--wp--preset--font-size--normal, 16px);
-	--font-size--normal-sm: var(--wp--preset--font-size--normal-sm, 15px);
-	--font-size--small: var(--wp--preset--font-size--small, 14px);
-	--font-size--small-sm: var(--wp--preset--font-size--small-sm, 13px);
-	--font-size--x-small: var(--wp--preset--font-size--x-small, 12px);
 }
 
 @mixin font-size($size) {

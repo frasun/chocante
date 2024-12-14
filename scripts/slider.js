@@ -35,7 +35,7 @@ export default class Slider {
 
   initSlider() {
     const sliderType = this.getSliderType();
-    const wrapper = document.querySelector(this.wrapperClass);
+    const wrapper = document.querySelector(this.sliderClass);
     const labels = 'aria' in wrapper.dataset ? wrapper.dataset.aria : undefined;
 
     if (this.slider) {

@@ -8,7 +8,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * The Chocante class.
+ * Chocante class.
  */
 class Chocante {
 	/**
@@ -30,25 +30,21 @@ class Chocante {
 		// add_filter( 'nav_menu_submenu_css_class', array( self::class, 'set_submenu_class' ) );?
 		if ( ! is_admin() ) {
 			add_action( 'wp_footer', array( self::class, 'output_mobile_menu' ), 20 );
+			add_filter( 'nav_menu_item_title', array( self::class, 'social_media_icons' ), 10, 3 );
 		}
-		add_filter( 'nav_menu_item_title', array( self::class, 'social_media_icons' ), 10, 3 );
 
 		// Footer.
 		add_action( 'chocante_before_footer', array( self::class, 'display_join_group' ) );
 
 		// Images.
-		add_filter( 'wp_get_attachment_image_attributes', array( self::class, 'set_image_lazy_loading' ) );
+		if ( ! is_admin() ) {
+			add_filter( 'wp_get_attachment_image_attributes', array( self::class, 'set_image_lazy_loading' ) );
+		}
 
 		// WooCommerce.
 		if ( class_exists( 'WooCommerce' ) && function_exists( 'WC' ) ) {
-			require plugin_dir_path( __FILE__ ) . 'class-chocante-woocommerce.php';
+			require_once __DIR__ . '/class-chocante-woocommerce.php';
 			Chocante_WooCommerce::init();
-
-			// WooCommerce ACF.
-			if ( class_exists( 'ACF' ) ) {
-				require plugin_dir_path( __FILE__ ) . 'class-chocante-woocommerce-acf.php';
-				Chocante_WooCommerce_ACF::init();
-			}
 		}
 	}
 
@@ -121,20 +117,20 @@ class Chocante {
 	 * Enqueue scripts & styles
 	 */
 	public static function enqueue_scripts() {
-		$styles = include get_stylesheet_directory() . '/build/styles.asset.php';
+		$styles = include get_stylesheet_directory() . '/build/chocante.asset.php';
 
 		wp_enqueue_style(
-			'chocante',
-			get_stylesheet_directory_uri() . '/build/styles.css',
+			'chocante-css',
+			get_stylesheet_directory_uri() . '/build/chocante.css',
 			$styles['dependencies'],
 			$styles['version'],
 		);
 
-		$scripts = include get_stylesheet_directory() . '/build/scripts.asset.php';
+		$scripts = include get_stylesheet_directory() . '/build/chocante-scripts.asset.php';
 
 		wp_enqueue_script(
-			'chocante',
-			get_stylesheet_directory_uri() . '/build/scripts.js',
+			'chocante-js',
+			get_stylesheet_directory_uri() . '/build/chocante-scripts.js',
 			array_merge( $scripts['dependencies'], array( 'wc-cart-fragments' ) ),
 			$scripts['version'],
 			array(
@@ -286,13 +282,7 @@ class Chocante {
 	 * Display join Facebook group section
 	 */
 	public static function display_join_group() {
-		if ( class_exists( 'WooCommerce' ) && function_exists( 'WC' ) ) {
-			if ( ! ( is_checkout() || is_account_page() ) ) {
-				get_template_part( 'template-parts/join', 'group' );
-			}
-		} else {
-			get_template_part( 'template-parts/join', 'group' );
-		}
+		get_template_part( 'template-parts/join', 'group' );
 	}
 
 	/**
