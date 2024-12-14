@@ -147,9 +147,9 @@ class Chocante {
 		// Header Top Nav.
 		register_sidebar(
 			array(
-				'name'           => __( 'Header - top', 'chocante' ),
+				'name'           => _x( 'Header - top', 'admin', 'chocante' ),
 				'id'             => 'header-top',
-				'description'    => __( 'Widgets in this area will be shown in the top part of header.', 'chocante' ),
+				'description'    => _x( 'Widgets in this area will be shown in the top part of header.', 'admin', 'chocante' ),
 				'before_widget'  => '',
 				'after_widget'   => '',
 				'before_sidebar' => '<aside class="site-header__top">',
@@ -159,9 +159,9 @@ class Chocante {
 
 		register_sidebar(
 			array(
-				'name'           => __( 'Mobile menu - after main menu', 'chocante' ),
+				'name'           => _x( 'Mobile menu - after main menu', 'admin', 'chocante' ),
 				'id'             => 'mobile-menu-after-nav',
-				'description'    => __( 'Widgets in this area will be shown in mobile menu after main navigation menu.', 'chocante' ),
+				'description'    => _x( 'Widgets in this area will be shown in mobile menu after main navigation menu.', 'admin', 'chocante' ),
 				'before_widget'  => '',
 				'after_widget'   => '',
 				'before_sidebar' => '<aside class="mobile-menu__after-nav">',
@@ -171,9 +171,9 @@ class Chocante {
 
 		register_sidebar(
 			array(
-				'name'           => __( 'Mobile menu - top', 'chocante' ),
+				'name'           => _x( 'Mobile menu - top', 'admin', 'chocante' ),
 				'id'             => 'mobile-menu-top',
-				'description'    => __( 'Widgets in this area will be shown in the top part of mobile menu.', 'chocante' ),
+				'description'    => _x( 'Widgets in this area will be shown in the top part of mobile menu.', 'admin', 'chocante' ),
 				'before_widget'  => '',
 				'after_widget'   => '',
 				'before_sidebar' => '<div class="mobile-menu__top-sidebar">',
@@ -183,9 +183,9 @@ class Chocante {
 
 		register_sidebar(
 			array(
-				'name'           => __( 'Footer - bottom left', 'chocante' ),
+				'name'           => _x( 'Footer - bottom left', 'admin', 'chocante' ),
 				'id'             => 'footer-bottom-left',
-				'description'    => __( 'Widgets in this area will be shown in the bottom left part of footer.', 'chocante' ),
+				'description'    => _x( 'Widgets in this area will be shown in the bottom left part of footer.', 'admin', 'chocante' ),
 				'before_widget'  => '',
 				'after_widget'   => '',
 				'before_sidebar' => '<div class="site-footer__bottom-left">',
@@ -195,9 +195,9 @@ class Chocante {
 
 		register_sidebar(
 			array(
-				'name'           => __( 'Footer - bottom mobile', 'chocante' ),
+				'name'           => _x( 'Footer - bottom mobile', 'admin', 'chocante' ),
 				'id'             => 'footer-bottom-mobile',
-				'description'    => __( 'Widgets in this area will be shown in the bottom right part of footer.', 'chocante' ),
+				'description'    => _x( 'Widgets in this area will be shown in the bottom right part of footer.', 'admin', 'chocante' ),
 				'before_widget'  => '',
 				'after_widget'   => '',
 				'before_sidebar' => '<div class="site-footer__bottom-mobile">',
@@ -223,7 +223,7 @@ class Chocante {
 	 * Insert spinner
 	 */
 	public static function spinner() {
-		echo '<img src="' . esc_url( get_stylesheet_directory_uri() . '/images/spinner-2x.gif' ) . '" alt="' . esc_attr__( 'Loading', 'chocante' ) . '" class="spinner">';
+		echo '<img src="' . esc_url( get_stylesheet_directory_uri() . '/images/spinner-2x.gif' ) . '" alt="' . esc_attr_x( 'Loading', 'product slider', 'chocante' ) . '" class="spinner">';
 	}
 
 	/**

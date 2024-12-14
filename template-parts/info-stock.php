@@ -12,7 +12,7 @@ defined( 'ABSPATH' ) || exit;
 	<?php Chocante::icon( 'box' ); ?>
   
 	<div>
-		<h6><?php esc_html_e( 'In stock', 'chocante' ); ?></h6>
+		<h6><?php echo esc_html_x( 'In stock', 'infobox', 'chocante' ); ?></h6>
 		<?php chocante_stock_quantity_display(); ?>
 	</div>
 </div>

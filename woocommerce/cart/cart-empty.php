@@ -25,10 +25,10 @@ do_action( 'woocommerce_cart_is_empty' );
 		<?php Chocante::icon( 'shopping-cart' ); ?>
 	</figure>
 	<h1 class="page-title">
-		<?php esc_html_e( 'Cart is empty', 'chocante' ); ?>
+		<?php echo esc_html_x( 'Cart is empty', 'cart', 'chocante' ); ?>
 	</h1>
 	<p>
-		<?php esc_html_e( 'You have not added anything to your shopping cart yet. Go to our shop to select the products you are interested in.', 'chocante' ); ?>
+		<?php echo esc_html_x( 'You have not added anything to your shopping cart yet. Go to our shop to select the products you are interested in.', 'cart', 'chocante' ); ?>
 	</p>
 
 	<?php if ( wc_get_page_id( 'shop' ) > 0 ) : ?>

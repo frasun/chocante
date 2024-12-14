@@ -88,7 +88,7 @@ class Chocante_Cart {
 	public static function display_featured_products_in_cart() {
 		Chocante_Product_Section::class::display_product_section(
 			array(
-				'heading'  => __( 'Featured products', 'chocante' ),
+				'heading'  => _x( 'Featured products', 'product slider', 'chocante' ),
 				'featured' => true,
 			)
 		);

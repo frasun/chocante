@@ -333,7 +333,7 @@ class Chocante_WooCommerce {
 	 * @return string
 	 */
 	public static function add_to_cart_text( $text, $product ) {
-		return $product->is_in_stock() ? __( 'Buy now', 'chocante' ) : __( 'Read more', 'woocommerce' );
+		return $product->is_in_stock() ? _x( 'Buy now', 'product loop', 'chocante' ) : __( 'Read more', 'woocommerce' );
 	}
 
 	/**

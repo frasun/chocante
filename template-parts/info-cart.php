@@ -14,9 +14,9 @@ defined( 'ABSPATH' ) || exit;
 		 * Safe shopping
 		 */
 		// translators: Safe shopping heading.
-		$heading = __( 'Safe shopping', 'chocante' );
+		$heading = _x( 'Safe shopping', 'infobox', 'chocante' );
 		// translators: Safe shopping content.
-		$content = __( 'If the product we supply is faulty or damaged, you can return the goods and we will give you a refund or send you a new product.', 'chocante' );
+		$content = _x( 'If the product we supply is faulty or damaged, you can return the goods and we will give you a refund or send you a new product.', 'infobox', 'chocante' );
 		get_template_part(
 			'template-parts/info',
 			'section',

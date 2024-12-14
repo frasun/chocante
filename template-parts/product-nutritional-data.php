@@ -14,8 +14,8 @@ if ( ! isset( $args['data'] ) || empty( $args['data'] ) ) {
 ?>
 <section class="product__details">
 	<header>
-		<h4><?php esc_html_e( 'Nutritional data', 'chocante' ); ?></h4>
-		<span><?php esc_html_e( 'Per 100 g', 'chocante' ); ?></span>
+		<h4><?php echo esc_html_x( 'Nutritional data', 'product page', 'chocante' ); ?></h4>
+		<span><?php echo esc_html_x( 'Per 100 g', 'product page', 'chocante' ); ?></span>
 	</header>
 	<table>
 		<?php foreach ( $args['data'] as $data ) : ?>

@@ -157,7 +157,7 @@ class Chocante_Product_Page {
 		Chocante_Product_Section::display_product_section(
 			array(
 				'heading'    => $heading,
-				'subheading' => __( 'Products from category', 'chocante' ),
+				'subheading' => _x( 'Products from category', 'product slider', 'chocante' ),
 				'cta_link'   => $cta_link,
 				'category'   => wp_list_pluck( $product_categories, 'term_id' ),
 				'exclude'    => array( $product->get_id() ),
