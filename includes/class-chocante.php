@@ -212,7 +212,11 @@ class Chocante {
 	 * @param string $filename Filename from /icons directory.
 	 */
 	public static function icon( $filename ) {
-		require get_stylesheet_directory() . "/icons/icon-{$filename}.svg";
+		$file = get_stylesheet_directory() . "/icons/icon-{$filename}.svg";
+
+		if ( file_exists( $file ) ) {
+			include $file;
+		}
 	}
 
 	/**
