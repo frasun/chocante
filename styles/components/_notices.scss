@@ -22,6 +22,10 @@
 
 	a:not(.button) {
 		@include link;
+
+		// @todo: Chocante - Bricks remove.
+		--bricks-color-ce3d3b: transparent;
+		// END TODO.
 	}
 
 	.button {
