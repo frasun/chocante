@@ -120,8 +120,3 @@ $font-family--headings-default:
 		@include font-size(x-small);
 	}
 }
-
-.page-title {
-	@include color(brown-4);
-	@include font-style(page-title);
-}

@@ -1,7 +1,7 @@
 @mixin badge {
 	padding: var(--spacing--5) var(--spacing--10);
 	border-radius: var(--border-radius--sm);
-	@include bg(red-1);
+	background-color: var(--badge--background-color, var(--color--red-1));
 	letter-spacing: 0.2em;
 	text-transform: uppercase;
 	@include font(labels);

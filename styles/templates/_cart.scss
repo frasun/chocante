@@ -1,9 +1,6 @@
 .woocommerce-cart {
+	--body--background-color: var(--color--grey-5);
 	--notice--background-color: white;
-
-	@at-root body#{&} {
-		@include bg(grey-5);
-	}
 
 	&:not(.cart-empty) .page-title {
 		padding-top: var(--spacing--10);
@@ -293,9 +290,7 @@
 			}
 
 			.cart_totals {
-				background: white;
-				border-radius: var(--border-radius);
-				padding: var(--spacing--20);
+				@include box;
 
 				h2 {
 					@include font-style(section-label);
@@ -356,9 +351,11 @@
 							@include radio;
 							grid-row: 1 / span 2;
 
+							// @todo: Chocante - Bricks - verify.
 							& + label {
 								margin: 0;
 							}
+							// END TODO.
 						}
 
 						.woocommerce-Price-amount {
@@ -370,6 +367,9 @@
 						@include font-size(small);
 						--line-height: initial;
 						margin-top: var(--spacing--20);
+						// @todo: Chocante - Bricks remove.
+						margin-bottom: 0;
+						// END TODO.
 					}
 
 					&-shipping-calculator {
@@ -389,6 +389,8 @@
 									flex-direction: column;
 								}
 
+								@include select2-sm;
+
 								p {
 									margin: var(--spacing--10) 0 0;
 
@@ -398,8 +400,7 @@
 								}
 
 								.button {
-									@include button-secondary;
-									@include button-sm;
+									@include button(secondary);
 								}
 							}
 						}
@@ -433,8 +434,7 @@
 						}
 
 						.button {
-							@include button-secondary;
-							@include button-sm;
+							@include button(secondary);
 						}
 					}
 
@@ -472,121 +472,12 @@
 
 			.wc-proceed-to-checkout .checkout-button {
 				width: 100%;
-				@include button;
+				@include button($size: lg);
 			}
 		}
 
 		.infobox {
 			background-color: white;
-		}
-
-		&-notices-wrapper {
-			.woocommerce {
-				&-info,
-				&-message {
-					--notice--background-color: white;
-				}
-			}
-		}
-	}
-
-	// @todo: Chocante - Move to _input.scss after switching from Bricks.
-	.select2 {
-		&-selection {
-			@include input(sm);
-
-			& {
-				padding-left: var(--spacing--15);
-				padding-right: 35px;
-				height: auto;
-				position: relative;
-			}
-
-			.select2-selection__arrow {
-				border: 0;
-				top: 50%;
-				transform: translateY(-50%);
-				right: 15px;
-				height: auto;
-				width: auto;
-				line-height: 1;
-
-				b {
-					border: 0;
-					position: static;
-					margin: 0;
-
-					&::after {
-						@include icon-font;
-						content: "\0041";
-						border: 0;
-						position: static;
-						@include transition;
-						font-size: 0.75em;
-						@include color(grey-1);
-						opacity: 0.5;
-					}
-				}
-			}
-		}
-
-		&.select2-container--open {
-			.select2-selection {
-				background-color: white;
-				border-bottom-left-radius: 0;
-				border-bottom-right-radius: 0;
-				box-shadow: var(--shadow--2);
-				@include border(green-1);
-
-				.select2-selection__arrow {
-					b {
-						border: 0;
-
-						&::after {
-							transform: rotate(180deg);
-						}
-					}
-				}
-			}
-		}
-
-		&-search {
-			&__field {
-				line-height: var(--line-height);
-			}
-		}
-
-		&-container .select2-selection--single .select2-selection__rendered {
-			padding-left: 0;
-			padding-right: 0;
-			line-height: inherit;
-		}
-
-		&-dropdown {
-			border-color: var(--color--green-1);
-			overflow: hidden;
-
-			&.select2-dropdown--below {
-				border-bottom-left-radius: var(--border-radius--xs);
-				border-bottom-right-radius: var(--border-radius--xs);
-			}
-
-			&.select2-dropdown--above {
-				border-top-left-radius: var(--border-radius--xs);
-				border-top-right-radius: var(--border-radius--xs);
-			}
-		}
-
-		&-results__option {
-			&--highlighted[data-selected] {
-				@include bg(green-2);
-			}
-
-			&[data-selected="true"] {
-				@include color(green-1);
-				font-weight: var(--font-weight--bold);
-				background-color: transparent;
-			}
 		}
 	}
 
@@ -594,7 +485,8 @@
 		@include notice(
 			var(--color--red-3),
 			var(--color--red-2),
-			$icon: "../icons/icon-error.svg"
+			"../icons/icon-error.svg",
+			false
 		);
 	}
 

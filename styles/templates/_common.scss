@@ -1,18 +1,32 @@
-/* Forms */
-.button:not(.woocommerce-notices-wrapper .button) {
+/* Buttons */
+.site-header,
+.site-footer,
+.single-product,
+.shop,
+.tax_product_cat,
+.woocommerce-cart,
+.woocommerce-account {
+	.button {
+		// @todo: Chocante - Bricks fix.
+		&,
+		.woocommerce & {
+			@include link;
+		}
+		// END TODO.
+	}
+}
+
+[type="submit"] {
 	// @todo: Chocante - Bricks fix.
 	&,
 	.woocommerce & {
 		@include button;
 	}
 	// END TODO.
-
-	&.button--sm {
-		@include button-sm;
-	}
 }
+/* END Buttons */
 
-// Notice.
+/* Notice */
 // @todo Chocante - Bricks, remove cart class.
 .woocommerce-notices-wrapper {
 	display: flex;
@@ -26,6 +40,10 @@
 
 	&:empty {
 		display: none;
+	}
+
+	ul {
+		@include list-reset;
 	}
 
 	.woocommerce {
@@ -46,66 +64,98 @@
 			@include notice(
 				var(--color--red-3),
 				var(--color--red-2),
-				$icon: "../icons/icon-error.svg"
+				"../icons/icon-error.svg",
+				false
 			);
 		}
 	}
 }
 // END TODO.
+/* Notice */
 
-// Transition.
+/* Transition */
 .transition {
 	@include transition;
 }
+/* END Transition */
 
-/* Forms */
-// Label.
-// @todo: Chocante - Bricks.
-label {
-	color: currentColor;
-	font-weight: var(--font-weight--normal);
-	@include transition(colors);
-
-	&[for] {
-		cursor: pointer;
-
-		&:hover {
-			opacity: 0.75;
-		}
-
-		&:active {
-			opacity: 1;
-			transition: none;
-		}
+// @todo: Chocante - Bricks - remove wrapper after checkout.
+.site-header,
+.site-footer,
+.single-product,
+.woocommerce-shop,
+.tax-product_cat,
+.woocommerce-cart,
+.woocommerce-account {
+	/* Forms */
+	// Inputs.
+	.input-text {
+		@include input;
 	}
+
+	// Label.
+	// @todo: Chocante - Bricks.
+	label {
+		color: currentColor;
+		font-weight: var(--font-weight--bold);
+		@include color(brown-4);
+		display: grid;
+		align-items: baseline;
+		grid-template-columns: auto 1fr;
+		line-height: 1.15;
+
+		&[for] {
+			cursor: pointer;
+		}
+
+		&:has(input[type="checkbox"]) {
+			align-items: center;
+			gap: var(--spacing--10);
+			cursor: pointer;
+			font-weight: var(--font-weight--normal);
+
+			&:hover {
+				opacity: 0.9;
+			}
+		}
+
+		// @todo: Chocante - Bricks - remove.
+		p {
+			margin: 0;
+		}
+		// END TODO.
+	}
+	// END TODO.
+
+	// Select.
+	select {
+		@include select-arrow;
+		padding-right: 40px;
+		@include color(grey-1);
+		border: 0;
+		font-weight: var(--font-weight--normal);
+	}
+
+	// Radio.
+	input[type="radio"] {
+		@include radio;
+	}
+
+	// Checkox.
+	input[type="checkbox"] {
+		@include checkbox;
+	}
+	/* END Forms */
 }
 // END TODO.
 
-// Select.
-select {
-	@include select-arrow;
-	padding-right: 40px;
-	@include color(grey-1);
-	border: 0;
-	font-weight: var(--font-weight--normal);
-}
-
-// Radio.
-input[type="radio"] {
-	@include radio;
-}
-
-// Checkox.
-input[type="checkbox"] {
-	@include checkbox;
-}
-
-// Container.
+/* Container */
 .container {
 	@include container;
 }
+/* END Container */
 
-// Modal.
+/* Modal */
 .backdrop {
 	position: fixed;
 	left: 0;
@@ -125,9 +175,18 @@ input[type="checkbox"] {
 button[data-close-modal] {
 	@include icon-button;
 }
+/* END Modal */
+
+/* Content */
+// Page header.
+.page-title {
+	@include color(brown-4);
+	@include font-style(page-title);
+}
 
 // Post content.
 .product__description,
 .page-description {
 	@include content;
 }
+/* END Content */

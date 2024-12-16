@@ -20,10 +20,10 @@
 
 	// WP admin bar fix.
 	body.admin-bar & {
-		top: 46px;
+		margin-top: 46px;
 
 		@include min-width(782px) {
-			top: 32px;
+			margin-top: 32px;
 		}
 	}
 }

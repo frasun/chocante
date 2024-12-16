@@ -60,5 +60,15 @@ $breakpoint--desktop-lg: 1440px;
 		@include max-width($breakpoint--desktop-sm) {
 			display: none !important;
 		}
+	} @else if $device == tablet {
+		@include min-width($breakpoint--mobile-lg) {
+			display: none !important;
+		}
 	}
+}
+
+@mixin circle($size: 40px) {
+	width: $size;
+	height: $size;
+	border-radius: 50%;
 }

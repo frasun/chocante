@@ -26,7 +26,7 @@
 		padding: var(--spacing--100) var(--spacing--20);
 
 		a {
-			@include button($scheme: dark);
+			@include button($scheme: dark, $size: lg);
 			margin-top: var(--spacing--30);
 		}
 	}

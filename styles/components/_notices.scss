@@ -1,11 +1,9 @@
 @mixin notice(
 	$bg: var(--color--grey-5),
 	$color: var(--color--grey-1),
-	$icon: ""
+	$icon: "",
+	$allow-vars: true
 ) {
-	--notice--background-color: #{$bg};
-	--notice--color: #{$color};
-
 	display: block;
 	border-radius: var(--border-radius);
 	padding: var(--spacing--15) var(--spacing--20);
@@ -13,8 +11,14 @@
 	text-align: left;
 	list-style: none;
 	width: 100%;
-	background-color: var(--notice--background-color);
-	color: var(--notice--color);
+
+	@if $allow-vars == true {
+		background-color: var(--notice--background-color, #{$bg});
+		color: var(--notice--color, #{$color});
+	} @else {
+		background-color: $bg;
+		color: $color;
+	}
 
 	@if $icon != "" {
 		@include notice-with-icon($icon);

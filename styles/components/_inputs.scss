@@ -17,9 +17,7 @@
 	width: 100%;
 
 	@if $size == sm {
-		padding: var(--spacing--10) var(--spacing--15);
-		border-radius: var(--border-radius--md);
-		--line-height: 1.25;
+		@include input-sm;
 	} @else {
 		padding: var(--spacing--15) var(--spacing--20);
 		border-radius: var(--border-radius);
@@ -39,6 +37,12 @@
 		opacity: 0.5;
 		color: $placeholder;
 	}
+}
+
+@mixin input-sm {
+	padding: var(--spacing--10) var(--spacing--15);
+	border-radius: var(--border-radius--md);
+	--line-height: 1.25;
 }
 
 // Radio.
@@ -85,6 +89,7 @@
 		vertical-align: middle;
 		cursor: pointer;
 		@include font-size(normal-sm);
+		@include radio-label;
 	}
 }
 
@@ -111,7 +116,22 @@
 	}
 
 	& + label {
-		padding-top: 0.1em;
+		padding-top: 0.2em;
+		@include radio-label;
+	}
+}
+
+@mixin radio-label {
+	font-weight: var(--font-weight--normal);
+	@include transition(colors);
+
+	&:hover {
+		opacity: 0.75;
+	}
+
+	&:active {
+		opacity: 1;
+		transition: none;
 	}
 }
 

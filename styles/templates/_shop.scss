@@ -60,6 +60,12 @@
 		&:empty {
 			display: none;
 		}
+
+		// @todo: Chocante - Bricks - remove.
+		p {
+			margin: 0;
+		}
+		// END TODO.
 	}
 
 	.products {
@@ -121,7 +127,7 @@
 		@include hide(desktop);
 
 		& {
-			@include button(secondary, $size: sm);
+			@include button(secondary);
 		}
 	}
 }
@@ -162,15 +168,23 @@
 
 		@include max-width($breakpoint--desktop-sm) {
 			select {
-				@include button(secondary, $size: sm);
+				@include button(secondary);
 				width: 100%;
 				text-align: left;
-				text-align: left;
-				@include select-arrow;
 
-				&:not(.disabled):not([disabled]):hover {
-					background-position: calc(100% - 13px) center;
-					color: inherit;
+				&:not(.disabled):not([disabled]) {
+					@include select-arrow;
+
+					// @todo: Chocante - Bricks - sic!
+					border-width: 3px !important;
+					border-style: solid !important;
+					font-weight: var(--font-weight--bold) !important;
+					// END TODO.
+
+					&:hover {
+						background-position: calc(100% - 13px) center;
+						color: inherit;
+					}
 				}
 			}
 		}
@@ -180,58 +194,6 @@
 
 			& {
 				font-weight: var(--font-weight--bold);
-			}
-		}
-	}
-
-	&-pagination {
-		ul.page-numbers {
-			@include list-reset;
-			display: flex;
-			flex-direction: row;
-			gap: var(--spacing--20);
-			flex-wrap: wrap;
-
-			@include max-width($breakpoint--desktop-sm) {
-				justify-content: center;
-			}
-
-			a,
-			span {
-				width: 50px;
-				height: 50px;
-				border-radius: 50%;
-				@include flex(center);
-				color: #fff;
-				@include font-size(small-sm);
-				font-weight: var(--font-weight--semibold);
-			}
-
-			span {
-				@include bg(brown-6);
-			}
-
-			a {
-				@include transition(colors);
-				@include bg(green-1);
-
-				svg {
-					@include transition;
-				}
-			}
-
-			a:hover {
-				@include bg(green-2);
-				box-shadow: var(--shadow--1);
-
-				svg {
-					transform: scale(1.25);
-				}
-			}
-
-			a:active {
-				transition: none;
-				@include bg(green-1);
 			}
 		}
 	}

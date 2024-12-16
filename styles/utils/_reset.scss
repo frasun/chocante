@@ -16,7 +16,7 @@ section {
 }
 
 figure {
-	margin: 1em 40px;
+	margin: 0;
 }
 
 hr {
@@ -27,7 +27,7 @@ hr {
 
 abbr[title] {
 	border-bottom: none;
-	text-decoration: underline;
+	text-decoration: none;
 }
 
 code,
@@ -85,9 +85,7 @@ input,
 optgroup,
 select,
 textarea {
-	font-family: sans-serif;
 	font-size: 100%;
-	line-height: 1.15;
 	margin: 0;
 }
 
@@ -120,17 +118,22 @@ button::-moz-focus-inner {
 [type="reset"]:-moz-focusring,
 [type="submit"]:-moz-focusring,
 button:-moz-focusring {
-	outline: 1px dotted ButtonText;
+	outline: none;
 }
 
 fieldset {
-	padding: 0.35em 0.75em 0.625em;
+	padding: 0;
+	margin: 0;
+	border: 0;
+	margin-inline: 0;
+	padding-inline: 0;
+	padding-block: 0;
 }
 
 legend {
 	box-sizing: border-box;
 	color: inherit;
-	display: table;
+	display: block;
 	max-width: 100%;
 	padding: 0;
 	white-space: normal;
@@ -142,7 +145,8 @@ progress {
 }
 
 textarea {
-	overflow: auto;
+	overflow: hidden;
+	resize: vertical;
 }
 
 [type="checkbox"],
@@ -251,20 +255,10 @@ h6 a {
 }
 
 :where(p) {
+	// margin: 0;
+	// @todo: Chocante - Bricks - remove wrapper after checkout.
 	margin: 0 0 1.2em;
-}
-
-:where(p:last-of-type) {
-	margin-bottom: 0;
-}
-
-:where(p:last-of-type) + h1,
-:where(p:last-of-type) + h2,
-:where(p:last-of-type) + h3,
-:where(p:last-of-type) + h4,
-:where(p:last-of-type) + h5,
-:where(p:last-of-type) + h6 {
-	margin-top: 1.2em;
+	// END TODO.
 }
 
 img {
@@ -323,10 +317,7 @@ pre {
 
 table {
 	width: 100%;
-}
-
-label {
-	display: block;
+	border-collapse: collapse;
 }
 
 button,
@@ -366,6 +357,11 @@ textarea {
 	line-height: inherit !important;
 	min-height: 90px;
 	padding: 10px 12px;
+}
+
+address {
+	font-style: normal;
+	display: block;
 }
 
 .screen-reader-text,

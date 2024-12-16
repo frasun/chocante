@@ -209,13 +209,16 @@ class Chocante {
 	/**
 	 * Insert SVG icon
 	 *
-	 * @param string $filename Filename from /icons directory.
+	 * @param string  $filename Filename from /icons directory.
+	 * @param boolean $output Whether to include or return icon.
 	 */
-	public static function icon( $filename ) {
+	public static function icon( $filename, $output = true ) {
 		$file = get_stylesheet_directory() . "/icons/icon-{$filename}.svg";
 
 		if ( file_exists( $file ) ) {
-			include $file;
+			if ( $output ) {
+				include $file;
+			}
 		}
 	}
 

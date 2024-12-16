@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-12-16T07:14:24+00:00\n"
+"POT-Creation-Date: 2024-12-19T19:01:11+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: chocante\n"
@@ -50,37 +50,37 @@ msgctxt "footer"
 msgid "All Rights Reserved"
 msgstr ""
 
-#: includes/class-chocante-woocommerce.php:170
+#: includes/class-chocante-woocommerce.php:176
 msgctxt "sorting option"
 msgid "Default"
 msgstr ""
 
-#: includes/class-chocante-woocommerce.php:171
+#: includes/class-chocante-woocommerce.php:177
 msgctxt "sorting option"
 msgid "Popularity"
 msgstr ""
 
-#: includes/class-chocante-woocommerce.php:172
+#: includes/class-chocante-woocommerce.php:178
 msgctxt "sorting option"
 msgid "Average rating"
 msgstr ""
 
-#: includes/class-chocante-woocommerce.php:173
+#: includes/class-chocante-woocommerce.php:179
 msgctxt "sorting option"
 msgid "Latest"
 msgstr ""
 
-#: includes/class-chocante-woocommerce.php:174
+#: includes/class-chocante-woocommerce.php:180
 msgctxt "sorting option"
 msgid "Lowest price"
 msgstr ""
 
-#: includes/class-chocante-woocommerce.php:175
+#: includes/class-chocante-woocommerce.php:181
 msgctxt "sorting option"
 msgid "Highest price"
 msgstr ""
 
-#: includes/class-chocante-woocommerce.php:367
+#: includes/class-chocante-woocommerce.php:373
 msgctxt "product loop"
 msgid "Buy now"
 msgstr ""
@@ -165,9 +165,14 @@ msgctxt "admin"
 msgid "Widgets in this area will be shown in the bottom right part of footer."
 msgstr ""
 
-#: includes/class-chocante.php:226
+#: includes/class-chocante.php:229
 msgctxt "product slider"
 msgid "Loading"
+msgstr ""
+
+#: includes/woocommerce/class-chocante-account.php:228
+msgctxt "login page"
+msgid "Already have an account?"
 msgstr ""
 
 #: includes/woocommerce/class-chocante-cart.php:91
@@ -315,7 +320,7 @@ msgctxt "cart"
 msgid "You have not added anything to your shopping cart yet. Go to our shop to select the products you are interested in."
 msgstr ""
 
-#: woocommerce/loop/no-products-found.php:24
+#: woocommerce/loop/no-products-found.php:25
 msgctxt "no products found"
 msgid "or"
 msgstr ""

@@ -235,6 +235,12 @@
 			h4 {
 				@include font-size(medium);
 			}
+
+			// @todo: Chocante - Bricks - revisit, leave margin for p.
+			p:last-of-type {
+				margin: 0;
+			}
+			// END TODO.
 		}
 
 		&-variation-add-to-cart {
@@ -280,8 +286,9 @@
 		}
 	}
 
-	.single_add_to_cart_button {
+	.single_add_to_cart_button.button {
 		width: 100%;
+		@include button($size: lg);
 	}
 
 	.infobox {

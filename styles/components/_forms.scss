@@ -1,0 +1,137 @@
+@mixin form-wrapper {
+	display: flex;
+	flex-direction: column;
+	row-gap: var(--spacing--30);
+}
+
+@mixin fields-wrapper {
+	display: grid;
+	grid-template-columns: repeat(6, 1fr);
+	column-gap: var(--spacing--20);
+	row-gap: var(--spacing--30);
+	max-width: var(--form-width, 570px);
+
+	@include min-width($breakpoint--desktop-sm) {
+		column-gap: var(--spacing--30);
+	}
+
+	.form-row,
+	fieldset,
+	> p,
+	> div {
+		grid-column: 1/7;
+
+		@include min-width($breakpoint--mobile-sm) {
+			&:has(label[for*="first_name"]) {
+				grid-column: 1/4;
+			}
+
+			&:has(label[for*="last_name"]) {
+				grid-column: 4/7;
+			}
+		}
+
+		&:has(label[for*="postcode"]) {
+			@include min-width($breakpoint--mobile-sm) {
+				grid-column: 1/4;
+			}
+
+			@include min-width($breakpoint--desktop-sm) {
+				grid-column: 1/3;
+			}
+		}
+
+		&:has(label[for*="city"]) {
+			@include min-width($breakpoint--mobile-sm) {
+				grid-column: 4/7;
+			}
+
+			@include min-width($breakpoint--desktop-sm) {
+				grid-column: 3/7;
+			}
+		}
+
+		em {
+			font-style: normal;
+			@include font-size(small-sm);
+			display: block;
+			padding-top: 0.5em;
+			--line-height: 1.25;
+		}
+	}
+
+	fieldset {
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacing--30);
+
+		legend {
+			padding: var(--spacing--20) 0;
+			@include font-style(section-label);
+			@include color(brown-4);
+		}
+	}
+
+	.clear {
+		display: none;
+	}
+
+	.button[type="submit"] {
+		@include button-lg;
+		margin-top: var(--spacing--10);
+	}
+}
+
+// @todo: Chocante - Bricks - remove wrapper after checkout.
+.woocommerce-account {
+	.address-field {
+		& + &:has(label.screen-reader-text) {
+			margin-top: calc(-1 * var(--spacing--20));
+		}
+	}
+
+	.woocommerce {
+		&-address-fields {
+			@include form-wrapper;
+
+			&__field-wrapper {
+				@include fields-wrapper;
+			}
+
+			.button {
+				@include button-lg;
+			}
+		}
+
+		&-EditAccountForm,
+		&-ResetPassword,
+		&-form {
+			@include fields-wrapper;
+		}
+	}
+
+	.woocommerce-input-wrapper,
+	.password-input {
+		display: block;
+	}
+
+	label {
+		.required {
+			@include color(red-1);
+		}
+
+		.optional {
+			@include font-size(small);
+			@include color(grey-2);
+			font-weight: var(--font-weight--normal);
+			justify-self: end;
+		}
+
+		& + .woocommerce-input-wrapper,
+		& + .input-text,
+		& + .password-input {
+			margin-top: var(--spacing--10);
+		}
+	}
+}
+// END TODO.

@@ -96,8 +96,12 @@
 			}
 		}
 
+		.button {
+			@include button($size: lg);
+		}
+
 		&.outofstock .button {
-			@include button(secondary);
+			@include button(secondary, $size: lg);
 		}
 	}
 }

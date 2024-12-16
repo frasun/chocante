@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bricks Child Theme 1.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/bricks-child1\n"
-"POT-Creation-Date: 2024-12-16T07:14:24+00:00\n"
-"PO-Revision-Date: 2024-12-16 08:14+0100\n"
+"POT-Creation-Date: 2024-12-19T19:01:11+00:00\n"
+"PO-Revision-Date: 2024-12-19 20:01+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pl_PL\n"
@@ -53,37 +53,37 @@ msgctxt "footer"
 msgid "All Rights Reserved"
 msgstr "Wszelkie prawa zastrzeżone"
 
-#: includes/class-chocante-woocommerce.php:170
+#: includes/class-chocante-woocommerce.php:176
 msgctxt "sorting option"
 msgid "Default"
 msgstr "Domyślnie"
 
-#: includes/class-chocante-woocommerce.php:171
+#: includes/class-chocante-woocommerce.php:177
 msgctxt "sorting option"
 msgid "Popularity"
 msgstr "Wg popularności"
 
-#: includes/class-chocante-woocommerce.php:172
+#: includes/class-chocante-woocommerce.php:178
 msgctxt "sorting option"
 msgid "Average rating"
 msgstr "Wg oceny"
 
-#: includes/class-chocante-woocommerce.php:173
+#: includes/class-chocante-woocommerce.php:179
 msgctxt "sorting option"
 msgid "Latest"
 msgstr "Od najnowszych"
 
-#: includes/class-chocante-woocommerce.php:174
+#: includes/class-chocante-woocommerce.php:180
 msgctxt "sorting option"
 msgid "Lowest price"
 msgstr "Od najtańszych"
 
-#: includes/class-chocante-woocommerce.php:175
+#: includes/class-chocante-woocommerce.php:181
 msgctxt "sorting option"
 msgid "Highest price"
 msgstr "Od najdroższych"
 
-#: includes/class-chocante-woocommerce.php:367
+#: includes/class-chocante-woocommerce.php:373
 msgctxt "product loop"
 msgid "Buy now"
 msgstr "Kup teraz"
@@ -169,10 +169,15 @@ msgctxt "admin"
 msgid "Widgets in this area will be shown in the bottom right part of footer."
 msgstr ""
 
-#: includes/class-chocante.php:226
+#: includes/class-chocante.php:229
 msgctxt "product slider"
 msgid "Loading"
 msgstr "Wczytuję"
+
+#: includes/woocommerce/class-chocante-account.php:228
+msgctxt "login page"
+msgid "Already have an account?"
+msgstr "Masz już konto?"
 
 #: includes/woocommerce/class-chocante-cart.php:91
 msgctxt "product slider"
@@ -331,7 +336,7 @@ msgstr ""
 "Na razie nic nie dodałeś do koszyka. Przejdź do naszego sklepu, aby wybrać "
 "interesujące Cię produkty."
 
-#: woocommerce/loop/no-products-found.php:24
+#: woocommerce/loop/no-products-found.php:25
 msgctxt "no products found"
 msgid "or"
 msgstr "lub"

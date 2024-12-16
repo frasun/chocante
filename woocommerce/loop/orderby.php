@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<label><?php echo esc_html_x( 'Sort by', 'product listing', 'chocante' ); ?></label>
 	<select name="orderby" class="orderby" aria-label="<?php esc_attr_e( 'Shop order', 'woocommerce' ); ?>">
 		<?php foreach ( $catalog_orderby_options as $option_id => $name ) : ?>
-			<option value="<?php echo esc_attr( $id ); ?>" <?php selected( $orderby, $option_id ); ?>><?php echo esc_html( $name ); ?></option>
+			<option value="<?php echo esc_attr( $option_id ); ?>" <?php selected( $orderby, $option_id ); ?>><?php echo esc_html( $name ); ?></option>
 		<?php endforeach; ?>
 	</select>
 	<input type="hidden" name="paged" value="1" />

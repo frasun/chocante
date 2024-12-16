@@ -5,7 +5,7 @@ html[chocante] {
 body {
 	@include font(body);
 	@include color(grey-1);
-	background-color: white;
+	background-color: var(--body--background-color, white);
 	overflow-x: hidden;
 
 	// @todo: Chocnate - Bricks forge.

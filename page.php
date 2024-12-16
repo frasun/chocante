@@ -8,10 +8,12 @@ if ( $bricks_data ) {
 } elseif ( have_posts() ) {
 	while ( have_posts() ) :
 		the_post();
-		if ( is_cart() ) { ?>
+		if ( is_cart() || is_account_page() ) { ?>
 		<main role="main">
 			<?php the_content(); ?>
-			<?php do_action( 'chocante_after_cart' ); ?>
+			<?php if ( is_cart() ) : ?>
+				<?php do_action( 'chocante_after_cart' ); ?>
+			<?php endif; ?>
 		</main>
 			<?php
 		} else {

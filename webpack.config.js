@@ -21,6 +21,8 @@ module.exports = {
 			'single-product-scripts': path.resolve(process.cwd(), 'scripts', 'single-product.js'),
 			'shop': path.resolve(process.cwd(), 'styles', 'shop.scss'),
 			'shop-scripts': path.resolve(process.cwd(), 'scripts', 'shop.js'),
+			'account': path.resolve(process.cwd(), 'styles', 'account.scss'),
+			'account-scripts': path.resolve(process.cwd(), 'scripts', 'account.js'),
 		},
 		plugins: [
 			// Include WP's plugin config.

@@ -1,0 +1,39 @@
+.woocommerce-pagination {
+	ul.page-numbers {
+		@include list-reset;
+		display: flex;
+		flex-direction: row;
+		gap: var(--spacing--20);
+		flex-wrap: wrap;
+
+		@include max-width($breakpoint--desktop-sm) {
+			justify-content: center;
+		}
+
+		a {
+			@include nav-button;
+		}
+
+		span {
+			@include nav-button(disabled);
+		}
+	}
+
+	&--without-numbers {
+		display: flex;
+		justify-content: space-between;
+
+		.woocommerce-button {
+			// @todo: Chocante - Bricks fix.
+			&,
+			.woocommerce & {
+				@include button(secondary);
+			}
+			// END TODO.
+
+			&--next {
+				margin-left: auto;
+			}
+		}
+	}
+}

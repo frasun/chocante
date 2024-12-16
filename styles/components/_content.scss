@@ -57,4 +57,21 @@
 	a {
 		@include link;
 	}
+
+	:where(p) {
+		margin: 0 0 1.2em;
+	}
+
+	:where(p:last-of-type) {
+		margin-bottom: 0;
+	}
+
+	:where(p:last-of-type) + h1,
+	:where(p:last-of-type) + h2,
+	:where(p:last-of-type) + h3,
+	:where(p:last-of-type) + h4,
+	:where(p:last-of-type) + h5,
+	:where(p:last-of-type) + h6 {
+		margin-top: 1.2em;
+	}
 }
