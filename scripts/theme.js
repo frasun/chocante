@@ -2,8 +2,7 @@ import ModalService from './modal-service';
 import Modal from './modal';
 import ChocanteWooCommerce from './woocommerce';
 import MenuScroll from './menu-scroll';
-
-const MOBILE_BREAKPOINT = 1024;
+import { MOBILE_BREAKPOINT } from './constants';
 
 class Chocante {
   constructor() {

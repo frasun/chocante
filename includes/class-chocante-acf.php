@@ -32,6 +32,9 @@ class Chocante_ACF {
 		add_filter( 'woocommerce_display_product_attributes', array( self::class, 'add_product_attributes' ), 20, 2 );
 		add_action( 'woocommerce_single_product_summary', array( self::class, 'display_nutritional_data' ), 36 );
 		add_action( 'woocommerce_before_single_product_summary', array( self::class, 'display_diet_icons' ), 25 );
+
+		// Product category page.
+		add_action( 'woocommerce_after_main_content', array( self::class, 'display_category_description' ), 20 );
 	}
 
 	/**
@@ -242,5 +245,23 @@ class Chocante_ACF {
 				'data' => $data,
 			)
 		);
+	}
+
+	/**
+	 * Display diet information
+	 */
+	public static function display_category_description() {
+		if ( ! is_product_category() ) {
+			return;
+		}
+
+		$queried_object       = get_queried_object();
+		$taxonomy             = $queried_object->taxonomy;
+		$term_id              = $queried_object->term_id;
+		$category_description = get_field( 'dlugi_opis_kategorii', $taxonomy . '_' . $term_id );
+
+		if ( $category_description ) {
+			echo '<div class="page-description">' . wp_kses_post( $category_description ) . '</div>';
+		}
 	}
 }

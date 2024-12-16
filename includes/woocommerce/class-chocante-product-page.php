@@ -60,14 +60,6 @@ class Chocante_Product_Page {
 		// Product attributes.
 		add_filter( 'woocommerce_display_product_attributes', array( self::class, 'filter_product_attributes' ), 10, 2 );
 		add_filter( 'woocommerce_format_weight', array( self::class, 'format_weight_dimension' ), 10, 2 );
-
-		// Breadcrumbs.
-		// @todo: Chocante - remove priority after switching from Bricks.
-		add_filter( 'woocommerce_breadcrumb_defaults', array( self::class, 'modify_breadcrumbs' ), 20 );
-		// END TODO.
-
-		// Join me section fix.
-		add_action( 'template_redirect', array( self::class, 'display_join_group' ) );
 	}
 
 	/**
@@ -220,24 +212,5 @@ class Chocante_Product_Page {
 		}
 
 		return $weight_string;
-	}
-
-	/**
-	 * Modify breadcrumbs arguments
-	 *
-	 * @param array $args Breadcrumbs args.
-	 * @return array
-	 */
-	public static function modify_breadcrumbs( $args ) {
-		$args['delimiter'] = '&nbsp;&#8208;&nbsp;';
-		return $args;
-	}
-
-	/**
-	 * Disable join group section on specific shop pages
-	 */
-	public static function display_join_group() {
-		remove_action( 'chocante_before_footer', array( Chocante::class, 'display_join_group' ) );
-		add_action( 'woocommerce_after_main_content', array( Chocante::class, 'display_join_group' ), 5 );
 	}
 }

@@ -108,20 +108,7 @@ class Chocante_Product_Section {
 
 		$products = wc_products_array_orderby( $products, $orderby, $order );
 
-		// @todo: Chocante - move to global loop.
 		add_filter( 'woocommerce_post_class', array( self::class, 'slider_item_class' ) );
-		add_filter( 'woocommerce_loop_add_to_cart_link', array( Chocante_WooCommerce::class, 'add_to_cart_button' ), 10, 2 );
-		add_filter( 'woocommerce_product_add_to_cart_text', array( Chocante_WooCommerce::class, 'add_to_cart_text' ), 10, 2 );
-		remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_product_link_close', 5 );
-		add_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_product_link_close', 50 );
-		add_action( 'woocommerce_before_shop_loop_item_title', array( Chocante_WooCommerce::class, 'add_loop_item_info_open' ), 30 );
-		add_action( 'woocommerce_after_shop_loop_item_title', array( Chocante_WooCommerce::class, 'add_loop_item_info_close' ), 20 );
-		remove_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_rating', 5 );
-		add_action( 'woocommerce_after_shop_loop_item', array( Chocante_WooCommerce::class, 'add_loop_item_info_close' ), 30 );
-		// @todo: Chocante - Remove after switching from Bricks.
-		remove_all_filters( 'woocommerce_sale_flash', 10 );
-		// END TODO.
-		// END TODO.
 
 		get_template_part(
 			'template-parts/product',

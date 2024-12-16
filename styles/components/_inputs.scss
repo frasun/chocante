@@ -87,3 +87,38 @@
 		@include font-size(normal-sm);
 	}
 }
+
+// Checkbox.
+@mixin checkbox {
+	width: 25px;
+	height: 25px;
+	@include border(grey-1);
+	display: inline-block;
+	border-radius: var(--border-radius--xs);
+	@include transition(colors);
+	-webkit-appearance: none;
+	cursor: pointer;
+
+	&:hover {
+		box-shadow: var(--shadow--2);
+	}
+
+	&:checked {
+		@include bg(green-1);
+		background-image: url(../icons/icon-tick.svg);
+		background-position: center;
+		background-repeat: no-repeat;
+	}
+
+	& + label {
+		padding-top: 0.1em;
+	}
+}
+
+// Select.
+@mixin select-arrow {
+	background-image: url(../images/select-arrow.svg);
+	background-repeat: no-repeat;
+	background-position: calc(100% - 13px) center;
+	background-size: 12px 8px;
+}

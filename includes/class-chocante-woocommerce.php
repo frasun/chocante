@@ -7,6 +7,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
+// Common modules.
 require_once __DIR__ . '/woocommerce/class-chocante-product-section.php';
 
 /**
@@ -57,6 +58,17 @@ class Chocante_WooCommerce {
 		// @todo: Chocante - Bricks hack.
 		add_action( 'wp_enqueue_scripts', array( self::class, 'disable_bricks_assets' ), 1000 );
 		// END TODO.
+		add_filter( 'woocommerce_loop_add_to_cart_link', array( self::class, 'add_to_cart_button' ), 10, 2 );
+		add_filter( 'woocommerce_product_add_to_cart_text', array( self::class, 'add_to_cart_text' ), 10, 2 );
+		remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_product_link_close', 5 );
+		add_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_product_link_close', 50 );
+		add_action( 'woocommerce_before_shop_loop_item_title', array( self::class, 'add_loop_item_info_open' ), 30 );
+		add_action( 'woocommerce_after_shop_loop_item_title', array( self::class, 'add_loop_item_info_close' ), 20 );
+		remove_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_rating', 5 );
+		add_action( 'woocommerce_after_shop_loop_item', array( self::class, 'add_loop_item_info_close' ), 30 );
+		// @todo: Chocante - Remove after switching from Bricks.
+		remove_all_filters( 'woocommerce_sale_flash', 10 );
+		// END TODO.
 
 		// Product & archive page.
 		remove_action( 'woocommerce_before_main_content', 'woocommerce_output_content_wrapper' );
@@ -64,7 +76,12 @@ class Chocante_WooCommerce {
 		remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20 );
 
 		remove_action( 'woocommerce_after_main_content', 'woocommerce_output_content_wrapper_end' );
-		add_action( 'woocommerce_after_main_content', array( self::class, 'close_main_element' ) );
+		add_action( 'woocommerce_after_main_content', array( self::class, 'close_main_element' ), 60 );
+
+		// Breadcrumbs.
+		// @todo: Chocante - remove priority after switching from Bricks.
+		add_filter( 'woocommerce_breadcrumb_defaults', array( self::class, 'modify_breadcrumbs' ), 20 );
+		// END TODO.
 
 		// Product gallery.
 		if ( ! is_admin() ) {
@@ -98,6 +115,12 @@ class Chocante_WooCommerce {
 	 * Load page specific hooks
 	 */
 	public static function load_page_hooks() {
+		if ( is_shop() || is_product_category() || is_product_taxonomy() || is_product_tag() ) {
+			require_once __DIR__ . '/woocommerce/class-chocante-product-archive.php';
+			Chocante_Product_Archive::init();
+			return;
+		}
+
 		if ( is_product() ) {
 			require_once __DIR__ . '/woocommerce/class-chocante-product-page.php';
 			Chocante_Product_Page::init();
@@ -125,8 +148,16 @@ class Chocante_WooCommerce {
 	 * @return array
 	 */
 	public static function set_pagination_args( $pagination ) {
-		$pagination['prev_text'] = '';
-		$pagination['next_text'] = '';
+		ob_start();
+		Chocante::icon( 'prev' );
+		$prev_icon = ob_get_clean();
+
+		ob_start();
+		Chocante::icon( 'next' );
+		$next_icon = ob_get_clean();
+
+		$pagination['prev_text'] = is_rtl() ? $next_icon : $prev_icon;
+		$pagination['next_text'] = is_rtl() ? $prev_icon : $next_icon;
 
 		return $pagination;
 	}
@@ -368,7 +399,7 @@ class Chocante_WooCommerce {
 	 * @todo: Chocante - Bricks.
 	 */
 	public static function bricks_disabled() {
-		return is_cart() || is_product();
+		return is_cart() || is_product() || is_shop() || is_product_category() || is_product_taxonomy() || is_product_tag();
 	}
 
 	/**
@@ -393,6 +424,11 @@ class Chocante_WooCommerce {
 			remove_action( 'chocante_before_footer', array( Chocante::class, 'display_join_group' ) );
 			return;
 		}
+
+		if ( is_product() || is_shop() || is_product_category() || is_product_taxonomy() || is_product_tag() ) {
+			remove_action( 'chocante_before_footer', array( Chocante::class, 'display_join_group' ) );
+			add_action( 'woocommerce_after_main_content', array( Chocante::class, 'display_join_group' ), 30 );
+		}
 	}
 
 	/**
@@ -400,5 +436,16 @@ class Chocante_WooCommerce {
 	 */
 	public static function disable_product_gallery_zoom() {
 		remove_theme_support( 'wc-product-gallery-zoom' );
+	}
+
+	/**
+	 * Modify breadcrumbs arguments
+	 *
+	 * @param array $args Breadcrumbs args.
+	 * @return array
+	 */
+	public static function modify_breadcrumbs( $args ) {
+		$args['delimiter'] = '&nbsp;&#8208;&nbsp;';
+		return $args;
 	}
 }

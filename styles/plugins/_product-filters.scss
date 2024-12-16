@@ -1,0 +1,65 @@
+.chocante-product-filters {
+	display: flex;
+	flex-direction: column;
+	row-gap: 20px;
+	background-color: white;
+	border-radius: var(--border-radius);
+	padding: var(--spacing--20);
+
+	button[data-close-modal] {
+		@include hide(desktop);
+	}
+
+	header {
+		@include font-style(section-label);
+		@include color(grey-2);
+	}
+
+	fieldset {
+		border: 0;
+		padding: 0;
+		display: flex;
+		flex-direction: column;
+
+		> div {
+			position: relative;
+			display: flex;
+			gap: var(--spacing--10);
+			align-items: start;
+
+			& + div {
+				padding-top: var(--spacing--15);
+			}
+		}
+	}
+
+	legend {
+		@include font-size(medium-sm);
+		font-weight: var(--font-weight--bold);
+		@include color(brown-4);
+		padding-bottom: var(--spacing--10);
+	}
+
+	label {
+		span {
+			opacity: 0.4;
+		}
+	}
+
+	footer {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: var(--spacing--15);
+		padding-top: var(--spacing--10);
+
+		button,
+		.button {
+			@include button-sm;
+
+			&[type="reset"] {
+				@include button-secondary;
+			}
+		}
+	}
+}

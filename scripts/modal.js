@@ -31,6 +31,10 @@ export default class Modal {
   }
 
   hideMenu(event, resize = false) {
+    if (event) {
+      event.preventDefault();
+    }
+
     this.open = false;
     document.dispatchEvent(new CustomEvent('hideModal', { detail: { resize } }));
     window.removeEventListener('resize', this.onResizeHandler);

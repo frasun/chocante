@@ -3,11 +3,19 @@
 		@include font-size(medium-sm);
 		display: block;
 
+		[lang="es-ES"] & {
+			@include font-size(normal);
+		}
+
 		.woocommerce {
 			&-Price-amount {
 				@include font-size(big);
 				font-weight: var(--font-weight--bold);
 				@include color(green-1);
+
+				[lang="es-ES"] & {
+					@include font-size(medium);
+				}
 			}
 
 			&-price-suffix {

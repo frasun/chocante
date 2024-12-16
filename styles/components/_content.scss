@@ -1,0 +1,60 @@
+@mixin content {
+	h1,
+	h2,
+	h3,
+	h4,
+	h5 {
+		@include font(headings);
+		letter-spacing: 0.05em;
+	}
+
+	h1,
+	h2 {
+		@include font-size(x-large);
+	}
+
+	h3 {
+		@include font-size(large);
+	}
+
+	h4 {
+		@include font-size(big);
+	}
+
+	h5 {
+		@include font-size(medium);
+	}
+
+	h6 {
+		@include font-style(section-label);
+	}
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		padding-top: 0.5em;
+		padding-bottom: 0.35em;
+	}
+
+	ul,
+	ol {
+		padding: 0.5em 0 1em 1.5em;
+		margin: 0;
+
+		li {
+			padding-left: 1em;
+			padding-bottom: 0.5em;
+		}
+	}
+
+	ul {
+		list-style-type: "\2014";
+	}
+
+	a {
+		@include link;
+	}
+}

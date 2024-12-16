@@ -9,7 +9,7 @@
 		color: var(--text-color);
 		background: var(--background-color) url(../images/pattern-main.png);
 		padding-top: var(--spacing--50);
-		margin-top: 100px;
+		margin-top: var(--spacing--100);
 
 		@include min-width($breakpoint--mobile-lg) {
 			margin-top: 180px;
@@ -23,7 +23,7 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		padding: 100px var(--spacing--20);
+		padding: var(--spacing--100) var(--spacing--20);
 
 		a {
 			@include button($scheme: dark);

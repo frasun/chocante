@@ -1,19 +1,12 @@
 /* Forms */
 // @todo: Chocante - change to global class.
-.site-header,
-.mobile-menu,
-.search-products__form,
-.woocommerce-cart,
-.single-product,
-.join-group,
-.site-footer {
-	.button {
-		&,
-		.woocommerce & {
-			// Button not inside notice.
-			&:not(.wc-forward) {
-				@include button;
-			}
+.button {
+	// Button not inside notice.
+	&:not(.wc-forward) {
+		@include button;
+
+		&.button--sm {
+			@include button-sm;
 		}
 	}
 }
@@ -71,15 +64,70 @@
 label {
 	color: currentColor;
 	font-weight: var(--font-weight--normal);
+	@include transition(colors);
+
+	&[for] {
+		cursor: pointer;
+
+		&:hover {
+			opacity: 0.75;
+		}
+
+		&:active {
+			opacity: 1;
+			transition: none;
+		}
+	}
 }
 // END TODO.
 
 // Select.
 select {
-	background-image: url(../images/select-arrow.svg);
-	background-repeat: no-repeat;
-	background-position: calc(100% - 13px) center;
-	background-size: 12px 8px;
+	@include select-arrow;
 	padding-right: 40px;
 	@include color(grey-1);
+	border: 0;
+	font-weight: var(--font-weight--normal);
+}
+
+// Radio.
+input[type="radio"] {
+	@include radio;
+}
+
+// Checkox.
+input[type="checkbox"] {
+	@include checkbox;
+}
+
+// Container.
+.container {
+	@include container;
+}
+
+// Modal.
+.backdrop {
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	@include transition(colors);
+	opacity: 0;
+	@include bg(brown-4);
+	z-index: var(--z-index--modal-backdrop);
+
+	&.active {
+		opacity: 0.95;
+	}
+}
+
+button[data-close-modal] {
+	@include icon-button;
+}
+
+// Post content.
+.product__description,
+.page-description {
+	@include content;
 }

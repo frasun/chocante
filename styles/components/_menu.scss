@@ -1,13 +1,12 @@
 .menu {
-	list-style: none;
-	padding: 0;
-	margin: 0;
+	@include list-reset;
 }
 
 .mobile-menu {
 	display: flex;
 	flex-direction: column;
 	gap: var(--spacing--20);
+	color: white;
 	@include side-nav;
 
 	&__nav {
@@ -40,9 +39,7 @@
 		}
 
 		ul {
-			list-style: none;
-			padding: 0;
-			margin: 0;
+			@include list-reset;
 			text-align: left;
 			display: flex;
 			flex-direction: column;
