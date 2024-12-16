@@ -1,16 +1,16 @@
 /* Forms */
-// @todo: Chocante - change to global class.
-.button {
-	// Button not inside notice.
-	&:not(.wc-forward) {
+.button:not(.woocommerce-notices-wrapper .button) {
+	// @todo: Chocante - Bricks fix.
+	&,
+	.woocommerce & {
 		@include button;
+	}
+	// END TODO.
 
-		&.button--sm {
-			@include button-sm;
-		}
+	&.button--sm {
+		@include button-sm;
 	}
 }
-// END TODO.
 
 // Notice.
 // @todo Chocante - Bricks, remove cart class.

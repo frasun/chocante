@@ -214,10 +214,19 @@
 			a {
 				@include transition(colors);
 				@include bg(green-1);
+
+				svg {
+					@include transition;
+				}
 			}
 
 			a:hover {
 				@include bg(green-2);
+				box-shadow: var(--shadow--1);
+
+				svg {
+					transform: scale(1.25);
+				}
 			}
 
 			a:active {

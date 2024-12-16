@@ -21,17 +21,36 @@
 		border-width: 3px;
 	}
 
-	@if $style == primary {
-		@include button-primary($scheme);
-	}
+	&:not([disabled]):not(.disabled) {
+		@if $style == primary {
+			@include button-primary($scheme);
+		}
 
-	@if $style == secondary {
-		@include button-secondary($scheme);
+		@if $style == secondary {
+			@include button-secondary($scheme);
+		}
 	}
 
 	&[disabled],
 	&.disabled {
 		cursor: not-allowed;
+
+		@if $style == primary {
+			@if $scheme == light {
+				@include bg(grey-3);
+				color: white;
+			}
+
+			@if $scheme == dark {
+				background-color: white;
+				@include color(grey-3);
+			}
+		}
+
+		@if $style == secondary {
+			border-color: var(--color--grey-3);
+			color: var(--color--grey-3);
+		}
 	}
 }
 
