@@ -1,11 +1,6 @@
 .site-header {
-	--background-color: var(--color--brown-4);
-	--text-color: white;
-	--text-color-secondary: var(--color--brown-6);
-	--border-color: var(--color--brown-9);
-
-	background-color: var(--background-color);
-	color: var(--text-color);
+	background-color: var(--header--background-color, var(--color--brown-4));
+	color: var(--header--text-color, white);
 	position: sticky;
 	top: 0;
 	z-index: var(--z-index--overlay);
@@ -191,7 +186,7 @@
 	&__top {
 		padding-top: var(--spacing--10);
 		padding-bottom: var(--spacing--10);
-		border-bottom: 1px solid var(--border-color);
+		border-bottom: 1px solid var(--header--border-color, var(--color--brown-9));
 		@include hide(mobile);
 
 		@include max-width($breakpoint--desktop-md) {
@@ -212,7 +207,7 @@
 				font-size: var(--font-size--x-small);
 				@include transition(colors);
 				padding: var(--spacing--5) var(--spacing--10);
-				color: var(--text-color-secondary);
+				color: var(--header--text-color-secondary, var(--color--brown-6));
 
 				&:hover {
 					color: var(--text-color);

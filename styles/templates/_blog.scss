@@ -1,10 +1,8 @@
 body {
 	&.blog,
 	&.single-post {
-		.site-header {
-			--background-color: var(--color--brown-6);
-			--text-color-secondary: var(--color--grey-3);
-			--border-color: var(--color--grey-2);
-		}
+		--header--background-color: var(--color--brown-6);
+		--header--text-color-secondary: var(--color--grey-3);
+		--header--border-color: var(--color--grey-2);
 	}
 }

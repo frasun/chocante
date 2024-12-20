@@ -301,7 +301,6 @@ form.submitting .wpcf7-spinner {
 /* END Product slider temp fix */
 
 /* Paragraph spacing fix */
-
 :where(.brxe-section) p {
 	margin-bottom: 1.2em;
 }
@@ -310,4 +309,13 @@ form.submitting .wpcf7-spinner {
 	margin-bottom: 0;
 }
 /* END Paragraph spacing fix */
+
+/* Blog header */
+:where(.page-id-408, .page-id-3887, .page-id-6306, .page-id-6305, .page-id-8842)
+	.site-header {
+	--header--background-color: var(--color--brown-6);
+	--header--text-color-secondary: var(--color--grey-3);
+	--header--border-color: var(--color--grey-2);
+}
+/* END Blog header */
 /** END Theme transitition fixes **/
