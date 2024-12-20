@@ -60,12 +60,6 @@
 		&:empty {
 			display: none;
 		}
-
-		// @todo: Chocante - Bricks - remove.
-		p {
-			margin: 0;
-		}
-		// END TODO.
 	}
 
 	.products {
@@ -141,6 +135,8 @@
 			padding-top: var(--spacing--5);
 			max-width: var(--size--content);
 
+			@include content-short;
+
 			@include min-width($breakpoint--mobile) {
 				padding-bottom: var(--spacing--10);
 			}
@@ -213,6 +209,7 @@
 .tax-product_cat {
 	.page-description {
 		@include container(content);
+		@include content;
 
 		& {
 			padding-top: var(--spacing--100);

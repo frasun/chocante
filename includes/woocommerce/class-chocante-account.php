@@ -35,6 +35,8 @@ class Chocante_Account {
 		add_filter( 'woocommerce_account_orders_columns', array( __CLASS__, 'manage_orders_table_cols' ) );
 		add_action( 'woocommerce_my_account_my_orders_column_order-status-number', array( __CLASS__, 'display_order_status_number' ) );
 		add_action( 'woocommerce_my_account_my_orders_column_order-total-value', array( __CLASS__, 'display_order_total' ) );
+		add_filter( 'woocommerce_order_item_quantity_html', array( __CLASS__, 'modify_order_item_quantity' ), 10, 2 );
+		add_filter( 'woocommerce_display_item_meta', '__return_false' );
 
 		// Login.
 		add_action( 'woocommerce_before_customer_login_form', array( __CLASS__, 'display_login_page_title' ), 5 );
@@ -226,5 +228,32 @@ class Chocante_Account {
 	 */
 	public static function display_login_page_title() {
 		echo '<h1 class="page-title">' . esc_html_x( 'Already have an account?', 'login page', 'chocante' ) . '</h1>';
+	}
+
+	/**
+	 * Modify order item quantity in order details
+	 *
+	 * @param string        $quantity_html Order line item quantity HTML.
+	 * @param WC_Order_Item $item Order line item.
+	 * @return string
+	 */
+	public static function modify_order_item_quantity( $quantity_html, $item ) {
+		$attribute   = 'pa_waga';
+		$weight      = '';
+		$weight_slug = $item->get_meta( $attribute );
+
+		if ( $weight_slug ) {
+			$term = get_term_by( 'slug', $item->get_meta( $attribute ), $attribute );
+
+			if ( ! is_wp_error( $term ) ) {
+				$weight = $term->name;
+			}
+
+			if ( ! empty( $weight ) ) {
+				return "<span class='product-variation-quantity'>{$weight}{$quantity_html}</div>";
+			}
+		}
+
+		return $quantity_html;
 	}
 }

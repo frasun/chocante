@@ -45,7 +45,7 @@
 		top: 100%;
 		right: 0;
 		width: 100vw;
-		overflow-y: hidden;
+		overflow-y: scroll;
 		max-width: 360px;
 		padding-top: var(--spacing--20);
 		padding-bottom: var(--spacing--20);
@@ -97,9 +97,6 @@
 			&__buttons {
 				grid-column-start: 2;
 				padding-right: var(--spacing--15);
-				// @todo: Chocante - Bricks - remove.
-				margin: 0;
-				// END TODO.
 			}
 
 			&__total {

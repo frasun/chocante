@@ -86,7 +86,7 @@ if ( $show_downloads ) {
 				<?php
 				foreach ( $order->get_order_item_totals() as $key => $total ) {
 					?>
-						<tr>
+						<tr class="<?php echo esc_attr( $key ); ?>">
 							<th scope="row"><?php echo esc_html( $total['label'] ); ?></th>
 							<td><?php echo wp_kses_post( $total['value'] ); ?></td>
 						</tr>
@@ -94,7 +94,7 @@ if ( $show_downloads ) {
 				}
 				?>
 				<?php if ( $order->get_customer_note() ) : ?>
-					<tr>
+					<tr class="customer-note">
 						<th><?php esc_html_e( 'Note:', 'woocommerce' ); ?></th>
 						<td><?php echo wp_kses( nl2br( wptexturize( $order->get_customer_note() ) ), array() ); ?></td>
 					</tr>

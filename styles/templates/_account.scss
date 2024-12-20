@@ -470,12 +470,6 @@
 			grid-template-columns: repeat(2, 1fr);
 		}
 	}
-
-	// @todo: Chocante - Bricks - remove wrapper after checkout.
-	:where(p) {
-		margin: 0;
-	}
-	// END TODO.
 }
 
 .order-details {
@@ -522,7 +516,7 @@
 				@include min-width($breakpoint--mobile-sm) {
 					tr:not(:last-child) {
 						td {
-							padding-bottom: var(--spacing--10);
+							padding-bottom: var(--spacing--15);
 						}
 					}
 				}
@@ -534,25 +528,13 @@
 					font-weight: var(--font-weight--normal);
 				}
 
-				tr:last-child {
-					th,
-					td {
-						font-weight: var(--font-weight--bold);
-					}
-				}
-
 				@include min-width($breakpoint--mobile-sm) {
 					tr:first-child {
 						th,
 						td {
-							padding-top: var(--spacing--30);
+							padding-top: var(--spacing--20);
 						}
 					}
-				}
-
-				small {
-					display: block;
-					margin-bottom: var(--spacing--5);
 				}
 			}
 
@@ -576,8 +558,56 @@
 				@include link;
 			}
 
-			.wc-item-meta {
-				display: none;
+			.product {
+				&-name {
+					@include min-width($breakpoint--mobile-sm) {
+						padding-right: var(--spacing--30);
+					}
+
+					small {
+						display: block;
+						@include font-size(small-sm);
+					}
+				}
+
+				&-quantity,
+				&-variation-quantity {
+					display: block;
+				}
+
+				&-variation-quantity .product-quantity {
+					display: inline;
+				}
+
+				&-total {
+					@include min-width($breakpoint--mobile-sm) {
+						width: 40%;
+					}
+				}
+			}
+
+			.order_total {
+				th,
+				td {
+					font-weight: var(--font-weight--bold);
+				}
+			}
+
+			.customer-note {
+				th,
+				td {
+					display: block;
+				}
+
+				th {
+					@include font-style(section-label);
+					margin: var(--spacing--20) 0 var(--spacing--10);
+				}
+
+				td {
+					font-weight: var(--font-weight--normal);
+					@include font-size(small);
+				}
 			}
 		}
 

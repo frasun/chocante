@@ -367,9 +367,6 @@
 						@include font-size(small);
 						--line-height: initial;
 						margin-top: var(--spacing--20);
-						// @todo: Chocante - Bricks remove.
-						margin-bottom: 0;
-						// END TODO.
 					}
 
 					&-shipping-calculator {

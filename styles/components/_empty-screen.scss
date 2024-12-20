@@ -33,6 +33,7 @@
 
 	.button {
 		margin-top: var(--spacing--20);
+		@include button($size: lg);
 	}
 }
 

@@ -299,3 +299,15 @@ form.submitting .wpcf7-spinner {
 	opacity: 1;
 }
 /* END Product slider temp fix */
+
+/* Paragraph spacing fix */
+
+:where(.brxe-section) p {
+	margin-bottom: 1.2em;
+}
+
+:where(.brxe-section) p:last-of-type {
+	margin-bottom: 0;
+}
+/* END Paragraph spacing fix */
+/** END Theme transitition fixes **/

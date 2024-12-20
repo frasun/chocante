@@ -118,11 +118,6 @@
 				opacity: 0.9;
 			}
 		}
-
-		// @todo: Chocante - Bricks - remove.
-		p {
-			margin: 0;
-		}
 		// END TODO.
 	}
 	// END TODO.
@@ -184,9 +179,7 @@ button[data-close-modal] {
 	@include font-style(page-title);
 }
 
-// Post content.
-.product__description,
-.page-description {
+.post-content {
 	@include content;
 }
 /* END Content */

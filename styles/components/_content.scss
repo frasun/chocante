@@ -1,4 +1,6 @@
 @mixin content {
+	@include content-shared;
+
 	h1,
 	h2,
 	h3,
@@ -36,7 +38,7 @@
 	h5,
 	h6 {
 		padding-top: 0.5em;
-		padding-bottom: 0.35em;
+		padding-bottom: 0.5em;
 	}
 
 	ul,
@@ -52,6 +54,46 @@
 
 	ul {
 		list-style-type: "\2014";
+	}
+
+	p ~ ul,
+	p ~ ol {
+		padding-top: 0;
+		margin-top: -0.7em;
+	}
+}
+
+@mixin content-short {
+	@include content-shared;
+
+	h3,
+	h4 {
+		font-family: var(--font-family--body);
+		font-weight: var(--font-weight--bold);
+		padding-bottom: 0.5em;
+	}
+
+	h3 {
+		@include font-size(big);
+	}
+
+	h4 {
+		@include font-size(medium);
+	}
+}
+
+@mixin content-shared {
+	@include max-width($breakpoint--mobile) {
+		@include font-size(normal-sm);
+	}
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		@include color(brown-4);
 	}
 
 	a {
