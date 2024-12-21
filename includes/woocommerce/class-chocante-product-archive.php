@@ -87,14 +87,18 @@ class Chocante_Product_Archive {
 	 * Open shop loop header
 	 */
 	public static function open_shop_loop_header() {
-		echo '<header class="shop-loop__header">';
+		if ( woocommerce_products_will_display() ) {
+			echo '<header class="shop-loop__header">';
+		}
 	}
 
 	/**
 	 * Close shop loop header
 	 */
 	public static function close_shop_loop_header() {
-		echo '</header>';
+		if ( woocommerce_products_will_display() ) {
+			echo '</header>';
+		}
 	}
 
 	/**
