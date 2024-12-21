@@ -16,7 +16,7 @@ class Chocante_Product_Archive {
 	 * Init hooks.
 	 */
 	public static function init() {
-		add_action( 'wp_enqueue_scripts', array( self::class, 'enqueue_scripts' ) );
+		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'enqueue_scripts' ) );
 
 		// Breadcrumbs.
 		add_action( 'chocante_product_archive_header', 'woocommerce_breadcrumb', 20 );
@@ -26,18 +26,18 @@ class Chocante_Product_Archive {
 		add_action( 'chocante_product_archive_header', 'woocommerce_output_all_notices' );
 
 		// Layout.
-		add_action( 'woocommerce_archive_description', array( self::class, 'display_shop_short_description' ), 5 );
-		add_action( 'woocommerce_shop_loop_header', array( self::class, 'open_shop_loop_wrapper' ) );
-		add_action( 'woocommerce_before_shop_loop', array( self::class, 'open_shop_loop_section' ), 12 );
-		add_action( 'woocommerce_before_shop_loop', array( self::class, 'open_shop_loop_header' ), 15 );
+		add_action( 'woocommerce_archive_description', array( __CLASS__, 'display_shop_short_description' ), 5 );
+		add_action( 'woocommerce_shop_loop_header', array( __CLASS__, 'open_shop_loop_wrapper' ) );
+		add_action( 'woocommerce_before_shop_loop', array( __CLASS__, 'open_shop_loop_section' ), 12 );
+		add_action( 'woocommerce_before_shop_loop', array( __CLASS__, 'open_shop_loop_header' ), 15 );
 		if ( class_exists( 'Chocante_Product_Filters' ) ) {
-			add_action( 'woocommerce_before_shop_loop', array( self::class, 'output_mobile_filter_trigger' ), 25 );
-			add_action( 'chocante_product_filters_header', array( self::class, 'output_mobile_filter_close' ) );
+			add_action( 'woocommerce_before_shop_loop', array( __CLASS__, 'output_mobile_filter_trigger' ), 25 );
+			add_action( 'chocante_product_filters_header', array( __CLASS__, 'output_mobile_filter_close' ) );
 		}
-		add_action( 'woocommerce_before_shop_loop', array( self::class, 'close_shop_loop_header' ), 35 );
-		add_action( 'woocommerce_after_main_content', array( self::class, 'close_shop_loop_wrapper' ) );
-		add_action( 'woocommerce_after_main_content', array( self::class, 'close_shop_loop_section' ) );
-		add_action( 'woocommerce_after_main_content', array( self::class, 'display_shop_description' ), 20 );
+		add_action( 'woocommerce_before_shop_loop', array( __CLASS__, 'close_shop_loop_header' ), 35 );
+		add_action( 'woocommerce_after_main_content', array( __CLASS__, 'close_shop_loop_wrapper' ) );
+		add_action( 'woocommerce_after_main_content', array( __CLASS__, 'close_shop_loop_section' ) );
+		add_action( 'woocommerce_after_main_content', array( __CLASS__, 'display_shop_description' ), 20 );
 	}
 
 	/**

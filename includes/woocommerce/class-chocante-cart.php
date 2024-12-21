@@ -16,17 +16,17 @@ class Chocante_Cart {
 	 * Init hooks.
 	 */
 	public static function init() {
-		add_action( 'wp_enqueue_scripts', array( self::class, 'enqueue_scripts' ) );
+		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'enqueue_scripts' ) );
 
-		add_action( 'woocommerce_after_cart_table', array( self::class, 'display_cart_info' ) );
-		add_action( 'woocommerce_cart_totals_before_order_total', array( self::class, 'display_coupon_form_in_cart' ) );
-		add_filter( 'woocommerce_cart_item_permalink', array( self::class, 'return_empty_permalink' ) );
-		add_action( 'chocante_after_cart', array( self::class, 'display_featured_products_in_cart' ) );
+		add_action( 'woocommerce_after_cart_table', array( __CLASS__, 'display_cart_info' ) );
+		add_action( 'woocommerce_cart_totals_before_order_total', array( __CLASS__, 'display_coupon_form_in_cart' ) );
+		add_filter( 'woocommerce_cart_item_permalink', array( __CLASS__, 'return_empty_permalink' ) );
+		add_action( 'chocante_after_cart', array( __CLASS__, 'display_featured_products_in_cart' ) );
 
 		// Cart empty.
-		add_action( 'woocommerce_before_cart', array( self::class, 'display_cart_title' ), 1 );
+		add_action( 'woocommerce_before_cart', array( __CLASS__, 'display_cart_title' ), 1 );
 		if ( ! is_admin() ) {
-			add_filter( 'body_class', array( self::class, 'modify_empty_cart_body_class' ) );
+			add_filter( 'body_class', array( __CLASS__, 'modify_empty_cart_body_class' ) );
 		}
 		remove_action( 'woocommerce_cart_is_empty', 'wc_empty_cart_message', 10 );
 	}

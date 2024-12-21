@@ -108,7 +108,7 @@ class Chocante_Product_Section {
 
 		$products = wc_products_array_orderby( $products, $orderby, $order );
 
-		add_filter( 'woocommerce_post_class', array( self::class, 'slider_item_class' ) );
+		add_filter( 'woocommerce_post_class', array( __CLASS__, 'slider_item_class' ) );
 
 		get_template_part(
 			'template-parts/product',
@@ -162,7 +162,7 @@ class Chocante_Product_Section {
 
 		ob_start();
 		self::get_products( $category, $featured, $onsale, $latest, $exclude );
-		echo ob_get_clean(); // @codingStandardsIgnoreLine.		
+		echo ob_get_clean(); // @codingStandardsIgnoreLine.
 
 		wp_die();
 	}

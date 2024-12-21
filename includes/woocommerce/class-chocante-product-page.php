@@ -16,7 +16,7 @@ class Chocante_Product_Page {
 	 * Init hooks.
 	 */
 	public static function init() {
-		add_action( 'wp_enqueue_scripts', array( self::class, 'enqueue_scripts' ) );
+		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'enqueue_scripts' ) );
 
 		remove_action( 'woocommerce_before_single_product', 'woocommerce_output_all_notices' );
 		// @todo: Chocante - Bricks hack.
@@ -31,26 +31,26 @@ class Chocante_Product_Page {
 		remove_action( 'woocommerce_before_single_product_summary', 'woocommerce_show_product_sale_flash', 10 );
 		add_action( 'woocommerce_before_single_product_summary', 'woocommerce_output_all_notices', 5 );
 		add_action( 'woocommerce_before_single_product_summary', 'woocommerce_breadcrumb', 7 );
-		add_action( 'woocommerce_before_single_product_summary', array( self::class, 'open_product_info_section' ), 9 );
-		add_action( 'woocommerce_before_single_product_summary', array( self::class, 'open_product_header' ), 13 );
+		add_action( 'woocommerce_before_single_product_summary', array( __CLASS__, 'open_product_info_section' ), 9 );
+		add_action( 'woocommerce_before_single_product_summary', array( __CLASS__, 'open_product_header' ), 13 );
 		add_action( 'woocommerce_before_single_product_summary', 'woocommerce_show_product_sale_flash', 14 );
 		add_action( 'woocommerce_before_single_product_summary', 'woocommerce_template_single_title', 16 );
-		add_action( 'woocommerce_before_single_product_summary', array( self::class, 'close_product_header' ), 18 );
+		add_action( 'woocommerce_before_single_product_summary', array( __CLASS__, 'close_product_header' ), 18 );
 
 		remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_title', 5 );
 		remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_rating', 10 );
 		remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_price', 10 );
 		add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_price', 20 );
-		add_action( 'woocommerce_single_product_summary', array( self::class, 'display_product_info' ), 30 );
-		add_action( 'woocommerce_single_product_summary', array( self::class, 'display_product_attributes' ), 35 );
+		add_action( 'woocommerce_single_product_summary', array( __CLASS__, 'display_product_info' ), 30 );
+		add_action( 'woocommerce_single_product_summary', array( __CLASS__, 'display_product_attributes' ), 35 );
 
 		remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_product_data_tabs', 10 );
 		remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_upsell_display', 15 );
 		remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_related_products', 20 );
-		add_action( 'woocommerce_after_single_product_summary', array( self::class, 'close_product_info_section' ), 30 );
+		add_action( 'woocommerce_after_single_product_summary', array( __CLASS__, 'close_product_info_section' ), 30 );
 
-		add_action( 'woocommerce_after_single_product', array( self::class, 'display_related_products' ), 10 );
-		add_action( 'woocommerce_after_single_product', array( self::class, 'output_product_description' ), 20 );
+		add_action( 'woocommerce_after_single_product', array( __CLASS__, 'display_related_products' ), 10 );
+		add_action( 'woocommerce_after_single_product', array( __CLASS__, 'output_product_description' ), 20 );
 
 		// Product variation.
 		add_action( 'woocommerce_after_variations_table', 'woocommerce_single_variation', 10 );
@@ -58,8 +58,8 @@ class Chocante_Product_Page {
 		add_filter( 'woocommerce_show_variation_price', '__return_true' );
 
 		// Product attributes.
-		add_filter( 'woocommerce_display_product_attributes', array( self::class, 'filter_product_attributes' ), 10, 2 );
-		add_filter( 'woocommerce_format_weight', array( self::class, 'format_weight_dimension' ), 10, 2 );
+		add_filter( 'woocommerce_display_product_attributes', array( __CLASS__, 'filter_product_attributes' ), 10, 2 );
+		add_filter( 'woocommerce_format_weight', array( __CLASS__, 'format_weight_dimension' ), 10, 2 );
 	}
 
 	/**

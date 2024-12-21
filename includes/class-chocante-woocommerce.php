@@ -20,77 +20,77 @@ class Chocante_WooCommerce {
 	public static function init() {
 		// Load page specific hooks.
 		if ( ! is_admin() ) {
-			add_action( 'wp', array( self::class, 'load_page_hooks' ) );
+			add_action( 'wp', array( __CLASS__, 'load_page_hooks' ) );
 		}
 
 		// Page header.
-		add_action( 'wp_enqueue_scripts', array( self::class, 'enqueue_scripts' ) );
-		add_action( 'chocante_header_aside', array( self::class, 'display_header_actions' ) );
+		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'enqueue_scripts' ) );
+		add_action( 'chocante_header_aside', array( __CLASS__, 'display_header_actions' ) );
 
 		// Catalog settings.
-		add_filter( 'woocommerce_pagination_args', array( self::class, 'set_pagination_args' ) );
-		add_filter( 'woocommerce_catalog_orderby', array( self::class, 'set_caralog_orderby' ) );
+		add_filter( 'woocommerce_pagination_args', array( __CLASS__, 'set_pagination_args' ) );
+		add_filter( 'woocommerce_catalog_orderby', array( __CLASS__, 'set_caralog_orderby' ) );
 
 		// Mini-cart.
-		add_action( 'woocommerce_before_mini_cart', array( self::class, 'display_mini_cart_title' ) );
+		add_action( 'woocommerce_before_mini_cart', array( __CLASS__, 'display_mini_cart_title' ) );
 		remove_action( 'woocommerce_widget_shopping_cart_buttons', 'woocommerce_widget_shopping_cart_button_view_cart', 10 );
-		add_filter( 'woocommerce_widget_cart_item_quantity', array( self::class, 'display_mini_cart_item_total' ), 10, 3 );
+		add_filter( 'woocommerce_widget_cart_item_quantity', array( __CLASS__, 'display_mini_cart_item_total' ), 10, 3 );
 
 		// Cart & mini-cart.
-		add_filter( 'woocommerce_cart_item_remove_link', array( self::class, 'use_remove_icon' ) );
-		add_filter( 'woocommerce_cart_item_name', array( self::class, 'get_custom_product_name' ), 10, 2 );
-		add_filter( 'woocommerce_cart_item_price', array( self::class, 'add_weight_to_price_in_cart' ), 10, 2 );
+		add_filter( 'woocommerce_cart_item_remove_link', array( __CLASS__, 'use_remove_icon' ) );
+		add_filter( 'woocommerce_cart_item_name', array( __CLASS__, 'get_custom_product_name' ), 10, 2 );
+		add_filter( 'woocommerce_cart_item_price', array( __CLASS__, 'add_weight_to_price_in_cart' ), 10, 2 );
 
 		// Cart & product page.
-		add_action( 'woocommerce_before_quantity_input_field', array( self::class, 'display_remove_quantity_button' ) );
-		add_action( 'woocommerce_after_quantity_input_field', array( self::class, 'display_add_quantity_button' ), 20 );
+		add_action( 'woocommerce_before_quantity_input_field', array( __CLASS__, 'display_remove_quantity_button' ) );
+		add_action( 'woocommerce_after_quantity_input_field', array( __CLASS__, 'display_add_quantity_button' ), 20 );
 
 		// Free shipping.
 		if ( class_exists( 'Chocante_Free_Shipping' ) ) {
-			add_action( 'chocante_delivery_info', array( self::class, 'display_free_delivery_info' ) );
+			add_action( 'chocante_delivery_info', array( __CLASS__, 'display_free_delivery_info' ) );
 		}
 
 		// Product search.
-		add_action( 'pre_get_product_search_form', array( self::class, 'display_product_search_title' ) );
-		add_filter( 'get_product_search_form', array( self::class, 'display_product_search_icon' ) );
+		add_action( 'pre_get_product_search_form', array( __CLASS__, 'display_product_search_title' ) );
+		add_filter( 'get_product_search_form', array( __CLASS__, 'display_product_search_icon' ) );
 
 		// Product loop.
 		// @todo: Chocante - Bricks hack.
-		add_action( 'wp_enqueue_scripts', array( self::class, 'disable_bricks_assets' ), 1000 );
+		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'disable_bricks_assets' ), 1000 );
 		// END TODO.
-		add_filter( 'woocommerce_loop_add_to_cart_link', array( self::class, 'add_to_cart_button' ), 10, 2 );
-		add_filter( 'woocommerce_product_add_to_cart_text', array( self::class, 'add_to_cart_text' ), 10, 2 );
+		add_filter( 'woocommerce_loop_add_to_cart_link', array( __CLASS__, 'add_to_cart_button' ), 10, 2 );
+		add_filter( 'woocommerce_product_add_to_cart_text', array( __CLASS__, 'add_to_cart_text' ), 10, 2 );
 		remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_product_link_close', 5 );
 		add_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_product_link_close', 50 );
-		add_action( 'woocommerce_before_shop_loop_item_title', array( self::class, 'add_loop_item_info_open' ), 30 );
-		add_action( 'woocommerce_after_shop_loop_item_title', array( self::class, 'add_loop_item_info_close' ), 20 );
+		add_action( 'woocommerce_before_shop_loop_item_title', array( __CLASS__, 'add_loop_item_info_open' ), 30 );
+		add_action( 'woocommerce_after_shop_loop_item_title', array( __CLASS__, 'add_loop_item_info_close' ), 20 );
 		remove_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_rating', 5 );
-		add_action( 'woocommerce_after_shop_loop_item', array( self::class, 'add_loop_item_info_close' ), 30 );
+		add_action( 'woocommerce_after_shop_loop_item', array( __CLASS__, 'add_loop_item_info_close' ), 30 );
 		// @todo: Chocante - Remove after switching from Bricks.
 		remove_all_filters( 'woocommerce_sale_flash', 10 );
 		// END TODO.
 
 		// Product & archive page.
 		remove_action( 'woocommerce_before_main_content', 'woocommerce_output_content_wrapper' );
-		add_action( 'woocommerce_before_main_content', array( self::class, 'open_main_element' ) );
+		add_action( 'woocommerce_before_main_content', array( __CLASS__, 'open_main_element' ) );
 		remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20 );
 
 		remove_action( 'woocommerce_after_main_content', 'woocommerce_output_content_wrapper_end' );
-		add_action( 'woocommerce_after_main_content', array( self::class, 'close_main_element' ), 60 );
+		add_action( 'woocommerce_after_main_content', array( __CLASS__, 'close_main_element' ), 60 );
 
 		// Breadcrumbs.
 		// @todo: Chocante - remove priority after switching from Bricks.
-		add_filter( 'woocommerce_breadcrumb_defaults', array( self::class, 'modify_breadcrumbs' ), 20 );
+		add_filter( 'woocommerce_breadcrumb_defaults', array( __CLASS__, 'modify_breadcrumbs' ), 20 );
 		// END TODO.
 
 		// Product gallery.
 		if ( ! is_admin() ) {
-			add_action( 'after_setup_theme', array( self::class, 'disable_product_gallery_zoom' ), 99 );
+			add_action( 'after_setup_theme', array( __CLASS__, 'disable_product_gallery_zoom' ), 99 );
 		}
 
 		// Page footer.
 		if ( ! is_admin() ) {
-			add_action( 'wp_footer', array( self::class, 'output_product_search' ), 30 );
+			add_action( 'wp_footer', array( __CLASS__, 'output_product_search' ), 30 );
 		}
 
 		// Product sliders.
@@ -107,7 +107,7 @@ class Chocante_WooCommerce {
 		remove_filter( 'admin_head', 'wp_check_widget_editor_deps' );
 
 		// Remove WooCommerce styles.
-		add_filter( 'woocommerce_enqueue_styles', array( self::class, 'disable_woocommerce_styles' ) );
+		add_filter( 'woocommerce_enqueue_styles', array( __CLASS__, 'disable_woocommerce_styles' ) );
 	}
 
 	/**

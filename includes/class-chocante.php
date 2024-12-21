@@ -16,29 +16,29 @@ class Chocante {
 	 */
 	public static function init() {
 		// Setup.
-		add_action( 'after_setup_theme', array( self::class, 'load_textdomain' ) );
-		add_action( 'after_setup_theme', array( self::class, 'register_nav_menus' ) );
-		add_action( 'widgets_init', array( self::class, 'register_sidebars' ) );
-		add_action( 'wp_enqueue_scripts', array( self::class, 'enqueue_scripts' ), 20 );
+		add_action( 'after_setup_theme', array( __CLASS__, 'load_textdomain' ) );
+		add_action( 'after_setup_theme', array( __CLASS__, 'register_nav_menus' ) );
+		add_action( 'widgets_init', array( __CLASS__, 'register_sidebars' ) );
+		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'enqueue_scripts' ), 20 );
 
 		// Custom logo.
-		add_action( 'after_setup_theme', array( self::class, 'support_custom_logo' ) );
-		add_filter( 'get_custom_logo_image_attributes', array( self::class, 'set_custom_logo_attributes' ), 10, 2 );
+		add_action( 'after_setup_theme', array( __CLASS__, 'support_custom_logo' ) );
+		add_filter( 'get_custom_logo_image_attributes', array( __CLASS__, 'set_custom_logo_attributes' ), 10, 2 );
 
 		// Menu.
-		// add_filter( 'nav_menu_css_class', array( self::class, 'set_menu_item_class' ), 10, 2 );?
-		// add_filter( 'nav_menu_submenu_css_class', array( self::class, 'set_submenu_class' ) );?
+		// add_filter( 'nav_menu_css_class', array( __CLASS__, 'set_menu_item_class' ), 10, 2 );?
+		// add_filter( 'nav_menu_submenu_css_class', array( __CLASS__, 'set_submenu_class' ) );?
 		if ( ! is_admin() ) {
-			add_action( 'wp_footer', array( self::class, 'output_mobile_menu' ), 20 );
-			add_filter( 'nav_menu_item_title', array( self::class, 'social_media_icons' ), 10, 3 );
+			add_action( 'wp_footer', array( __CLASS__, 'output_mobile_menu' ), 20 );
+			add_filter( 'nav_menu_item_title', array( __CLASS__, 'social_media_icons' ), 10, 3 );
 		}
 
 		// Footer.
-		add_action( 'chocante_before_footer', array( self::class, 'display_join_group' ) );
+		add_action( 'chocante_before_footer', array( __CLASS__, 'display_join_group' ) );
 
 		// Images.
 		if ( ! is_admin() ) {
-			add_filter( 'wp_get_attachment_image_attributes', array( self::class, 'set_image_lazy_loading' ) );
+			add_filter( 'wp_get_attachment_image_attributes', array( __CLASS__, 'set_image_lazy_loading' ) );
 		}
 
 		// WooCommerce.

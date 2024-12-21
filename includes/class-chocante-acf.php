@@ -107,7 +107,7 @@ class Chocante_ACF {
 	 * Display ACF short name in breadcrumbs
 	 */
 	public static function modify_product_breadcrumb_title() {
-		add_filter( 'the_title', array( self::class, 'get_product_page_short_title' ), 10, 2 );
+		add_filter( 'the_title', array( __CLASS__, 'get_product_page_short_title' ), 10, 2 );
 	}
 
 	/**
@@ -131,7 +131,7 @@ class Chocante_ACF {
 	 * Display ACF fields in product page title
 	 */
 	public static function modify_product_page_title() {
-		add_filter( 'the_title', array( self::class, 'get_product_page_title' ), 10, 2 );
+		add_filter( 'the_title', array( __CLASS__, 'get_product_page_title' ), 10, 2 );
 	}
 
 	/**
