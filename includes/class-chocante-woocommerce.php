@@ -87,6 +87,7 @@ class Chocante_WooCommerce {
 		if ( ! is_admin() ) {
 			add_action( 'after_setup_theme', array( __CLASS__, 'disable_product_gallery_zoom' ), 99 );
 		}
+		add_filter( 'woocommerce_get_image_size_gallery_thumbnail', array( __CLASS__, 'set_gallery_thumbnail_size' ) );
 
 		// Page footer.
 		if ( ! is_admin() ) {
@@ -437,5 +438,16 @@ class Chocante_WooCommerce {
 	public static function modify_breadcrumbs( $args ) {
 		$args['delimiter'] = '&nbsp;&#8208;&nbsp;';
 		return $args;
+	}
+
+	/**
+	 * Product gallery thumbnail size
+	 */
+	public static function set_gallery_thumbnail_size() {
+		return array(
+			'width'  => 150,
+			'height' => 150,
+			'crop'   => 1,
+		);
 	}
 }
