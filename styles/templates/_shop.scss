@@ -1,10 +1,6 @@
 .shop-loop {
 	@include bg(grey-5);
 
-	& + .join-group {
-		@include bg(grey-5);
-	}
-
 	&__container {
 		@include container;
 
@@ -215,5 +211,9 @@
 			padding-top: var(--spacing--100);
 			padding-bottom: var(--spacing--100);
 		}
+	}
+
+	&:not(:has(.page-description)) {
+		--join-group--background-color: var(--color--grey-5);
 	}
 }

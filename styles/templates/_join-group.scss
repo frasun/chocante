@@ -1,13 +1,11 @@
 .join-group {
-	--background-color: var(--color--brown-4);
-	--text-color: white;
-
+	background-color: var(--join-group--background-color);
 	position: relative;
 	overflow: hidden;
 
 	&__wrapper {
-		color: var(--text-color);
-		background: var(--background-color) url(../images/pattern-main.png);
+		color: white;
+		background: var(--color--brown-4) url(../images/pattern-main.png);
 		padding-top: var(--spacing--50);
 		margin-top: var(--spacing--100);
 

@@ -92,7 +92,6 @@ class Chocante_WooCommerce {
 		if ( ! is_admin() ) {
 			add_action( 'wp_footer', array( self::class, 'output_product_search' ), 30 );
 		}
-		add_action( 'template_redirect', array( self::class, 'display_join_group' ) );
 
 		// Product sliders.
 		add_action( 'wp_ajax_get_products', array( Chocante_Product_Section::class, 'ajax_get_products' ) );
@@ -420,21 +419,6 @@ class Chocante_WooCommerce {
 	 */
 	public static function close_main_element() {
 		echo '</main>';
-	}
-
-	/**
-	 * Disable join group section on specific shop pages
-	 */
-	public static function display_join_group() {
-		if ( is_checkout() || is_account_page() ) {
-			remove_action( 'chocante_before_footer', array( Chocante::class, 'display_join_group' ) );
-			return;
-		}
-
-		if ( is_product() || is_shop() || is_product_category() || is_product_taxonomy() || is_product_tag() ) {
-			remove_action( 'chocante_before_footer', array( Chocante::class, 'display_join_group' ) );
-			add_action( 'woocommerce_after_main_content', array( Chocante::class, 'display_join_group' ), 30 );
-		}
 	}
 
 	/**

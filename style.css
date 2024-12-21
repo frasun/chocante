@@ -249,30 +249,37 @@ form.submitting .wpcf7-spinner {
 	padding-bottom: 100px !important;
 }
 
-.home .join-group,
-.blog .join-group,
-.single-post .join-group,
-.page-id-328 .join-group,
-.page-id-3878 .join-group,
-.page-id-6312 .join-group,
-.page-id-6310 .join-group,
-.page-id-8891 .join-group,
-.page-id-3360 .join-group,
-.page-id-3879 .join-group,
-.page-id-6316 .join-group,
-.page-id-6314 .join-group,
-.page-id-8892 .join-group,
-.page-id-572 .join-group,
-.page-id-3881 .join-group,
-.page-id-6325 .join-group,
-.page-id-6324 .join-group,
-.page-id-8923 .join-group,
-.page-id-7165 .join-group,
-.page-id-7234 .join-group,
-.page-id-7236 .join-group,
-.page-id-7235 .join-group,
-.page-id-8908 .join-group {
-	background-color: var(--bricks-color-3e1142);
+:where(
+		.home,
+		.blog,
+		.single-post,
+		.page-id-408,
+		.page-id-3887,
+		.page-id-6306,
+		.page-id-6305,
+		.page-id-8842,
+		.page-id-328,
+		.page-id-3878,
+		.page-id-6312,
+		.page-id-6310,
+		.page-id-8891,
+		.page-id-3360,
+		.page-id-3879,
+		.page-id-6316,
+		.page-id-6314,
+		.page-id-8892,
+		.page-id-572,
+		.page-id-3881,
+		.page-id-6325,
+		.page-id-6324,
+		.page-id-8923,
+		.page-id-7165,
+		.page-id-7234,
+		.page-id-7236,
+		.page-id-7235,
+		.page-id-8908
+	) {
+	--join-group--background-color: var(--bricks-color-3e1142);
 }
 
 #brxe-vhfffq {

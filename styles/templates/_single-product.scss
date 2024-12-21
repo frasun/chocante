@@ -294,10 +294,6 @@
 			padding-top: 80px;
 			padding-bottom: var(--spacing--100);
 		}
-
-		& + .join-group {
-			@include bg(grey-5);
-		}
 	}
 
 	// Fix for setting font-weight in editor.
@@ -306,5 +302,9 @@
 		*[style*="font-weight"] {
 			font-weight: 500 !important;
 		}
+	}
+
+	&:not(:has(.product__description)) {
+		--join-group--background-color: var(--color--grey-5);
 	}
 }

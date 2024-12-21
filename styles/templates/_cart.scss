@@ -487,7 +487,7 @@
 		);
 	}
 
-	.join-group {
-		background-color: white;
+	&:has(.product-section) {
+		--join-group--background-color: white;
 	}
 }
