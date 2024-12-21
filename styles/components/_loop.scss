@@ -1,0 +1,24 @@
+@mixin loop-item-link {
+	@include transition(colors);
+	border-radius: var(--border-radius);
+	@include border(grey-4);
+	overflow: hidden;
+
+	&:hover {
+		box-shadow: var(--shadow--2);
+	}
+
+	img {
+		@include transition;
+	}
+}
+
+@mixin loop-item-title {
+	@include font-size(medium-sm);
+	font-weight: var(--font-weight--bold);
+
+	// @todo: Chocante - Bricks.
+	font-family: var(--font-family--body);
+	letter-spacing: normal;
+	// END TODO.
+}

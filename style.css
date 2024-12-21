@@ -251,7 +251,6 @@ form.submitting .wpcf7-spinner {
 
 :where(
 		.home,
-		.blog,
 		.single-post,
 		.page-id-408,
 		.page-id-3887,
@@ -318,8 +317,14 @@ form.submitting .wpcf7-spinner {
 /* END Paragraph spacing fix */
 
 /* Blog header */
-:where(.page-id-408, .page-id-3887, .page-id-6306, .page-id-6305, .page-id-8842)
-	.site-header {
+:where(
+		.page-id-408,
+		.page-id-3887,
+		.page-id-6306,
+		.page-id-6305,
+		.page-id-8842,
+		.single-post
+	) {
 	--header--background-color: var(--color--brown-6);
 	--header--text-color-secondary: var(--color--grey-3);
 	--header--border-color: var(--color--grey-2);

@@ -5,12 +5,25 @@
 
 	&__wrapper {
 		color: white;
-		background: var(--color--brown-4) url(../images/pattern-main.png);
+		background: var(--color--brown-4);
 		padding-top: var(--spacing--50);
 		margin-top: var(--spacing--100);
+		position: relative;
 
 		@include min-width($breakpoint--mobile-lg) {
 			margin-top: 180px;
+		}
+
+		&::before {
+			content: "";
+			position: absolute;
+			left: 0;
+			right: 0;
+			top: 0;
+			bottom: 0;
+			background: url(../images/bg-pattern.png);
+			opacity: 0.4;
+			z-index: 0;
 		}
 	}
 
@@ -22,6 +35,8 @@
 		flex-direction: column;
 		align-items: center;
 		padding: var(--spacing--100) var(--spacing--20);
+		position: relative;
+		z-index: 1;
 
 		a {
 			@include button($scheme: dark, $size: lg);

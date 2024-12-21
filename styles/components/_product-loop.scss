@@ -1,10 +1,9 @@
 .products {
 	--loop-item-width: 270px;
-
 	@include list-reset;
 
 	.product {
-		@include transition(colors);
+		@include transition;
 		transition-timing-function: ease-in;
 
 		@include max-width($breakpoint--desktop-md) {
@@ -18,48 +17,39 @@
 		.woocommerce {
 			&-loop-product {
 				&__title {
-					@include font-size(medium-sm);
-					font-weight: var(--font-weight--bold);
+					@include loop-item-title;
 					@include color(brown-4);
 					margin: 0 0 0.2em;
-
-					// @todo: Chocante - Bricks.
-					font-family: var(--font-family--body);
-					letter-spacing: normal;
-					// END TODO.
 				}
 
 				&__link {
-					border-radius: var(--border-radius);
-					@include transition(colors);
-					overflow: hidden;
-					background-color: white;
-					@include border(grey-4);
-					position: relative;
-					display: block;
+					@include loop-item-link;
 
-					&:hover {
-						box-shadow: var(--shadow--2);
+					& {
+						background-color: white;
+						position: relative;
+						display: block;
+
+						&:hover {
+							img {
+								transform: translateY(-2%);
+							}
+
+							.woocommerce-loop-product__info-wrapper {
+								transform: translateY(0);
+							}
+						}
 
 						img {
-							transform: translateY(-2%);
-						}
-
-						.woocommerce-loop-product__info-wrapper {
 							transform: translateY(0);
 						}
-					}
 
-					img {
-						@include transition;
-						transform: translateY(0);
-					}
-
-					.onsale {
-						position: absolute;
-						left: var(--spacing--20);
-						top: var(--spacing--15);
-						z-index: 10;
+						.onsale {
+							position: absolute;
+							left: var(--spacing--20);
+							top: var(--spacing--15);
+							z-index: 10;
+						}
 					}
 				}
 

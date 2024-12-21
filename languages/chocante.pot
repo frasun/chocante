@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-12-19T19:01:11+00:00\n"
+"POT-Creation-Date: 2024-12-30T19:29:48+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: chocante\n"
@@ -50,6 +50,11 @@ msgctxt "footer"
 msgid "All Rights Reserved"
 msgstr ""
 
+#: home.php:37
+msgctxt "blog"
+msgid "Other articles"
+msgstr ""
+
 #: includes/class-chocante-woocommerce.php:176
 msgctxt "sorting option"
 msgid "Default"
@@ -85,99 +90,105 @@ msgctxt "product loop"
 msgid "Buy now"
 msgstr ""
 
-#: includes/class-chocante.php:81
+#: includes/class-chocante.php:89
 msgctxt "menu"
 msgid "Main menu"
 msgstr ""
 
-#: includes/class-chocante.php:82
+#: includes/class-chocante.php:90
 msgctxt "menu"
 msgid "Footer - Chocante"
 msgstr ""
 
-#: includes/class-chocante.php:83
+#: includes/class-chocante.php:91
 msgctxt "menu"
 msgid "Footer - Products"
 msgstr ""
 
-#: includes/class-chocante.php:84
+#: includes/class-chocante.php:92
 msgctxt "menu"
 msgid "Footer - Shop"
 msgstr ""
 
-#: includes/class-chocante.php:85
+#: includes/class-chocante.php:93
 msgctxt "menu"
 msgid "Footer - Social media"
 msgstr ""
 
-#: includes/class-chocante.php:86
+#: includes/class-chocante.php:94
 msgctxt "menu"
 msgid "Footer - Terms"
 msgstr ""
 
-#: includes/class-chocante.php:150
+#: includes/class-chocante.php:170
 msgctxt "admin"
 msgid "Header - top"
 msgstr ""
 
-#: includes/class-chocante.php:152
+#: includes/class-chocante.php:172
 msgctxt "admin"
 msgid "Widgets in this area will be shown in the top part of header."
 msgstr ""
 
-#: includes/class-chocante.php:162
+#: includes/class-chocante.php:182
 msgctxt "admin"
 msgid "Mobile menu - after main menu"
 msgstr ""
 
-#: includes/class-chocante.php:164
+#: includes/class-chocante.php:184
 msgctxt "admin"
 msgid "Widgets in this area will be shown in mobile menu after main navigation menu."
 msgstr ""
 
-#: includes/class-chocante.php:174
+#: includes/class-chocante.php:194
 msgctxt "admin"
 msgid "Mobile menu - top"
 msgstr ""
 
-#: includes/class-chocante.php:176
+#: includes/class-chocante.php:196
 msgctxt "admin"
 msgid "Widgets in this area will be shown in the top part of mobile menu."
 msgstr ""
 
-#: includes/class-chocante.php:186
+#: includes/class-chocante.php:206
 msgctxt "admin"
 msgid "Footer - bottom left"
 msgstr ""
 
-#: includes/class-chocante.php:188
+#: includes/class-chocante.php:208
 msgctxt "admin"
 msgid "Widgets in this area will be shown in the bottom left part of footer."
 msgstr ""
 
-#: includes/class-chocante.php:198
+#: includes/class-chocante.php:218
 msgctxt "admin"
 msgid "Footer - bottom mobile"
 msgstr ""
 
-#: includes/class-chocante.php:200
+#: includes/class-chocante.php:220
 msgctxt "admin"
 msgid "Widgets in this area will be shown in the bottom right part of footer."
 msgstr ""
 
-#: includes/class-chocante.php:229
+#: includes/class-chocante.php:246
 msgctxt "product slider"
 msgid "Loading"
 msgstr ""
 
-#: includes/woocommerce/class-chocante-account.php:228
-msgctxt "login page"
-msgid "Already have an account?"
-msgstr ""
-
+#: includes/class-chocante.php:365
 #: includes/woocommerce/class-chocante-cart.php:91
 msgctxt "product slider"
 msgid "Featured products"
+msgstr ""
+
+#: includes/class-chocante.php:366
+msgctxt "product slider"
+msgid "Learn more about our offer"
+msgstr ""
+
+#: includes/woocommerce/class-chocante-account.php:230
+msgctxt "login page"
+msgid "Already have an account?"
 msgstr ""
 
 #: includes/woocommerce/class-chocante-product-page.php:152
@@ -308,6 +319,16 @@ msgstr ""
 #: template-parts/product-nutritional-data.php:18
 msgctxt "product page"
 msgid "Per 100 g"
+msgstr ""
+
+#: template-parts/slide-post.php:11
+msgctxt "blog"
+msgid "Cacao Blog"
+msgstr ""
+
+#: template-parts/slide-post.php:14
+msgctxt "blog"
+msgid "Read more"
 msgstr ""
 
 #: woocommerce/cart/cart-empty.php:28

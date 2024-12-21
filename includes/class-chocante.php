@@ -37,6 +37,7 @@ class Chocante {
 		add_action( 'chocante_before_footer', array( __CLASS__, 'display_join_group' ) );
 
 		// Images.
+		add_action( 'after_setup_theme', array( __CLASS__, 'support_thumbnails' ) );
 		if ( ! is_admin() ) {
 			add_filter( 'wp_get_attachment_image_attributes', array( __CLASS__, 'set_image_lazy_loading' ) );
 		}
@@ -45,6 +46,13 @@ class Chocante {
 		if ( class_exists( 'WooCommerce' ) && function_exists( 'WC' ) ) {
 			require_once __DIR__ . '/class-chocante-woocommerce.php';
 			Chocante_WooCommerce::init();
+		}
+
+		// Blog.
+		add_action( 'pre_get_posts', array( __CLASS__, 'exclude_sticky_posts' ) );
+		add_filter( 'excerpt_more', array( __CLASS__, 'set_excerpt_more' ) );
+		if ( class_exists( 'Chocante_Product_Section' ) ) {
+			add_action( 'chocante_after_main', array( __CLASS__, 'display_products_slider' ) );
 		}
 	}
 
@@ -117,6 +125,7 @@ class Chocante {
 	 * Enqueue scripts & styles
 	 */
 	public static function enqueue_scripts() {
+		// Common.
 		$styles = include get_stylesheet_directory() . '/build/chocante.asset.php';
 
 		wp_enqueue_style(
@@ -131,13 +140,37 @@ class Chocante {
 		wp_enqueue_script(
 			'chocante-js',
 			get_stylesheet_directory_uri() . '/build/chocante-scripts.js',
-			array_merge( $scripts['dependencies'], array( 'wc-cart-fragments' ) ),
+			array_merge( $scripts['dependencies'], array( 'wc-cart-fragments', 'splide-js' ) ),
 			$scripts['version'],
 			array(
 				'in_footer' => true,
 				'strategy'  => 'defer',
 			)
 		);
+
+		// Splide.
+		wp_enqueue_script(
+			'splide-js',
+			'https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js',
+			array(),
+			'1.4',
+			array(
+				'in_footer' => true,
+				'strategy'  => 'defer',
+			)
+		);
+
+		// Blog.
+		if ( is_home() ) {
+			$blog_styles = include get_stylesheet_directory() . '/build/blog.asset.php';
+
+			wp_enqueue_style(
+				'blog-css',
+				get_stylesheet_directory_uri() . '/build/blog.css',
+				$blog_styles['dependencies'],
+				$blog_styles['version'],
+			);
+		}
 	}
 
 	/**
@@ -209,16 +242,13 @@ class Chocante {
 	/**
 	 * Insert SVG icon
 	 *
-	 * @param string  $filename Filename from /icons directory.
-	 * @param boolean $output Whether to include or return icon.
+	 * @param string $filename Filename from /icons directory.
 	 */
-	public static function icon( $filename, $output = true ) {
+	public static function icon( $filename ) {
 		$file = get_stylesheet_directory() . "/icons/icon-{$filename}.svg";
 
 		if ( file_exists( $file ) ) {
-			if ( $output ) {
-				include $file;
-			}
+			include $file;
 		}
 	}
 
@@ -312,5 +342,43 @@ class Chocante {
 		}
 
 		return $title;
+	}
+
+	/**
+	 * Support post thumbnails
+	 */
+	public static function support_thumbnails() {
+		add_theme_support( 'post-thumbnails' );
+	}
+
+	/**
+	 * Exclude sticky posts from main blog query
+	 *
+	 * @param WP_Query $query Query.
+	 */
+	public static function exclude_sticky_posts( $query ) {
+		if ( $query->is_home() && $query->is_main_query() ) {
+			$query->set( 'post__not_in', get_option( 'sticky_posts' ) );
+		}
+	}
+
+	/**
+	 * Change the excerpt more string
+	 */
+	public static function set_excerpt_more() {
+		return '&hellip;';
+	}
+
+	/**
+	 * Display featured products slider
+	 */
+	public static function display_products_slider() {
+		Chocante_Product_Section::class::display_product_section(
+			array(
+				'heading'    => _x( 'Featured products', 'product slider', 'chocante' ),
+				'subheading' => _x( 'Learn more about our offer', 'product slider', 'chocante' ),
+				'cta_link'   => wc_get_page_permalink( 'shop' ),
+			)
+		);
 	}
 }

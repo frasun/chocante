@@ -1,4 +1,4 @@
-import Slider from './slider';
+import Slider from './product-slider';
 
 export default class ProductSlider {
   static SECTION_CLASS = 'product-section';

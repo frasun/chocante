@@ -1,4 +1,4 @@
-import Splide from '@splidejs/splide';
+// import Splide from '@splidejs/splide';
 
 export default class Slider {
   static TYPE_LOOP = 'loop';

@@ -1,4 +1,10 @@
 <?php
+/**
+ * Page
+ *
+ * @package Chocante
+ */
+
 get_header();
 
 $bricks_data = Bricks\Helpers::get_bricks_data( get_the_ID(), 'content' );

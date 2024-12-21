@@ -3,15 +3,26 @@ import Modal from './modal';
 import ChocanteWooCommerce from './woocommerce';
 import MenuScroll from './menu-scroll';
 import { MOBILE_BREAKPOINT } from './constants';
+// import Splide from '@splidejs/splide';
 
 class Chocante {
   constructor() {
+    // Modals.
     new ModalService();
+
+    // Mobile menu.
     new Modal('.mobile-menu', '.site-header__toggle', MOBILE_BREAKPOINT);
+
+    // Menu on scroll.
     new MenuScroll('.site-header');
 
+    // Dropdowns - mini-cart, currency/language switcher etc.
     this.setDropdownSize();
     window.addEventListener('resize', this.setDropdownSize);
+
+    // Sliders.
+    // window.Splide = Splide;
+    this.setPostSliders();
   }
 
   setDropdownSize() {
@@ -21,6 +32,20 @@ class Chocante {
       const maxHeight = window.innerHeight - dropdown.getBoundingClientRect().y - 20;
 
       dropdown.style.maxHeight = `${maxHeight}px`;
+    });
+  }
+
+  setPostSliders() {
+    const postSliders = document.querySelectorAll('.splide');
+
+    Array.from(postSliders).forEach(slider => {
+      new Splide(slider, {
+        type: 'fade',
+        arrows: false,
+        speed: 700,
+        rewind: true,
+        autoplay: true,
+      }).mount();
     });
   }
 }

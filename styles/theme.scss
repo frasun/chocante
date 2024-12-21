@@ -13,6 +13,7 @@
 @import "components/menu";
 @import "components/notices";
 @import "components/empty-screen";
+@import "components/loop";
 @import "components/product-loop";
 @import "components/product-section";
 @import "components/badge";
@@ -23,7 +24,6 @@
 @import "@splidejs/splide/css/core";
 @import "components/remove";
 @import "components/content";
-@import "components/pagination";
 
 // Templates.
 @import "templates/body";
@@ -31,7 +31,6 @@
 @import "templates/header";
 @import "templates/mini-cart";
 @import "templates/product-search";
-@import "templates/blog";
 @import "templates/join-group";
 @import "templates/footer";
 

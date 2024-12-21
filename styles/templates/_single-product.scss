@@ -1,4 +1,6 @@
 .single-product {
+	--product-section--background-color: var(--color--grey-5);
+
 	main {
 		> .product {
 			padding-top: var(--spacing--10);
@@ -285,7 +287,6 @@
 	}
 
 	.product-section {
-		@include bg(grey-5);
 		margin-top: var(--spacing--50);
 		padding-top: var(--spacing--30);
 		padding-bottom: var(--spacing--50);

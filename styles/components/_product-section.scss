@@ -1,7 +1,7 @@
 $slider-navigation-size: 50px;
 
 .product-section {
-	background-color: white;
+	background-color: var(--product-section--background-color, white);
 	padding-top: var(--spacing--30);
 	padding-bottom: var(--spacing--30);
 	overflow: hidden;
@@ -114,27 +114,6 @@ $slider-navigation-size: 50px;
 				@include min-width($breakpoint--desktop + $slider-navigation-size) {
 					transform: translate3d(100%, -50%, 0);
 					right: -15px;
-				}
-			}
-		}
-
-		&__pagination {
-			display: flex;
-			justify-content: center;
-			padding: var(--spacing--30) 70px 0;
-			gap: var(--spacing--10);
-
-			&__page {
-				width: 5px;
-				height: 5px;
-				border-radius: 2px;
-				@include transition("background-color, width");
-				@include bg(green-1);
-				cursor: default;
-
-				&.is-active {
-					@include bg(grey-3);
-					width: 25px;
 				}
 			}
 		}
