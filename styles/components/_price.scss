@@ -3,7 +3,7 @@
 		@include font-size(medium-sm);
 		display: block;
 
-		[lang="es-ES"] & {
+		[lang="es-ES"] .products & {
 			@include font-size(normal);
 		}
 
@@ -13,7 +13,7 @@
 				font-weight: var(--font-weight--bold);
 				@include color(green-1);
 
-				[lang="es-ES"] & {
+				[lang="es-ES"] .products & {
 					@include font-size(medium);
 				}
 			}
