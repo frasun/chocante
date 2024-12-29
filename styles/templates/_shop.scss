@@ -31,6 +31,7 @@
 		background-color: white;
 		padding-top: var(--spacing--15);
 		padding-bottom: var(--spacing--15);
+		align-items: center;
 
 		@include max-width($breakpoint--desktop-sm) {
 			order: 3;
