@@ -479,12 +479,10 @@
 	}
 
 	.coupon-error-notice {
-		@include notice(
-			var(--color--red-3),
-			var(--color--red-2),
-			"../icons/icon-error.svg",
-			false
-		);
+		--notice--background-color: var(--color--red-3);
+		--notice--color: var(--color--red-2);
+		--notice--icon: url(../icons/icon-error.svg);
+		@include notice;
 	}
 
 	&:has(.product-section) {

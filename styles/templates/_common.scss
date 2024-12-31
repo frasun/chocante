@@ -48,25 +48,22 @@
 
 	.woocommerce {
 		&-info,
-		&-success {
+		&-success,
+		&-message,
+		&-error {
 			@include notice;
 		}
 
 		&-message {
-			@include notice($icon: "../icons/icon-info.svg");
-
-			svg {
-				@include color(red-1);
-			}
+			--notice--icon: url(../icons/icon-info.svg);
+			--notice--icon-color: var(--color--red-1);
 		}
 
 		&-error {
-			@include notice(
-				var(--color--red-3),
-				var(--color--red-2),
-				"../icons/icon-error.svg",
-				false
-			);
+			--notice--background-color: var(--color--red-3);
+			--notice--color: var(--color--red-2);
+			--notice--icon: url(../icons//icon-error.svg);
+			--notice--icon-color: var(--color--red-1);
 		}
 	}
 }
