@@ -67,7 +67,13 @@ class Chocante_WooCommerce {
 		remove_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_rating', 5 );
 		add_action( 'woocommerce_after_shop_loop_item', array( __CLASS__, 'add_loop_item_info_close' ), 30 );
 		// @todo: Chocante - Remove after switching from Bricks.
-		remove_all_filters( 'woocommerce_sale_flash', 10 );
+		add_action(
+			'woocommerce_before_shop_loop_item_title',
+			function () {
+				remove_all_filters( 'woocommerce_sale_flash', 10 );
+			},
+			1
+		);
 		// END TODO.
 
 		// Product & archive page.
