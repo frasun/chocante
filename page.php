@@ -14,7 +14,7 @@ if ( $bricks_data ) {
 } elseif ( have_posts() ) {
 	while ( have_posts() ) :
 		the_post();
-		if ( is_cart() || is_account_page() ) { ?>
+		if ( is_cart() || is_account_page() || is_checkout() ) { ?>
 		<main role="main">
 			<?php the_content(); ?>
 			<?php if ( is_cart() ) : ?>

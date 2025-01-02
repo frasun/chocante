@@ -6,8 +6,8 @@
 				&-selection {
 					&--single,
 					&--multiple {
-						@include input();
-						padding-left: var(--spacing--15);
+						@include input;
+						padding-left: var(--spacing--20);
 						padding-right: 35px;
 						height: auto;
 						position: relative;

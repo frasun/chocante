@@ -65,7 +65,8 @@ jQuery(function ($) {
 
       $('html, body').animate(
         {
-          scrollTop: scrollElement.offset().top - $('.site-header').height() - SCROLL_OFFSET - adminBarHeight,
+          // scrollTop: scrollElement.offset().top - $('.site-header').height() - SCROLL_OFFSET - adminBarHeight,
+          scrollTop: 0
         },
         SCROLL_DURATION
       );

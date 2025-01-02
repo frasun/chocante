@@ -24,6 +24,7 @@ module.exports = {
 			'account': path.resolve(process.cwd(), 'styles', 'account.scss'),
 			'account-scripts': path.resolve(process.cwd(), 'scripts', 'account.js'),
 			'blog': path.resolve(process.cwd(), 'styles', 'blog.scss'),
+			'checkout': path.resolve(process.cwd(), 'styles', 'checkout.scss'),
 		},
 		plugins: [
 			// Include WP's plugin config.

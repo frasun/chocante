@@ -268,27 +268,6 @@
 				margin-top: var(--spacing--10);
 			}
 
-			table {
-				border-collapse: collapse;
-				border-spacing: 0;
-
-				tbody {
-					tr {
-						display: flex;
-						align-items: baseline;
-					}
-
-					th {
-						flex-grow: 1;
-					}
-
-					th,
-					td {
-						padding: 0;
-					}
-				}
-			}
-
 			.cart_totals {
 				@include box;
 
@@ -300,69 +279,11 @@
 					// END TODO.
 				}
 
-				table {
-					border: none;
-					line-height: inherit;
-					margin-top: var(--spacing--15);
-					margin-bottom: var(--spacing--30);
-				}
-
-				th {
-					font-weight: inherit;
-					text-align: left;
-				}
-
 				.cart-discount {
 					margin-top: var(--spacing--10);
 				}
 
 				.woocommerce {
-					&-shipping-totals {
-						display: flex;
-						flex-direction: column;
-						margin-top: var(--spacing--30);
-
-						th {
-							@include font-style(section-label);
-						}
-
-						td {
-							width: 100%;
-							margin-top: var(--spacing--10);
-						}
-					}
-
-					&-shipping-methods {
-						display: flex;
-						flex-direction: column;
-						gap: var(--spacing--15);
-						margin: var(--spacing--5) 0 0;
-						padding: 0;
-
-						li {
-							margin: 0;
-							display: grid;
-							grid-template-columns: auto 1fr;
-							align-items: center;
-							column-gap: var(--spacing--10);
-						}
-
-						input[type="radio"] {
-							@include radio;
-							grid-row: 1 / span 2;
-
-							// @todo: Chocante - Bricks - verify.
-							& + label {
-								margin: 0;
-							}
-							// END TODO.
-						}
-
-						.woocommerce-Price-amount {
-							font-weight: var(--font-weight--bold);
-						}
-					}
-
 					&-shipping-destination {
 						@include font-size(small);
 						--line-height: initial;
@@ -404,40 +325,10 @@
 					}
 
 					&-form-coupon {
-						display: flex;
-						flex-direction: column;
-						gap: var(--spacing--15);
-						margin-top: var(--spacing--10);
-
-						@include min-width($breakpoint--mobile) {
-							display: grid;
-							grid-template-columns: 1fr auto;
-						}
-
 						@media (min-width: $breakpoint--desktop-sm) and (max-width: calc($breakpoint--desktop-md - 1px)) {
 							display: flex;
 							flex-direction: column;
 						}
-
-						p {
-							grid-column-start: 1;
-							grid-column-end: 3;
-							@include font-size(small);
-							margin: 0;
-						}
-
-						input[name="coupon_code"] {
-							@include input(sm);
-						}
-
-						.button {
-							@include button(secondary);
-						}
-					}
-
-					&-remove-coupon {
-						@include link;
-						@include font-size(small);
 					}
 				}
 
@@ -453,16 +344,6 @@
 					td {
 						width: 100%;
 						padding: 0;
-					}
-				}
-
-				.order-total {
-					margin-top: var(--spacing--30);
-
-					th,
-					td {
-						font-weight: var(--font-weight--bold);
-						@include font-size(medium);
 					}
 				}
 			}

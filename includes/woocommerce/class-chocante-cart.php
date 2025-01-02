@@ -18,13 +18,13 @@ class Chocante_Cart {
 	public static function init() {
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'enqueue_scripts' ) );
 
+		add_action( 'woocommerce_before_cart', array( __CLASS__, 'display_cart_title' ), 1 );
 		add_action( 'woocommerce_after_cart_table', array( __CLASS__, 'display_cart_info' ) );
 		add_action( 'woocommerce_cart_totals_before_order_total', array( __CLASS__, 'display_coupon_form_in_cart' ) );
 		add_filter( 'woocommerce_cart_item_permalink', array( __CLASS__, 'return_empty_permalink' ) );
 		add_action( 'chocante_after_cart', array( __CLASS__, 'display_featured_products_in_cart' ) );
 
 		// Cart empty.
-		add_action( 'woocommerce_before_cart', array( __CLASS__, 'display_cart_title' ), 1 );
 		if ( ! is_admin() ) {
 			add_filter( 'body_class', array( __CLASS__, 'modify_empty_cart_body_class' ) );
 		}

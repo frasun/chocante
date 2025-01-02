@@ -2,18 +2,21 @@
 	display: flex;
 	flex-direction: column;
 	row-gap: var(--spacing--30);
+	width: 100%;
+
+	.button[type="submit"] {
+		@include button-lg;
+		margin-top: var(--spacing--10);
+	}
 }
 
 @mixin fields-wrapper {
+	--fields--row-gap: var(--spacing--30);
 	display: grid;
 	grid-template-columns: repeat(6, 1fr);
 	column-gap: var(--spacing--20);
-	row-gap: var(--spacing--30);
-	max-width: var(--form-width, 570px);
-
-	@include min-width($breakpoint--desktop-sm) {
-		column-gap: var(--spacing--30);
-	}
+	row-gap: var(--fields--row-gap);
+	max-width: var(--size--form, 570px);
 
 	.form-row,
 	fieldset,
@@ -51,6 +54,10 @@
 			}
 		}
 
+		&:has(label[class="screen-reader-text"]) {
+			margin-top: calc(var(--fields--row-gap) * -1);
+		}
+
 		em {
 			font-style: normal;
 			@include font-size(small-sm);
@@ -72,66 +79,9 @@
 		}
 	}
 
-	.clear {
-		display: none;
-	}
-
-	.button[type="submit"] {
-		@include button-lg;
-		margin-top: var(--spacing--10);
-	}
-}
-
-// @todo: Chocante - Bricks - remove wrapper after checkout.
-.woocommerce-account {
-	.address-field {
-		& + &:has(label.screen-reader-text) {
-			margin-top: calc(-1 * var(--spacing--20));
-		}
-	}
-
-	.woocommerce {
-		&-address-fields {
-			@include form-wrapper;
-
-			&__field-wrapper {
-				@include fields-wrapper;
-			}
-
-			.button {
-				@include button-lg;
-			}
-		}
-
-		&-EditAccountForm,
-		&-ResetPassword,
-		&-form {
-			@include fields-wrapper;
-		}
-	}
-
-	.woocommerce-input-wrapper,
-	.password-input {
-		display: block;
-	}
-
 	label {
-		.required {
-			@include color(red-1);
-		}
-
-		.optional {
-			@include font-size(small);
-			@include color(grey-2);
-			font-weight: var(--font-weight--normal);
-			justify-self: end;
-		}
-
-		& + .woocommerce-input-wrapper,
-		& + .input-text,
-		& + .password-input {
+		& + .input-text {
 			margin-top: var(--spacing--10);
 		}
 	}
 }
-// END TODO.

@@ -24,8 +24,30 @@
 		vertical-align: middle;
 	}
 
+	&:is(ul) {
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacing--5);
+		list-style: none;
+		margin: 0;
+
+		li {
+			display: flex;
+
+			&::before {
+				margin-right: var(--spacing--10);
+			}
+		}
+	}
+
+	a:has(strong) {
+		--font-weight--bold: var(--font-weight--normal);
+	}
+
 	a:not(.button) {
 		@include link;
+		display: inline-block;
+		vertical-align: middle;
 
 		// @todo: Chocante - Bricks remove.
 		--bricks-color-ce3d3b: transparent;

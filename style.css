@@ -207,23 +207,6 @@ form.submitting .wpcf7-spinner {
 	width: 100% !important;
 }
 
-.shop_table.woocommerce-checkout-review-order-table tbody {
-	display: block;
-}
-
-.shop_table.woocommerce-checkout-review-order-table .cart_item .product-name {
-	flex-grow: 1;
-}
-
-.shop_table.woocommerce-checkout-review-order-table
-	.cart_item
-	.product-name
-	a
-	small {
-	font-size: 100%;
-	margin-left: 5px;
-}
-
 /** Select Paczkomat **/
 #brxe-mgcsri
 	.select2.select2-container

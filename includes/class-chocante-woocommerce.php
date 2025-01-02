@@ -139,6 +139,12 @@ class Chocante_WooCommerce {
 			return;
 		}
 
+		if ( is_checkout() || ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) {
+			require_once __DIR__ . '/woocommerce/class-chocante-checkout.php';
+			Chocante_Checkout::init();
+			return;
+		}
+
 		if ( is_account_page() ) {
 			require_once __DIR__ . '/woocommerce/class-chocante-account.php';
 			Chocante_Account::init();
@@ -282,7 +288,7 @@ class Chocante_WooCommerce {
 		$product = $cart_item['data'];
 
 		if ( $product instanceof WC_Product_Variation ) {
-			$weight = $cart_item['data']->get_attribute( 'pa_waga' );
+			$weight = $product->get_attribute( 'pa_waga' );
 
 			return "<div>{$price} <span class='woocommerce-price-suffix'>/ {$weight}</span></div>";
 		}
@@ -411,7 +417,7 @@ class Chocante_WooCommerce {
 	 * @todo: Chocante - Bricks.
 	 */
 	public static function bricks_disabled() {
-		return is_cart() || is_product() || is_shop() || is_product_category() || is_product_taxonomy() || is_product_tag() || is_account_page() || is_home();
+		return is_cart() || is_product() || is_shop() || is_product_category() || is_product_taxonomy() || is_product_tag() || is_account_page() || is_home() || is_checkout();
 	}
 
 	/**

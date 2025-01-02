@@ -38,14 +38,13 @@
 			}
 
 			.search-field {
-				@include input(
-					$bg: transparent,
-					$bg-focus: transparent,
-					$border: white,
-					$border-focus: white,
-					$color: white,
-					$placeholder: white
-				);
+				@include input;
+				--input--background-color: transparent;
+				--input--background-color--focus: transparent;
+				--input--border: white;
+				--input--border--focus: white;
+				--input--color: white;
+				--input--placeholder: white;
 
 				& {
 					padding-left: var(--spacing--50);

@@ -88,6 +88,10 @@
 					color: white;
 					margin: 0;
 					grid-row: 1 / 3;
+
+					svg path {
+						fill: white;
+					}
 				}
 
 				&__username {
@@ -478,7 +482,7 @@
 	gap: var(--spacing--40);
 
 	> *:not(.woocommerce-order-details) {
-		max-width: 570px;
+		max-width: var(--size--form);
 	}
 
 	h2 {
@@ -573,6 +577,7 @@
 				&-quantity,
 				&-variation-quantity {
 					display: block;
+					font-weight: var(--font-weight--normal);
 				}
 
 				&-variation-quantity .product-quantity {
@@ -668,26 +673,11 @@
 			padding-bottom: var(--spacing--30);
 		}
 	}
-
-	.woocommerce {
-		&-LostPassword {
-			@include link;
-			@include font-size(small);
-		}
-
-		&-privacy-policy-text a {
-			@include link;
-		}
-
-		&-form-login__rememberme {
-			margin-bottom: var(--spacing--20);
-		}
-	}
 }
 
 .woocommerce-lost-password {
 	.woocommerce {
-		max-width: 570px;
+		max-width: var(--size--form);
 		margin: auto;
 	}
 
@@ -698,14 +688,9 @@
 	}
 }
 
-wc-order-attribution-inputs {
-	display: none;
-}
-
 .woocommerce-form-register {
 	p:not([class]) {
 		background: url(../icons/icon-info.svg) no-repeat left top;
 		padding-left: var(--spacing--30);
-		@include font-size(small);
 	}
 }

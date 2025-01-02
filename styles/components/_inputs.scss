@@ -1,17 +1,9 @@
 // Input.
-@mixin input(
-	$size: "",
-	$bg: var(--color--grey-5),
-	$bg-focus: white,
-	$border: var(--color--brown-6),
-	$border-focus: var(--color--green-1),
-	$color: var(--color--grey-1),
-	$placeholder: var(--color--grey-1)
-) {
+@mixin input($size: "") {
 	@include font-size(normal-sm);
-	border: 1px solid $border;
-	background-color: $bg;
-	color: $color;
+	border: 1px solid var(--input--border, var(--color--brown-6));
+	background-color: var(--input--background-color, var(--color--grey-5));
+	color: var(--input--color, var(--color--grey-1));
 	@include transition(colors);
 	font-weight: inherit;
 	width: 100%;
@@ -19,8 +11,9 @@
 	@if $size == sm {
 		@include input-sm;
 	} @else {
-		padding: var(--spacing--15) var(--spacing--20);
-		border-radius: var(--border-radius);
+		padding: var(--input--padding-y, var(--spacing--15))
+			var(--input--padding-x, var(--spacing--20));
+		border-radius: var(--input--border-radius, var(--border-radius));
 		--line-height: 1.2;
 	}
 
@@ -29,20 +22,21 @@
 	}
 
 	&:focus {
-		background-color: $bg-focus;
-		border-color: $border-focus;
+		background-color: var(--input--background-color--focus, white);
+		border-color: var(--input--border--focus, var(--color--green-1));
 	}
 
 	&::placeholder {
 		opacity: 0.5;
-		color: $placeholder;
+		color: var(--input--placeholder, var(--color--grey-1));
 	}
 }
 
 @mixin input-sm {
-	padding: var(--spacing--10) var(--spacing--15);
-	border-radius: var(--border-radius--md);
-	--line-height: 1.25;
+	--input--padding-y: var(--spacing--10);
+	--input--padding-x: var(--spacing--15);
+	--input--border-radius: var(--border-radius--md);
+	--line-height: 1.4;
 }
 
 // Radio.
@@ -50,7 +44,7 @@
 	width: 25px;
 	height: 25px;
 	border-radius: 50%;
-	@include border(green-1);
+	border: 1px solid var(--radio--border, var(--color--grey-1));
 	@include flex(center);
 	display: inline-flex;
 	@include transition(colors);
@@ -62,23 +56,25 @@
 	&::after {
 		content: "";
 		background-color: white;
-		width: 5px;
-		height: 5px;
+		width: 10px;
+		height: 10px;
 		border-radius: 50%;
 		@include transition;
-		transform: scale(0);
+		transform: scale(1);
 		transform-origin: center center;
+		opacity: 0;
 	}
 
 	&:hover {
 		box-shadow: var(--shadow--2);
 	}
 
-	&[checked] {
+	&:checked {
 		@include bg(green-1);
 
 		&::after {
-			transform: scale(1);
+			opacity: 1;
+			transform: scale(0.5);
 		}
 	}
 
@@ -97,7 +93,7 @@
 @mixin checkbox {
 	width: 25px;
 	height: 25px;
-	@include border(grey-1);
+	border: 1px solid var(--radio--border, var(--color--grey-1));
 	display: inline-block;
 	border-radius: var(--border-radius--xs);
 	@include transition(colors);

@@ -18,7 +18,7 @@ class Chocante_ACF {
 	 * Init hooks.
 	 */
 	public static function init() {
-		// Cart & mini-cart.
+		// Cart, mini-cart, checkout.
 		add_filter( 'woocommerce_cart_item_name', array( __CLASS__, 'get_custom_product_title' ), 10, 2 );
 
 		// Product loop item.

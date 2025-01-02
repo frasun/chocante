@@ -1,0 +1,25 @@
+:root {
+	--chocante-modal-backdrop-z-index: var(--z-index--modal-backdrop);
+	--chocante-modal-z-index: var(--z-index--modal);
+}
+
+// @todo: Chocante - Bricks - remove woo class.
+.woocommerce {
+	.chocante-delivery-point {
+		display: flex;
+		flex-direction: column;
+		margin-top: var(--spacing--30);
+		@include select2-sm;
+
+		td {
+			margin-top: var(--spacing--15);
+			width: 100%;
+
+			button {
+				margin-top: var(--spacing--20);
+				@include button(secondary);
+			}
+		}
+	}
+}
+// END TODO.
