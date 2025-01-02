@@ -9,7 +9,13 @@
 	background-color: var(--notice--background-color, var(--color--grey-5));
 	color: var(--notice--color, var(--color--grey-1));
 
-	&::before {
+	// @todo: Chocante - Bricks remove.
+	background-image: none;
+	padding-left: 20px !important;
+	// END TODO.
+
+	&:is(ul) li::before,
+	&:is(:not(ul))::before {
 		content: var(--notice--icon);
 		margin-right: var(--spacing--5);
 		width: var(--notice-icon-size, 24px);
