@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-01-03T09:44:22+00:00\n"
+"POT-Creation-Date: 2025-01-03T13:51:10+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: chocante\n"
@@ -191,7 +191,7 @@ msgctxt "login page"
 msgid "Already have an account?"
 msgstr ""
 
-#: includes/woocommerce/class-chocante-checkout.php:77
+#: includes/woocommerce/class-chocante-checkout.php:80
 msgctxt "checkout"
 msgid "Edit previous step"
 msgstr ""
@@ -344,6 +344,28 @@ msgstr ""
 #: woocommerce/cart/cart-empty.php:31
 msgctxt "cart"
 msgid "You have not added anything to your shopping cart yet. Go to our shop to select the products you are interested in."
+msgstr ""
+
+#: woocommerce/checkout/thankyou.php:22
+msgctxt "thankyou"
+msgid "Thank you for shopping"
+msgstr ""
+
+#. translators: thank you text.
+#: woocommerce/checkout/thankyou.php:26
+msgctxt "thankyou"
+msgid "You will be informed about further steps by separate emails. You can also keep up to date with the current status at %1$sthis address%2$s."
+msgstr ""
+
+#. translators: processing order.
+#: woocommerce/checkout/thankyou.php:45
+msgctxt "thankyou"
+msgid "Your order no. %s has been accepted for processing."
+msgstr ""
+
+#: woocommerce/checkout/thankyou.php:54
+msgctxt "thankyou"
+msgid "Go to hompegae"
 msgstr ""
 
 #: woocommerce/loop/no-products-found.php:25

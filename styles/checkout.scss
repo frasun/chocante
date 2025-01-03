@@ -4,10 +4,12 @@
 @import "components/buttons";
 @import "components/inputs";
 @import "components/content";
+@import "components/empty-screen";
 
 @import "plugins/select2";
 @import "plugins/delivery-time";
 @import "plugins/free-shipping";
 @import "plugins/delivery-point";
+@import "plugins/paypal";
 
 @import "templates/checkout";

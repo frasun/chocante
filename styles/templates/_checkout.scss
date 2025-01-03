@@ -48,13 +48,6 @@
 				}
 			}
 
-			&__summary {
-				flex: 1 1 33%;
-				width: 100%;
-				overflow: hidden;
-				@include box;
-			}
-
 			#ship-to-different-address {
 				font-size: inherit;
 				font-family: inherit;
@@ -69,39 +62,6 @@
 				@include font-style(section-label);
 			}
 
-			&-payment {
-				.payment_methods {
-					@include list-reset;
-					display: flex;
-					flex-direction: column;
-					gap: var(--spacing--15);
-				}
-
-				.wc_payment_method {
-					display: grid;
-					column-gap: var(--spacing--10);
-					grid-template-columns: auto 1fr;
-
-					label {
-						margin: 0;
-					}
-
-					.payment_box {
-						grid-row: 2 / 2;
-						grid-column: 1 / 3;
-						@include bg(grey-4);
-						border-radius: var(--border-radius--sm);
-						padding: var(--spacing--10) var(--spacing--20);
-						@include font-size(x-small);
-						margin-top: var(--spacing--15);
-					}
-
-					[name="payment_method"][checked] {
-						display: flex !important;
-					}
-				}
-			}
-
 			.payment__heading {
 				@include font-style(section-label);
 				margin-bottom: var(--spacing--15);
@@ -109,43 +69,11 @@
 			}
 
 			.place-order {
-				margin-top: var(--spacing--30);
 				display: flex;
 				flex-direction: column;
 
 				.button {
-					@include button-lg;
 					width: 100%;
-				}
-
-				.woocommerce-terms-and-conditions-wrapper {
-					display: flex;
-					flex-direction: column;
-					@include font-size(normal-sm);
-					margin-bottom: var(--spacing--30);
-
-					.woocommerce-privacy-policy-text {
-						display: grid;
-						grid-template-columns: 1fr auto;
-						gap: var(--spacing--10);
-						margin-bottom: var(--spacing--20);
-
-						&::before {
-							content: url(../icons/icon-info.svg);
-							width: 25px;
-						}
-					}
-
-					.woocommerce-terms-and-conditions {
-						overflow-x: hidden;
-						order: 3;
-						@include content-sm;
-						margin-top: var(--spacing--20);
-
-						p:not(:last-of-type) {
-							margin-bottom: 0.75em;
-						}
-					}
 				}
 			}
 		}
@@ -181,53 +109,32 @@
 			max-width: var(--size--form);
 		}
 
-		&-checkout-review-order-table {
-			thead {
-				display: none;
+		&-order {
+			@include empty-screen;
+
+			& {
+				--empty-screen--width: 850px;
 			}
+		}
 
-			tfoot {
-				margin-top: var(--spacing--30);
-			}
+		&-bacs-bank-details {
+			margin-top: var(--spacing--20);
 
-			.cart_item {
-				align-items: end;
+			.wc-bacs-bank-details {
+				@include list-reset;
+				margin-top: var(--spacing--20);
 
-				&:not(:last-of-type) {
-					margin-bottom: var(--spacing--15);
+				&-heading {
+					@include font-style(section-label);
 				}
 
-				.product {
-					&-name {
-						@include font-size(normal-sm);
-						font-weight: var(--font-weight--semibold);
-						--line-height: 1.15;
-						display: flex;
-						flex-direction: column;
-
-						a {
-							display: block;
-
-							small {
-								@include font-size(small-sm);
-								font-weight: var(--font-weight--normal);
-								--line-height: 1.5;
-								display: block;
-							}
-						}
-					}
-
-					&-variation-quantity,
-					&-quantity {
-						font-weight: var(--font-weight--normal);
-						line-height: 1.5;
-					}
-
-					&-total {
-						font-weight: var(--font-weight--bold);
-						line-height: 1.25;
-					}
+				// @todo: Chocante - Bricks - font style.
+				&-account-name {
+					font-weight: var(--font-weight--bold);
+					@include font(body);
+					@include font-size(normal);
 				}
+				// END TODO.
 			}
 		}
 	}
@@ -256,5 +163,156 @@
 
 	&-review-order {
 		padding-bottom: var(--spacing--10);
+	}
+
+	&.woocommerce-order-pay {
+		.woocommerce {
+			gap: var(--spacing--20);
+			margin-bottom: var(--spacing--50);
+			padding-top: var(--spacing--30);
+		}
+
+		button[type="submit"] {
+			@include max-width($breakpoint--mobile-lg) {
+				width: 100%;
+			}
+		}
+	}
+}
+
+#order_review {
+	flex: 1 1 33%;
+	width: 100%;
+	overflow: hidden;
+	@include box;
+
+	thead {
+		display: none;
+	}
+
+	tfoot {
+		margin-top: var(--spacing--30);
+	}
+
+	.cart_item,
+	.order_item {
+		align-items: end;
+
+		&:not(:last-of-type) {
+			margin-bottom: var(--spacing--15);
+		}
+
+		.product {
+			&-name {
+				@include font-size(normal-sm);
+				font-weight: var(--font-weight--semibold);
+				--line-height: 1.15;
+				display: flex;
+				flex-direction: column;
+
+				a {
+					display: block;
+				}
+
+				small {
+					@include font-size(small-sm);
+					font-weight: var(--font-weight--normal);
+					--line-height: 1.5;
+					display: block;
+				}
+			}
+
+			&-variation-quantity,
+			&-quantity {
+				font-weight: var(--font-weight--normal);
+				line-height: 1.5;
+			}
+
+			&-total {
+				font-weight: var(--font-weight--bold);
+				line-height: 1.25;
+			}
+		}
+	}
+
+	.order_item {
+		.product {
+			&-variation-quantity,
+			&-quantity {
+				@include font-size(normal-sm);
+			}
+		}
+	}
+
+	.wc-item-meta {
+		display: none;
+	}
+
+	button[type="submit"] {
+		@include button-lg;
+	}
+}
+
+#payment {
+	.payment_methods {
+		@include list-reset;
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacing--15);
+		margin-bottom: var(--spacing--30);
+	}
+
+	.wc_payment_method {
+		display: grid;
+		column-gap: var(--spacing--10);
+		grid-template-columns: auto 1fr;
+
+		label {
+			margin: 0;
+		}
+
+		.payment_box {
+			grid-row: 2 / 2;
+			grid-column: 1 / 3;
+			@include bg(grey-4);
+			border-radius: var(--border-radius--sm);
+			padding: var(--spacing--10) var(--spacing--20);
+			@include font-size(x-small);
+			margin-top: var(--spacing--15);
+		}
+
+		[name="payment_method"][checked] {
+			display: flex !important;
+		}
+	}
+}
+
+.woocommerce-terms-and-conditions-wrapper {
+	display: flex;
+	flex-direction: column;
+	@include font-size(normal-sm);
+	margin-bottom: var(--spacing--30);
+
+	.woocommerce-privacy-policy-text {
+		display: grid;
+		grid-template-columns: 25px auto;
+		gap: var(--spacing--10);
+		margin-bottom: var(--spacing--20);
+
+		&::before {
+			content: url(../icons/icon-info.svg);
+			width: 25px;
+		}
+	}
+
+	.woocommerce-terms-and-conditions {
+		overflow-x: hidden;
+		order: 3;
+		@include content-sm;
+		margin-top: var(--spacing--20);
+
+		p:not(:last-of-type) {
+			margin-bottom: 0.75em;
+		}
 	}
 }

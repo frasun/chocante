@@ -103,6 +103,7 @@ label {
 		gap: var(--spacing--10);
 		cursor: pointer;
 		font-weight: var(--font-weight--normal);
+		--label--color: var(--color--grey-1);
 
 		&:hover {
 			opacity: 0.9;
@@ -307,7 +308,7 @@ button[data-close-modal] {
 
 // Cart & Checkout common.
 .cart_totals,
-.woocommerce-checkout__summary {
+#order_review {
 	.shop_table {
 		display: flex;
 		flex-direction: column;
@@ -353,12 +354,6 @@ button[data-close-modal] {
 					font-weight: inherit;
 				}
 			}
-
-			&:not(.cart-discount):not(.cart-subtotal):not(.order-total) {
-				th {
-					@include font-style(section-label);
-				}
-			}
 		}
 
 		.order-total {
@@ -368,6 +363,56 @@ button[data-close-modal] {
 			td {
 				font-weight: var(--font-weight--bold);
 				@include font-size(medium);
+			}
+		}
+
+		.woocommerce-order-pay & {
+			tfoot tr {
+				&:not(:last-of-type) {
+					th {
+						font-weight: var(--font-weight--normal);
+					}
+				}
+
+				&:last-of-type {
+					font-weight: var(--font-weight--bold);
+				}
+
+				td {
+					text-align: right;
+				}
+			}
+
+			.order_item {
+				display: grid;
+				grid-template-columns: 1fr auto;
+
+				.product {
+					&-name {
+						grid-column: 1 / 4;
+					}
+
+					&-quantity {
+						grid-row-start: 2;
+					}
+
+					&-subtotal {
+						grid-area: 2 / 3 / 3 / 4;
+						font-weight: var(--font-weight--bold);
+						line-height: 1;
+					}
+				}
+			}
+		}
+	}
+}
+
+.cart_totals,
+.woocommerce-checkout-review-order {
+	tr {
+		&:not(.cart-discount):not(.cart-subtotal):not(.order-total) {
+			th {
+				@include font-style(section-label);
 			}
 		}
 	}
