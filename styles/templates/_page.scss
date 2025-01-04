@@ -1,0 +1,66 @@
+// @todo: Chocante - change name to "default".
+.page-template-temp {
+	// @todo: Chocante - move to global styles.
+	.page-header {
+		&__container {
+			padding-top: var(--spacing--15);
+			padding-bottom: var(--spacing--10);
+			display: flex;
+			flex-direction: column;
+			gap: var(--spacing--10);
+
+			@include min-width($breakpoint--mobile-lg) {
+				padding-top: var(--spacing--20);
+				padding-bottom: var(--spacing--30);
+			}
+		}
+
+		&__title {
+			@include color(brown-4);
+			@include font-style(page-title);
+		}
+
+		&__breadcrumbs,
+		.rank-math-breadcrumb,
+		.woocommerce-breadcrumb {
+			@include breadcrumbs;
+			padding-top: var(--spacing--5);
+
+			@include min-width($breakpoint--mobile-lg) {
+				padding-top: var(--spacing--10);
+				padding-bottom: var(--spacing--10);
+			}
+		}
+
+		&__lead {
+			max-width: var(--size--content);
+
+			@include max-width($breakpoint--mobile-lg) {
+				padding-bottom: var(--spacing--15);
+			}
+		}
+
+		&__thumbnail {
+			border-radius: var(--border-radius);
+			overflow: hidden;
+			height: 335px;
+			width: 100%;
+			position: relative;
+			margin-top: var(--spacing--10);
+
+			@include min-width($breakpoint--desktop-sm) {
+				height: 400px;
+			}
+
+			img {
+				object-fit: cover;
+				position: absolute;
+				left: 50%;
+				top: 50%;
+				transform: translate3d(-50%, -50%, 0);
+				height: inherit;
+			}
+		}
+	}
+	// END TODO.
+}

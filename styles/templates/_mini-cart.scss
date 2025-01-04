@@ -65,11 +65,13 @@
 		display: flex;
 		align-items: center;
 		gap: var(--spacing--5);
+		@include font-style(body);
 		@include font-size(medium);
 		font-weight: var(--font-weight--semibold);
 		width: 100%;
 		padding-left: var(--spacing--20);
 		padding-right: var(--spacing--20);
+		margin: 0;
 
 		.count {
 			@include counter-badge($bg: brown-4);

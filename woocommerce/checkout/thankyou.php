@@ -31,7 +31,7 @@ $parts = parse_url( $_SERVER['REQUEST_URI'] ); // @codingStandardsIgnoreLine.
 parse_str( $parts['query'], $query );
 
 if ( $order && isset( $query['error'] ) ) {
-	$order->update_status( 'failed', '', true );
+	$order->update_status( 'failed' );
 }
 // END TODO.
 ?>

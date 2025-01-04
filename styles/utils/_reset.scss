@@ -241,21 +241,16 @@ h3,
 h4,
 h5,
 h6 {
-	margin: 0;
 	text-rendering: optimizelegibility;
-}
 
-h1 a,
-h2 a,
-h3 a,
-h4 a,
-h5 a,
-h6 a {
-	color: currentcolor;
+	a {
+		color: currentColor;
+	}
 }
 
 :where(p) {
-	margin: 0 0 0.625em;
+	margin-top: 0;
+	margin-bottom: 0.625em;
 
 	&:last-child {
 		margin-bottom: 0;

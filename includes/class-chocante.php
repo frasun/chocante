@@ -54,6 +54,13 @@ class Chocante {
 		if ( class_exists( 'Chocante_Product_Section' ) ) {
 			add_action( 'chocante_after_main', array( __CLASS__, 'display_products_slider' ) );
 		}
+
+		// Breadcrumbs.
+		add_action( 'after_theme_setup', array( __CLASS__, 'support_rank_math_breadcrumbs' ) );
+		add_action( 'chocante_page_header_before_title', array( __CLASS__, 'display_page_breadcrumbs' ) );
+
+		// Editor.
+		add_action( 'enqueue_block_editor_assets', array( __CLASS__, 'enqueue_editor_assets' ) );
 	}
 
 	/**
@@ -373,12 +380,44 @@ class Chocante {
 	 * Display featured products slider
 	 */
 	public static function display_products_slider() {
-		Chocante_Product_Section::class::display_product_section(
-			array(
-				'heading'    => _x( 'Featured products', 'product slider', 'chocante' ),
-				'subheading' => _x( 'Learn more about our offer', 'product slider', 'chocante' ),
-				'cta_link'   => wc_get_page_permalink( 'shop' ),
-			)
+		if ( is_home() ) {
+			Chocante_Product_Section::class::display_product_section(
+				array(
+					'heading'    => _x( 'Featured products', 'product slider', 'chocante' ),
+					'subheading' => _x( 'Learn more about our offer', 'product slider', 'chocante' ),
+					'cta_link'   => wc_get_page_permalink( 'shop' ),
+				)
+			);
+		}
+	}
+
+	/**
+	 * Use Rank Math breadcrumbs
+	 */
+	public static function support_rank_math_breadcrumbs() {
+		add_theme_support( 'rank-math-breadcrumbs' );
+	}
+
+	/**
+	 * Display page breadcrumbs
+	 */
+	public static function display_page_breadcrumbs() {
+		if ( is_page_template( 'page-templates/temp.php' ) && function_exists( 'rank_math_the_breadcrumbs' ) ) {
+			rank_math_the_breadcrumbs();
+		}
+	}
+
+	/**
+	 * Add assets to Gutenberg editor
+	 */
+	public static function enqueue_editor_assets() {
+		$styles = include get_stylesheet_directory() . '/build/editor.asset.php';
+
+		wp_enqueue_style(
+			'chocante-editor-css',
+			get_stylesheet_directory_uri() . '/build/editor.css',
+			$styles['dependencies'],
+			$styles['version'],
 		);
 	}
 }

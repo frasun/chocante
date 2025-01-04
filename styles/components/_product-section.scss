@@ -17,7 +17,7 @@ $slider-navigation-size: 50px;
 		align-items: end;
 		padding-bottom: var(--spacing--20);
 		padding-top: var(--spacing--15);
-		@include container();
+		@include container;
 
 		a {
 			@include button(secondary, $size: lg);
@@ -30,7 +30,7 @@ $slider-navigation-size: 50px;
 		@include font-style(page-title);
 
 		& {
-			padding: 0;
+			margin: 0;
 			flex-grow: 1;
 		}
 
@@ -75,7 +75,13 @@ $slider-navigation-size: 50px;
 			padding-right: 0;
 			padding-top: var(--spacing--10);
 			overflow: visible;
-			@include container();
+			max-width: calc(
+				var(--size--container) - var(
+						--wp--style--root--padding-right,
+						var(--spacing--20)
+					) - var(--wp--style--root--padding-left, var(--spacing--20))
+			);
+			margin: auto;
 
 			@include min-width($breakpoint--desktop) {
 				padding-top: var(--spacing--20);

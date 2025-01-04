@@ -12,7 +12,7 @@
 		flex-direction: column;
 
 		.page-title {
-			padding-top: var(--spacing--10);
+			margin-top: var(--spacing--10);
 		}
 
 		&-checkout {
@@ -51,11 +51,14 @@
 			#ship-to-different-address {
 				font-size: inherit;
 				font-family: inherit;
+				padding: 0;
 			}
 
 			.shipping_address {
-				padding-top: var(--spacing--30);
-				padding-bottom: var(--spacing--30);
+				.woocommerce-shipping-fields__field-wrapper {
+					padding-top: var(--spacing--30);
+					padding-bottom: var(--spacing--30);
+				}
 			}
 
 			#order_review_heading {
@@ -119,6 +122,7 @@
 
 		&-bacs-bank-details {
 			margin-top: var(--spacing--20);
+			margin-bottom: var(--spacing--20);
 
 			.wc-bacs-bank-details {
 				@include list-reset;
@@ -326,8 +330,8 @@
 	.woocommerce-terms-and-conditions {
 		overflow-x: hidden;
 		order: 3;
-		@include content-sm;
 		margin-top: var(--spacing--20);
+		@include content-sm;
 
 		p:not(:last-of-type) {
 			margin-bottom: 0.75em;

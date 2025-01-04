@@ -280,6 +280,11 @@ button[data-close-modal] {
 .post-content {
 	@include content;
 }
+
+.woocommerce-breadcrumb {
+	@include breadcrumbs;
+	padding: var(--spacing--20) 0;
+}
 /* END Content */
 
 /* Slider */

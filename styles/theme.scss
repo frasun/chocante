@@ -23,6 +23,7 @@
 @import "@splidejs/splide/css/core";
 @import "components/content";
 @import "components/forms";
+@import "components/breadcrumbs";
 
 // Templates.
 @import "templates/body";
@@ -32,6 +33,7 @@
 @import "templates/product-search";
 @import "templates/join-group";
 @import "templates/footer";
+@import "templates/page";
 
 // 3rd party plugins.
 @import "plugins/omnibus";

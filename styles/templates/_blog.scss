@@ -62,9 +62,8 @@ body {
 				}
 
 				&:has(.post__thumbnail) {
-					color: white;
-
 					.post__title {
+						color: white;
 						background: linear-gradient(
 							to top,
 							rgba(0, 0, 0, 0.8),
@@ -79,6 +78,7 @@ body {
 					padding: var(--spacing--30) var(--spacing--20);
 					width: 100%;
 					z-index: 1;
+					margin: 0;
 				}
 
 				&__thumbnail {
@@ -189,12 +189,13 @@ body {
 			text-transform: uppercase;
 			letter-spacing: 0.4em;
 			color: var(--header--text-color-secondary);
+			margin: 0;
 		}
 
 		&__title {
 			color: white;
-			padding-top: 0.25em;
-			padding-bottom: 0.5em;
+			margin-top: 0.25em;
+			margin-bottom: 0.5em;
 			@include font(headings);
 			@include font-size(xx-large);
 		}

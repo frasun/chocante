@@ -3,9 +3,8 @@
 	--notice--background-color: white;
 
 	&:not(.cart-empty) .page-title {
-		padding-top: var(--spacing--10);
-		padding-bottom: 0;
 		width: 100%;
+		margin-bottom: 0;
 	}
 
 	.woocommerce {
@@ -288,6 +287,7 @@
 						@include font-size(small);
 						--line-height: initial;
 						margin-top: var(--spacing--20);
+						margin-bottom: 0;
 					}
 
 					&-shipping-calculator {

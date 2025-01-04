@@ -36,13 +36,14 @@
 		}
 
 		&-header {
+			@include font(body);
 			@include font-size(normal-sm);
 			font-weight: var(--font-weight--semibold);
 			color: white;
 			text-transform: uppercase;
 			letter-spacing: 0.4em;
-			padding-top: var(--spacing--15);
-			padding-bottom: var(--spacing--15);
+			margin-top: var(--spacing--15);
+			margin-bottom: var(--spacing--15);
 			display: flex;
 			justify-content: space-between;
 			align-items: center;

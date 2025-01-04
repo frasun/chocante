@@ -1,11 +1,12 @@
-.woocommerce-breadcrumb {
+@mixin breadcrumbs {
 	@include font-size(x-small);
 	@include color(grey-2);
-	padding: var(--spacing--20) 0;
 
 	a {
 		@include transition(colors);
 		font-weight: var(--font-weight--semibold);
+		text-decoration: none;
+		@include color(grey-2);
 
 		&:hover {
 			@include color(red-1);

@@ -284,6 +284,16 @@ form.submitting .wpcf7-spinner {
 	min-width: 270px;
 }
 
+.product-wrapper .product-content h4 {
+	color: var(--wp--preset--color--brown, #3f362e);
+	font-family: var(--font-family--body);
+	font-size: var(--font-size--medium-sm);
+	font-weight: var(--font-weight--bold);
+	letter-spacing: normal;
+	line-height: 1.15;
+	margin: 0 0 0.2em;
+}
+
 .slider-wrapper .splide__slide:not(.is-visible).is-active {
 	opacity: 1;
 }
@@ -313,4 +323,14 @@ form.submitting .wpcf7-spinner {
 	--header--border-color: var(--color--grey-2);
 }
 /* END Blog header */
+
+/* Mini cart */
+.widget_shopping_cart_content .woocommerce-Price-amount {
+	font-size: var(--font-size--normal-sm);
+}
+
+.widget_shopping_cart_content strong .woocommerce-Price-amount {
+	font-weight: var(--font-weight--bold);
+}
+/* END Mini cart */
 /** END Theme transitition fixes **/

@@ -3,13 +3,21 @@ html[chocante] {
 }
 
 body {
+	// @todo: Chocnate - use theme.json.
 	@include font(body);
 	@include color(grey-1);
 	background-color: var(--body--background-color, white);
+	// END TODO.
+
 	overflow-x: hidden;
 
 	// @todo: Chocnate - Bricks forge.
 	--brf-p-font-size: var(--font-size--normal);
+	--brf-h2-font-size: var(--font-size--x-large);
 	@include font-size(normal);
 	// END TODO.
+
+	@include max-width($breakpoint--mobile) {
+		--wp--style--root--padding-bottom: var(--spacing--30);
+	}
 }

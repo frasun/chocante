@@ -1,0 +1,36 @@
+.editor-styles-wrapper {
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+
+	.wp-block {
+		&-paragraph,
+		&-list-item {
+			a {
+				color: inherit;
+
+				&:hover {
+					color: #9d2f51;
+				}
+			}
+		}
+
+		&-post-title {
+			max-width: none;
+			padding-top: 0.35em;
+			padding-bottom: 0.35em;
+		}
+	}
+
+	.editor-visual-editor__post-title-wrapper {
+		max-width: var(--wp--style--global--wide-size);
+		box-sizing: border-box;
+		margin-left: auto;
+		margin-right: auto;
+		margin-bottom: 30px;
+	}
+
+	b,
+	strong {
+		font-weight: 700;
+	}
+}

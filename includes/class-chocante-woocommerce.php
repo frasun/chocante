@@ -427,7 +427,7 @@ class Chocante_WooCommerce {
 	 * @todo: Chocante - Bricks.
 	 */
 	public static function bricks_disabled() {
-		return is_cart() || is_product() || is_shop() || is_product_category() || is_product_taxonomy() || is_product_tag() || is_account_page() || is_home() || is_checkout();
+		return is_cart() || is_product() || is_shop() || is_product_category() || is_product_taxonomy() || is_product_tag() || is_account_page() || is_home() || is_checkout() || is_page_template( 'page-templates/temp.php' );
 	}
 
 	/**

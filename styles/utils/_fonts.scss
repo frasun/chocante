@@ -115,8 +115,8 @@ $font-family--headings-default:
 
 @mixin font-style($style: "") {
 	@if $style == page-title {
-		padding-top: 0.35em;
-		padding-bottom: 0.35em;
+		margin-top: 0.35em;
+		margin-bottom: 0.35em;
 		@include font(headings);
 		@include font-size(x-large);
 	}
@@ -128,5 +128,12 @@ $font-family--headings-default:
 		letter-spacing: 0.2em;
 		line-height: inherit;
 		@include font-size(x-small);
+	}
+
+	@if $style == body {
+		font-family: var(--font-family--body);
+		text-transform: revert;
+		letter-spacing: revert;
+		line-height: inherit;
 	}
 }

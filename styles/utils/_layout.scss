@@ -32,11 +32,8 @@ $breakpoint--desktop-lg: 1440px;
 		}
 	} @else {
 		max-width: var(--size--container);
-
-		@include max-width($breakpoint--desktop-md + 40px) {
-			padding-left: var(--spacing--20);
-			padding-right: var(--spacing--20);
-		}
+		padding-right: var(--wp--style--root--padding-right, var(--spacing--20));
+		padding-left: var(--wp--style--root--padding-left, var(--spacing--20));
 	}
 }
 

@@ -65,6 +65,7 @@
 				@include box;
 				padding-left: 0;
 				padding-right: 0;
+				padding-bottom: var(--spacing--10);
 				margin-bottom: var(--spacing--10);
 
 				@include max-width($breakpoint--mobile-lg) {
@@ -355,6 +356,7 @@
 
 		&__heading {
 			@include font-style(section-label);
+			margin-top: 0;
 			margin-bottom: var(--spacing--15);
 		}
 
@@ -641,7 +643,7 @@
 		padding-top: var(--spacing--20);
 
 		.page-title {
-			padding-bottom: 0.5em;
+			margin-bottom: 0.5em;
 		}
 	}
 

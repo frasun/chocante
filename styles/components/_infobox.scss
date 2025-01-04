@@ -20,6 +20,11 @@
 		@include font-size(small);
 	}
 
+	h6 {
+		@include font-style(body);
+		margin: 0;
+	}
+
 	> div {
 		display: flex;
 		gap: var(--spacing--10);
