@@ -122,12 +122,7 @@
 
 			.wc-bacs-bank-details {
 				@include list-reset;
-				margin-top: var(--spacing--20);
-
-				// Fix.
-				&:nth-of-type(2) {
-					display: none;
-				}
+				margin-top: var(--spacing--10);
 
 				&-heading {
 					@include font-style(section-label);
@@ -138,8 +133,13 @@
 					font-weight: var(--font-weight--bold);
 					@include font(body);
 					@include font-size(normal);
+					margin-top: var(--spacing--10);
 				}
 				// END TODO.
+
+				& + .wc-bacs-bank-details-account-name {
+					margin-top: var(--spacing--20);
+				}
 			}
 		}
 	}
