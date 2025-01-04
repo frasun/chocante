@@ -1,0 +1,54 @@
+.paczkomaty-shipping {
+	display: flex;
+	flex-direction: column;
+	@include select2-sm;
+
+	#paczkomat_id_wrapper {
+		margin-top: var(--spacing--30);
+		display: block;
+	}
+
+	td {
+		width: 100%;
+	}
+
+	.button {
+		margin-top: var(--spacing--20);
+		@include button(secondary);
+	}
+
+	label {
+		@include font-style(section-label);
+		@include color(grey-1);
+	}
+
+	span.paczkomat_id_wrapper span.woocommerce-input-wrapper {
+		margin-top: var(--spacing--15);
+		margin-bottom: 0;
+	}
+
+	span.paczkomat_id_wrapper label {
+		font-weight: var(--font-weight--bold);
+	}
+
+	.select2-container {
+		width: 100% !important;
+	}
+}
+
+.order-details {
+	.woocommerce-order-details {
+		> header {
+			margin-top: var(--spacing--20);
+
+			h2 {
+				margin-bottom: 10px;
+			}
+		}
+
+		> dl {
+			@include font-size(normal-sm);
+			margin: var(--spacing--10) 0;
+		}
+	}
+}

@@ -59,5 +59,5 @@ $message    = apply_filters(
 	}
 	?>
 
-	<a href="<?php echo esc_url( home_url() ); ?>" class="button"><?php echo esc_html_x( 'Go to hompegae', 'thankyou', 'chocante' ); ?></a>
+	<a href="<?php echo esc_url( home_url() ); ?>" class="button"><?php echo esc_html_x( 'Go to homepage', 'thankyou', 'chocante' ); ?></a>
 </div>

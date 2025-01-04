@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bricks Child Theme 1.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/bricks-child1\n"
-"POT-Creation-Date: 2025-01-03T13:51:10+00:00\n"
-"PO-Revision-Date: 2025-01-03 14:54+0100\n"
+"POT-Creation-Date: 2025-01-04T08:14:45+00:00\n"
+"PO-Revision-Date: 2025-01-04 09:15+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pl_PL\n"
@@ -195,7 +195,7 @@ msgctxt "login page"
 msgid "Already have an account?"
 msgstr "Masz już konto?"
 
-#: includes/woocommerce/class-chocante-checkout.php:80
+#: includes/woocommerce/class-chocante-checkout.php:110
 msgctxt "checkout"
 msgid "Edit previous step"
 msgstr "Edytuj poprzedni krok"
@@ -383,9 +383,9 @@ msgctxt "thankyou"
 msgid "Your order no. %s has been accepted for processing."
 msgstr "Twoje zamówienie nr %s zostało przyjęte do realizacji."
 
-#: woocommerce/checkout/thankyou.php:54
+#: woocommerce/checkout/thankyou.php:62
 msgctxt "thankyou"
-msgid "Go to hompegae"
+msgid "Go to homepage"
 msgstr "Idź do strony głównej"
 
 #: woocommerce/loop/no-products-found.php:25
