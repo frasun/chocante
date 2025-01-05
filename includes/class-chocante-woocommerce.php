@@ -1,6 +1,6 @@
 <?php
 /**
- * Chocante WooCommerce
+ * Chocante WooCommerce common
  *
  * @package Chocante
  */
@@ -14,6 +14,13 @@ require_once __DIR__ . '/woocommerce/class-chocante-product-section.php';
  * Chocante_WooCommerce class.
  */
 class Chocante_WooCommerce {
+	/**
+	 * Bank account order
+	 *
+	 * @var int $backs_order Order of queried bank account.
+	 */
+	private static $bacs_order = 0;
+
 	/**
 	 * Init hooks.
 	 */
@@ -115,6 +122,9 @@ class Chocante_WooCommerce {
 
 		// Remove WooCommerce styles.
 		add_filter( 'woocommerce_enqueue_styles', array( __CLASS__, 'disable_woocommerce_styles' ) );
+
+		// Thankyou / order emails.
+		add_filter( 'woocommerce_bacs_account_fields', array( __CLASS__, 'add_currency_to_bank_details' ) );
 	}
 
 	/**
@@ -461,5 +471,28 @@ class Chocante_WooCommerce {
 			'height' => 150,
 			'crop'   => 1,
 		);
+	}
+
+	/**
+	 * Add currency info to bank account details displayed in thankyou page and emails
+	 *
+	 * @param array $account_details Account details.
+	 * @return array
+	 */
+	public static function add_currency_to_bank_details( $account_details ) {
+		$account_currencies = get_option( 'wcml_bacs_accounts_currencies' );
+
+		if ( false === $account_currencies ) {
+			return $account_details;
+		}
+
+		$account_details['currency'] = array(
+			'label' => __( 'Currency', 'woocommerce' ),
+			'value' => $account_currencies[ self::$bacs_order ],
+		);
+
+		++self::$bacs_order;
+
+		return $account_details;
 	}
 }

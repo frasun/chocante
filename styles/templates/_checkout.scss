@@ -122,24 +122,23 @@
 
 			.wc-bacs-bank-details {
 				@include list-reset;
-				margin-top: var(--spacing--10);
 
 				&-heading {
 					@include font-style(section-label);
 				}
 
-				// @todo: Chocante - Bricks - font style.
+				// @todo: Chocante - Bricks - h3 font style.
 				&-account-name {
 					font-weight: var(--font-weight--bold);
 					@include font(body);
 					@include font-size(normal);
-					margin-top: var(--spacing--10);
+					margin-top: var(--spacing--20);
+
+					&:first-of-type {
+						margin-top: var(--spacing--10);
+					}
 				}
 				// END TODO.
-
-				& + .wc-bacs-bank-details-account-name {
-					margin-top: var(--spacing--20);
-				}
 			}
 		}
 	}
