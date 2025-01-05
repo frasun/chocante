@@ -223,6 +223,10 @@ input[type="checkbox"] {
 	}
 }
 
+.form-row {
+	margin: 0;
+}
+
 .woocommerce-invalid {
 	--input--border: var(--color--red-2);
 	--input--background-color: var(--color--red-3);

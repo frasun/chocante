@@ -299,6 +299,17 @@
 			"fontSize": "var:preset|font-size|normal",
 			"fontWeight": "500",
 			"lineHeight": "1.5"
+		},
+		"blocks": {
+			"core/paragraph": {
+				"spacing": {
+					"margin": {
+						"top": "0",
+						"bottom": "0.625em"
+					}
+				},
+				"css": "&:last-child { margin-bottom: 0; }"
+			}
 		}
 	},
 	"customTemplates": [],

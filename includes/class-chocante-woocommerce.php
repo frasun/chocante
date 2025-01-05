@@ -143,7 +143,7 @@ class Chocante_WooCommerce {
 			return;
 		}
 
-		if ( is_cart() ) {
+		if ( is_cart() || ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) {
 			require_once __DIR__ . '/woocommerce/class-chocante-cart.php';
 			Chocante_Cart::init();
 			return;

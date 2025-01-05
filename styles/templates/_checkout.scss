@@ -293,6 +293,10 @@
 			padding: var(--spacing--10) var(--spacing--20);
 			@include font-size(x-small);
 			margin-top: var(--spacing--15);
+
+			p:last-child {
+				margin: 0;
+			}
 		}
 
 		[name="payment_method"][checked] {

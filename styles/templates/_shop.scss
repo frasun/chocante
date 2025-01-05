@@ -150,6 +150,7 @@
 	}
 
 	&-result-count {
+		margin: 0;
 		@include hide(mobile);
 	}
 
