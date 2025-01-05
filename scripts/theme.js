@@ -36,7 +36,8 @@ class Chocante {
   }
 
   setPostSliders() {
-    const postSliders = document.querySelectorAll('.splide');
+    // @todo: Chocante - Bricks Change class to '.splide'.
+    const postSliders = document.querySelectorAll('.post-slider');
 
     Array.from(postSliders).forEach(slider => {
       new Splide(slider, {
