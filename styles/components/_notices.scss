@@ -32,8 +32,6 @@
 		margin: 0;
 
 		li {
-			display: flex;
-
 			&::before {
 				margin-right: var(--spacing--10);
 			}
