@@ -25,6 +25,15 @@ $message    = apply_filters(
 	// translators: thank you text.
 	sprintf( esc_html_x( 'You will be informed about further steps by separate emails. You can also keep up to date with the current status at %1$sthis address%2$s.', 'thankyou', 'chocante' ), '<a href="' . esc_url( wc_get_account_endpoint_url( 'orders' ) ) . '">', '</a>' )
 );
+
+// @todo: Chocante - temp fix.
+$parts = parse_url( $_SERVER['REQUEST_URI'] ); // @codingStandardsIgnoreLine.
+parse_str( $parts['query'], $query );
+
+if ( $order && isset( $query['error'] ) ) {
+	$order->update_status( 'failed', '', true );
+}
+// END TODO.
 ?>
 
 <div class="woocommerce-order">
@@ -53,7 +62,7 @@ $message    = apply_filters(
 	<?php endif; ?>
 
 	<?php
-	if ( $order ) {
+	if ( $order && ! $order->has_status( 'failed' ) ) {
 		do_action( 'woocommerce_thankyou_' . $order->get_payment_method(), $order->get_id() );
 		do_action( 'woocommerce_thankyou', $order->get_id() );
 	}
