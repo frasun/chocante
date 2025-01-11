@@ -27,7 +27,7 @@ export default class MenuScroll {
     window.requestAnimationFrame(() => {
       if (!this.canTransition) return;
 
-      if (window.scrollY > this.scrollTop && window.scrollY > this.elem.offsetHeight) {
+      if (window.scrollY < this.scrollTop && window.scrollY > this.elem.offsetHeight * 2) {
         const adminBar = document.getElementById(MenuScroll.ADMINBAR_ID);
         let transition = MenuScroll.TRANSITION;
 
@@ -36,7 +36,7 @@ export default class MenuScroll {
         }
 
         this.elem.style.transform = transition;
-      } else if (window.scrollY < this.scrollTop) {
+      } else {
         this.elem.removeAttribute('style');
       }
 
