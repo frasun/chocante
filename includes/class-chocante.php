@@ -52,12 +52,15 @@ class Chocante {
 		add_action( 'pre_get_posts', array( __CLASS__, 'exclude_sticky_posts' ) );
 		add_filter( 'excerpt_more', array( __CLASS__, 'set_excerpt_more' ) );
 		if ( class_exists( 'Chocante_Product_Section' ) ) {
-			add_action( 'chocante_after_main', array( __CLASS__, 'display_products_slider' ) );
+			add_action( 'chocante_after_main', array( __CLASS__, 'display_featured_products_slider_on_blog_page' ) );
 		}
+
+		// Post.
+		add_filter( 'the_content', array( __CLASS__, 'display_post_header' ) );
 
 		// Breadcrumbs.
 		add_action( 'after_theme_setup', array( __CLASS__, 'support_rank_math_breadcrumbs' ) );
-		add_action( 'chocante_page_header_before_title', array( __CLASS__, 'display_page_breadcrumbs' ) );
+		add_action( 'chocante_before_content_header', array( __CLASS__, 'display_page_breadcrumbs' ) );
 
 		// Editor.
 		add_action( 'enqueue_block_editor_assets', array( __CLASS__, 'enqueue_editor_assets' ) );
@@ -176,6 +179,18 @@ class Chocante {
 				get_stylesheet_directory_uri() . '/build/blog.css',
 				$blog_styles['dependencies'],
 				$blog_styles['version'],
+			);
+		}
+
+		// Single post.
+		if ( is_singular( 'post' ) ) {
+			$post_styles = include get_stylesheet_directory() . '/build/single-post.asset.php';
+
+			wp_enqueue_style(
+				'post-css',
+				get_stylesheet_directory_uri() . '/build/single-post.css',
+				$post_styles['dependencies'],
+				$post_styles['version'],
 			);
 		}
 	}
@@ -377,18 +392,25 @@ class Chocante {
 	}
 
 	/**
+	 * Display featured products on blog home page
+	 */
+	public static function display_featured_products_slider_on_blog_page() {
+		if ( is_home() ) {
+			self::display_featured_products_slider();
+		}
+	}
+
+	/**
 	 * Display featured products slider
 	 */
-	public static function display_products_slider() {
-		if ( is_home() ) {
-			Chocante_Product_Section::class::display_product_section(
-				array(
-					'heading'    => _x( 'Featured products', 'product slider', 'chocante' ),
-					'subheading' => _x( 'Learn more about our offer', 'product slider', 'chocante' ),
-					'cta_link'   => wc_get_page_permalink( 'shop' ),
-				)
-			);
-		}
+	public static function display_featured_products_slider() {
+		Chocante_Product_Section::class::display_product_section(
+			array(
+				'heading'    => _x( 'Featured products', 'product slider', 'chocante' ),
+				'subheading' => _x( 'Learn more about our offer', 'product slider', 'chocante' ),
+				'cta_link'   => wc_get_page_permalink( 'shop' ),
+			)
+		);
 	}
 
 	/**
@@ -404,6 +426,8 @@ class Chocante {
 	public static function display_page_breadcrumbs() {
 		if ( is_page_template( 'page-templates/temp.php' ) && function_exists( 'rank_math_the_breadcrumbs' ) ) {
 			rank_math_the_breadcrumbs();
+		} elseif ( is_singular( 'post' ) ) {
+			get_template_part( 'template-parts/breadcrumbs', 'post' );
 		}
 	}
 
@@ -419,5 +443,47 @@ class Chocante {
 			$styles['dependencies'],
 			$styles['version'],
 		);
+
+		$scripts = include get_stylesheet_directory() . '/build/editor-scripts.asset.php';
+
+		wp_enqueue_script(
+			'chocante-editor-js',
+			get_theme_file_uri( 'build/editor-scripts.js' ),
+			array(
+				'wp-blocks',
+				'wp-dom-ready',
+				'wp-edit-post',
+			),
+			$scripts['version'],
+			true
+		);
+	}
+
+	/**
+	 * Display single post content header
+	 *
+	 * @param string $content Post content.
+	 * @return string
+	 */
+	public static function display_post_header( $content ) {
+		if ( is_singular( 'post' ) && in_the_loop() && is_main_query() ) {
+			ob_start();
+			get_template_part( 'template-parts/post-header', '', array( 'content' => $content ) );
+			return ob_get_clean() . $content;
+		}
+
+		return $content;
+	}
+
+	/**
+	 * Return estimated content reading time
+	 *
+	 * @param string $content Text content.
+	 * @param int    $words_per_minute Number of words per minute.
+	 * @return float
+	 */
+	public static function get_reading_time( $content, $words_per_minute = 200 ) {
+		$total_words = str_word_count( wp_strip_all_tags( $content ) );
+		return floor( $total_words / $words_per_minute );
 	}
 }

@@ -6,7 +6,7 @@
 		@include transition(colors);
 		font-weight: var(--font-weight--semibold);
 		text-decoration: none;
-		@include color(grey-2);
+		color: currentColor;
 
 		&:hover {
 			@include color(red-1);

@@ -3,9 +3,10 @@ $slider-navigation-size: 50px;
 .product-section {
 	background-color: var(--product-section--background-color, white);
 	padding-top: var(--spacing--30);
-	padding-bottom: var(--spacing--30);
+	padding-bottom: var(--spacing--40);
 	overflow: hidden;
 	min-height: 500px;
+	max-width: none;
 
 	@include min-width($breakpoint--desktop) {
 		padding: var(--spacing--40) 0;

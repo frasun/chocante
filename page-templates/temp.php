@@ -7,12 +7,13 @@
  * @subpackage Chocante
  */
 
+$page_header = isset( $args['page_header'] ) ? $args['page_header'] : locate_template( 'template-parts/content/content-header.php' );
+
 get_header();
 if ( have_posts() ) :
 	while ( have_posts() ) :
 		the_post();
-		get_template_part( 'template-parts/content', 'page' );
-		do_action( 'chocante_after_main' );
+		get_template_part( 'template-parts/content/content', get_post_type(), array( 'page_header' => $page_header ) );
 	endwhile;
 endif;
 get_footer();

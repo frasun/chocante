@@ -1,0 +1,40 @@
+.wp-block {
+	&-footnotes {
+		list-style: none;
+		padding: 0;
+		counter-reset: footnotes;
+		padding-top: var(--spacing--30);
+		margin-top: var(--spacing--30);
+		margin-bottom: 0;
+		@include border(grey-3, 1px 0 0);
+
+		li {
+			counter-increment: footnotes;
+			@include font-size(normal-sm);
+
+			&:not(:last-of-type) {
+				margin-bottom: 0.5em;
+			}
+
+			&::before {
+				content: counter(footnotes);
+				--badge--border-radius: 50%;
+				--badge--color: var(--color--brown-4);
+				--badge--background-color: transparent;
+				--badge--padding: 0.1em 0.12em;
+				@include badge;
+				min-width: 1.5em;
+				display: inline-block;
+				letter-spacing: 0;
+				text-align: center;
+				@include border(brown-4);
+				margin-right: 0.75em;
+				box-sizing: border-box;
+			}
+		}
+
+		a {
+			word-break: break-word;
+		}
+	}
+}

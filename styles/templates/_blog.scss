@@ -184,10 +184,7 @@ body {
 		}
 
 		&__heading {
-			@include font-size(normal);
-			font-weight: var(--font-weight--semibold);
-			text-transform: uppercase;
-			letter-spacing: 0.4em;
+			@include font-style(subheading);
 			color: var(--header--text-color-secondary);
 			margin: 0;
 		}

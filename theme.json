@@ -59,7 +59,7 @@
 		"layout": {
 			"allowCustomContentAndWideSize": false,
 			"allowEditing": true,
-			"contentSize": "810px",
+			"contentSize": "770px",
 			"wideSize": "1210px"
 		},
 		"position": {
@@ -330,7 +330,7 @@
 				},
 				"spacing": {
 					"margin": {
-						"top": "0.5em",
+						"top": "0.75em",
 						"bottom": "0.35em"
 					}
 				}
@@ -377,6 +377,25 @@
 						"bottom": "0.625em"
 					}
 				}
+			},
+			"caption": {
+				"typography": {
+					"letterSpacing": "0.2em",
+					"fontSize": "var:preset|font-size|small"
+				},
+				"color": {
+					"text": "var(--color--grey-2)"
+				}
+			},
+			"link": {
+				"typography": {
+					"fontWeight": "700",
+					"textDecoration": "underline"
+				},
+				"color": {
+					"text": "var:preset|color|green"
+				},
+				"css": "transition: color 0.35s ease-out"
 			}
 		},
 		"blocks": {
@@ -387,24 +406,19 @@
 						"bottom": "0.625em"
 					}
 				},
-				"css": "&:last-child { margin-bottom: 0; }",
 				"elements": {
 					"link": {
 						"typography": {
-							"fontWeight": "700",
 							"textDecoration": "underline"
-						},
-						"color": {
-							"text": "var:preset|color|green"
 						},
 						":hover": {
 							"color": {
-								"text": "#9d2f51"
+								"text": "var(--color--red-1)"
 							}
-						},
-						"css": "transition: color 0.35s ease-out"
+						}
 					}
-				}
+				},
+				"css": "&:last-child { margin-bottom: 0; }"
 			},
 			"core/list": {
 				"spacing": {
@@ -429,22 +443,52 @@
 						"bottom": "0.5em"
 					}
 				},
-				"css": "& :where(ul, ol) { margin-top: 0.5em }",
 				"elements": {
 					"link": {
 						"typography": {
-							"fontWeight": "700",
 							"textDecoration": "underline"
-						},
-						"color": {
-							"text": "var:preset|color|green"
 						},
 						":hover": {
 							"color": {
-								"text": "#9d2f51"
+								"text": "var(--color--red-1)"
 							}
+						}
+					}
+				},
+				"css": "& :where(ul, ol) { margin-top: 0.5em } &::marker { color: var(--color--brown-4) }"
+			},
+			"core/image": {
+				"spacing": {
+					"margin": {
+						"top": "1.5em",
+						"bottom": "1.5em"
+					}
+				},
+				"border": {
+					"radius": "25px"
+				},
+				"typography": {
+					"textAlign": "center"
+				},
+				"elements": {
+					"caption": {
+						"typography": {
+							"textAlign": "left"
+						}
+					}
+				}
+			},
+			"core/footnotes": {
+				"elements": {
+					"link": {
+						"typography": {
+							"textDecoration": "none"
 						},
-						"css": "transition: color 0.35s ease-out"
+						":hover": {
+							"color": {
+								"text": "var(--color--red-1)"
+							}
+						}
 					}
 				}
 			}

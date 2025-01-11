@@ -1,0 +1,116 @@
+.rmp {
+	&-icon {
+		&--ratings {
+			font-size: 16px;
+			padding: 0 0.1em;
+			@include color(grey-3);
+		}
+
+		&--full-highlight {
+			color: #e1c663;
+		}
+
+		&--half-highlight {
+			background: linear-gradient(to right, #e1c663 50%, #aba7a4 50%);
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+		}
+	}
+
+	&-heading {
+		&--title {
+			@include font-style(section-label);
+		}
+
+		&--subtitle {
+			display: none;
+		}
+	}
+
+	&-results-widget {
+		@include color(grey-2);
+		text-transform: uppercase;
+		@include font-size(small-sm);
+		display: flex;
+		align-items: center;
+		gap: 0.3em;
+
+		&__visual-rating {
+			display: flex;
+			gap: 0.1em;
+			align-items: center;
+			margin-right: 0.2em;
+		}
+
+		&__vote-count,
+		&__avg-rating {
+			font-weight: var(--font-weight--bold);
+		}
+	}
+
+	&-rating-widget {
+		&__icons_list {
+			display: flex;
+		}
+
+		&__results,
+		&__not-rated {
+			text-transform: uppercase;
+			letter-spacing: 0.2em;
+			@include font-size(small-sm);
+		}
+
+		.rmp {
+			&-icon {
+				&--ratings {
+					font-size: 16px;
+					padding: 0 0.1em;
+					@include color(grey-3);
+
+					@include max-width($breakpoint--mobile-lg) {
+						font-size: 24px;
+					}
+				}
+
+				&--half-highlight {
+					background: linear-gradient(to right, #e1c663 50%, #aba7a4 50%);
+					-webkit-background-clip: text;
+					-webkit-text-fill-color: transparent;
+				}
+
+				&--full-highlight {
+					@include color(grey-3);
+				}
+
+				&--processing-rating,
+				&--hovered {
+					color: #e1c663;
+				}
+			}
+		}
+
+		&__submit-btn.rmp-btn {
+			@include button(secondary);
+			margin-bottom: var(--spacing--20);
+		}
+
+		&--has-rated {
+			.rmp-icon--full-highlight {
+				color: #e1c663;
+			}
+		}
+	}
+}
+
+.rmp-widgets-container.rmp-wp-plugin.rmp-main-container {
+	.rmp-heading,
+	.rmp-rating-widget__icons {
+		margin-bottom: 0.75em;
+	}
+}
+
+.rmp-social-widget .rmp-icon--social {
+	padding: 10px;
+	font-size: 20px;
+	width: 40px;
+}

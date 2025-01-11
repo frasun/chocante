@@ -1,15 +1,22 @@
+@import "utils/mixins";
+@import "utils/variables";
+
+@import "components/badge";
+@import "components/blocks";
+
 .editor-styles-wrapper {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 
 	.wp-block {
 		&-paragraph,
-		&-list-item {
+		&-list-item,
+		&-footnotes {
 			a {
 				color: inherit;
 
 				&:hover {
-					color: #9d2f51;
+					color: var(--color--red-1);
 				}
 			}
 		}

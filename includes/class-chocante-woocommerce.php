@@ -15,7 +15,7 @@ require_once __DIR__ . '/woocommerce/class-chocante-product-section.php';
  */
 class Chocante_WooCommerce {
 	/**
-	 * Bank account order
+	 * Bank account order needed to display account currency
 	 *
 	 * @var int $backs_order Order of queried bank account.
 	 */
@@ -427,7 +427,7 @@ class Chocante_WooCommerce {
 	 * @todo: Chocante - Bricks.
 	 */
 	public static function bricks_disabled() {
-		return is_cart() || is_product() || is_shop() || is_product_category() || is_product_taxonomy() || is_product_tag() || is_account_page() || is_home() || is_checkout() || is_page_template( 'page-templates/temp.php' );
+		return is_cart() || is_product() || is_shop() || is_product_category() || is_product_taxonomy() || is_product_tag() || is_account_page() || is_home() || is_checkout() || is_page_template( 'page-templates/temp.php' ) || is_singular( 'post' );
 	}
 
 	/**

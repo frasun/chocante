@@ -24,6 +24,7 @@
 @import "components/content";
 @import "components/forms";
 @import "components/breadcrumbs";
+@import "components/blocks";
 
 // Templates.
 @import "templates/body";
@@ -33,7 +34,7 @@
 @import "templates/product-search";
 @import "templates/join-group";
 @import "templates/footer";
-@import "templates/page";
+@import "templates/content-header";
 
 // 3rd party plugins.
 @import "plugins/omnibus";

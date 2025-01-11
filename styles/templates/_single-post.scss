@@ -1,0 +1,97 @@
+.single-post {
+	--header--background-color: var(--color--brown-6);
+	--header--text-color-secondary: var(--color--grey-3);
+	--header--border-color: var(--color--grey-2);
+	--body--background-color: var(--header--background-color);
+	--join-group--background-color: var(--color--grey-5);
+
+	&:has(.product-section + .join-group) {
+		--join-group--background-color: var(--color--grey-5);
+	}
+
+	--product-section--background-color: var(--color--grey-5);
+	--content-header--title-color: white;
+	--wp--style--root--padding-top: var(--spacing--20);
+
+	@include min-width($breakpoint--mobile-lg) {
+		--wp--style--root--padding-top: var(--spacing--50);
+	}
+
+	article {
+		background-color: white;
+	}
+
+	.content-header {
+		--content-header--background-bottom: 0;
+
+		text-align: center;
+		position: relative;
+		background: var(--header--background-color);
+
+		&::before {
+			content: "";
+			position: absolute;
+			left: 0;
+			right: 0;
+			top: 0;
+			bottom: var(--content-header--background-bottom);
+			background: url(../images/bg-pattern.png);
+			background-position-y: bottom;
+			z-index: 0;
+		}
+
+		&:has(.content-header__thumbnail) {
+			--content-header--background-bottom: calc(
+				var(--content-header--thumbnail-height) / 2 +
+					var(--content-header--padding-bottom)
+			);
+
+			background: linear-gradient(
+				to top,
+				var(--color--grey-5),
+				var(--color--grey-5) var(--content-header--background-bottom),
+				var(--header--background-color) var(--content-header--background-bottom)
+			);
+		}
+
+		&__title {
+			margin-top: 0;
+		}
+
+		&__breadcrumbs {
+			color: var(--header--text-color-secondary);
+
+			a {
+				@include font-style(subheading);
+
+				&:hover {
+					color: white;
+				}
+
+				svg {
+					margin-right: var(--spacing--15);
+				}
+			}
+		}
+	}
+
+	&__header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		flex-wrap: wrap;
+		gap: var(--spacing--10);
+		padding-bottom: var(--spacing--30);
+
+		@include max-width($breakpoint--mobile-lg) {
+			padding-bottom: var(--spacing--15);
+		}
+	}
+
+	.rmp-widgets-container.rmp-wp-plugin.rmp-main-container {
+		padding-top: var(--spacing--30);
+		margin-top: var(--spacing--30);
+		margin-bottom: 0;
+		@include border(grey-3, 1px 0 0);
+	}
+}

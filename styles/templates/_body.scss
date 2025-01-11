@@ -14,6 +14,7 @@ body {
 	// @todo: Chocnate - Bricks forge.
 	--brf-p-font-size: var(--font-size--normal);
 	--brf-h2-font-size: var(--font-size--x-large);
+	--brf-h3-font-size: var(--font-size--large);
 	@include font-size(normal);
 	// END TODO.
 

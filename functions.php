@@ -15,11 +15,6 @@ add_action(
 		} elseif ( ! bricks_is_builder_main() ) {
 			wp_enqueue_style( 'bricks-child', get_stylesheet_uri(), array( 'bricks-frontend' ), filemtime( get_stylesheet_directory() . '/style.css' ) );
 		}
-
-		// Feedback WP Rating.
-		if ( is_singular( 'post' ) ) {
-			wp_enqueue_style( 'feedbackwp-css', get_stylesheet_directory_uri() . '/css/feedbackwp.css' );
-		}
 	}
 );
 

@@ -476,3 +476,16 @@ button[data-close-modal] {
 	}
 }
 // END Cart & Checkout common.
+
+/* Product */
+.badge,
+.onsale {
+	@include badge;
+
+	// @todo: Chocante - Bricks feature verify?
+	&.new {
+		display: none;
+	}
+	// END TODO.
+}
+/* END Product */
