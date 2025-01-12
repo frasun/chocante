@@ -483,7 +483,8 @@ class Chocante {
 	 * @return float
 	 */
 	public static function get_reading_time( $content, $words_per_minute = 200 ) {
-		$total_words = str_word_count( wp_strip_all_tags( $content ) );
+		$total_words = count( preg_split( '~[^\p{L}\p{N}\']+~u', wp_strip_all_tags( $content ) ) );
+
 		return floor( $total_words / $words_per_minute );
 	}
 }

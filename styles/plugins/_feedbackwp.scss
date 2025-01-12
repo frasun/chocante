@@ -1,3 +1,7 @@
+:root {
+	--rating--highlight: #e1c663;
+}
+
 .rmp {
 	&-icon {
 		&--ratings {
@@ -7,11 +11,15 @@
 		}
 
 		&--full-highlight {
-			color: #e1c663;
+			color: var(--rating--highlight);
 		}
 
 		&--half-highlight {
-			background: linear-gradient(to right, #e1c663 50%, #aba7a4 50%);
+			background: linear-gradient(
+				to right,
+				var(--rating--highlight) 50%,
+				var(--color--grey-3) 50%
+			);
 			-webkit-background-clip: text;
 			-webkit-text-fill-color: transparent;
 		}
@@ -73,18 +81,28 @@
 				}
 
 				&--half-highlight {
-					background: linear-gradient(to right, #e1c663 50%, #aba7a4 50%);
+					background: linear-gradient(
+						to right,
+						var(--rating--highlight) 50%,
+						var(--color--grey-3) 50%
+					);
 					-webkit-background-clip: text;
 					-webkit-text-fill-color: transparent;
+
+					&.rmp-icon--hovered {
+						background: var(--rating--highlight);
+						-webkit-background-clip: text;
+						-webkit-text-fill-color: transparent;
+					}
 				}
 
 				&--full-highlight {
-					@include color(grey-3);
+					color: var(--rating--highlight);
 				}
 
 				&--processing-rating,
 				&--hovered {
-					color: #e1c663;
+					color: var(--rating--highlight);
 				}
 			}
 		}
@@ -96,7 +114,7 @@
 
 		&--has-rated {
 			.rmp-icon--full-highlight {
-				color: #e1c663;
+				color: var(--rating--highlight);
 			}
 		}
 	}

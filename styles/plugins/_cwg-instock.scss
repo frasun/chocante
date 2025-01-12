@@ -43,7 +43,10 @@
 	&_output {
 		> div {
 			@include notice;
-			margin-top: var(--spacing--15);
+
+			& {
+				margin-top: var(--spacing--15);
+			}
 		}
 
 		.cwginstock {

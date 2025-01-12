@@ -38,3 +38,15 @@
 		}
 	}
 }
+
+.wp-element {
+	&-caption {
+		a {
+			text-decoration: underline;
+
+			&:hover {
+				color: var(--color--red-1);
+			}
+		}
+	}
+}

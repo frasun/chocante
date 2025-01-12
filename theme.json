@@ -478,6 +478,24 @@
 					}
 				}
 			},
+			"core/embed": {
+				"spacing": {
+					"margin": {
+						"top": "1.5em",
+						"bottom": "1.5em"
+					}
+				},
+				"typography": {
+					"textAlign": "center"
+				},
+				"elements": {
+					"caption": {
+						"typography": {
+							"textAlign": "left"
+						}
+					}
+				}
+			},
 			"core/footnotes": {
 				"elements": {
 					"link": {

@@ -21,6 +21,12 @@ export default class MenuScroll {
     this.elem.addEventListener('mouseleave', () => {
       this.canTransition = true;
     });
+
+    const pageLinks = document.querySelectorAll('a[href^="#"]');
+
+    for (let link of pageLinks) {
+      link.addEventListener('click', this.handlePageLink.bind(this));
+    }
   }
 
   manageScroll() {
@@ -28,19 +34,37 @@ export default class MenuScroll {
       if (!this.canTransition) return;
 
       if (window.scrollY < this.scrollTop && window.scrollY > this.elem.offsetHeight * 2) {
-        const adminBar = document.getElementById(MenuScroll.ADMINBAR_ID);
-        let transition = MenuScroll.TRANSITION;
-
-        if (adminBar) {
-          transition = `translate3d(0, -${this.elem.offsetHeight + adminBar.offsetHeight}px, 0)`;
-        }
-
-        this.elem.style.transform = transition;
+        this.hideMenu();
       } else {
-        this.elem.removeAttribute('style');
+        this.showMenu();
       }
 
       this.scrollTop = window.scrollY;
     });
+  }
+
+  hideMenu() {
+    const adminBar = document.getElementById(MenuScroll.ADMINBAR_ID);
+    let transition = MenuScroll.TRANSITION;
+
+    if (adminBar) {
+      transition = `translate3d(0, -${this.elem.offsetHeight + adminBar.offsetHeight}px, 0)`;
+    }
+
+    this.elem.style.transform = transition;
+  }
+
+  showMenu() {
+    this.elem.removeAttribute('style');
+  }
+
+  handlePageLink() {
+    this.hideMenu();
+    this.canTransition = false;
+
+    // @todo: Find better solution.
+    window.setTimeout(() => {
+      this.canTransition = true;
+    }, 2000);
   }
 }
