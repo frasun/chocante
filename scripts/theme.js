@@ -4,6 +4,7 @@ import ChocanteWooCommerce from './woocommerce';
 import MenuScroll from './menu-scroll';
 import { MOBILE_BREAKPOINT } from './constants';
 // import Splide from '@splidejs/splide';
+import Accordion from './details';
 
 class Chocante {
   constructor() {
@@ -23,6 +24,11 @@ class Chocante {
     // Sliders.
     // window.Splide = Splide;
     this.setPostSliders();
+
+    // <details> Accordion.
+    document.querySelectorAll("details.wp-block-details").forEach((el) => {
+      new Accordion(el);
+    });
   }
 
   setDropdownSize() {

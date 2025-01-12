@@ -37,6 +37,63 @@
 			word-break: break-word;
 		}
 	}
+
+	&-details {
+		background-color: white;
+		border-radius: var(--border-radius);
+
+		summary {
+			@include font-size(medium-sm);
+			@include font(labels);
+			padding: var(--spacing--20);
+			list-style: none;
+			display: flex;
+			align-items: baseline;
+			justify-content: space-between;
+			gap: var(--spacing--15);
+
+			&::after {
+				@include icon-font;
+				content: "\0041";
+				@include transition;
+				font-size: 0.75em;
+				@include color(grey-1);
+			}
+		}
+
+		> * {
+			padding-left: var(--spacing--20);
+			padding-right: var(--spacing--20);
+
+			&:first-of-type:not(summary) {
+				margin: 0;
+			}
+		}
+
+		& > .content {
+			margin: 0;
+			& > *:last-child {
+				padding-bottom: var(--spacing--20);
+			}
+		}
+
+		&[open] {
+			summary {
+				&::after {
+					transform: rotate(180deg);
+				}
+			}
+		}
+	}
+
+	&-group {
+		@include max-width($breakpoint--mobile-lg) {
+			--wp--preset--spacing--30: var(--spacing--15);
+			--wp--preset--spacing--40: var(--spacing--20);
+			--wp--preset--spacing--50: var(--spacing--20);
+			--wp--preset--spacing--100: var(--spacing--30);
+		}
+	}
 }
 
 .wp-element {

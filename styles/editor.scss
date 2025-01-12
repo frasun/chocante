@@ -26,6 +26,20 @@
 			padding-top: 0.35em;
 			padding-bottom: 0.35em;
 		}
+
+		&-details {
+			> * {
+				&:last-child:not(.block-list-appender) {
+					padding-bottom: var(--spacing--20);
+				}
+			}
+
+			&:has(.block-list-appender) {
+				> *:nth-last-child(2) {
+					padding-bottom: var(--spacing--20);
+				}
+			}
+		}
 	}
 
 	.editor-visual-editor__post-title-wrapper {

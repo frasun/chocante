@@ -11,10 +11,13 @@
 
 	--product-section--background-color: var(--color--grey-5);
 	--content-header--title-color: white;
+
 	--wp--style--root--padding-top: var(--spacing--20);
+	--wp--style--root--padding-bottom: var(--spacing--30);
 
 	@include min-width($breakpoint--mobile-lg) {
 		--wp--style--root--padding-top: var(--spacing--50);
+		--wp--style--root--padding-bottom: var(--spacing--100);
 	}
 
 	article {

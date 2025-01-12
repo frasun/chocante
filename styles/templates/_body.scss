@@ -19,8 +19,4 @@ body {
 	--brf-h4-font-size: var(--font-size--big);
 	@include font-size(normal);
 	// END TODO.
-
-	@include max-width($breakpoint--mobile) {
-		--wp--style--root--padding-bottom: var(--spacing--30);
-	}
 }

@@ -91,7 +91,7 @@
 			]
 		},
 		"spacing": {
-			"blockGap": null,
+			"blockGap": true,
 			"customSpacingSize": false,
 			"defaultSpacingSizes": false,
 			"margin": false,
@@ -228,6 +228,15 @@
 					"fluid": false
 				},
 				{
+					"name": "Medium S",
+					"slug": "medium-sm",
+					"size": "18px",
+					"fluid": {
+						"max": "18px",
+						"min": "16px"
+					}
+				},
+				{
 					"name": "Normal",
 					"slug": "normal",
 					"size": "16px",
@@ -273,6 +282,11 @@
 					"style": false,
 					"width": false
 				}
+			},
+			"core/group": {
+				"spacing": {
+					"padding": true
+				}
 			}
 		}
 	},
@@ -283,8 +297,7 @@
 		"spacing": {
 			"padding": {
 				"left": "var:preset|spacing|20",
-				"right": "var:preset|spacing|20",
-				"bottom": "var:preset|spacing|100"
+				"right": "var:preset|spacing|20"
 			}
 		},
 		"typography": {
@@ -507,6 +520,14 @@
 								"text": "var(--color--red-1)"
 							}
 						}
+					}
+				}
+			},
+			"core/details": {
+				"spacing": {
+					"margin": {
+						"top": "1.25em",
+						"bottom": "1.25em"
 					}
 				}
 			}
