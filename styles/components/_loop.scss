@@ -3,6 +3,7 @@
 	border-radius: var(--border-radius);
 	@include border(grey-4);
 	overflow: hidden;
+	font-weight: var(--font-weight--normal);
 
 	&:hover {
 		box-shadow: var(--shadow--2);
