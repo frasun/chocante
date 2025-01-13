@@ -22,10 +22,10 @@ export default class MenuScroll {
       this.canTransition = true;
     });
 
-    const pageLinks = document.querySelectorAll('a[href^="#"]');
+    const footnotes = document.querySelectorAll('a[href^="#"][href$="link"], a[href^="#"][id$="link"]');
 
-    for (let link of pageLinks) {
-      link.addEventListener('click', this.handlePageLink.bind(this));
+    for (let link of footnotes) {
+      link.addEventListener('click', this.handleFootnotes.bind(this));
     }
   }
 
@@ -58,7 +58,7 @@ export default class MenuScroll {
     this.elem.removeAttribute('style');
   }
 
-  handlePageLink() {
+  handleFootnotes() {
     this.hideMenu();
     this.canTransition = false;
 

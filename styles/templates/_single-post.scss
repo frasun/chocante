@@ -3,7 +3,6 @@
 	--header--text-color-secondary: var(--color--grey-3);
 	--header--border-color: var(--color--grey-2);
 	--body--background-color: var(--header--background-color);
-	--join-group--background-color: var(--color--grey-5);
 
 	&:has(.product-section + .join-group) {
 		--join-group--background-color: var(--color--grey-5);

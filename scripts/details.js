@@ -23,16 +23,15 @@ export default class Accordion {
   }
 
   wrapElements() {
-    const content = document.createElement('div');
-    content.className = 'content';
+    const contentElements = Array.from(this.el.children).filter(child => child !== this.summary);
+    const contentDiv = document.createElement('div');
+    contentDiv.classList.add('content');
 
-    const children = this.el.querySelectorAll(':not(summary)');
+    contentElements.forEach(element => {
+      contentDiv.appendChild(element);
+    });
 
-    for (let child of children) {
-      content.append(child);
-    }
-
-    this.el.append(content);
+    this.el.appendChild(contentDiv);
   }
 
   onClick(e) {

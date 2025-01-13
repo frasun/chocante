@@ -91,7 +91,7 @@
 			]
 		},
 		"spacing": {
-			"blockGap": true,
+			"blockGap": null,
 			"customSpacingSize": false,
 			"defaultSpacingSizes": false,
 			"margin": false,
@@ -526,9 +526,14 @@
 			"core/details": {
 				"spacing": {
 					"margin": {
-						"top": "1.25em",
+						"top": "0",
 						"bottom": "1.25em"
 					}
+				}
+			},
+			"core/group": {
+				"spacing": {
+					"blockGap": "30px"
 				}
 			}
 		}

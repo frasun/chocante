@@ -1,6 +1,10 @@
 .single-product {
 	--product-section--background-color: var(--color--grey-5);
 
+	&:not(:has(.product__description)) {
+		--join-group--background-color: var(--color--grey-5);
+	}
+
 	main {
 		> .product {
 			padding-top: var(--spacing--10);
@@ -303,9 +307,5 @@
 		*[style*="font-weight"] {
 			font-weight: 500 !important;
 		}
-	}
-
-	&:not(:has(.product__description)) {
-		--join-group--background-color: var(--color--grey-5);
 	}
 }
