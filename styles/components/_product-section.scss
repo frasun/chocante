@@ -5,7 +5,7 @@ $slider-navigation-size: 50px;
 	padding-top: var(--spacing--30);
 	padding-bottom: var(--spacing--40);
 	overflow: hidden;
-	min-height: 500px;
+	min-height: 600px;
 	max-width: none;
 
 	@include min-width($breakpoint--desktop) {
@@ -40,6 +40,14 @@ $slider-navigation-size: 50px;
 			@include color(grey-2);
 			display: block;
 			padding-bottom: 0.75em;
+		}
+	}
+
+	&__description {
+		@include container();
+
+		> * {
+			max-width: var(--size--content);
 		}
 	}
 

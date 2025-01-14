@@ -1,0 +1,12 @@
+<wpml-config>
+  <shortcodes>
+    <shortcode>
+      <tag>chocante_product_section</tag>
+      <attributes>
+        <attribute>heading</attribute>
+        <attribute>subheading</attribute>
+        <attribute>cta_link</attribute>
+      </attributes>
+    </shortcode>
+  </shortcodes>
+</wpml-config>

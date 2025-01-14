@@ -125,6 +125,9 @@ class Chocante_WooCommerce {
 
 		// Thankyou / order emails.
 		add_filter( 'woocommerce_bacs_account_fields', array( __CLASS__, 'add_currency_to_bank_details' ) );
+
+		// Shortcodes.
+		add_action( 'init', array( __CLASS__, 'add_shortcodes' ) );
 	}
 
 	/**
@@ -494,5 +497,20 @@ class Chocante_WooCommerce {
 		++self::$bacs_order;
 
 		return $account_details;
+	}
+
+	/**
+	 * Add shortcodes for template parts
+	 */
+	public static function add_shortcodes() {
+		// [chocante_product_section] shortcode.
+		add_shortcode(
+			'chocante_product_section',
+			function ( $atts, $content ) {
+				ob_start();
+				Chocante_Product_Section::display_product_section( $atts, $content );
+				return ob_get_clean();
+			}
+		);
 	}
 }

@@ -7,7 +7,7 @@ export default class Slider {
   static SLIDE_CLASS = '.splide__slide:not(.splide__slide--clone)';
 
   constructor(containerClass) {
-    this.wrapperClass = `.${containerClass.replace(' ', '.')}`;
+    this.wrapperClass = `.${containerClass.replaceAll(' ', '.')}`;
     this.sliderClass = `${this.wrapperClass} ${Slider.SLIDER_CLASS}`;
 
     if (!document.querySelector(this.sliderClass)) {

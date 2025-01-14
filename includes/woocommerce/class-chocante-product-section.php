@@ -14,9 +14,10 @@ class Chocante_Product_Section {
 	/**
 	 * Display product section
 	 *
-	 * @param array $args Product section arguments.
+	 * @param array  $args Product section arguments.
+	 * @param string $content Product section description text.
 	 */
-	public static function display_product_section( $args = array() ) {
+	public static function display_product_section( $args = array(), $content = '' ) {
 		$product_section = include get_stylesheet_directory() . '/build/product-section.asset.php';
 
 		wp_enqueue_script(
@@ -43,7 +44,24 @@ class Chocante_Product_Section {
 		get_template_part(
 			'template-parts/product',
 			'section',
-			$args
+			array(
+				'heading'       => isset( $args['heading'] ) ? $args['heading'] : __( 'Related products', 'woocommerce' ),
+				'subheading'    => isset( $args['subheading'] ) ? $args['subheading'] : null,
+				'cta_link'      => isset( $args['cta_link'] ) ? $args['cta_link'] : get_permalink( wc_get_page_id( 'shop' ) ),
+				'cta_text'      => isset( $args['cta_text'] ) ? $args['cta_text'] : __( 'View all', 'woocommerce' ),
+				'content'       => shortcode_unautop( $content ),
+				'filters'       => self::get_product_section_atts(
+					array(
+						'category' => isset( $args['category'] ) ? $args['category'] : null,
+						'featured' => isset( $args['featured'] ) ? $args['featured'] : null,
+						'onsale'   => isset( $args['onsale'] ) ? $args['onsale'] : null,
+						'latest'   => isset( $args['latest'] ) ? $args['latest'] : null,
+						'exclude'  => isset( $args['exclude'] ) ? $args['exclude'] : null,
+					)
+				),
+				'section_id'    => isset( $args['section_id'] ) ? $args['section_id'] : null,
+				'section_class' => isset( $args['section_class'] ) ? " {$args['section_class']}" : '',
+			)
 		);
 	}
 
@@ -192,27 +210,31 @@ class Chocante_Product_Section {
 	 * Output data attribute to product section element
 	 *
 	 * @param array $args Product query attributes.
+	 * @return string
 	 */
-	public static function output_product_section_atts( $args ) {
-		unset( $args['heading'] );
-		unset( $args['subheading'] );
-		unset( $args['cta_link'] );
-
+	public static function get_product_section_atts( $args ) {
 		$data_atts = '';
 
 		foreach ( $args as $key => $att ) {
-			if ( 'boolean' === gettype( $att ) ) {
-				$value = $att ? 'true' : 'false';
+			if ( ! isset( $att ) ) {
+				continue;
 			}
 
-			if ( 'array' === gettype( $att ) ) {
-				$value = implode( ',', $att );
+			switch ( gettype( $att ) ) {
+				case 'boolean':
+					$value = $att ? 'true' : 'false';
+					break;
+				case 'array':
+					$value = implode( ',', $att );
+					break;
+				default:
+					$value = $att;
 			}
 
 			$data_atts .= " data-{$key}={$value}";
 		}
 
-		echo esc_attr( $data_atts );
+		return $data_atts;
 	}
 
 	/**
