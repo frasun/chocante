@@ -285,7 +285,16 @@
 			},
 			"core/group": {
 				"spacing": {
-					"padding": true
+					"padding": true,
+					"margin": true
+				},
+				"background": {
+					"backgroundImage": true,
+					"backgroundSize": true
+				},
+				"layout": {
+					"contentSize": "570px",
+					"wideSize": "1170px"
 				}
 			}
 		}
@@ -344,7 +353,7 @@
 				"spacing": {
 					"margin": {
 						"top": "0.75em",
-						"bottom": "0.35em"
+						"bottom": "0.5em"
 					}
 				}
 			},
@@ -468,7 +477,7 @@
 						}
 					}
 				},
-				"css": "& :where(ul, ol) { margin-top: 0.5em } &::marker { color: var(--color--brown-4) }"
+				"css": "& :where(ul, ol) { margin-top: 0.5em }"
 			},
 			"core/image": {
 				"spacing": {
@@ -529,11 +538,6 @@
 						"top": "0",
 						"bottom": "1.25em"
 					}
-				}
-			},
-			"core/group": {
-				"spacing": {
-					"blockGap": "30px"
 				}
 			}
 		}

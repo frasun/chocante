@@ -9,30 +9,19 @@
 defined( 'ABSPATH' ) || exit;
 ?>
 
-<?php if ( is_single() ) : ?>
-	<article>
-<?php else : ?>
-	<main role="main">
-<?php endif; ?>
-
+<main role="main">
+	<?php
+	if ( $args['show_header'] ) {
+		get_template_part( 'template-parts/content/content', 'header', array( 'class' => $args['header_class'] ) );
+	}
+	?>
+	<div class="wp-site-blocks is-layout-constrained">
 		<?php
-		if ( $args['page_header'] ) {
-			require_once $args['page_header'];
-		}
+		do_action( 'chocante_before_content' );
+		the_content();
+		do_action( 'chocante_after_content' );
 		?>
-
-		<div class="wp-site-blocks is-layout-constrained">
-			<?php
-			do_action( 'chocante_before_content' );
-			the_content();
-			do_action( 'chocante_after_content' );
-			?>
-		</div>
-
-<?php if ( is_single() ) : ?>
-	</article>
-<?php else : ?>
-	</main>
-<?php endif; ?>
+	</div>
+</main>
 
 <?php do_action( 'chocante_after_main' ); ?>

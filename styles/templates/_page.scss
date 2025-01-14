@@ -1,0 +1,26 @@
+.page {
+	// @todo: Background hack. Fix by moving to block theme page templates.
+	&:not(.woocommerce-page) {
+		&:has(:where(main, article) .product-section:last-child),
+		&:has(.product-section + .join-group),
+		&:has(.wp-site-blocks .has-grey-light-background-color:last-child) {
+			--join-group--background-color: var(--color--grey-5);
+		}
+	}
+	// END TODO.
+
+	&-template-with-header {
+		--body--background-color: var(--header--background-color);
+		--content--background-color: white;
+
+		&:has(.product-section + .join-group) {
+			--join-group--background-color: var(--color--grey-5);
+		}
+
+		--product-section--background-color: var(--color--grey-5);
+
+		--content-header--title-color: white;
+		--content-header--background-bottom: 0;
+		--content-header--text-color-secondary: var(--color--brown-7);
+	}
+}

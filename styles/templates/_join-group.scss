@@ -1,17 +1,8 @@
-// @todo: Background hack. Fix by moving to block theme page templates.
-body {
-	&.page:not(.woocommerce-page) {
-		&:has(:where(main, article) .product-section:last-child),
-		&:has(.product-section + .join-group),
-		&:has(.wp-site-blocks .has-grey-light-background-color:last-child) {
-			--join-group--background-color: var(--color--grey-5);
-		}
-	}
-}
-// END TODO.
-
 .join-group {
-	background-color: var(--join-group--background-color);
+	background-color: var(
+		--join-group--background-color,
+		var(--content--background-color)
+	);
 	position: relative;
 	overflow: hidden;
 

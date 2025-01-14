@@ -11,7 +11,7 @@ defined( 'ABSPATH' ) || exit;
 
 <article>
 	<?php
-	get_template_part( 'template-parts/content/content-header' );
+	get_template_part( 'template-parts/content/content-header', '', array( 'class' => 'has-background' ) );
 
 	Chocante_Product_Section::display_product_section(
 		array(

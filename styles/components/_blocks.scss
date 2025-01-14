@@ -111,3 +111,14 @@
 		}
 	}
 }
+
+.is-layout-flex,
+.is-layout-grid {
+	gap: var(--spacing--30);
+}
+
+.wp-site-blocks {
+	:where(h1, h2, h3, h4, h5, h6) + :where(h1, h2, h3, h4, h5, h6) {
+		margin-top: 0.2em;
+	}
+}

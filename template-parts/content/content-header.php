@@ -9,7 +9,7 @@
 defined( 'ABSPATH' ) || exit;
 ?>
 
-<header class="content-header">
+<header class="content-header<?php echo isset( $args['class'] ) ? ' content-header--' . esc_attr( $args['class'] ) : ''; ?>">
 	<div class="content-header__container">
 		<?php do_action( 'chocante_before_content_header' ); ?>
 

@@ -20,3 +20,8 @@ body {
 	@include font-size(normal);
 	// END TODO.
 }
+
+main,
+article {
+	background-color: var(--content--background-color);
+}
