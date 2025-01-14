@@ -18,7 +18,7 @@ get_header();
 		?>
 
 	<?php if ( $sticky_posts->have_posts() ) : ?>
-		<header class="sticky-posts">
+		<header class="post-slider-container">
 			<?php
 			get_template_part(
 				'template-parts/slider',

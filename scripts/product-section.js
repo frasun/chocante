@@ -21,7 +21,7 @@ export default class ProductSlider {
 
     fetchUrl.searchParams.append('nonce', chocante.nonce);
     fetchUrl.searchParams.append('lang', chocante.lang);
-    fetchUrl.searchParams.append('action', 'get_products');
+    fetchUrl.searchParams.append('action', 'get_product_section');
 
     for (const [key, value] of Object.entries(element.dataset)) {
       fetchUrl.searchParams.append(key, value);

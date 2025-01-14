@@ -108,8 +108,8 @@ class Chocante_WooCommerce {
 		}
 
 		// Product sliders.
-		add_action( 'wp_ajax_get_products', array( Chocante_Product_Section::class, 'ajax_get_products' ) );
-		add_action( 'wp_ajax_nopriv_get_products', array( Chocante_Product_Section::class, 'ajax_get_products' ) );
+		add_action( 'wp_ajax_get_product_section', array( Chocante_Product_Section::class, 'ajax_get_product_section' ) );
+		add_action( 'wp_ajax_nopriv_get_product_section', array( Chocante_Product_Section::class, 'ajax_get_product_section' ) );
 		add_action( 'woocommerce_after_product_object_save', array( Chocante_Product_Section::class, 'clear_cached_products' ) );
 		add_filter( 'wcml_multi_currency_ajax_actions', array( Chocante_Product_Section::class, 'use_wcml_in_ajax_actions' ) );
 
@@ -509,6 +509,16 @@ class Chocante_WooCommerce {
 			function ( $atts, $content ) {
 				ob_start();
 				Chocante_Product_Section::display_product_section( $atts, $content );
+				return ob_get_clean();
+			}
+		);
+
+		// [chocante_featured_products] shortcode.
+		add_shortcode(
+			'chocante_featured_products',
+			function () {
+				ob_start();
+				get_template_part( 'template-parts/slider', 'featured-products' );
 				return ob_get_clean();
 			}
 		);

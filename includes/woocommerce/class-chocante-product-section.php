@@ -74,6 +74,31 @@ class Chocante_Product_Section {
 	 * @param boolean $latest Get newly added products.
 	 * @param array   $exclude Product IDs to exclude.
 	 */
+	public static function get_product_section( $category = array(), $featured = false, $onsale = false, $latest = false, $exclude = array() ) {
+		$products = self::get_products( $category, $featured, $onsale, $latest, $exclude );
+
+		add_filter( 'woocommerce_post_class', array( __CLASS__, 'slider_item_class' ) );
+
+		get_template_part(
+			'template-parts/product',
+			'slider',
+			array(
+				'products' => $products,
+				'labels'   => self::get_slider_labels(),
+			)
+		);
+	}
+
+	/**
+	 * Fetch products from database
+	 *
+	 * @param array   $category Product category IDs.
+	 * @param boolean $featured Whether to include featured products.
+	 * @param boolean $onsale Include only products that are on sale.
+	 * @param boolean $latest Get newly added products.
+	 * @param array   $exclude Product IDs to exclude.
+	 * @return array
+	 */
 	public static function get_products( $category = array(), $featured = false, $onsale = false, $latest = false, $exclude = array() ) {
 		$limit     = 12;
 		$orderby   = $latest ? 'id' : 'rand';
@@ -123,19 +148,9 @@ class Chocante_Product_Section {
 		}
 
 		wp_cache_set( $cache_key, $products, 'chocante_products' );
-
 		$products = wc_products_array_orderby( $products, $orderby, $order );
 
-		add_filter( 'woocommerce_post_class', array( __CLASS__, 'slider_item_class' ) );
-
-		get_template_part(
-			'template-parts/product',
-			'slider',
-			array(
-				'products' => $products,
-				'labels'   => self::get_slider_labels(),
-			)
-		);
+		return $products;
 	}
 
 	/**
@@ -163,7 +178,7 @@ class Chocante_Product_Section {
 	/**
 	 * Return featured products HTML using AJAX
 	 */
-	public static function ajax_get_products() {
+	public static function ajax_get_product_section() {
 		if ( ! isset( $_GET['nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['nonce'] ) ), 'chocante' ) ) {
 			wp_die();
 		}
@@ -179,7 +194,7 @@ class Chocante_Product_Section {
 		$exclude  = isset( $_GET['exclude'] ) ? explode( ',', sanitize_text_field( wp_unslash( $_GET['exclude'] ) ) ) : array();
 
 		ob_start();
-		self::get_products( $category, $featured, $onsale, $latest, $exclude );
+		self::get_product_section( $category, $featured, $onsale, $latest, $exclude );
 		echo ob_get_clean(); // @codingStandardsIgnoreLine.
 
 		wp_die();
@@ -244,7 +259,7 @@ class Chocante_Product_Section {
 	 * @return array
 	 */
 	public static function use_wcml_in_ajax_actions( $ajax_actions ) {
-		$ajax_actions[] = 'get_products';
+		$ajax_actions[] = 'get_product_section';
 
 		return $ajax_actions;
 	}

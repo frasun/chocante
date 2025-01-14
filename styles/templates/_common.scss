@@ -304,7 +304,10 @@ button[data-close-modal] {
 			height: 5px;
 			border-radius: 2px;
 			@include transition("background-color, width");
-			@include bg(brown-4);
+			background-color: var(
+				--splide--pagination-page--background-color,
+				var(--color--brown-4)
+			);
 			cursor: default;
 
 			&.is-active {

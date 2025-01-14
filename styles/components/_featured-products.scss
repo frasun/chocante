@@ -1,0 +1,36 @@
+.featured-products {
+	--post-slider--secondary-background-color: var(--color--green-1);
+	--post-slider--color-secondary: var(--color--brown-7);
+	--splide--pagination-page--background-color: rgba(255, 255, 255, 0.3);
+
+	.post {
+		&__title {
+			@include font-size(huge);
+		}
+
+		&__thumbnail {
+			@include min-width($breakpoint--desktop-sm) {
+				height: 680px;
+				width: var(--size--form);
+				justify-self: end;
+			}
+
+			.onsale {
+				position: absolute;
+				right: 15px;
+				top: 15px;
+				z-index: 2;
+			}
+		}
+
+		&__cta {
+			a {
+				flex-grow: 1;
+			}
+
+			.shop-link {
+				@include button(secondary, $scheme: dark, $size: lg);
+			}
+		}
+	}
+}

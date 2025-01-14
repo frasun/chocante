@@ -42,7 +42,7 @@
 	// Font size.
 	--font-size--huge: var(
 		--wp--preset--font-size--huge,
-		clamp(50px, 3.125rem + ((1vw - 6px) * 4.762), 90px)
+		clamp(45px, 3.125rem + ((1vw - 6px) * 4.762), 90px)
 	);
 	--font-size--xx-large: clamp(40px, 2.5rem + ((1vw - 3.75px) * 5.089), 60px);
 	--font-size--x-large: var(
