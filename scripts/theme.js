@@ -5,6 +5,7 @@ import MenuScroll from './menu-scroll';
 import { MOBILE_BREAKPOINT } from './constants';
 // import Splide from '@splidejs/splide';
 import Accordion from './details';
+import PostSlider from './post-slider';
 
 class Chocante {
   constructor() {
@@ -53,6 +54,12 @@ class Chocante {
         rewind: true,
         autoplay: true,
       }).mount();
+    });
+
+    const blogSliders = document.querySelectorAll('.blog__slider');
+
+    Array.from(blogSliders).forEach(slider => {
+      new PostSlider(slider);
     });
   }
 }

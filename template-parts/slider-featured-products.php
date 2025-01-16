@@ -17,16 +17,16 @@ defined( 'ABSPATH' ) || exit;
 				<ul class="splide__list">
 					<?php foreach ( $fetured_products as $product ) : ?>
 						<?php
-						$post_object = get_post( $product->get_id() );
-						setup_postdata( $GLOBALS['post'] =& $post_object ); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited, Squiz.PHP.DisallowMultipleAssignments.Found
+						$post = get_post( $product->get_id() ); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited, Squiz.PHP.DisallowMultipleAssignments.Found
+						setup_postdata( $post );
 						echo '<li class="splide__slide">';
 						get_template_part( 'template-parts/slide', 'product', array( 'onsale' => $product->is_on_sale() ) );
 						echo '</li>';
+						wp_reset_postdata();
 						?>
 					<?php endforeach; ?>
 				</ul>
 			</div>
 		</section>
 	</header>
-	<?php wp_reset_postdata(); ?>
 <?php endif; ?>

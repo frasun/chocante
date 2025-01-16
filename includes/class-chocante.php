@@ -64,6 +64,9 @@ class Chocante {
 
 		// Editor.
 		add_action( 'enqueue_block_editor_assets', array( __CLASS__, 'enqueue_editor_assets' ) );
+
+		// Shortcodes.
+		add_action( 'init', array( __CLASS__, 'add_shortcodes' ) );
 	}
 
 	/**
@@ -486,5 +489,20 @@ class Chocante {
 		$total_words = count( preg_split( '~[^\p{L}\p{N}\']+~u', wp_strip_all_tags( $content ) ) );
 
 		return floor( $total_words / $words_per_minute );
+	}
+
+	/**
+	 * Add shortcodes for template parts
+	 */
+	public static function add_shortcodes() {
+		// [chocante_post_slider] shortcode.
+		add_shortcode(
+			'chocante_post_slider',
+			function () {
+				ob_start();
+				get_template_part( 'template-parts/post-slider' );
+				return ob_get_clean();
+			}
+		);
 	}
 }
