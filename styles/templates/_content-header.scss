@@ -71,34 +71,19 @@
 
 	&--has-background {
 		text-align: center;
-		position: relative;
 		background: var(--header--background-color);
 
-		&::before {
-			content: "";
-			position: absolute;
-			left: 0;
-			right: 0;
-			top: 0;
-			bottom: var(--content-header--background-bottom);
-			background: url(../images/bg-pattern.png);
-			background-position-y: bottom;
-			z-index: 0;
-		}
+		@include bg-pattern;
 
 		&:has(.content-header__thumbnail) {
 			--content-header--background-bottom: calc(
 				var(--content-header--thumbnail-height) / 2 +
 					var(--content-header--padding-bottom)
 			);
+			--bg-gradient--second-color: var(--content-header--background);
+			--bg-gradient--bottom: var(--content-header--background-bottom);
 
-			background: linear-gradient(
-				to top,
-				var(--content-header--background, #fff),
-				var(--content-header--background, #fff)
-					var(--content-header--background-bottom),
-				var(--header--background-color) var(--content-header--background-bottom)
-			);
+			@include bg-gradient;
 		}
 
 		.content-header {

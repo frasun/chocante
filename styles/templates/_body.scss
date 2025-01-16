@@ -25,3 +25,9 @@ main,
 article {
 	background-color: var(--content--background-color);
 }
+
+.wp-site-blocks {
+	:where(h1, h2, h3, h4, h5, h6) + :where(h1, h2, h3, h4, h5, h6) {
+		margin-top: 0.2em;
+	}
+}

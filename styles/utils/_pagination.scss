@@ -1,0 +1,23 @@
+@mixin pagination {
+	display: flex;
+	flex-direction: row;
+	gap: var(--spacing--20);
+	flex-wrap: wrap;
+	align-items: center;
+
+	&:is(ul, ol) {
+		@include list-reset;
+	}
+
+	@include max-width($breakpoint--desktop-sm) {
+		justify-content: center;
+	}
+
+	a {
+		@include nav-button;
+	}
+
+	span:not(.dots) {
+		@include nav-button(disabled);
+	}
+}

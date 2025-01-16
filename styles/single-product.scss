@@ -1,11 +1,7 @@
-@import "utils/mixins";
+@import "_utils";
 
-@import "components/buttons";
-@import "components/inputs";
-@import "components/notices";
-@import "components/content";
-@import "components/quantity-input";
-@import "components/infobox";
+@import "templates/infobox";
+@import "templates/quantity-input";
 
 @import "plugins/free-shipping";
 @import "plugins/photoswipe";

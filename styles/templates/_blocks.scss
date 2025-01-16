@@ -117,8 +117,31 @@
 	gap: var(--spacing--30);
 }
 
-.wp-site-blocks {
-	:where(h1, h2, h3, h4, h5, h6) + :where(h1, h2, h3, h4, h5, h6) {
-		margin-top: 0.2em;
+/* Custom layouts */
+.custom-layout {
+	&--1 {
+		--bg-pattern--position-y: 40%;
+		--bg-gradient--bottom: var(--bg-pattern--position-y);
+
+		@include bg-pattern;
+		@include bg-gradient;
+
+		.has-text-color-sm {
+			&,
+			h1,
+			h2,
+			h3,
+			h4,
+			h5,
+			h6,
+			p {
+				color: white;
+
+				@media (max-width: 839px) {
+					color: var(--color--grey-1);
+				}
+			}
+		}
 	}
 }
+/* END Custom layouts */

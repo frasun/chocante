@@ -1,10 +1,4 @@
-@import "utils/mixins";
-
-@import "components/box";
-@import "components/buttons";
-@import "components/inputs";
-@import "components/content";
-@import "components/empty-screen";
+@import "_utils";
 
 @import "plugins/select2";
 @import "plugins/delivery-time";

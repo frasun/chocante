@@ -59,15 +59,3 @@
 		}
 	}
 }
-
-.dropdown {
-	@include dropdown;
-
-	&__list {
-		@include dropdown(true);
-	}
-
-	&__list-item {
-		@include dropdown-list-item;
-	}
-}

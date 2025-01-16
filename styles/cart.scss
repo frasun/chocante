@@ -1,12 +1,7 @@
-@import "utils/mixins";
+@import "_utils";
 
-@import "components/buttons";
-@import "components/inputs";
-@import "components/remove";
-@import "components/notices";
-@import "components/box";
-@import "components/quantity-input";
-@import "components/infobox";
+@import "templates/infobox";
+@import "templates/quantity-input";
 
 @import "plugins/free-shipping";
 @import "plugins/delivery-time";

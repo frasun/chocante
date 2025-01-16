@@ -140,6 +140,18 @@ select {
 	font-weight: var(--font-weight--normal);
 }
 
+.dropdown {
+	@include dropdown;
+
+	&__list {
+		@include dropdown(true);
+	}
+
+	&__list-item {
+		@include dropdown-list-item;
+	}
+}
+
 // Radio.
 input[type="radio"] {
 	@include radio;
@@ -492,3 +504,40 @@ button[data-close-modal] {
 	// END TODO.
 }
 /* END Product */
+
+/* Empty screen */
+.empty-screen {
+	@include empty-screen;
+}
+/* END Empty screen */
+
+/* Pagination */
+.woocommerce-pagination {
+	ul.page-numbers {
+		@include pagination;
+	}
+
+	&--without-numbers {
+		display: flex;
+		justify-content: space-between;
+
+		.woocommerce-button {
+			// @todo: Chocante - Bricks fix.
+			&,
+			.woocommerce & {
+				@include button(secondary);
+			}
+			// END TODO.
+
+			&--next {
+				margin-left: auto;
+			}
+		}
+	}
+}
+
+.woocommerce-pagination ul.page-numbers,
+.pagination .nav-links {
+	@include pagination;
+}
+/* END Pagination */

@@ -1,11 +1,4 @@
-@import "utils/mixins";
-
-@import "components/buttons";
-@import "components/inputs";
-@import "components/box";
-@import "components/badge";
-@import "components/forms";
-@import "components/pagination";
+@import "_utils";
 
 @import "plugins/select2";
 @import "plugins/paczkomaty";

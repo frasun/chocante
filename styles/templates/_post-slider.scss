@@ -3,29 +3,14 @@
 		--post-slider--secondary-background-color: var(--header--background-color);
 		--mobile-thumbnail-height: 330px;
 
-		position: relative;
-
 		@include min-width($breakpoint--desktop-sm) {
 			--padding-bottom: 5em;
-
-			background: linear-gradient(
-				to top,
-				var(--post-slider--secondary-background-color),
-				var(--post-slider--secondary-background-color) 50%,
-				var(--header--background-color) 50%
+			--bg-gradient--second-color: var(
+				--post-slider--secondary-background-color
 			);
 
-			&::before {
-				content: "";
-				position: absolute;
-				left: 0;
-				right: 0;
-				top: 0;
-				bottom: 0;
-				background: url(../images/bg-pattern.png);
-				background-position: bottom center;
-				z-index: 0;
-			}
+			@include bg-pattern;
+			@include bg-gradient;
 		}
 
 		@include max-width($breakpoint--desktop-sm) {
@@ -74,30 +59,19 @@
 			min-height: 500px;
 
 			@include max-width($breakpoint--desktop-sm) {
-				background: var(--header--background-color);
 				--padding-bottom: 5em;
 
-				&:has(.post__thumbnail) {
-					background: linear-gradient(
-						to top,
-						var(--post-slider--secondary-background-color),
-						var(--post-slider--secondary-background-color)
-							calc((var(--mobile-thumbnail-height) / 2) + 5em),
-						var(--header--background-color)
-							calc((var(--mobile-thumbnail-height) / 2) + 5em)
-					);
-				}
+				background: var(--header--background-color);
+				@include bg-pattern;
 
-				&::before {
-					content: "";
-					position: absolute;
-					left: 0;
-					right: 0;
-					top: 0;
-					bottom: 0;
-					background: url(../images/bg-pattern.png);
-					background-position-y: bottom;
-					z-index: 0;
+				&:has(.post__thumbnail) {
+					--bg-gradient--second-color: var(
+						--post-slider--secondary-background-color
+					);
+					--bg-gradient--bottom: calc(
+						(var(--mobile-thumbnail-height) / 2) + 5em
+					);
+					@include bg-gradient;
 				}
 
 				& > * {

@@ -438,16 +438,17 @@ class Chocante {
 	 * Add assets to Gutenberg editor
 	 */
 	public static function enqueue_editor_assets() {
-		$styles = include get_stylesheet_directory() . '/build/editor.asset.php';
+		// Editor specific.
+		$editor_styles = include get_stylesheet_directory() . '/build/editor.asset.php';
 
 		wp_enqueue_style(
 			'chocante-editor-css',
 			get_stylesheet_directory_uri() . '/build/editor.css',
-			$styles['dependencies'],
-			$styles['version'],
+			$editor_styles['dependencies'],
+			$editor_styles['version'],
 		);
 
-		$scripts = include get_stylesheet_directory() . '/build/editor-scripts.asset.php';
+		$ediotr_scripts = include get_stylesheet_directory() . '/build/editor-scripts.asset.php';
 
 		wp_enqueue_script(
 			'chocante-editor-js',
@@ -457,7 +458,7 @@ class Chocante {
 				'wp-dom-ready',
 				'wp-edit-post',
 			),
-			$scripts['version'],
+			$ediotr_scripts['version'],
 			true
 		);
 	}

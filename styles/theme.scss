@@ -1,36 +1,16 @@
-// Reset / normalize.
-@import "utils/reset";
-
 // Theme variables & utility classes.
-@import "utils/mixins";
-@import "utils/variables";
+@import "_utils";
+@import "_variables";
 
-// Components.
-@import "components/buttons";
-@import "components/inputs";
-@import "components/modal";
-@import "components/dropdown";
-@import "components/menu";
-@import "components/remove";
-@import "components/notices";
-@import "components/empty-screen";
-@import "components/badge";
-@import "components/loop";
-@import "components/product-loop";
-@import "components/product-section";
-@import "components/spinner";
-@import "components/price";
-@import "@splidejs/splide/css/core";
-@import "components/content";
-@import "components/forms";
-@import "components/breadcrumbs";
-@import "components/blocks";
-@import "components/post-slider";
-@import "components/featured-products";
+// Reset / normalize.
+@import "_reset";
 
 // Templates.
-@import "templates/body";
 @import "templates/common";
+@import "templates/blocks";
+@import "templates/menu";
+@import "@splidejs/splide/css/core";
+@import "templates/body";
 @import "templates/header";
 @import "templates/mini-cart";
 @import "templates/product-search";
@@ -38,6 +18,13 @@
 @import "templates/footer";
 @import "templates/content-header";
 @import "templates/page";
+@import "templates/featured-products";
+@import "templates/menu";
+@import "templates/price";
+@import "templates/product-loop";
+@import "templates/product-section";
+@import "templates/post-slider";
+@import "templates/spinner";
 
 // 3rd party plugins.
 @import "plugins/omnibus";
