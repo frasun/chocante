@@ -254,7 +254,7 @@
 				{
 					"name": "Extra Small",
 					"slug": "x-small",
-					"size": "12px",
+					"size": "13px",
 					"fluid": false
 				}
 			],
@@ -367,15 +367,14 @@
 			"h5": {
 				"typography": {
 					"fontFamily": "var:preset|font-family|body",
-					"fontWeight": "700",
-					"letterSpacing": "0.2em",
+					"fontWeight": "600",
+					"letterSpacing": "0.4em",
 					"textTransform": "uppercase",
-					"fontSize": "var:preset|font-size|x-small"
+					"fontSize": "var:preset|font-size|normal"
 				},
 				"spacing": {
 					"margin": {
-						"top": "2em",
-						"bottom": "1em"
+						"top": "1.5em"
 					}
 				}
 			},
@@ -383,17 +382,17 @@
 				"typography": {
 					"fontFamily": "var:preset|font-family|body",
 					"fontWeight": "700",
-					"letterSpacing": "normal",
-					"fontSize": "var:preset|font-size|normal"
-				},
-				"color": {
-					"text": "var:preset|color|grey"
+					"letterSpacing": "0.2em",
+					"textTransform": "uppercase",
+					"fontSize": "var:preset|font-size|x-small"
 				},
 				"spacing": {
 					"margin": {
-						"top": "1.3em",
-						"bottom": "0.625em"
+						"top": "1.5em"
 					}
+				},
+				"color": {
+					"text": "var:preset|color|grey"
 				}
 			},
 			"caption": {
