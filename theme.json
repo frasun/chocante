@@ -91,7 +91,7 @@
 			]
 		},
 		"spacing": {
-			"blockGap": null,
+			"blockGap": true,
 			"customSpacingSize": false,
 			"defaultSpacingSizes": false,
 			"margin": false,
@@ -303,7 +303,8 @@
 			"padding": {
 				"left": "var:preset|spacing|20",
 				"right": "var:preset|spacing|20"
-			}
+			},
+			"blockGap": "var:preset|spacing|10"
 		},
 		"typography": {
 			"fontFamily": "var:preset|font-family|body",
@@ -326,8 +327,7 @@
 						"top": "1em",
 						"bottom": "0.5em"
 					}
-				},
-				"css": "&:first-child { margin-top: 0 }"
+				}
 			},
 			"h1": {
 				"typography": {
@@ -418,12 +418,6 @@
 		},
 		"blocks": {
 			"core/paragraph": {
-				"spacing": {
-					"margin": {
-						"top": "0",
-						"bottom": "0.625em"
-					}
-				},
 				"elements": {
 					"link": {
 						"typography": {
@@ -435,22 +429,18 @@
 							}
 						}
 					}
-				},
-				"css": "&:last-child { margin-bottom: 0; }"
+				}
 			},
 			"core/list": {
 				"spacing": {
 					"margin": {
-						"top": "0",
-						"right": "0",
-						"bottom": "0.625em",
-						"left": "0"
+						"bottom": "0.625em"
 					},
 					"padding": {
 						"left": "1.5em"
 					}
 				},
-				"css": "&:is(ul) { list-style-type: \"\\2014\"; } & :where(ul, ol) { margin-bottom: 0 }"
+				"css": "&:is(ul) { list-style-type: \"\\2014\"; }"
 			},
 			"core/list-item": {
 				"spacing": {
@@ -472,13 +462,12 @@
 							}
 						}
 					}
-				},
-				"css": "& :where(ul, ol) { margin-top: 0.5em }"
+				}
 			},
 			"core/image": {
 				"spacing": {
 					"margin": {
-						"top": "1.5em",
+						"top": "1em",
 						"bottom": "1.5em"
 					}
 				},
@@ -534,6 +523,11 @@
 						"top": "0",
 						"bottom": "1.25em"
 					}
+				}
+			},
+			"core/columns": {
+				"spacing": {
+					"blockGap": "var:preset|spacing|30"
 				}
 			}
 		}

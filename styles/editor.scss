@@ -56,17 +56,13 @@
 		}
 	}
 
-	:where(h1, h2, h3, h4, h5, h6) + :where(h1, h2, h3, h4, h5, h6) {
-		margin-top: 0.2em;
-	}
-
 	/*
-	 * Editor root container.
+	 * Editor post container.
 	 * Mimic frontend .wp-site-blocks container.
 	 *
 	 * @todo: Remove after transition to full-block theme.
 	 */
-	.is-root-container {
+	.wp-block-post-content {
 		padding-right: var(--wp--style--root--padding-right);
 		padding-left: var(--wp--style--root--padding-left);
 
@@ -94,5 +90,5 @@
 			margin-right: 0;
 		}
 	}
-	/* END editor root container */
+	/* END Editor post container */
 }
