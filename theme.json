@@ -10,7 +10,11 @@
 			"width": false
 		},
 		"color": {
+			"text": true,
+			"heading": true,
 			"background": true,
+			"link": true,
+			"caption": true,
 			"custom": false,
 			"customDuotone": false,
 			"customGradient": false,
@@ -19,7 +23,6 @@
 			"defaultPalette": false,
 			"duotone": [],
 			"gradients": [],
-			"link": true,
 			"palette": [
 				{
 					"color": "#333F2E",
@@ -46,8 +49,7 @@
 					"name": "White",
 					"slug": "white"
 				}
-			],
-			"text": true
+			]
 		},
 		"custom": {},
 		"dimensions": {
@@ -319,9 +321,6 @@
 					"fontWeight": "500",
 					"letterSpacing": "0.05em"
 				},
-				"color": {
-					"text": "var:preset|color|brown"
-				},
 				"spacing": {
 					"margin": {
 						"top": "1em",
@@ -351,17 +350,26 @@
 						"top": "0.75em",
 						"bottom": "0.5em"
 					}
+				},
+				"color": {
+					"text": "var:preset|color|brown"
 				}
 			},
 			"h3": {
 				"typography": {
 					"fontSize": "var:preset|font-size|large",
 					"lineHeight": "1.15"
+				},
+				"color": {
+					"text": "var:preset|color|brown"
 				}
 			},
 			"h4": {
 				"typography": {
 					"fontSize": "var:preset|font-size|big"
+				},
+				"color": {
+					"text": "var:preset|color|brown"
 				}
 			},
 			"h5": {
@@ -390,9 +398,6 @@
 					"margin": {
 						"top": "1.5em"
 					}
-				},
-				"color": {
-					"text": "var:preset|color|grey"
 				}
 			},
 			"caption": {
