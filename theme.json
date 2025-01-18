@@ -60,7 +60,7 @@
 			"allowCustomContentAndWideSize": false,
 			"allowEditing": true,
 			"contentSize": "770px",
-			"wideSize": "1210px"
+			"wideSize": "1170px"
 		},
 		"position": {
 			"sticky": false
@@ -291,10 +291,6 @@
 				"background": {
 					"backgroundImage": true,
 					"backgroundSize": true
-				},
-				"layout": {
-					"contentSize": "570px",
-					"wideSize": "1170px"
 				}
 			}
 		}

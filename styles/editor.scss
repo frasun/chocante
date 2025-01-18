@@ -1,6 +1,5 @@
 @import "_utils";
 @import "_variables";
-@import "_reset";
 
 .editor-styles-wrapper {
 	@import "templates/blocks";
@@ -45,7 +44,7 @@
 
 		.editor-visual-editor__post-title-wrapper {
 			max-width: var(--wp--style--global--wide-size);
-			box-sizing: border-box;
+			padding: 0;
 			margin-left: auto;
 			margin-right: auto;
 			margin-bottom: 30px;
@@ -60,4 +59,40 @@
 	:where(h1, h2, h3, h4, h5, h6) + :where(h1, h2, h3, h4, h5, h6) {
 		margin-top: 0.2em;
 	}
+
+	/*
+	 * Editor root container.
+	 * Mimic frontend .wp-site-blocks container.
+	 *
+	 * @todo: Remove after transition to full-block theme.
+	 */
+	.is-root-container {
+		padding-right: var(--wp--style--root--padding-right);
+		padding-left: var(--wp--style--root--padding-left);
+
+		& > .alignfull {
+			margin-right: calc(var(--wp--style--root--padding-right) * -1);
+			margin-left: calc(var(--wp--style--root--padding-left) * -1);
+		}
+
+		&
+			:where(
+				:not(.alignfull.is-layout-flow)
+					> .has-global-padding:not(.wp-block-block, .alignfull)
+			) {
+			padding-right: 0;
+			padding-left: 0;
+		}
+
+		&
+			:where(
+				:not(.alignfull.is-layout-flow)
+					> .has-global-padding:not(.wp-block-block, .alignfull)
+			)
+			> .alignfull {
+			margin-left: 0;
+			margin-right: 0;
+		}
+	}
+	/* END editor root container */
 }

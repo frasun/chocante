@@ -16,7 +16,7 @@ defined( 'ABSPATH' ) || exit;
 	}
 	?>
 
-	<div class="wp-site-blocks is-layout-constrained">
+	<div class="wp-site-blocks is-layout-constrained has-global-padding">
 		<?php
 		do_action( 'chocante_before_content' );
 		the_content();

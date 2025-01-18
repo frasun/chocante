@@ -21,7 +21,8 @@
 	--spacing--50: var(--wp--preset--spacing--50, 50px);
 	--spacing--100: var(--wp--preset--spacing--100, 100px);
 	// Content size.
-	--size--container: var(--wp--style--global--wide-size, 1210px);
+	// --size--container: var(--wp--style--global--wide-size, 1170px);
+	--size--container: 1210px; // @todo: Set to 1170 when moved to .has-global-padding container.
 	--size--content: var(--wp--style--global--content-size, 770px);
 	--size--form: 570px;
 	// Line height.
