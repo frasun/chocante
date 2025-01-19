@@ -1,0 +1,90 @@
+// @todo: Chocante - Bricks - remove blocks wrapper.
+.wp-site-blocks {
+	.wpcf7 {
+		&-form {
+			@include form-wrapper;
+			@include transition;
+
+			&.submitting {
+				opacity: 0.5;
+				pointer-events: none;
+			}
+
+			&.invalid {
+				--notice--background-color: var(--color--red-3);
+				--notice--color: var(--color--red-2);
+				--notice--icon: url(../icons//icon-error.svg);
+				--notice--icon-color: var(--color--red-1);
+			}
+
+			&-control-wrap {
+				display: block;
+				margin-top: var(--spacing--10);
+				font-weight: var(--font-weight--normal);
+			}
+
+			label:has(.wpcf7-not-valid) {
+				--label--color: var(--color--red-2);
+			}
+
+			.wpcf7 {
+				&-submit {
+					margin-top: 0;
+					align-self: end;
+				}
+			}
+
+			.form-group label span {
+				color: var(--color--red-1);
+			}
+		}
+
+		&-not-valid-tip {
+			@include font-size(small-sm);
+			@include color(red-2);
+			padding-top: 0.35em;
+			font-weight: var(--font-weight--normal);
+			display: block;
+		}
+
+		&-not-valid {
+			--input--border: var(--color--red-2);
+			--input--background-color: var(--color--red-3);
+			--radio--border: var(--color--red-2);
+		}
+
+		&-response-output {
+			@include notice;
+
+			&:empty {
+				display: none;
+			}
+		}
+
+		&-spinner {
+			display: none;
+		}
+
+		.screen-reader-response {
+			position: absolute;
+			overflow: hidden;
+			clip: rect(1px, 1px, 1px, 1px);
+			clip-path: inset(50%);
+			height: 1px;
+			width: 1px;
+			margin: -1px;
+			padding: 0;
+			border: 0;
+			word-wrap: normal !important;
+		}
+
+		.submit-button-wrapper {
+			text-align: right;
+		}
+	}
+}
+// END TODO.
+
+.grecaptcha-badge {
+	z-index: 2;
+}

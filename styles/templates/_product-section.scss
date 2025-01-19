@@ -31,8 +31,11 @@ $slider-navigation-size: 50px;
 		@include font-style(page-title);
 
 		& {
-			margin: 0;
 			flex-grow: 1;
+
+			&:is(h3) {
+				margin: 0;
+			}
 		}
 
 		span {

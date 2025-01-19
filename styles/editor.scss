@@ -42,6 +42,18 @@
 			}
 		}
 
+		.wp-element {
+			&-caption {
+				a {
+					color: var(--color--grey-2);
+
+					&:hover {
+						color: var(--color--red-1);
+					}
+				}
+			}
+		}
+
 		.editor-visual-editor__post-title-wrapper {
 			max-width: var(--wp--style--global--wide-size);
 			padding: 0;

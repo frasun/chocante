@@ -4,7 +4,7 @@
 	row-gap: var(--spacing--30);
 	width: 100%;
 
-	.button[type="submit"] {
+	[type="submit"] {
 		@include button-lg;
 		margin-top: var(--spacing--10);
 	}

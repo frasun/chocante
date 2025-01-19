@@ -36,13 +36,18 @@
 				},
 				{
 					"color": "#454545",
-					"name": "Grey",
-					"slug": "grey"
+					"name": "Grey (body)",
+					"slug": "grey-1"
+				},
+				{
+					"color": "#aba7a4",
+					"name": "Grey light",
+					"slug": "grey-2"
 				},
 				{
 					"color": "#f8f6f4",
-					"name": "Grey light",
-					"slug": "grey-light"
+					"name": "Grey light (background)",
+					"slug": "grey-5"
 				},
 				{
 					"color": "#fff",
@@ -59,7 +64,7 @@
 			"minHeight": false
 		},
 		"layout": {
-			"allowCustomContentAndWideSize": false,
+			"allowCustomContentAndWideSize": true,
 			"allowEditing": true,
 			"contentSize": "770px",
 			"wideSize": "1170px"
@@ -299,7 +304,7 @@
 	},
 	"styles": {
 		"color": {
-			"text": "var:preset|color|grey"
+			"text": "var:preset|color|grey-1"
 		},
 		"spacing": {
 			"padding": {
@@ -411,11 +416,7 @@
 			},
 			"link": {
 				"typography": {
-					"fontWeight": "700",
-					"textDecoration": "underline"
-				},
-				"color": {
-					"text": "var:preset|color|green"
+					"fontWeight": "700"
 				},
 				"css": "transition: color 0.35s ease-out"
 			}
@@ -425,7 +426,11 @@
 				"elements": {
 					"link": {
 						"typography": {
+							"fontWeight": "700",
 							"textDecoration": "underline"
+						},
+						"color": {
+							"text": "var:preset|color|green"
 						},
 						":hover": {
 							"color": {
@@ -458,7 +463,11 @@
 				"elements": {
 					"link": {
 						"typography": {
+							"fontWeight": "700",
 							"textDecoration": "underline"
+						},
+						"color": {
+							"text": "var:preset|color|green"
 						},
 						":hover": {
 							"color": {

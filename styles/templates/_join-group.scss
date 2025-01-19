@@ -13,12 +13,6 @@
 		margin-top: var(--spacing--100);
 		@include bg-pattern;
 
-		// @todo: Chocante - Replace pattern image.
-		&::before {
-			opacity: 0.4;
-		}
-		// END TODO.
-
 		@include min-width($breakpoint--mobile-lg) {
 			margin-top: 180px;
 		}
