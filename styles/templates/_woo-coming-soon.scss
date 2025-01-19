@@ -1,0 +1,24 @@
+.wp-block-woocommerce-coming-soon {
+	.wp-block-site-title {
+		display: none;
+	}
+}
+
+body:has(.woocommerce-coming-soon-banner) {
+	--woocommerce-coming-soon-color: var(--color--brown-4);
+	--wp--preset--font-family--cardo: var(--font-family--body);
+}
+
+body:has(.woocommerce-coming-soon-banner) .woocommerce-coming-soon-social-login,
+body:has(.woocommerce-coming-soon-entire-site)
+	.woocommerce-coming-soon-social-login {
+	display: none;
+}
+
+body:has(.woocommerce-coming-soon-banner)
+	h1.wp-block-heading.woocommerce-coming-soon-banner,
+body:has(.woocommerce-coming-soon-entire-site)
+	h1.wp-block-heading.woocommerce-coming-soon-banner {
+	color: white;
+	@include font-size(medium);
+}

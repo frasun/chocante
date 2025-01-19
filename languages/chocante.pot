@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-01-10T21:46:52+00:00\n"
+"POT-Creation-Date: 2025-01-19T20:39:19+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: chocante\n"
@@ -35,6 +35,17 @@ msgstr ""
 msgid "Bricks"
 msgstr ""
 
+#: 404.php:16
+msgctxt "404"
+msgid "Page not found"
+msgstr ""
+
+#: 404.php:18
+#: woocommerce/checkout/thankyou.php:71
+msgctxt "thankyou"
+msgid "Go to homepage"
+msgstr ""
+
 #: footer.php:16
 msgctxt "footer nav"
 msgid "Products"
@@ -55,144 +66,139 @@ msgctxt "blog"
 msgid "Other articles"
 msgstr ""
 
-#: includes/class-chocante-woocommerce.php:198
+#: includes/class-chocante-woocommerce.php:201
 msgctxt "sorting option"
 msgid "Default"
 msgstr ""
 
-#: includes/class-chocante-woocommerce.php:199
+#: includes/class-chocante-woocommerce.php:202
 msgctxt "sorting option"
 msgid "Popularity"
 msgstr ""
 
-#: includes/class-chocante-woocommerce.php:200
+#: includes/class-chocante-woocommerce.php:203
 msgctxt "sorting option"
 msgid "Average rating"
 msgstr ""
 
-#: includes/class-chocante-woocommerce.php:201
+#: includes/class-chocante-woocommerce.php:204
 msgctxt "sorting option"
 msgid "Latest"
 msgstr ""
 
-#: includes/class-chocante-woocommerce.php:202
+#: includes/class-chocante-woocommerce.php:205
 msgctxt "sorting option"
 msgid "Lowest price"
 msgstr ""
 
-#: includes/class-chocante-woocommerce.php:203
+#: includes/class-chocante-woocommerce.php:206
 msgctxt "sorting option"
 msgid "Highest price"
 msgstr ""
 
-#: includes/class-chocante-woocommerce.php:395
+#: includes/class-chocante-woocommerce.php:398
+#: template-parts/slide-product.php:23
 msgctxt "product loop"
 msgid "Buy now"
 msgstr ""
 
-#: includes/class-chocante.php:97
+#: includes/class-chocante.php:102
 msgctxt "menu"
 msgid "Main menu"
 msgstr ""
 
-#: includes/class-chocante.php:98
+#: includes/class-chocante.php:103
 msgctxt "menu"
 msgid "Footer - Chocante"
 msgstr ""
 
-#: includes/class-chocante.php:99
+#: includes/class-chocante.php:104
 msgctxt "menu"
 msgid "Footer - Products"
 msgstr ""
 
-#: includes/class-chocante.php:100
+#: includes/class-chocante.php:105
 msgctxt "menu"
 msgid "Footer - Shop"
 msgstr ""
 
-#: includes/class-chocante.php:101
+#: includes/class-chocante.php:106
 msgctxt "menu"
 msgid "Footer - Social media"
 msgstr ""
 
-#: includes/class-chocante.php:102
+#: includes/class-chocante.php:107
 msgctxt "menu"
 msgid "Footer - Terms"
 msgstr ""
 
-#: includes/class-chocante.php:191
+#: includes/class-chocante.php:208
 msgctxt "admin"
 msgid "Header - top"
 msgstr ""
 
-#: includes/class-chocante.php:193
+#: includes/class-chocante.php:210
 msgctxt "admin"
 msgid "Widgets in this area will be shown in the top part of header."
 msgstr ""
 
-#: includes/class-chocante.php:203
+#: includes/class-chocante.php:220
 msgctxt "admin"
 msgid "Mobile menu - after main menu"
 msgstr ""
 
-#: includes/class-chocante.php:205
+#: includes/class-chocante.php:222
 msgctxt "admin"
 msgid "Widgets in this area will be shown in mobile menu after main navigation menu."
 msgstr ""
 
-#: includes/class-chocante.php:215
+#: includes/class-chocante.php:232
 msgctxt "admin"
 msgid "Mobile menu - top"
 msgstr ""
 
-#: includes/class-chocante.php:217
+#: includes/class-chocante.php:234
 msgctxt "admin"
 msgid "Widgets in this area will be shown in the top part of mobile menu."
 msgstr ""
 
-#: includes/class-chocante.php:227
+#: includes/class-chocante.php:244
 msgctxt "admin"
 msgid "Footer - bottom left"
 msgstr ""
 
-#: includes/class-chocante.php:229
+#: includes/class-chocante.php:246
 msgctxt "admin"
 msgid "Widgets in this area will be shown in the bottom left part of footer."
 msgstr ""
 
-#: includes/class-chocante.php:239
+#: includes/class-chocante.php:256
 msgctxt "admin"
 msgid "Footer - bottom mobile"
 msgstr ""
 
-#: includes/class-chocante.php:241
+#: includes/class-chocante.php:258
 msgctxt "admin"
 msgid "Widgets in this area will be shown in the bottom right part of footer."
 msgstr ""
 
-#: includes/class-chocante.php:267
+#: includes/class-chocante.php:284
 msgctxt "product slider"
 msgid "Loading"
 msgstr ""
 
-#: includes/class-chocante.php:395
+#: includes/class-chocante.php:412
 #: includes/woocommerce/class-chocante-cart.php:91
-#: template-parts/content/content-post.php:18
+#: template-parts/content/content-post.php:19
 msgctxt "product slider"
 msgid "Featured products"
 msgstr ""
 
-#: includes/class-chocante.php:396
-#: template-parts/content/content-post.php:17
-#: template-parts/content/content-post.php:36
+#: includes/class-chocante.php:413
+#: template-parts/content/content-post.php:18
+#: template-parts/content/content-post.php:37
 msgctxt "product slider"
 msgid "Learn more about our offer"
-msgstr ""
-
-#. translators: reading time in minutes.
-#: includes/class-chocante.php:451
-msgctxt "reading time"
-msgid "%d minute(s)"
 msgstr ""
 
 #: includes/woocommerce/class-chocante-account.php:230
@@ -210,65 +216,81 @@ msgctxt "product slider"
 msgid "Products from category"
 msgstr ""
 
-#: includes/woocommerce/class-chocante-product-section.php:128
+#: includes/woocommerce/class-chocante-product-section.php:171
 msgctxt "product slider"
 msgid "Previous"
 msgstr ""
 
-#: includes/woocommerce/class-chocante-product-section.php:129
+#: includes/woocommerce/class-chocante-product-section.php:172
 msgctxt "product slider"
 msgid "Next"
 msgstr ""
 
-#: includes/woocommerce/class-chocante-product-section.php:130
+#: includes/woocommerce/class-chocante-product-section.php:173
 msgctxt "product slider"
 msgid "Go to first"
 msgstr ""
 
-#: includes/woocommerce/class-chocante-product-section.php:131
+#: includes/woocommerce/class-chocante-product-section.php:174
 msgctxt "product slider"
 msgid "Go to last"
 msgstr ""
 
 #. translators: Go to product number.
-#: includes/woocommerce/class-chocante-product-section.php:133
+#: includes/woocommerce/class-chocante-product-section.php:176
 msgctxt "product slider"
 msgid "Go to %s"
 msgstr ""
 
 #. translators: Go to page number.
-#: includes/woocommerce/class-chocante-product-section.php:135
+#: includes/woocommerce/class-chocante-product-section.php:178
 msgctxt "product slider"
 msgid "Go to page %s"
 msgstr ""
 
-#: includes/woocommerce/class-chocante-product-section.php:136
+#: includes/woocommerce/class-chocante-product-section.php:179
 msgctxt "product slider"
 msgid "Start autoplay"
 msgstr ""
 
-#: includes/woocommerce/class-chocante-product-section.php:137
+#: includes/woocommerce/class-chocante-product-section.php:180
 msgctxt "product slider"
 msgid "Pause autoplay"
 msgstr ""
 
-#: includes/woocommerce/class-chocante-product-section.php:138
+#: includes/woocommerce/class-chocante-product-section.php:181
 msgctxt "product slider"
 msgid "carousel"
 msgstr ""
 
-#: includes/woocommerce/class-chocante-product-section.php:139
+#: includes/woocommerce/class-chocante-product-section.php:182
 msgctxt "product slider"
 msgid "Select product to show"
 msgstr ""
 
-#: includes/woocommerce/class-chocante-product-section.php:140
+#: includes/woocommerce/class-chocante-product-section.php:183
 msgctxt "product slider"
 msgid "product"
 msgstr ""
 
 #. Template Name of the theme
+msgid "Page without header"
+msgstr ""
+
+#. Template Name of the theme
 msgid "[temporary] Default"
+msgstr ""
+
+#. Template Name of the theme
+msgid "Page with header (gift sets)"
+msgstr ""
+
+#. Template Name of the theme
+msgid "Page with header (left aligned)"
+msgstr ""
+
+#. Template Name of the theme
+msgid "Page with header"
 msgstr ""
 
 #: template-parts/breadcrumbs-post.php:12
@@ -330,6 +352,12 @@ msgctxt "join group"
 msgid "Join"
 msgstr ""
 
+#. translators: reading time in minutes.
+#: template-parts/post-header.php:19
+msgctxt "reading time"
+msgid "%d minute(s)"
+msgstr ""
+
 #: template-parts/product-details.php:13
 msgctxt "product page"
 msgid "Product Details"
@@ -345,12 +373,12 @@ msgctxt "product page"
 msgid "Per 100 g"
 msgstr ""
 
-#: template-parts/reading-time.php:12
+#: template-parts/reading-time.php:13
 msgctxt "reading time"
 msgid "Reading time"
 msgstr ""
 
-#: template-parts/slide-post.php:14
+#: template-parts/slide-post.php:15
 msgctxt "blog"
 msgid "Read more"
 msgstr ""
@@ -380,11 +408,6 @@ msgstr ""
 #: woocommerce/checkout/thankyou.php:54
 msgctxt "thankyou"
 msgid "Your order no. %s has been accepted for processing."
-msgstr ""
-
-#: woocommerce/checkout/thankyou.php:71
-msgctxt "thankyou"
-msgid "Go to homepage"
 msgstr ""
 
 #: woocommerce/loop/no-products-found.php:25

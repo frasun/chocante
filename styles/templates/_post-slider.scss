@@ -192,6 +192,7 @@
 	padding-right: var(--spacing--20);
 	padding-bottom: var(--spacing--40);
 	max-width: none;
+	overflow: hidden;
 
 	.post {
 		@include loop-item-link;

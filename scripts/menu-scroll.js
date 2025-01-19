@@ -5,12 +5,13 @@ export default class MenuScroll {
 
   constructor(elem) {
     this.elem = document.querySelector(elem);
-    this.scrollTop = window.scrollY;
-    this.canTransition = true;
 
     if (!this.elem) {
-      throw new Error(MenuScroll.ERROR_MISSING_ELEMENT)
+      return;
     }
+
+    this.scrollTop = window.scrollY;
+    this.canTransition = true;
 
     window.addEventListener('scroll', this.manageScroll.bind(this));
 

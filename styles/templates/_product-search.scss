@@ -55,8 +55,9 @@
 	}
 
 	&__title {
-		font-weight: var(--font-weight--semibold);
+		@include font(body);
 		@include font-size(normal);
+		font-weight: var(--font-weight--semibold);
 		text-transform: uppercase;
 		letter-spacing: 0.4em;
 		@include color(brown-8);

@@ -57,3 +57,17 @@
 		}
 	}
 }
+
+body.error404 {
+	--body--background-color: var(--color--grey-5);
+
+	.empty-screen {
+		margin: var(--spacing--100) auto;
+
+		svg {
+			path {
+				fill: var(--color--grey-1);
+			}
+		}
+	}
+}
