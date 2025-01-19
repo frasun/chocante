@@ -38,6 +38,12 @@ class Chocante_ACF {
 
 		// View order.
 		add_filter( 'woocommerce_order_item_name', array( __CLASS__, 'modify_order_item_name' ), 10, 2 );
+
+		// Featured products slider.
+		add_filter( 'chocante_featured_products_category', array( __CLASS__, 'get_featured_category' ), 10, 2 );
+		add_filter( 'chocante_featured_products_title', array( __CLASS__, 'get_featured_title' ), 10, 2 );
+		add_filter( 'chocante_featured_products_thumbnail', array( __CLASS__, 'get_featured_thumbnail' ), 10, 2 );
+		add_filter( 'chocante_featured_products_diet_icons', array( __CLASS__, 'get_featured_diet_icons' ), 10, 2 );
 	}
 
 	/**
@@ -221,9 +227,9 @@ class Chocante_ACF {
 	}
 
 	/**
-	 * Display diet information
+	 * Get diet information icons
 	 */
-	public static function display_diet_icons() {
+	private static function get_diet_icons() {
 		global $product;
 
 		$data_field = get_field( 'ikonki', $product->get_id() );
@@ -232,20 +238,29 @@ class Chocante_ACF {
 			return;
 		}
 
-		$data = array();
+		$icons = array();
 
 		foreach ( $data_field as $field ) {
 			array_push(
-				$data,
+				$icons,
 				$field['ikonka']
 			);
 		}
+
+		return $icons;
+	}
+
+	/**
+	 * Display diet information icons
+	 */
+	public static function display_diet_icons() {
+		$icons = self::get_diet_icons();
 
 		get_template_part(
 			'template-parts/product',
 			'diet-info',
 			array(
-				'data' => $data,
+				'data' => $icons,
 			)
 		);
 	}
@@ -291,5 +306,67 @@ class Chocante_ACF {
 		}
 
 		return '<strong>' . $item->get_name() . '</strong>';
+	}
+
+	/**
+	 * Get featured product category
+	 *
+	 * @param null $category Empty category.
+	 * @param int  $product_id Product ID.
+	 * @return string|null
+	 */
+	public static function get_featured_category( $category, $product_id ) {
+		$product_short_name = get_field( self::ACF_PRODUCT_TYPE, $product_id );
+
+		return $product_short_name;
+	}
+
+	/**
+	 * Get featured product title
+	 *
+	 * @param string $title Product name.
+	 * @param int    $product_id Product ID.
+	 * @return string
+	 */
+	public static function get_featured_title( $title, $product_id ) {
+		$product_name = get_field( self::ACF_PRODUCT_TITLE, $product_id );
+
+		if ( $product_name ) {
+			return $product_name;
+		}
+
+		return $title;
+	}
+
+	/**
+	 * Get featured product thumbnail
+	 *
+	 * @param string|null $image The post thumbnail image tag.
+	 * @param int         $product_id Product ID.
+	 * @return string|null
+	 */
+	public static function get_featured_thumbnail( $image, $product_id ) {
+		$thumbnail = get_field( 'zdjecie_do_slidera', $product_id );
+
+		if ( $thumbnail ) {
+			if ( is_array( $thumbnail ) ) {
+				return $image;
+			}
+
+			return wp_get_attachment_image( $thumbnail, array( 570, 700 ) );
+		}
+
+		return $image;
+	}
+
+	/**
+	 * Get featured product diet icons
+	 *
+	 * @param array $icons Empty icons array.
+	 * @param int   $product_id Product ID.
+	 * @return array
+	 */
+	public static function get_featured_diet_icons( $icons, $product_id ) {
+		return self::get_diet_icons();
 	}
 }

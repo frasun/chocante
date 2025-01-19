@@ -16,6 +16,7 @@ $slider-navigation-size: 50px;
 		display: flex;
 		gap: var(--spacing--20);
 		align-items: end;
+		justify-content: space-between;
 		padding-bottom: var(--spacing--20);
 		padding-top: var(--spacing--15);
 		@include container;
@@ -32,6 +33,7 @@ $slider-navigation-size: 50px;
 
 		& {
 			flex-grow: 1;
+			max-width: var(--size--content);
 
 			&:is(h3) {
 				margin: 0;
@@ -48,6 +50,10 @@ $slider-navigation-size: 50px;
 
 	&__description {
 		@include container();
+
+		& {
+			margin-bottom: var(--spacing--10);
+		}
 
 		> * {
 			max-width: var(--size--content);

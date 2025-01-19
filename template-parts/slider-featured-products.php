@@ -8,7 +8,9 @@
 
 defined( 'ABSPATH' ) || exit;
 ?>
-<?php $fetured_products = Chocante_Product_Section::get_products( featured: true ); ?>
+<?php
+	$fetured_products = Chocante_Product_Section::get_products( featured: true );
+?>
 
 <?php if ( ! empty( $fetured_products ) ) : ?>
 	<header class="post-slider-container featured-products alignfull">

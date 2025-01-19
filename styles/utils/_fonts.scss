@@ -40,7 +40,7 @@ $font-family--headings-default:
 @mixin font-size($size) {
 	@if $size == huge {
 		font-size: var(--font-size--huge);
-		line-height: 1.2;
+		line-height: 1.4;
 	}
 
 	@if $size == xx-large {
