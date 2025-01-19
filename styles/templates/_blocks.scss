@@ -97,6 +97,34 @@
 			--wp--preset--spacing--50: var(--spacing--20);
 			--wp--preset--spacing--100: var(--spacing--30);
 		}
+
+		&.is-style-rounded {
+			border-radius: var(--border-radius);
+		}
+	}
+
+	&-button {
+		&__link {
+			@include button($size: lg);
+		}
+
+		&.is-style-outline {
+			.wp-block-button__link {
+				@include button(secondary, $size: lg);
+			}
+		}
+
+		&.is-style-inverted {
+			.wp-block-button__link {
+				@include button($scheme: dark, $size: lg);
+			}
+		}
+
+		&.is-style-inverted-outline {
+			.wp-block-button__link {
+				@include button(secondary, $scheme: dark, $size: lg);
+			}
+		}
 	}
 }
 
@@ -152,4 +180,10 @@
 			margin-top: 0.2em;
 		}
 	}
+
+	// @todo: revisit.
+	& > :where(.alignfull, .alignwide) + :where(.alignfull, .alignwide) {
+		margin-top: 0;
+	}
+	// END TODO.
 }

@@ -430,7 +430,7 @@ class Chocante_WooCommerce {
 	 * @todo: Chocante - Bricks.
 	 */
 	public static function bricks_disabled() {
-		return is_cart() || is_product() || is_shop() || is_product_category() || is_product_taxonomy() || is_product_tag() || is_account_page() || is_home() || is_checkout() || is_page_template( 'page-templates/temp.php' ) || is_singular( 'post' ) || is_page_template( 'page-templates/with-header.php' ) || is_page_template( 'page-templates/no-header.php' );
+		return is_cart() || is_product() || is_shop() || is_product_category() || is_product_taxonomy() || is_product_tag() || is_account_page() || is_home() || is_checkout() || is_page_template( 'page-templates/temp.php' ) || is_singular( 'post' ) || is_page_template( 'page-templates/with-header.php' ) || is_page_template( 'page-templates/no-header.php' ) || is_page_template( 'page-templates/with-header--gift-sets.php' ) || is_page_template( 'page-templates/with-header--left.php' );
 	}
 
 	/**

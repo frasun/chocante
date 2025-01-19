@@ -9,7 +9,9 @@
 	}
 	// END TODO.
 
-	&-template-with-header {
+	&-template-with-header,
+	&-template-with-header--gift-sets,
+	&-template-with-header--left {
 		--body--background-color: var(--header--background-color);
 		--content--background-color: white;
 
@@ -22,5 +24,36 @@
 		--content-header--title-color: white;
 		--content-header--background-bottom: 0;
 		--content-header--text-color-secondary: var(--color--brown-7);
+	}
+
+	&-template-with-header--gift-sets {
+		.content-header {
+			--content-header--thumbnail-height: 250px;
+
+			@include min-width(700px) {
+				--content-header--thumbnail-height: 500px;
+			}
+
+			&__thumbnail img {
+				height: 100%;
+				width: auto;
+				position: static;
+				transform: none;
+				object-fit: contain;
+			}
+		}
+	}
+
+	&-template-with-header--left {
+		.content-header {
+			&__container {
+				align-items: start;
+				text-align: left;
+			}
+
+			&__lead {
+				margin: unset;
+			}
+		}
 	}
 }
