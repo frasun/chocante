@@ -58,11 +58,11 @@ class Chocante_Product_Page {
 	 * Enqueue scripts & styles
 	 */
 	public static function enqueue_scripts() {
-		$product_js = include get_stylesheet_directory() . '/build/single-product-scripts.asset.php';
+		$product_js = include get_theme_file_path() . '/build/single-product-scripts.asset.php';
 
 		wp_enqueue_script(
 			'chocante-single-product-js',
-			get_stylesheet_directory_uri() . '/build/single-product-scripts.js',
+			get_theme_file_uri() . '/build/single-product-scripts.js',
 			array_merge( $product_js['dependencies'], array() ),
 			$product_js['version'],
 			array(
@@ -71,11 +71,11 @@ class Chocante_Product_Page {
 			)
 		);
 
-		$product_css = include get_stylesheet_directory() . '/build/single-product.asset.php';
+		$product_css = include get_theme_file_path() . '/build/single-product.asset.php';
 
 		wp_enqueue_style(
 			'chocante-single-product-css',
-			get_stylesheet_directory_uri() . '/build/single-product.css',
+			get_theme_file_uri() . '/build/single-product.css',
 			$product_css['dependencies'],
 			$product_css['version'],
 		);

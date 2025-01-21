@@ -75,7 +75,7 @@ class Chocante {
 	 * Load textdomain
 	 */
 	public static function load_textdomain() {
-		load_theme_textdomain( 'chocante', get_stylesheet_directory() . '/languages' );
+		load_theme_textdomain( 'chocante', get_theme_file_path() . '/languages' );
 	}
 
 	/**
@@ -154,20 +154,20 @@ class Chocante {
 	 */
 	public static function enqueue_scripts() {
 		// Common.
-		$styles = include get_stylesheet_directory() . '/build/chocante.asset.php';
+		$styles = include get_theme_file_path() . '/build/chocante.asset.php';
 
 		wp_enqueue_style(
 			'chocante-css',
-			get_stylesheet_directory_uri() . '/build/chocante.css',
+			get_theme_file_uri() . '/build/chocante.css',
 			$styles['dependencies'],
 			$styles['version'],
 		);
 
-		$scripts = include get_stylesheet_directory() . '/build/chocante-scripts.asset.php';
+		$scripts = include get_theme_file_path() . '/build/chocante-scripts.asset.php';
 
 		wp_enqueue_script(
 			'chocante-js',
-			get_stylesheet_directory_uri() . '/build/chocante-scripts.js',
+			get_theme_file_uri() . '/build/chocante-scripts.js',
 			array_merge( $scripts['dependencies'], array( 'wc-cart-fragments', 'splide-js' ) ),
 			$scripts['version'],
 			array(
@@ -190,11 +190,11 @@ class Chocante {
 
 		// Blog.
 		if ( is_home() ) {
-			$blog_styles = include get_stylesheet_directory() . '/build/blog.asset.php';
+			$blog_styles = include get_theme_file_path() . '/build/blog.asset.php';
 
 			wp_enqueue_style(
 				'blog-css',
-				get_stylesheet_directory_uri() . '/build/blog.css',
+				get_theme_file_uri() . '/build/blog.css',
 				$blog_styles['dependencies'],
 				$blog_styles['version'],
 			);
@@ -202,11 +202,11 @@ class Chocante {
 
 		// Single post.
 		if ( is_singular( 'post' ) ) {
-			$post_styles = include get_stylesheet_directory() . '/build/single-post.asset.php';
+			$post_styles = include get_theme_file_path() . '/build/single-post.asset.php';
 
 			wp_enqueue_style(
 				'post-css',
-				get_stylesheet_directory_uri() . '/build/single-post.css',
+				get_theme_file_uri() . '/build/single-post.css',
 				$post_styles['dependencies'],
 				$post_styles['version'],
 			);
@@ -285,7 +285,7 @@ class Chocante {
 	 * @param string $filename Filename from /icons directory.
 	 */
 	public static function icon( $filename ) {
-		$file = get_stylesheet_directory() . "/icons/icon-{$filename}.svg";
+		$file = get_theme_file_path() . "/icons/icon-{$filename}.svg";
 
 		if ( file_exists( $file ) ) {
 			include $file;
@@ -296,7 +296,7 @@ class Chocante {
 	 * Insert spinner
 	 */
 	public static function spinner() {
-		echo '<img src="' . esc_url( get_stylesheet_directory_uri() . '/images/spinner-2x.gif' ) . '" alt="' . esc_attr_x( 'Loading', 'product slider', 'chocante' ) . '" class="spinner">';
+		echo '<img src="' . esc_url( get_theme_file_uri() . '/images/spinner-2x.gif' ) . '" alt="' . esc_attr_x( 'Loading', 'product slider', 'chocante' ) . '" class="spinner">';
 	}
 
 	/**
@@ -448,16 +448,16 @@ class Chocante {
 	 */
 	public static function enqueue_editor_assets() {
 		// Editor specific.
-		$editor_styles = include get_stylesheet_directory() . '/build/editor.asset.php';
+		$editor_styles = include get_theme_file_path() . '/build/editor.asset.php';
 
 		wp_enqueue_style(
 			'chocante-editor-css',
-			get_stylesheet_directory_uri() . '/build/editor.css',
+			get_theme_file_uri() . '/build/editor.css',
 			$editor_styles['dependencies'],
 			$editor_styles['version'],
 		);
 
-		$ediotr_scripts = include get_stylesheet_directory() . '/build/editor-scripts.asset.php';
+		$ediotr_scripts = include get_theme_file_path() . '/build/editor-scripts.asset.php';
 
 		wp_enqueue_script(
 			'chocante-editor-js',

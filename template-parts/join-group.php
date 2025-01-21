@@ -9,7 +9,7 @@
 defined( 'ABSPATH' ) || exit;
 
 $group_url = 'https://www.facebook.com/groups/kakaoceremonialne';
-$image_url = get_stylesheet_directory_uri() . '/images/join-group.webp';
+$image_url = get_theme_file_uri() . '/images/join-group.webp';
 ?>
 
 <aside class="join-group">
