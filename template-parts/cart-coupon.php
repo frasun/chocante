@@ -2,7 +2,8 @@
 /**
  * Checkout coupon form
  *
- * @package Chocante
+ * @package WordPress
+ * @subpackage Chocante
  * @version 7.0.1
  */
 
@@ -11,7 +12,6 @@ defined( 'ABSPATH' ) || exit;
 if ( ! wc_coupons_enabled() ) { // @codingStandardsIgnoreLine.
 	return;
 }
-
 ?>
 <tr class="coupon">
 	<th><?php esc_html_e( 'Coupon code', 'woocommerce' ); ?></th>

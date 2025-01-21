@@ -2,8 +2,11 @@
 /**
  * Blog page
  *
- * @package Chocante
+ * @package WordPress
+ * @subpackage Chocante
  */
+
+defined( 'ABSPATH' ) || exit;
 
 get_header();
 ?>

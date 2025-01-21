@@ -2,7 +2,8 @@
 /**
  * Mini Cart header
  *
- * @package Chocante
+ * @package WordPress
+ * @subpackage Chocante
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -14,5 +15,5 @@ defined( 'ABSPATH' ) || exit;
 	<span class="count">
 		<?php echo esc_html( WC()->cart->get_cart_contents_count() ); ?>
 	</span>
-	<?php endif; ?>	
+	<?php endif; ?>
 </h4>

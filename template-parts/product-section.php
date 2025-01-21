@@ -2,7 +2,8 @@
 /**
  * Product section to display related, featured, cross-sells etc.
  *
- * @package     Chocante
+ * @package WordPress
+ * @subpackage Chocante
  */
 
 defined( 'ABSPATH' ) || exit;

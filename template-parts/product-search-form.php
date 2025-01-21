@@ -2,7 +2,8 @@
 /**
  * Product search form
  *
- * @package Chocante
+ * @package WordPress
+ * @subpackage Chocante
  */
 
 defined( 'ABSPATH' ) || exit;

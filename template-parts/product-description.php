@@ -2,7 +2,8 @@
 /**
  * Additional description on product page
  *
- * @package Chocante
+ * @package WordPress
+ * @subpackage Chocante
  */
 
 defined( 'ABSPATH' ) || exit;

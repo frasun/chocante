@@ -2,12 +2,12 @@
 /**
  * Account dashboard
  *
- * @package Chocante
+ * @package WordPress
+ * @subpackage Chocante
  */
 
 defined( 'ABSPATH' ) || exit;
 ?>
-
 
 <div class="dashboard">
 	<div class="box">

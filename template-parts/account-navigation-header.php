@@ -2,7 +2,8 @@
 /**
  * Account navigation header with user data
  *
- * @package Chocante
+ * @package WordPress
+ * @subpackage Chocante
  */
 
 defined( 'ABSPATH' ) || exit;

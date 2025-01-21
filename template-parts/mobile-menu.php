@@ -2,10 +2,11 @@
 /**
  * Mobile menu
  *
- * @package Chocante
+ * @package WordPress
+ * @subpackage Chocante
  */
 
- defined( 'ABSPATH' ) || exit;
+defined( 'ABSPATH' ) || exit;
 ?>
 
 <nav class="mobile-menu">

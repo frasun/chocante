@@ -2,7 +2,8 @@
 /**
  * Chocante WooCommerce product archive page
  *
- * @package Chocante
+ * @package WordPress
+ * @subpackage Chocante
  */
 
 defined( 'ABSPATH' ) || exit;

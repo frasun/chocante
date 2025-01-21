@@ -2,7 +2,8 @@
 /**
  * Main menu top aside
  *
- * @package Chocante
+ * @package WordPress
+ * @subpackage Chocante
  */
 
 defined( 'ABSPATH' ) || exit;

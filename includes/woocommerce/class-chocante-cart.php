@@ -2,7 +2,8 @@
 /**
  * Chocante WooCommerce cart
  *
- * @package Chocante
+ * @package WordPress
+ * @subpackage Chocante
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -22,7 +23,7 @@ class Chocante_Cart {
 		add_action( 'woocommerce_after_cart_table', array( __CLASS__, 'display_cart_info' ) );
 		add_action( 'woocommerce_cart_totals_before_order_total', array( __CLASS__, 'display_coupon_form_in_cart' ) );
 		add_filter( 'woocommerce_cart_item_permalink', array( __CLASS__, 'return_empty_permalink' ) );
-		add_action( 'chocante_after_cart', array( __CLASS__, 'display_featured_products_in_cart' ) );
+		add_action( 'chocante_after_main', array( __CLASS__, 'display_featured_products_in_cart' ) );
 
 		// Cart empty.
 		if ( ! is_admin() ) {

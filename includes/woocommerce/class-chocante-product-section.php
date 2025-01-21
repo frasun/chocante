@@ -2,10 +2,9 @@
 /**
  * Chocante WooCommerce product section with slider
  *
- * @package Chocante
+ * @package WordPress
+ * @subpackage Chocante
  */
-
-use function WPML\FP\apply;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -99,7 +98,6 @@ class Chocante_Product_Section {
 	 * @param boolean $onsale Include only products that are on sale.
 	 * @param boolean $latest Get newly added products.
 	 * @param array   $exclude Product IDs to exclude.
-	 * @param string  $lang Language code.
 	 * @return array
 	 */
 	public static function get_products( $category = array(), $featured = false, $onsale = false, $latest = false, $exclude = array() ) {

@@ -6,6 +6,7 @@
  * @subpackage Chocante
  */
 
+defined( 'ABSPATH' ) || exit;
 ?>
 
 <nav class="content-header__breadcrumbs">

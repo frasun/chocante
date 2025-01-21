@@ -2,7 +2,8 @@
 /**
  * Mini Cart
  *
- * @package Chocante
+ * @package WordPress
+ * @subpackage Chocante
  */
 
 defined( 'ABSPATH' ) || exit;

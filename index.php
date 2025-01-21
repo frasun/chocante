@@ -1,6 +1,6 @@
 <?php
 /**
- * Single post
+ * Index
  *
  * @package WordPress
  * @subpackage Chocante

@@ -2,7 +2,8 @@
 /**
  * Post slide
  *
- * @package Chocante
+ * @package WordPress
+ * @subpackage Chocante
  */
 
 defined( 'ABSPATH' ) || exit;

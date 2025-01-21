@@ -2,7 +2,8 @@
 /**
  * Fast shipping infp
  *
- * @package Chocante
+ * @package WordPress
+ * @subpackage Chocante
  */
 
 defined( 'ABSPATH' ) || exit;

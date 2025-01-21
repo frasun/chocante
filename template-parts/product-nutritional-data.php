@@ -2,7 +2,8 @@
 /**
  * Product nutritional data
  *
- * @package     Chocante
+ * @package WordPress
+ * @subpackage Chocante
  */
 
 defined( 'ABSPATH' ) || exit;

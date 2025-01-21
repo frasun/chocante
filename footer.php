@@ -2,8 +2,11 @@
 /**
  * Page footer
  *
- * @package Chocante
+ * @package WordPress
+ * @subpackage Chocante
  */
+
+defined( 'ABSPATH' ) || exit;
 
 do_action( 'chocante_before_footer' );
 ?>

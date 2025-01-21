@@ -2,7 +2,8 @@
 /**
  * Section with icon and information
  *
- * @package Chocante
+ * @package WordPress
+ * @subpackage Chocante
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -18,7 +19,7 @@ $content = isset( $args['content'] ) ? $args['content'] : null;
 		Chocante::icon( $icon );
 	}
 	?>
-  
+
 	<div>
 		<?php
 		if ( isset( $heading ) ) {

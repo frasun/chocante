@@ -2,7 +2,8 @@
 /**
  * Account content header
  *
- * @package Chocante
+ * @package WordPress
+ * @subpackage Chocante
  */
 
 defined( 'ABSPATH' ) || exit;

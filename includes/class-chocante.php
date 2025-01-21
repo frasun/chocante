@@ -2,7 +2,8 @@
 /**
  * Chocante Theme
  *
- * @package Chocante
+ * @package WordPress
+ * @subpackage Chocante
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -17,6 +18,7 @@ class Chocante {
 	public static function init() {
 		// Setup.
 		add_action( 'after_setup_theme', array( __CLASS__, 'load_textdomain' ) );
+		add_action( 'after_setup_theme', array( __CLASS__, 'add_theme_support' ) );
 		add_action( 'after_setup_theme', array( __CLASS__, 'register_nav_menus' ) );
 		add_action( 'widgets_init', array( __CLASS__, 'register_sidebars' ) );
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'enqueue_scripts' ), 20 );
@@ -74,6 +76,19 @@ class Chocante {
 	 */
 	public static function load_textdomain() {
 		load_theme_textdomain( 'chocante', get_stylesheet_directory() . '/languages' );
+	}
+
+	/**
+	 * WP features support
+	 */
+	public static function add_theme_support() {
+		add_theme_support( 'title-tag' );
+		add_theme_support( 'responsive-embeds' );
+		add_theme_support( 'post-formats', array( 'aside', 'gallery', 'link', 'image', 'quote', 'status', 'video', 'audio', 'chat' ) );
+		add_theme_support( 'html5', array( 'search-form', 'comment-form', 'comment-list', 'gallery', 'caption', 'style', 'script' ) );
+		add_theme_support( 'block-template-parts' );
+		add_theme_support( 'custom-line-height' );
+		remove_theme_support( 'core-block-patterns' );
 	}
 
 	/**
@@ -329,12 +344,6 @@ class Chocante {
 	 * @return array
 	 */
 	public static function set_image_lazy_loading( $atts ) {
-		// @todo: Chocante - Bricks hack.
-		if ( class_exists( 'Chocante_WooCommerce' ) && Chocante_WooCommerce::bricks_disabled() ) {
-			$atts['_brx_disable_lazy_loading'] = true;
-		}
-		// END TODO.
-
 		$atts['loading'] = 'lazy';
 
 		return $atts;

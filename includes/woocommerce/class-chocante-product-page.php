@@ -2,7 +2,8 @@
 /**
  * Chocante WooCommerce product page
  *
- * @package Chocante
+ * @package WordPress
+ * @subpackage Chocante
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -19,15 +20,6 @@ class Chocante_Product_Page {
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'enqueue_scripts' ) );
 
 		remove_action( 'woocommerce_before_single_product', 'woocommerce_output_all_notices' );
-		// @todo: Chocante - Bricks hack.
-		add_action(
-			'woocommerce_before_single_product_summary',
-			function () {
-				remove_all_filters( 'woocommerce_sale_flash', 10 );
-			},
-			1
-		);
-		// END TODO.
 		remove_action( 'woocommerce_before_single_product_summary', 'woocommerce_show_product_sale_flash', 10 );
 		add_action( 'woocommerce_before_single_product_summary', 'woocommerce_output_all_notices', 5 );
 		add_action( 'woocommerce_before_single_product_summary', 'woocommerce_breadcrumb', 7 );
