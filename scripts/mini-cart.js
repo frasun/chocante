@@ -1,14 +1,16 @@
 export default class MiniCart {
-  static FRAGMENT_CART_COUNT = 'span.cart-count';
-  static FRAGMENT_CART_CONTENT = 'div.widget_shopping_cart_content';
+  static FRAGMENT_CART_COUNT = 'cart-count';
   static MINI_CART_COUNT = '.mini-cart__count';
   static MINI_CART_CONTENT = '.mini-cart__content'
 
   constructor(element) {
-    const miniCartCount = element.querySelector(MiniCart.MINI_CART_COUNT);
+    this.miniCartCount = element.querySelector(MiniCart.MINI_CART_COUNT);
     this.miniCartContent = element.querySelector(MiniCart.MINI_CART_CONTENT);
 
-    this.updateContent(miniCartCount, this.miniCartContent);
+    if (this.miniCartCount) {
+      this.updateContent();
+      window.jQuery(document.body).on('wc_fragments_refreshed', this.updateContent.bind(this));
+    }
 
     if (this.miniCartContent) {
       this.setContentHeight();
@@ -17,23 +19,15 @@ export default class MiniCart {
     }
   }
 
-  updateContent(count, content) {
+  updateContent() {
     let fragments = JSON.parse(sessionStorage.getItem(wc_cart_fragments_params.fragment_name));
+    let count = this.miniCartCount.dataset.count;
 
-    if (!fragments) {
-      fragments = {}
-      fragments[MiniCart.FRAGMENT_CART_COUNT] = count.dataset.count;
+    if (fragments && fragments[MiniCart.FRAGMENT_CART_COUNT]) {
+      count = fragments[MiniCart.FRAGMENT_CART_COUNT];
     }
 
-    if (count && fragments[MiniCart.FRAGMENT_CART_COUNT]) {
-      count.innerHTML = fragments[MiniCart.FRAGMENT_CART_COUNT];
-    }
-
-    if (content && fragments[MiniCart.FRAGMENT_CART_CONTENT]) {
-      content.innerHTML = fragments[MiniCart.FRAGMENT_CART_CONTENT];
-    }
-
-    window.clearInterval(this.cartUpdate);
+    this.miniCartCount.innerHTML = count;
   }
 
   setContentHeight() {

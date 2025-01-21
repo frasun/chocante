@@ -46,6 +46,7 @@ class Chocante_WooCommerce {
 		add_action( 'woocommerce_before_mini_cart', array( __CLASS__, 'display_mini_cart_title' ) );
 		remove_action( 'woocommerce_widget_shopping_cart_buttons', 'woocommerce_widget_shopping_cart_button_view_cart', 10 );
 		add_filter( 'woocommerce_widget_cart_item_quantity', array( __CLASS__, 'display_mini_cart_item_total' ), 10, 3 );
+		add_filter( 'woocommerce_add_to_cart_fragments', array( __CLASS__, 'update_mini_cart_count' ) );
 
 		// Cart & mini-cart.
 		add_filter( 'woocommerce_cart_item_remove_link', array( __CLASS__, 'use_remove_icon' ) );
@@ -480,5 +481,21 @@ class Chocante_WooCommerce {
 				return ob_get_clean();
 			}
 		);
+	}
+
+	/**
+	 * Add cart count to wc-fragments
+	 *
+	 * @param array $fragments WC fragments.
+	 * @return array
+	 */
+	public static function update_mini_cart_count( $fragments ) {
+		if ( ! is_object( WC()->cart ) ) {
+			return;
+		}
+
+		$fragments['cart-count'] = WC()->cart->get_cart_contents_count();
+
+		return $fragments;
 	}
 }
