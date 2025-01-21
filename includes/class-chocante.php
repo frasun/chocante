@@ -141,6 +141,8 @@ class Chocante {
 	public static function set_custom_logo_attributes( $logo_atts, $image_id ) {
 		$logo = wp_get_attachment_metadata( $image_id );
 
+		self::debug_log( $logo );
+
 		if ( $logo ) {
 			$logo_atts['width']  = $logo['width'];
 			$logo_atts['height'] = $logo['height'];

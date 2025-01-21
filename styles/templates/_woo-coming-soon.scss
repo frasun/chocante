@@ -2,6 +2,13 @@
 	.wp-block-site-title {
 		display: none;
 	}
+
+	.wp-block-site-logo {
+		.custom-logo {
+			width: 210px;
+			height: 40px;
+		}
+	}
 }
 
 body:has(.woocommerce-coming-soon-banner) {

@@ -50,7 +50,7 @@
 	a:not(.button) {
 		@include link;
 		display: inline-block;
-		vertical-align: middle;
+		vertical-align: text-top;
 
 		// @todo: Chocante - Bricks remove.
 		--bricks-color-ce3d3b: transparent;
@@ -62,6 +62,8 @@
 
 		& {
 			color: inherit;
+			display: inline-block;
+			vertical-align: text-top;
 		}
 
 		&,
