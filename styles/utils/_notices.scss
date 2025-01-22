@@ -9,11 +9,6 @@
 	background-color: var(--notice--background-color, var(--color--grey-5));
 	color: var(--notice--color, var(--color--grey-1));
 
-	// @todo: Chocante - Bricks remove.
-	background-image: none;
-	padding-left: 15px !important;
-	// END TODO.
-
 	@include min-width($breakpoint--mobile-lg) {
 		padding-right: var(--spacing--20);
 		padding-left: 20px !important;
@@ -51,10 +46,6 @@
 		@include link;
 		display: inline-block;
 		vertical-align: text-top;
-
-		// @todo: Chocante - Bricks remove.
-		--bricks-color-ce3d3b: transparent;
-		// END TODO.
 	}
 
 	.button {

@@ -276,23 +276,6 @@
 				@include max-width($breakpoint--desktop-sm) {
 					padding-top: var(--spacing--15);
 				}
-
-				// @todo: Chocnate - Bricks - remove.
-				a.woocommerce-button {
-					padding: 0;
-					background: none;
-					border: none;
-					border-radius: unset;
-					color: inherit;
-					text-align: inherit;
-					font-size: inherit;
-					line-height: inherit;
-
-					&:hover {
-						@include color(red-1);
-					}
-				}
-				// END TODO.
 			}
 
 			ins {

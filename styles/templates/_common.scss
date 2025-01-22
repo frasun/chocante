@@ -1,28 +1,10 @@
 /* Buttons */
-.site-header,
-.site-footer,
-.single-product,
-.shop,
-.tax_product_cat,
-.woocommerce-cart,
-.woocommerce-account {
-	.button {
-		// @todo: Chocante - Bricks fix.
-		&,
-		.woocommerce & {
-			@include link;
-		}
-		// END TODO.
-	}
+.button {
+	@include link;
 }
 
 [type="submit"] {
-	// @todo: Chocante - Bricks fix.
-	&,
-	.woocommerce & {
-		@include button;
-	}
-	// END TODO.
+	@include button;
 }
 /* END Buttons */
 
@@ -488,11 +470,9 @@ button[data-close-modal] {
 			@include radio;
 			grid-row: 1 / span 2;
 
-			// @todo: Chocante - Bricks - verify.
 			& + label {
 				margin: 0;
 			}
-			// END TODO.
 		}
 
 		.woocommerce-Price-amount {
@@ -506,12 +486,6 @@ button[data-close-modal] {
 .badge,
 .onsale {
 	@include badge;
-
-	// @todo: Chocante - Bricks feature verify?
-	&.new {
-		display: none;
-	}
-	// END TODO.
 }
 /* END Product */
 
@@ -532,12 +506,7 @@ button[data-close-modal] {
 		justify-content: space-between;
 
 		.woocommerce-button {
-			// @todo: Chocante - Bricks fix.
-			&,
-			.woocommerce & {
-				@include button(secondary);
-			}
-			// END TODO.
+			@include button(secondary);
 
 			&--next {
 				margin-left: auto;

@@ -169,12 +169,6 @@
 				&:not(.disabled):not([disabled]) {
 					@include select-arrow;
 
-					// @todo: Chocante - Bricks - sic!
-					border-width: 3px !important;
-					border-style: solid !important;
-					font-weight: var(--font-weight--bold) !important;
-					// END TODO.
-
 					&:hover {
 						background-position: calc(100% - 13px) center;
 						color: inherit;

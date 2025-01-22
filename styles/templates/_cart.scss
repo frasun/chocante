@@ -273,10 +273,7 @@
 
 				h2 {
 					@include font-style(section-label);
-
-					// @todo: Chocante - Bricks.
-					font-family: var(--font-family--body);
-					// END TODO.
+					margin: 0;
 				}
 
 				.cart-discount {

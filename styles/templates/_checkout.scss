@@ -131,18 +131,16 @@
 					@include font-style(section-label);
 				}
 
-				// @todo: Chocante - Bricks - h3 font style.
 				&-account-name {
-					font-weight: var(--font-weight--bold);
 					@include font(body);
 					@include font-size(normal);
+					font-weight: var(--font-weight--bold);
 					margin-top: var(--spacing--20);
 
 					&:first-of-type {
 						margin-top: var(--spacing--10);
 					}
 				}
-				// END TODO.
 			}
 		}
 	}

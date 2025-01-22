@@ -37,9 +37,9 @@
 
 	&__heading {
 		@include font-style(page-title);
-		color: white;
 
 		& {
+			color: white;
 			margin-bottom: 0.5em;
 		}
 	}

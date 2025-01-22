@@ -1,37 +1,5 @@
 @mixin content {
 	@include content-shared;
-
-	//@todo: Chocante - Bricks forge remove.
-	h1,
-	h2,
-	h3,
-	h4,
-	h5 {
-		@include font(headings);
-		letter-spacing: 0.05em;
-	}
-
-	h1,
-	h2 {
-		@include font-size(x-large);
-	}
-
-	h3 {
-		@include font-size(large);
-	}
-
-	h4 {
-		@include font-size(big);
-	}
-
-	h5 {
-		@include font-size(medium);
-	}
-
-	h6 {
-		@include font-style(section-label);
-	}
-	// END TODO.
 }
 
 @mixin content-short {

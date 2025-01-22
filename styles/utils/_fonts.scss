@@ -135,6 +135,7 @@ $font-family--headings-default:
 
 	@if $style == subheading {
 		@include font-size(normal);
+		font-family: var(--font-family--body);
 		font-weight: var(--font-weight--semibold);
 		text-transform: uppercase;
 		letter-spacing: 0.4em;

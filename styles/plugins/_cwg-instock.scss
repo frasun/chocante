@@ -16,9 +16,9 @@
 	}
 
 	h4 {
-		padding: 0.35em 0;
 		text-align: left !important;
-		@include font-size(medium);
+		@include font-style(section-label);
+		margin-bottom: 1em;
 	}
 }
 
@@ -29,9 +29,6 @@
 
 		& {
 			text-align: left !important;
-			font-size: var(
-				--font-size--normal-sm
-			) !important; // @todo: Chocante - Bricks.
 		}
 	}
 

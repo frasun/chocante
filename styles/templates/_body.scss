@@ -4,21 +4,8 @@ html[chocante] {
 }
 
 body {
-	// @todo: Chocnate - use theme.json.
-	@include font(body);
-	@include color(grey-1);
 	background-color: var(--body--background-color, white);
-	// END TODO.
-
 	overflow-x: hidden;
-
-	// @todo: Chocnate - Bricks forge.
-	--brf-p-font-size: var(--font-size--normal);
-	--brf-h2-font-size: var(--font-size--x-large);
-	--brf-h3-font-size: var(--font-size--large);
-	--brf-h4-font-size: var(--font-size--big);
-	@include font-size(normal);
-	// END TODO.
 }
 
 main,

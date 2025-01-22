@@ -17,9 +17,6 @@
 @mixin loop-item-title {
 	@include font-size(medium-sm);
 	font-weight: var(--font-weight--bold);
-
-	// @todo: Chocante - Bricks.
 	font-family: var(--font-family--body);
 	letter-spacing: normal;
-	// END TODO.
 }
