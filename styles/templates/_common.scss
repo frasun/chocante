@@ -358,28 +358,28 @@ button[data-close-modal] {
 
 		th {
 			text-align: left;
+			font-weight: var(--font-weight--normal);
 		}
 
 		td {
 			max-width: 100%;
 		}
 
-		tr {
-			&.cart-discount,
-			&.cart-subtotal {
-				th {
-					font-weight: inherit;
-				}
-			}
-		}
-
 		.order-total {
-			margin-top: var(--spacing--30);
-
 			th,
 			td {
 				font-weight: var(--font-weight--bold);
 				@include font-size(medium);
+			}
+
+			td {
+				text-align: right;
+			}
+
+			.includes_tax {
+				display: block;
+				font-weight: var(--font-weight--normal);
+				@include font-size(small-sm);
 			}
 		}
 
@@ -427,7 +427,8 @@ button[data-close-modal] {
 .cart_totals,
 .woocommerce-checkout-review-order {
 	tr {
-		&:not(.cart-discount):not(.cart-subtotal):not(.order-total) {
+		&.shipping,
+		&.coupon {
 			th {
 				@include font-style(section-label);
 			}
@@ -435,48 +436,52 @@ button[data-close-modal] {
 	}
 }
 
-.woocommerce {
-	&-shipping-totals {
-		display: flex;
-		flex-direction: column;
-		margin-top: var(--spacing--30);
+.cart_totals,
+#order_review {
+	.woocommerce {
+		&-shipping-totals {
+			display: flex;
+			flex-direction: column;
+			margin-top: var(--spacing--30);
+			margin-bottom: var(--spacing--30);
 
-		th {
-			@include font-style(section-label);
-		}
+			th {
+				@include font-style(section-label);
+			}
 
-		td {
-			width: 100%;
-			margin-top: var(--spacing--10);
-		}
-	}
-
-	&-shipping-methods {
-		display: flex;
-		flex-direction: column;
-		gap: var(--spacing--15);
-		margin: var(--spacing--5) 0 0;
-		padding: 0;
-
-		li {
-			margin: 0;
-			display: grid;
-			grid-template-columns: auto 1fr;
-			align-items: center;
-			column-gap: var(--spacing--10);
-		}
-
-		input[type="radio"] {
-			@include radio;
-			grid-row: 1 / span 2;
-
-			& + label {
-				margin: 0;
+			td {
+				width: 100%;
+				margin-top: var(--spacing--10);
 			}
 		}
 
-		.woocommerce-Price-amount {
-			font-weight: var(--font-weight--bold);
+		&-shipping-methods {
+			display: flex;
+			flex-direction: column;
+			gap: var(--spacing--15);
+			margin: var(--spacing--5) 0 0;
+			padding: 0;
+
+			li {
+				margin: 0;
+				display: grid;
+				grid-template-columns: auto 1fr;
+				align-items: center;
+				column-gap: var(--spacing--10);
+			}
+
+			input[type="radio"] {
+				@include radio;
+				grid-row: 1 / span 2;
+
+				& + label {
+					margin: 0;
+				}
+			}
+
+			.woocommerce-Price-amount {
+				font-weight: var(--font-weight--bold);
+			}
 		}
 	}
 }

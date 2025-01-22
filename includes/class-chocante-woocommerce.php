@@ -247,10 +247,10 @@ class Chocante_WooCommerce {
 	 * @return string
 	 */
 	public static function display_mini_cart_item_total( $quantity, $cart_item ) {
-		$include_tax = 'incl' === get_option( 'woocommerce_tax_display_shop' );
-		$subtotal    = $include_tax ? $cart_item['line_subtotal_tax'] : $cart_item['line_subtotal'];
+		$item_price  = $cart_item['data']->get_price();
+		$total_price = $item_price * $cart_item['quantity'];
 
-		return '<footer>' . $quantity . '<strong>' . wc_price( $subtotal ) . '</strong></footer>';
+		return '<footer>' . $quantity . '<strong>' . wc_price( $total_price ) . '</strong></footer>';
 	}
 
 	/**

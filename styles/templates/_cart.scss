@@ -334,6 +334,7 @@
 					display: flex;
 					flex-direction: column;
 					margin-top: var(--spacing--30);
+					margin-bottom: var(--spacing--30);
 
 					th {
 						@include font-style(section-label);

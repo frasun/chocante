@@ -21,7 +21,7 @@ class Chocante_Cart {
 
 		add_action( 'woocommerce_before_cart', array( __CLASS__, 'display_cart_title' ), 1 );
 		add_action( 'woocommerce_after_cart_table', array( __CLASS__, 'display_cart_info' ) );
-		add_action( 'woocommerce_cart_totals_before_order_total', array( __CLASS__, 'display_coupon_form_in_cart' ) );
+		add_action( 'woocommerce_cart_totals_before_shipping', array( __CLASS__, 'display_coupon_form_in_cart' ) );
 		add_filter( 'woocommerce_cart_item_permalink', array( __CLASS__, 'return_empty_permalink' ) );
 		add_action( 'chocante_after_main', array( __CLASS__, 'display_featured_products_in_cart' ) );
 
