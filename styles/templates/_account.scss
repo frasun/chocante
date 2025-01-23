@@ -141,7 +141,7 @@
 						color: currentColor;
 
 						svg {
-							@include transition(colors);
+							@include transition;
 							@include color(brown-6);
 						}
 					}

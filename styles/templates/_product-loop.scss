@@ -3,8 +3,8 @@
 	@include list-reset;
 
 	.product {
+		--wp--custom--transition--easing: ease-in;
 		@include transition;
-		transition-timing-function: ease-in;
 
 		@include max-width($breakpoint--desktop-md) {
 			max-width: var(--loop-item-width);

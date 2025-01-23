@@ -4,9 +4,6 @@
 	--z-index--overlay: 2000;
 	--z-index--modal-backdrop: 2999;
 	--z-index--modal: 3000;
-	// Transition.
-	--transition-fn: ease-out;
-	--transition-time: 0.35s;
 	// Shadows.
 	@for $i from 1 through length($shadows) {
 		--shadow--#{$i}: #{nth($shadows, $i)};

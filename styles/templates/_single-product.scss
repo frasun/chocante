@@ -214,7 +214,7 @@
 					overflow: hidden;
 					@include border(grey-4);
 					cursor: pointer;
-					@include transition(colors);
+					@include transition;
 
 					&:hover {
 						opacity: 0.5;

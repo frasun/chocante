@@ -4,7 +4,7 @@
 	border: 1px solid var(--input--border, var(--color--brown-6));
 	background-color: var(--input--background-color, var(--color--grey-5));
 	color: var(--input--color, var(--color--grey-1));
-	@include transition(colors);
+	@include transition;
 	font-weight: inherit;
 	width: 100%;
 
@@ -47,7 +47,7 @@
 	border: 1px solid var(--radio--border, var(--color--grey-1));
 	@include flex(center);
 	display: inline-flex;
-	@include transition(colors);
+	@include transition;
 	-webkit-appearance: none;
 	cursor: pointer;
 	padding: 0;
@@ -96,7 +96,7 @@
 	border: 1px solid var(--radio--border, var(--color--grey-1));
 	display: inline-block;
 	border-radius: var(--border-radius--xs);
-	@include transition(colors);
+	@include transition;
 	-webkit-appearance: none;
 	cursor: pointer;
 
@@ -119,7 +119,7 @@
 
 @mixin radio-label {
 	font-weight: var(--font-weight--normal);
-	@include transition(colors);
+	@include transition;
 
 	&:hover {
 		opacity: 0.75;

@@ -1,11 +1,5 @@
-@mixin transition($property: "transform, opacity") {
-	transition-duration: var(--transition-time);
-	transition-timing-function: var(--transition-fn);
-
-	@if $property == colors {
-		transition-property: background-color, color, opacity, box-shadow,
-			border-color;
-	} @else {
-		transition-property: unquote($property);
-	}
+@mixin transition {
+	transition-duration: var(--wp--custom--transition--duration);
+	transition-timing-function: var(--wp--custom--transition--easing);
+	transition-property: var(--wp--custom--transition--property);
 }

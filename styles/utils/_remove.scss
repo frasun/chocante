@@ -1,6 +1,5 @@
 @mixin remove-button {
 	@include flex(center);
-	@include transition(colors);
 	@include color(brown-4);
 
 	svg {

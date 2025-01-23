@@ -39,7 +39,7 @@
 	button {
 		@include flex(center);
 		background: transparent;
-		@include transition(colors);
+		@include transition;
 		width: 24px;
 		height: 24px;
 		@include color(green-1);

@@ -4,7 +4,7 @@
 	right: 0;
 	top: 0;
 	bottom: 0;
-	@include transition(colors);
+	@include transition;
 	opacity: 0;
 	@include bg(brown-4);
 	z-index: var(--z-index--modal-backdrop);

@@ -78,7 +78,6 @@
 	text-transform: uppercase;
 	font-weight: var(--font-weight--bold);
 	color: var(--header--text-color-secondary, var(--color--brown-6));
-	@include transition(colors);
 	padding: var(--spacing--10) var(--spacing--15);
 	display: flex;
 	gap: var(--spacing--10);
@@ -108,6 +107,13 @@
 .wcml-dropdown a.wcml-cs-item-toggle,
 .wcml-cs-active-currency a.wcml-cs-item-toggle {
 	&:hover {
+		color: white;
+	}
+}
+
+.wpml-ls-legacy-dropdown a.wpml-ls-item-toggle:hover {
+	span,
+	&::after {
 		color: white;
 	}
 }

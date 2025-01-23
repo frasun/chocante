@@ -115,7 +115,9 @@
 	background-image: linear-gradient(to right, $bg-hover 50%, $bg 50%);
 	color: $color;
 	background-size: calc(200% + 12px) calc(100% + 6px);
-	@include transition("color, background-position, box-shadow, opacity");
+	--wp--custom--transition--property: color, background-position, box-shadow,
+		opacity;
+	@include transition;
 	background-position: calc(100% + 3px);
 	box-shadow: none;
 
@@ -146,7 +148,7 @@
 
 	svg {
 		opacity: 1;
-		@include transition(colors);
+		@include transition;
 	}
 
 	&:hover svg {

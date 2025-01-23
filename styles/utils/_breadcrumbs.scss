@@ -3,7 +3,6 @@
 	@include color(grey-2);
 
 	a {
-		@include transition(colors);
 		font-weight: var(--font-weight--semibold);
 		text-decoration: none;
 		color: currentColor;
