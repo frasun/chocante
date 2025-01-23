@@ -255,7 +255,7 @@ class Chocante_WooCommerce {
 		$item_price  = $cart_item['data']->get_price();
 		$total_price = $item_price * $cart_item['quantity'];
 
-		return '<footer>' . $quantity . '<strong>' . wc_price( $total_price ) . '</strong></footer>';
+		return '<footer>' . $quantity . '<strong>' . wc_price( wc_get_price_to_display( $cart_item['data'] ) ) . '</strong></footer>';
 	}
 
 	/**
