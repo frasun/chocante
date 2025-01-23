@@ -1,0 +1,22 @@
+.woocommerce-pagination {
+	ul.page-numbers {
+		@include pagination;
+	}
+
+	&--without-numbers {
+		display: flex;
+		justify-content: space-between;
+
+		.woocommerce-button {
+			@include button(secondary);
+
+			&--next {
+				margin-left: auto;
+			}
+		}
+	}
+}
+
+.pagination .nav-links {
+	@include pagination;
+}

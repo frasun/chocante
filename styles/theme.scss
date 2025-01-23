@@ -5,6 +5,18 @@
 // Reset / normalize.
 @import "_reset";
 
+// Components.
+@import "components/badge";
+@import "components/breadcrumbs";
+@import "components/buttons";
+@import "components/content";
+@import "components/empty-screen";
+@import "components/form-controls";
+@import "components/modal";
+@import "components/notice";
+@import "components/pagination";
+@import "components/slider";
+
 // Templates.
 @import "templates/common";
 @import "templates/blocks";

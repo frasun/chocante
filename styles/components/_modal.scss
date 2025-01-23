@@ -1,0 +1,19 @@
+.backdrop {
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	@include transition(colors);
+	opacity: 0;
+	@include bg(brown-4);
+	z-index: var(--z-index--modal-backdrop);
+
+	&.active {
+		opacity: 0.95;
+	}
+}
+
+button[data-close-modal] {
+	@include icon-button;
+}

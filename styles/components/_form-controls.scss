@@ -1,0 +1,127 @@
+input[type="text"],
+input[type="password"],
+input[type="number"],
+input[type="email"],
+input[type="tel"],
+textarea,
+.input-text {
+	@include input;
+}
+
+// Label.
+label {
+	font-weight: var(--font-weight--bold);
+	color: var(--label--color, var(--color--brown-4));
+	line-height: 1.15;
+
+	&[for] {
+		cursor: pointer;
+	}
+
+	&:has(input[type="checkbox"]) {
+		align-items: center;
+		gap: var(--spacing--10);
+		cursor: pointer;
+		font-weight: var(--font-weight--normal);
+		--label--color: var(--color--grey-1);
+
+		&:hover {
+			opacity: 0.9;
+		}
+	}
+
+	&.woocommerce-form__label,
+	.form-row & {
+		display: grid;
+		align-items: baseline;
+		grid-template-columns: auto 1fr;
+
+		&.checkbox {
+			display: flex;
+			gap: 0;
+
+			input[type="checkbox"] {
+				margin-right: var(--spacing--10);
+			}
+		}
+	}
+
+	.required {
+		@include color(red-1);
+	}
+
+	.optional {
+		@include font-size(small);
+		@include color(grey-2);
+		font-weight: var(--font-weight--normal);
+		justify-self: end;
+	}
+
+	a {
+		@include link;
+	}
+
+	& + .woocommerce-input-wrapper,
+	& + .password-input {
+		margin-top: var(--spacing--10);
+	}
+}
+
+// Select.
+select {
+	@include select-arrow;
+	padding-right: 40px;
+	@include color(grey-1);
+	border: 0;
+	font-weight: var(--font-weight--normal);
+}
+
+.dropdown {
+	@include dropdown;
+
+	&__list {
+		@include dropdown(true);
+	}
+
+	&__list-item {
+		@include dropdown-list-item;
+	}
+}
+
+// Radio.
+input[type="radio"] {
+	@include radio;
+}
+
+// Checkox.
+input[type="checkbox"] {
+	@include checkbox;
+}
+
+// WooCommerce.
+
+[class$="-fields"] {
+	@include form-wrapper;
+}
+
+[class$="__field-wrapper"] {
+	@include fields-wrapper;
+}
+
+.form-row {
+	margin: 0;
+}
+
+.woocommerce-invalid {
+	--input--border: var(--color--red-2);
+	--input--background-color: var(--color--red-3);
+	--label--color: var(--color--red-2);
+	--radio--border: var(--color--red-2);
+}
+
+[class*="inline-error-message"],
+.coupon-error-notice {
+	@include font-size(small-sm);
+	@include color(red-2);
+	padding-top: 0.35em;
+}

@@ -1,0 +1,15 @@
+// @todo: alignwide.
+.container {
+	@include container;
+}
+
+// @todo: use h1.
+.page-title {
+	@include color(brown-4);
+	@include font-style(page-title);
+}
+
+// @todo: remove.
+.post-content {
+	@include content;
+}

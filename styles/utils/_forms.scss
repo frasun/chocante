@@ -13,16 +13,15 @@
 @mixin fields-wrapper {
 	--fields--row-gap: var(--spacing--30);
 	display: grid;
+	align-items: end;
 	grid-template-columns: repeat(6, 1fr);
 	column-gap: var(--spacing--20);
 	row-gap: var(--fields--row-gap);
 	max-width: var(--size--form, 570px);
 
-	.form-row,
-	fieldset,
-	> p,
-	> div {
+	.form-row {
 		grid-column: 1/7;
+		margin: 0;
 
 		@include min-width($breakpoint--mobile-sm) {
 			&:has(label[for*="first_name"]) {
@@ -85,7 +84,23 @@
 		}
 	}
 
-	.form-row {
-		margin: 0;
+	&:has(label[for*="state"]:not([style])) {
+		.form-row {
+			&:has(label[for*="city"]) {
+				grid-column: 1/7;
+			}
+
+			&:has(label[for*="state"]) {
+				@include min-width($breakpoint--desktop-sm) {
+					grid-column: 1/5;
+				}
+			}
+
+			&:has(label[for*="postcode"]) {
+				@include min-width($breakpoint--desktop-sm) {
+					grid-column: 5/7;
+				}
+			}
+		}
 	}
 }

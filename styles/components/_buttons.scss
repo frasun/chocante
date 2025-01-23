@@ -1,0 +1,11 @@
+[type="submit"] {
+	@include button;
+}
+
+[type="reset"] {
+	@include button(secondary);
+}
+
+.button {
+	@include link;
+}
