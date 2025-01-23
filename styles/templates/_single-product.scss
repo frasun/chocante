@@ -158,11 +158,10 @@
 				span,
 				a {
 					font-weight: var(--font-weight--semibold);
-					@include color(grey-1);
 				}
 
-				a {
-					@include link;
+				span {
+					@include color(grey-1);
 				}
 			}
 		}

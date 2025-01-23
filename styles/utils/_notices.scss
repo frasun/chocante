@@ -43,19 +43,13 @@
 	}
 
 	a:not(.button) {
-		@include link;
 		display: inline-block;
 		vertical-align: text-top;
 	}
 
 	.button {
-		@include link;
-
-		& {
-			color: inherit;
-			display: inline-block;
-			vertical-align: text-top;
-		}
+		display: inline-block;
+		vertical-align: text-top;
 
 		&,
 		&:hover {

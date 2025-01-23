@@ -160,18 +160,6 @@
 	}
 }
 
-// Link.
-@mixin link {
-	display: inline;
-	font-weight: var(--font-weight--bold);
-	text-decoration: underline;
-	@include transition(colors);
-
-	&:hover {
-		@include color(red-1);
-	}
-}
-
 // Navigation button.
 @mixin nav-button($disabled: "") {
 	--nav-button--size: 50px;
@@ -181,9 +169,9 @@
 	border-radius: 50%;
 	color: white;
 	@include flex(center);
-	@include transition(colors);
 	@include font-size(small-sm);
 	font-weight: var(--font-weight--semibold);
+	text-decoration: none;
 
 	@if $disabled == "" {
 		@include bg(green-1);

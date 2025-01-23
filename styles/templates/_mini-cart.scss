@@ -81,6 +81,8 @@
 
 		a {
 			font-weight: var(--font-weight--semibold);
+			color: currentColor;
+			text-decoration: none;
 
 			&:hover {
 				text-decoration: underline;
@@ -155,6 +157,8 @@
 				position: relative;
 				padding-left: calc(var(--mini-cart--image-size) + var(--spacing--10));
 				@include font-size(normal-sm);
+				color: currentColor;
+				text-decoration: none;
 
 				&:hover {
 					text-decoration: underline;

@@ -416,30 +416,20 @@
 			},
 			"link": {
 				"typography": {
-					"fontWeight": "700"
+					"fontWeight": "700",
+					"textDecoration": "underline"
 				},
-				"css": "transition: color 0.35s ease-out"
+				"color": {
+					"text": "var:preset|color|green"
+				},
+				":hover": {
+					"color": {
+						"text": "var(--color--red-1)"
+					}
+				}
 			}
 		},
 		"blocks": {
-			"core/paragraph": {
-				"elements": {
-					"link": {
-						"typography": {
-							"fontWeight": "700",
-							"textDecoration": "underline"
-						},
-						"color": {
-							"text": "var:preset|color|green"
-						},
-						":hover": {
-							"color": {
-								"text": "var(--color--red-1)"
-							}
-						}
-					}
-				}
-			},
 			"core/list": {
 				"spacing": {
 					"margin": {
@@ -458,22 +448,6 @@
 					},
 					"margin": {
 						"bottom": "0.5em"
-					}
-				},
-				"elements": {
-					"link": {
-						"typography": {
-							"fontWeight": "700",
-							"textDecoration": "underline"
-						},
-						"color": {
-							"text": "var:preset|color|green"
-						},
-						":hover": {
-							"color": {
-								"text": "var(--color--red-1)"
-							}
-						}
 					}
 				}
 			},

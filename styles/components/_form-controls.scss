@@ -57,10 +57,6 @@ label {
 		justify-self: end;
 	}
 
-	a {
-		@include link;
-	}
-
 	& + .woocommerce-input-wrapper,
 	& + .password-input {
 		margin-top: var(--spacing--10);

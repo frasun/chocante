@@ -1,9 +1,10 @@
 @mixin loop-item-link {
-	@include transition(colors);
 	border-radius: var(--border-radius);
 	@include border(grey-4);
 	overflow: hidden;
 	font-weight: var(--font-weight--normal);
+	color: currentColor;
+	text-decoration: none;
 
 	&:hover {
 		box-shadow: var(--shadow--2);

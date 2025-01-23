@@ -167,9 +167,13 @@
 						grid-column: 2 / 5;
 					}
 
-					a:hover {
-						@include color(red-1);
-						@include transition(colors);
+					a {
+						text-decoration: none;
+						color: currentColor;
+
+						&:hover {
+							color: var(--color--red-1);
+						}
 					}
 
 					small {
@@ -293,7 +297,6 @@
 
 						.shipping-calculator {
 							&-button {
-								@include link;
 								@include font-size(small);
 							}
 

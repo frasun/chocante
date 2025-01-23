@@ -8,8 +8,8 @@
 		padding: 0.35em 0;
 		display: block;
 		text-decoration: none;
+		color: currentColor;
 		@include font-size(small);
-		@include transition(colors);
 	}
 
 	&__nav {

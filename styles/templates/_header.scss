@@ -109,6 +109,7 @@
 				font-size: var(--font-size--small);
 				padding: var(--spacing--10);
 				text-align: center;
+				color: currentColor;
 
 				span {
 					line-height: 1.2;
@@ -171,6 +172,7 @@
 				padding-left: var(--spacing--20);
 				@include font-size(medium);
 				font-weight: var(--font-weight--semibold);
+				color: currentColor;
 			}
 		}
 	}
@@ -212,9 +214,9 @@
 				text-transform: uppercase;
 				font-weight: var(--font-weight--bold);
 				font-size: var(--font-size--x-small);
-				@include transition(colors);
 				padding: var(--spacing--5) var(--spacing--10);
 				color: var(--header--text-color-secondary, var(--color--brown-6));
+				text-decoration: none;
 
 				&:hover {
 					color: var(--text-color);

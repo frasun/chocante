@@ -7,7 +7,6 @@
 
 /* Forms */
 .lost_password a {
-	@include link;
 	@include font-size(small);
 }
 
@@ -60,12 +59,7 @@
 		display: block;
 	}
 
-	&-privacy-policy-text a {
-		@include link;
-	}
-
 	&-remove-coupon {
-		@include link;
 		@include font-size(small);
 	}
 
