@@ -1,5 +1,5 @@
 .infobox {
-	@include bg(grey-5);
+	@include bg("grey");
 	border-radius: var(--border-radius);
 	display: flex;
 	padding: var(--spacing--15) var(--spacing--20);
@@ -10,7 +10,7 @@
 	}
 
 	svg {
-		@include color(red-1);
+		@include color(contrast);
 		flex-shrink: 0;
 		width: auto;
 	}

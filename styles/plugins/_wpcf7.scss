@@ -9,10 +9,10 @@
 		}
 
 		&.invalid {
-			--notice--background-color: var(--color--red-3);
-			--notice--color: var(--color--red-2);
+			--notice--background-color: var(--color--error-bg);
+			--notice--color: var(--color--error);
 			--notice--icon: url(../icons//icon-error.svg);
-			--notice--icon-color: var(--color--red-1);
+			--notice--icon-color: var(--wp--custom--color--contrast);
 		}
 
 		&-control-wrap {
@@ -22,7 +22,7 @@
 		}
 
 		label:has(.wpcf7-not-valid) {
-			--label--color: var(--color--red-2);
+			--label--color: var(--color--error);
 		}
 
 		.wpcf7 {
@@ -33,22 +33,22 @@
 		}
 
 		.form-group label span {
-			color: var(--color--red-1);
+			color: var(--wp--custom--color--contrast);
 		}
 	}
 
 	&-not-valid-tip {
 		@include font-size(small-sm);
-		@include color(red-2);
+		@include color(error);
 		padding-top: 0.35em;
 		font-weight: var(--font-weight--normal);
 		display: block;
 	}
 
 	&-not-valid {
-		--input--border: var(--color--red-2);
-		--input--background-color: var(--color--red-3);
-		--radio--border: var(--color--red-2);
+		--input--border: var(--color--error);
+		--input--background-color: var(--color--error-bg);
+		--radio--border: var(--color--error);
 	}
 
 	&-response-output {

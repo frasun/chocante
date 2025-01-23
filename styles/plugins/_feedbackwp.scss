@@ -18,7 +18,7 @@
 			background: linear-gradient(
 				to right,
 				var(--rating--highlight) 50%,
-				var(--color--grey-3) 50%
+				var(--wp--custom--color--grey-3) 50%
 			);
 			-webkit-background-clip: text;
 			-webkit-text-fill-color: transparent;
@@ -84,7 +84,7 @@
 					background: linear-gradient(
 						to right,
 						var(--rating--highlight) 50%,
-						var(--color--grey-3) 50%
+						var(--wp--custom--color--grey-3) 50%
 					);
 					-webkit-background-clip: text;
 					-webkit-text-fill-color: transparent;

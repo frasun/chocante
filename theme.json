@@ -25,29 +25,29 @@
 			"gradients": [],
 			"palette": [
 				{
-					"color": "#333F2E",
-					"name": "Green",
-					"slug": "green"
-				},
-				{
 					"color": "#3F362E",
 					"name": "Brown",
-					"slug": "brown"
+					"slug": "base"
 				},
 				{
-					"color": "#454545",
-					"name": "Grey (body)",
-					"slug": "grey-1"
-				},
-				{
-					"color": "#aba7a4",
-					"name": "Grey light",
-					"slug": "grey-2"
+					"color": "#333F2E",
+					"name": "Green",
+					"slug": "accent"
 				},
 				{
 					"color": "#f8f6f4",
-					"name": "Grey light (background)",
-					"slug": "grey-5"
+					"name": "Light background",
+					"slug": "grey"
+				},
+				{
+					"color": "#454545",
+					"name": "Text",
+					"slug": "text"
+				},
+				{
+					"color": "#aba7a4",
+					"name": "Light text",
+					"slug": "grey-2"
 				},
 				{
 					"color": "#fff",
@@ -61,6 +61,35 @@
 				"property": "color, background-color, border-color, box-shadow, opacity, transform",
 				"duration": "0.35s",
 				"easing": "ease-out"
+			},
+			"color": {
+				"base-2": "#231e19",
+				"base-3": "#37312b",
+				"base-4": "#14110e",
+				"base-5": "#493f36",
+				"base-6": "#958b83",
+				"base-7": "#e2dad3",
+				"base-8": "#e6dad3",
+				"base-9": "#675e56",
+				"accent": "#333f2e",
+				"accent-2": "#42513d",
+				"contrast": "#9d2f51",
+				"error": "#d12121",
+				"error-bg": "#ffdfdf",
+				"text": "#454545",
+				"grey": "#f8f6f4",
+				"grey-2": "#aba7a4",
+				"grey-3": "#d6d6d6",
+				"grey-4": "#f2f2f2"
+			},
+			"status": {
+				"pending": "#a95050",
+				"on-hold": "#a95050",
+				"processing": "#505da9",
+				"completed": "#2b885b",
+				"failed": "#a9509f",
+				"cancelled": "#a9509f",
+				"refunded": "#9fa158"
 			}
 		},
 		"dimensions": {
@@ -310,7 +339,7 @@
 	},
 	"styles": {
 		"color": {
-			"text": "var:preset|color|grey-1"
+			"text": "var:preset|color|text"
 		},
 		"spacing": {
 			"padding": {
@@ -363,7 +392,7 @@
 					}
 				},
 				"color": {
-					"text": "var:preset|color|brown"
+					"text": "var:preset|color|base"
 				}
 			},
 			"h3": {
@@ -372,7 +401,7 @@
 					"lineHeight": "1.15"
 				},
 				"color": {
-					"text": "var:preset|color|brown"
+					"text": "var:preset|color|base"
 				}
 			},
 			"h4": {
@@ -380,7 +409,7 @@
 					"fontSize": "var:preset|font-size|big"
 				},
 				"color": {
-					"text": "var:preset|color|brown"
+					"text": "var:preset|color|base"
 				}
 			},
 			"h5": {
@@ -417,7 +446,7 @@
 					"fontSize": "var:preset|font-size|small"
 				},
 				"color": {
-					"text": "var(--color--grey-2)"
+					"text": "var:preset|color|grey-2"
 				}
 			},
 			"link": {
@@ -426,11 +455,11 @@
 					"textDecoration": "underline"
 				},
 				"color": {
-					"text": "var:preset|color|green"
+					"text": "var:preset|color|accent"
 				},
 				":hover": {
 					"color": {
-						"text": "var(--color--red-1)"
+						"text": "var:custom|color|contrast"
 					}
 				}
 			}
@@ -474,6 +503,11 @@
 					"caption": {
 						"typography": {
 							"textAlign": "left"
+						}
+					},
+					"link": {
+						"color": {
+							"text": "var:preset|color|grey-2"
 						}
 					}
 				}

@@ -11,7 +11,7 @@ textarea,
 // Label.
 label {
 	font-weight: var(--font-weight--bold);
-	color: var(--label--color, var(--color--brown-4));
+	color: var(--label--color, var(--wp--preset--color--base));
 	line-height: 1.15;
 
 	&[for] {
@@ -23,7 +23,7 @@ label {
 		gap: var(--spacing--10);
 		cursor: pointer;
 		font-weight: var(--font-weight--normal);
-		--label--color: var(--color--grey-1);
+		--label--color: var(--wp--preset--color--text);
 
 		&:hover {
 			opacity: 0.9;
@@ -47,7 +47,7 @@ label {
 	}
 
 	.required {
-		@include color(red-1);
+		@include color(contrast);
 	}
 
 	.optional {
@@ -67,7 +67,7 @@ label {
 select {
 	@include select-arrow;
 	padding-right: 40px;
-	@include color(grey-1);
+	@include color(text);
 	border: 0;
 	font-weight: var(--font-weight--normal);
 }
@@ -109,15 +109,15 @@ input[type="checkbox"] {
 }
 
 .woocommerce-invalid {
-	--input--border: var(--color--red-2);
-	--input--background-color: var(--color--red-3);
-	--label--color: var(--color--red-2);
-	--radio--border: var(--color--red-2);
+	--input--border: var(--color--error);
+	--input--background-color: var(--color--error-bg);
+	--label--color: var(--color--error);
+	--radio--border: var(--color--error);
 }
 
 [class*="inline-error-message"],
 .coupon-error-notice {
 	@include font-size(small-sm);
-	@include color(red-2);
+	@include color(error);
 	padding-top: 0.35em;
 }

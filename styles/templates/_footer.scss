@@ -1,6 +1,6 @@
 .site-footer {
-	@include bg(brown-2);
-	@include color(brown-6);
+	@include bg(base-2);
+	@include color(base-6);
 
 	.menu a {
 		font-weight: var(--font-weight--semibold);
@@ -32,7 +32,7 @@
 
 		&-menu {
 			@include max-width($breakpoint--desktop-sm) {
-				@include border(brown-3, 0 0 1px);
+				@include border(base-3, 0 0 1px);
 			}
 		}
 
@@ -111,7 +111,7 @@
 			gap: var(--spacing--10);
 			padding-top: var(--spacing--20);
 			padding-bottom: var(--spacing--20);
-			@include border(brown-3, 1px 0 0);
+			@include border(base-3, 1px 0 0);
 		}
 
 		@include min-width($breakpoint--desktop-md) {
@@ -131,7 +131,7 @@
 
 			@include max-width($breakpoint--desktop-sm) {
 				width: 100%;
-				@include border(brown-3, 0 0 1px);
+				@include border(base-3, 0 0 1px);
 			}
 		}
 
@@ -176,7 +176,7 @@
 			padding: 0;
 
 			&:not(:hover) {
-				@include color(brown-5);
+				@include color(base-5);
 			}
 
 			svg {
@@ -186,8 +186,8 @@
 	}
 
 	&__copy {
-		background-color: #14110e;
-		@include color(brown-4);
+		@include bg(base-4);
+		@include color(base);
 		padding-top: var(--spacing--20);
 		padding-bottom: var(--spacing--20);
 
@@ -229,7 +229,7 @@
 
 				a {
 					&:hover {
-						@include color(brown-6);
+						@include color(base-6);
 					}
 				}
 			}

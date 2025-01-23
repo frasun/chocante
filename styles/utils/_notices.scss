@@ -6,8 +6,11 @@
 	text-align: left;
 	list-style: none;
 	width: 100%;
-	background-color: var(--notice--background-color, var(--color--grey-5));
-	color: var(--notice--color, var(--color--grey-1));
+	background-color: var(
+		--notice--background-color,
+		var(--wp--preset--color--grey)
+	);
+	color: var(--notice--color, var(--wp--preset--color--text));
 
 	@include min-width($breakpoint--mobile-lg) {
 		padding-right: var(--spacing--20);

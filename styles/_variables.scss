@@ -59,17 +59,6 @@
 	--font-size--small: var(--wp--preset--font-size--small, 14px);
 	--font-size--small-sm: var(--wp--preset--font-size--small-sm, 13px);
 	--font-size--x-small: var(--wp--preset--font-size--x-small, 12px);
-	// Colors.
-	@each $color, $value in $colors {
-		--color--#{$color}: #{$value};
-	}
-	--color-status--pending: #a95050;
-	--color-status--on-hold: #a95050;
-	--color-status--processing: #505da9;
-	--color-status--completed: #2b885b;
-	--color-status--failed: #a9509f;
-	--color-status--cancelled: #a9509f;
-	--color-status--refunded: #9fa158;
 	// Border radius.
 	--border-radius--lg: 30px;
 	--border-radius: 25px;

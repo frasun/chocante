@@ -1,5 +1,5 @@
 .woocommerce-account {
-	--body--background-color: var(--color--grey-5);
+	--body--background-color: var(--wp--preset--color--grey);
 	--user-icon-size: 40px;
 
 	@include max-width($breakpoint--desktop-md) {
@@ -98,7 +98,7 @@
 				&__username {
 					@include font-size(medium-sm);
 					font-weight: var(--font-weight--semibold);
-					@include color(green-1);
+					@include color(accent);
 					word-break: break-all;
 				}
 
@@ -142,7 +142,7 @@
 
 						svg {
 							@include transition;
-							@include color(brown-6);
+							@include color(base-6);
 						}
 					}
 
@@ -156,7 +156,7 @@
 						a:hover {
 							&,
 							svg {
-								@include color(red-1);
+								@include color(contrast);
 							}
 						}
 					}
@@ -194,7 +194,7 @@
 				form {
 					h2 {
 						@include font-style(section-label);
-						@include color(brown-4);
+						@include color(base);
 					}
 
 					.woocommerce-address-fields {
@@ -393,31 +393,31 @@
 			font-size: 10px;
 
 			&--pending {
-				--badge--background-color: var(--color-status--pending);
+				--badge--background-color: var(--wp--custom--status--pending);
 			}
 
 			&--on-hold {
-				--badge--background-color: var(--color-status--on-hold);
+				--badge--background-color: var(--wp--custom--status--on-hold);
 			}
 
 			&--completed {
-				--badge--background-color: var(--color-status--completed);
+				--badge--background-color: var(--wp--custom--status--completed);
 			}
 
 			&--failed {
-				--badge--background-color: var(--color-status--failed);
+				--badge--background-color: var(--wp--custom--status--failed);
 			}
 
 			&--cancelled {
-				--badge--background-color: var(--color-status--cancelled);
+				--badge--background-color: var(--wp--custom--status--cancelled);
 			}
 
 			&--refunded {
-				--badge--background-color: var(--color-status--refunded);
+				--badge--background-color: var(--wp--custom--status--refunded);
 			}
 
 			&--processing {
-				--badge--background-color: var(--color-status--processing);
+				--badge--background-color: var(--wp--custom--status--processing);
 			}
 		}
 	}
@@ -651,7 +651,7 @@
 
 		h2 {
 			@include font-style(section-label);
-			@include color(brown-4);
+			@include color(base);
 			padding-bottom: var(--spacing--30);
 		}
 	}

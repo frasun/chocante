@@ -32,7 +32,7 @@
 		right: 0;
 		top: var(--spacing--5);
 		background-color: white;
-		@include counter-badge(brown-4);
+		@include counter-badge(base);
 
 		@include min-width($breakpoint--desktop-sm) {
 			top: var(--spacing--10);
@@ -74,7 +74,7 @@
 		margin: 0;
 
 		.count {
-			@include counter-badge($bg: brown-4);
+			@include counter-badge($bg: base);
 			color: white;
 			font-size: 0.55em;
 		}
@@ -169,7 +169,7 @@
 					padding-top: 0.15em;
 					@include font-size(small);
 					font-weight: var(--font-weight--normal);
-					@include color(grey-1);
+					@include color(text);
 				}
 			}
 

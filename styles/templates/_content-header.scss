@@ -26,7 +26,7 @@
 	}
 
 	&__title {
-		color: var(--content-header--title-color, var(--color--brown-4));
+		color: var(--content-header--title-color, var(--wp--preset--color--base));
 		@include font-style(page-title);
 	}
 

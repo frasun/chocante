@@ -18,7 +18,7 @@
 			@include transition;
 			background-color: var(
 				--splide--pagination-page--background-color,
-				var(--color--brown-4)
+				var(--wp--preset--color--base)
 			);
 			cursor: default;
 

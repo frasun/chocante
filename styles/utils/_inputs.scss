@@ -1,9 +1,12 @@
 // Input.
 @mixin input($size: "") {
 	@include font-size(normal-sm);
-	border: 1px solid var(--input--border, var(--color--brown-6));
-	background-color: var(--input--background-color, var(--color--grey-5));
-	color: var(--input--color, var(--color--grey-1));
+	border: 1px solid var(--input--border, var(--wp--custom--color--base-6));
+	background-color: var(
+		--input--background-color,
+		var(--wp--preset--color--grey)
+	);
+	color: var(--input--color, var(--wp--preset--color--text));
 	@include transition;
 	font-weight: inherit;
 	width: 100%;
@@ -23,12 +26,12 @@
 
 	&:focus {
 		background-color: var(--input--background-color--focus, white);
-		border-color: var(--input--border--focus, var(--color--green-1));
+		border-color: var(--input--border--focus, var(--wp--preset--color--accent));
 	}
 
 	&::placeholder {
 		opacity: 0.5;
-		color: var(--input--placeholder, var(--color--grey-1));
+		color: var(--input--placeholder, var(--wp--preset--color--text));
 	}
 }
 
@@ -44,7 +47,7 @@
 	width: 25px;
 	height: 25px;
 	border-radius: 50%;
-	border: 1px solid var(--radio--border, var(--color--grey-1));
+	border: 1px solid var(--radio--border, var(--wp--preset--color--text));
 	@include flex(center);
 	display: inline-flex;
 	@include transition;
@@ -70,7 +73,7 @@
 	}
 
 	&:checked {
-		@include bg(green-1);
+		@include bg(accent);
 
 		&::after {
 			opacity: 1;
@@ -93,7 +96,7 @@
 @mixin checkbox {
 	width: 25px;
 	height: 25px;
-	border: 1px solid var(--radio--border, var(--color--grey-1));
+	border: 1px solid var(--radio--border, var(--wp--preset--color--text));
 	display: inline-block;
 	border-radius: var(--border-radius--xs);
 	@include transition;
@@ -105,7 +108,7 @@
 	}
 
 	&:checked {
-		@include bg(green-1);
+		@include bg(accent);
 		background-image: url(../icons/icon-tick.svg);
 		background-position: center;
 		background-repeat: no-repeat;

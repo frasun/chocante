@@ -35,7 +35,7 @@
 									position: static;
 									@include transition;
 									font-size: 0.75em;
-									@include color(grey-1);
+									@include color(text);
 									opacity: 0.5;
 								}
 							}
@@ -45,7 +45,7 @@
 							padding-left: 0;
 							padding-right: 0;
 							line-height: inherit;
-							@include color(grey-1);
+							@include color(text);
 						}
 					}
 				}
@@ -61,12 +61,12 @@
 						&[aria-selected],
 						&[data-selected] {
 							@include bg(grey-4);
-							@include color(grey-1);
+							@include color(text);
 						}
 					}
 
 					&[data-selected="true"] {
-						@include color(green-1);
+						@include color(accent);
 						font-weight: var(--font-weight--bold);
 						background-color: transparent;
 					}
@@ -89,7 +89,7 @@
 		.select2-selection {
 			background-color: white;
 			box-shadow: var(--shadow--2);
-			@include border(green-1);
+			@include border(accent);
 
 			.select2-selection__arrow {
 				b {
@@ -126,7 +126,7 @@
 	}
 
 	&-dropdown {
-		border-color: var(--color--green-1);
+		border-color: var(--wp--preset--color--accent);
 		overflow: hidden;
 
 		&.select2-dropdown--below {

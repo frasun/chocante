@@ -8,7 +8,7 @@
 
 	&__wrapper {
 		color: white;
-		background: var(--color--brown-4);
+		background: var(--wp--preset--color--base);
 		padding-top: var(--spacing--50);
 		margin-top: var(--spacing--100);
 		@include bg-pattern;

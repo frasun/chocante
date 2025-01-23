@@ -6,7 +6,7 @@
 	bottom: 0;
 	@include transition;
 	opacity: 0;
-	@include bg(brown-4);
+	@include bg(base);
 	z-index: var(--z-index--modal-backdrop);
 
 	&.active {

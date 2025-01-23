@@ -1,18 +1,18 @@
 .single-post {
-	--header--background-color: var(--color--brown-6);
-	--header--text-color-secondary: var(--color--grey-3);
-	--header--border-color: var(--color--grey-2);
+	--header--background-color: var(--wp--custom--color--base-6);
+	--header--text-color-secondary: var(--wp--custom--color--grey-3);
+	--header--border-color: var(--wp--custom--color--grey-3);
 	--body--background-color: var(--header--background-color);
 	--content--background-color: white;
 
 	&:has(.product-section + .join-group) {
-		--join-group--background-color: var(--color--grey-5);
+		--join-group--background-color: var(--wp--preset--color--grey);
 	}
 
-	--product-section--background-color: var(--color--grey-5);
+	--product-section--background-color: var(--wp--preset--color--grey);
 	--content-header--title-color: white;
 	--content-header--background-bottom: 0;
-	--content-header--background: var(--color--grey-5);
+	--content-header--background: var(--wp--preset--color--grey);
 
 	--wp--style--root--padding-top: var(--spacing--20);
 	--wp--style--root--padding-bottom: var(--spacing--30);

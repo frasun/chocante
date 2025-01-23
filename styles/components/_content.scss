@@ -5,7 +5,7 @@
 
 // @todo: use h1.
 .page-title {
-	@include color(brown-4);
+	@include color(base);
 	@include font-style(page-title);
 }
 

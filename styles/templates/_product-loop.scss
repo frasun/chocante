@@ -18,7 +18,7 @@
 			&-loop-product {
 				&__title {
 					@include loop-item-title;
-					@include color(brown-4);
+					@include color(base);
 					margin: 0 0 0.2em;
 				}
 

@@ -1,5 +1,5 @@
 .woocommerce-cart {
-	--body--background-color: var(--color--grey-5);
+	--body--background-color: var(--wp--preset--color--grey);
 	--notice--background-color: white;
 	--join-group--background-color: white;
 
@@ -154,7 +154,7 @@
 					grid-area: 1 / 2 / 1 / 4;
 					align-self: start;
 					font-weight: var(--font-weight--bold);
-					@include color(brown-4);
+					@include color(base);
 					@include font-size(normal);
 					padding-right: var(--spacing--30);
 
@@ -172,7 +172,7 @@
 						color: currentColor;
 
 						&:hover {
-							color: var(--color--red-1);
+							color: var(--wp--custom--color--contrast);
 						}
 					}
 
@@ -181,14 +181,14 @@
 						font-weight: var(--font-weight--normal);
 						font-size: var(--font-size--normal-sm);
 						padding: 0.5em 0;
-						@include color(grey-1);
+						@include color(text);
 					}
 				}
 
 				.product-price {
 					grid-area: 2 / 1 / 2 / 4;
 					@include font-size(medium);
-					@include color(green-1);
+					@include color(accent);
 					--line-height: 1;
 
 					@include min-width($breakpoint--mobile-sm) {
@@ -232,7 +232,7 @@
 					font-weight: var(--font-weight--bold);
 					--line-height: 1;
 					@include font-size(medium);
-					@include color(green-1);
+					@include color(accent);
 
 					@include min-width($breakpoint--mobile-sm) {
 						grid-column: 3 / 4;
@@ -259,7 +259,7 @@
 			}
 
 			.blockUI.blockOverlay {
-				background-color: var(--color--grey-5) !important;
+				background-color: var(--wp--preset--color--grey) !important;
 			}
 		}
 
@@ -362,8 +362,8 @@
 	}
 
 	.coupon-error-notice {
-		--notice--background-color: var(--color--red-3);
-		--notice--color: var(--color--red-2);
+		--notice--background-color: var(--color--error-bg);
+		--notice--color: var(--color--error);
 		--notice--icon: url(../icons/icon-error.svg);
 		@include notice;
 	}

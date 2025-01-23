@@ -1,10 +1,13 @@
 :root {
-	--header--background-color: var(--color--brown-4);
-	--header--text-color-secondary: var(--color--brown-6);
+	--header--background-color: var(--wp--preset--color--base);
+	--header--text-color-secondary: var(--wp--custom--color--base-6);
 }
 
 .site-header {
-	background-color: var(--header--background-color, var(--color--brown-4));
+	background-color: var(
+		--header--background-color,
+		var(--wp--preset--color--base)
+	);
 	color: var(--header--text-color, white);
 	position: sticky;
 	top: 0;
@@ -195,7 +198,8 @@
 	&__top {
 		padding-top: var(--spacing--10);
 		padding-bottom: var(--spacing--10);
-		border-bottom: 1px solid var(--header--border-color, var(--color--brown-9));
+		border-bottom: 1px solid
+			var(--header--border-color, var(--wp--custom--color--base-9));
 		@include hide(mobile);
 
 		@include max-width($breakpoint--desktop-md) {
@@ -215,7 +219,10 @@
 				font-weight: var(--font-weight--bold);
 				font-size: var(--font-size--x-small);
 				padding: var(--spacing--5) var(--spacing--10);
-				color: var(--header--text-color-secondary, var(--color--brown-6));
+				color: var(
+					--header--text-color-secondary,
+					var(--wp--custom--color--base-6)
+				);
 				text-decoration: none;
 
 				&:hover {

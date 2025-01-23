@@ -34,7 +34,7 @@
 	legend {
 		@include font-size(medium-sm);
 		font-weight: var(--font-weight--bold);
-		@include color(brown-4);
+		@include color(base);
 		padding-bottom: var(--spacing--10);
 	}
 

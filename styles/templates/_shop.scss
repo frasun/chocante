@@ -1,5 +1,5 @@
 .shop-loop {
-	@include bg(grey-5);
+	@include bg("grey");
 
 	&__container {
 		@include container;
@@ -158,7 +158,7 @@
 		display: flex;
 		align-items: baseline;
 		gap: var(--spacing--5);
-		@include color(brown-4);
+		@include color(base);
 
 		@include max-width($breakpoint--desktop-sm) {
 			select {
@@ -210,6 +210,6 @@
 	}
 
 	&:not(:has(.page-description)) {
-		--join-group--background-color: var(--color--grey-5);
+		--join-group--background-color: var(--wp--preset--color--grey);
 	}
 }

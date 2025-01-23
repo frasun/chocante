@@ -12,7 +12,7 @@
 }
 
 body:has(.woocommerce-coming-soon-banner) {
-	--woocommerce-coming-soon-color: var(--color--brown-4);
+	--woocommerce-coming-soon-color: var(--wp--preset--color--base);
 	--wp--preset--font-family--cardo: var(--font-family--body);
 }
 

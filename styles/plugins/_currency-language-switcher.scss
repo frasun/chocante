@@ -19,7 +19,7 @@
 
 	a {
 		font-weight: var(--font-weight--semibold);
-		@include color(brown-4);
+		@include color(base);
 		display: flex;
 		gap: var(--spacing--5);
 		padding: var(--spacing--10) var(--spacing--20);
@@ -77,7 +77,7 @@
 .wcml-dropdown-click a.wcml-cs-item-toggle {
 	text-transform: uppercase;
 	font-weight: var(--font-weight--bold);
-	color: var(--header--text-color-secondary, var(--color--brown-6));
+	color: var(--header--text-color-secondary, var(--wp--custom--color--base-6));
 	padding: var(--spacing--10) var(--spacing--15);
 	display: flex;
 	gap: var(--spacing--10);

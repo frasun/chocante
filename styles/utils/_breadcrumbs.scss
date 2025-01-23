@@ -8,7 +8,7 @@
 		color: currentColor;
 
 		&:hover {
-			@include color(red-1);
+			@include color(contrast);
 		}
 	}
 }

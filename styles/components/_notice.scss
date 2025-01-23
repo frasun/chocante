@@ -28,13 +28,13 @@
 	&-info,
 	&-message {
 		--notice--icon: url(../icons/icon-info.svg);
-		--notice--icon-color: var(--color--red-1);
+		--notice--icon-color: var(--wp--custom--color--contrast);
 	}
 
 	&-error {
-		--notice--background-color: var(--color--red-3);
-		--notice--color: var(--color--red-2);
+		--notice--background-color: var(--color--error-bg);
+		--notice--color: var(--color--error);
 		--notice--icon: url(../icons//icon-error.svg);
-		--notice--icon-color: var(--color--red-1);
+		--notice--icon-color: var(--wp--custom--color--contrast);
 	}
 }

@@ -42,11 +42,11 @@
 		@include transition;
 		width: 24px;
 		height: 24px;
-		@include color(green-1);
+		@include color(accent);
 		opacity: 1;
 
 		&:hover {
-			@include color(red-1);
+			@include color(contrast);
 
 			&:active {
 				transition: none;

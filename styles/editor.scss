@@ -16,7 +16,7 @@
 					color: inherit;
 
 					&:hover {
-						color: var(--color--red-1);
+						color: var(--wp--custom--color--contrast);
 					}
 				}
 			}
@@ -45,10 +45,10 @@
 		.wp-element {
 			&-caption {
 				a {
-					color: var(--color--grey-2);
+					color: var(--wp--preset--color--grey-3);
 
 					&:hover {
-						color: var(--color--red-1);
+						color: var(--wp--custom--color--contrast);
 					}
 				}
 			}

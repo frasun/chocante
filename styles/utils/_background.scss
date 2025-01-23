@@ -22,7 +22,7 @@
 		var(--bg-gradient--second-color, white) var(--bg-gradient--bottom, 50%),
 		var(
 				--bg-gradient--first-color,
-				var(--header--background-color, var(--color--brown-4))
+				var(--header--background-color, var(--wp--preset--color--base))
 			)
 			var(--bg-gradient--bottom, 50%)
 	);

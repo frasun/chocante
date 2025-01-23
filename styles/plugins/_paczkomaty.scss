@@ -19,7 +19,7 @@
 
 	label {
 		@include font-style(section-label);
-		@include color(grey-1);
+		@include color(text);
 	}
 
 	span.paczkomat_id_wrapper span.woocommerce-input-wrapper {

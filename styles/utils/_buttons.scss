@@ -47,8 +47,8 @@
 		}
 
 		@if $style == secondary {
-			border-color: var(--color--grey-3);
-			color: var(--color--grey-3);
+			border-color: var(--wp--custom--color--grey-3);
+			color: var(--wp--custom---color--grey-3);
 		}
 	}
 }
@@ -66,8 +66,8 @@
 @mixin button-primary($theme: light) {
 	@if $theme == light {
 		@include button-color(
-			$bg: var(--color--green-1),
-			$bg-hover: var(--color--green-2),
+			$bg: var(--wp--preset--color--accent),
+			$bg-hover: var(--wp--custom--color--accent-2),
 			$color: white,
 			$hover-color: white
 		);
@@ -76,9 +76,9 @@
 	@if $theme == dark {
 		@include button-color(
 			$bg: white,
-			$bg-hover: var(--color--brown-7),
-			$color: var(--color--brown-4),
-			$hover-color: var(--color--brown-4)
+			$bg-hover: var(--wp--custom--color--base-7),
+			$color: var(--wp--preset--color--base),
+			$hover-color: var(--wp--preset--color--base)
 		);
 	}
 }
@@ -87,8 +87,8 @@
 	@if $theme == light {
 		@include button-color(
 			$bg: transparent,
-			$bg-hover: var(--color--green-2),
-			$color: var(--color--green-1),
+			$bg-hover: var(--wp--custom--color--accent-2),
+			$color: var(--wp--preset--color--accent),
 			$hover-color: white,
 			$border: true
 		);
@@ -99,7 +99,7 @@
 			$bg: transparent,
 			$bg-hover: white,
 			$color: white,
-			$hover-color: var(--color--brown-4),
+			$hover-color: var(--wp--preset--color--base),
 			$border: true
 		);
 	}
@@ -176,9 +176,9 @@
 	text-decoration: none;
 
 	@if $disabled == "" {
-		@include bg(green-1);
+		@include bg(accent);
 	} @else {
-		@include bg(brown-6);
+		@include bg(base-6);
 	}
 
 	svg {
@@ -190,7 +190,7 @@
 			box-shadow: var(--shadow--1);
 
 			&:not(:active) {
-				@include bg(green-2);
+				@include bg(accent-2);
 
 				svg {
 					transform: scale(1.25);
@@ -200,7 +200,7 @@
 
 		&:active {
 			transition: none;
-			@include bg(green-1);
+			@include bg(accent);
 		}
 	}
 }

@@ -48,12 +48,12 @@
 
 		.cwginstock {
 			&error {
-				@include bg(red-3);
-				color: var(--color--red-2) !important;
+				@include bg(error-bg);
+				color: var(--color--error) !important;
 			}
 
 			&success {
-				color: var(--color--grey-1) !important;
+				color: var(--wp--preset--color--text) !important;
 			}
 		}
 	}

@@ -1,6 +1,6 @@
 @mixin remove-button {
 	@include flex(center);
-	@include color(brown-4);
+	@include color(base);
 
 	svg {
 		width: 12px;
@@ -8,7 +8,7 @@
 	}
 
 	&:hover {
-		@include color(red-1);
+		@include color(contrast);
 	}
 
 	&:active {

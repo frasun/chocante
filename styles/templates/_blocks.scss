@@ -19,7 +19,7 @@
 			&::before {
 				content: counter(footnotes);
 				--badge--border-radius: 50%;
-				--badge--color: var(--color--brown-4);
+				--badge--color: var(--wp--preset--color--base);
 				--badge--background-color: transparent;
 				--badge--padding: 0.1em 0.12em;
 				@include badge;
@@ -27,7 +27,7 @@
 				display: inline-block;
 				letter-spacing: 0;
 				text-align: center;
-				@include border(brown-4);
+				@include border(base);
 				margin-right: 0.75em;
 				box-sizing: border-box;
 			}
@@ -61,7 +61,7 @@
 				content: "\0041";
 				@include transition;
 				font-size: 0.75em;
-				@include color(grey-1);
+				@include color(text);
 			}
 		}
 
@@ -134,7 +134,7 @@
 			text-decoration: underline;
 
 			&:hover {
-				color: var(--color--red-1);
+				color: var(--wp--custom--color--contrast);
 			}
 		}
 	}

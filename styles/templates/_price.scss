@@ -11,7 +11,7 @@
 			&-Price-amount {
 				@include font-size(big);
 				font-weight: var(--font-weight--bold);
-				@include color(green-1);
+				@include color(accent);
 
 				[lang="es-ES"] .products & {
 					@include font-size(medium);
@@ -45,7 +45,7 @@
 				background: linear-gradient(
 					to top left,
 					transparent calc(50% - 1px),
-					var(--color--green-1),
+					var(--wp--preset--color--accent),
 					transparent calc(50% + 1px)
 				);
 			}

@@ -4,7 +4,7 @@
 		&:has(:where(main, article) .product-section:last-child),
 		&:has(.product-section + .join-group),
 		&:has(.wp-site-blocks .has-grey-light-background-color:last-child) {
-			--join-group--background-color: var(--color--grey-5);
+			--join-group--background-color: var(--wp--preset--color--grey);
 		}
 	}
 	// END TODO.
@@ -16,14 +16,14 @@
 		--content--background-color: white;
 
 		&:has(.product-section + .join-group) {
-			--join-group--background-color: var(--color--grey-5);
+			--join-group--background-color: var(--wp--preset--color--grey);
 		}
 
-		--product-section--background-color: var(--color--grey-5);
+		--product-section--background-color: var(--wp--preset--color--grey);
 
 		--content-header--title-color: white;
 		--content-header--background-bottom: 0;
-		--content-header--text-color-secondary: var(--color--brown-7);
+		--content-header--text-color-secondary: var(--wp--custom--color--base-7);
 	}
 
 	&-template-with-header--gift-sets {
@@ -59,14 +59,14 @@
 }
 
 body.error404 {
-	--body--background-color: var(--color--grey-5);
+	--body--background-color: var(--wp--preset--color--grey);
 
 	.empty-screen {
 		margin: var(--spacing--100) auto;
 
 		svg {
 			path {
-				fill: var(--color--grey-1);
+				fill: var(--wp--preset--color--text);
 			}
 		}
 	}
