@@ -30,7 +30,9 @@
 			position: relative;
 
 			button[type="submit"] {
-				@include button($scheme: dark, $size: lg);
+				@include button;
+				@include button-size-lg;
+				@include button-style-inverted;
 
 				@include max-width($breakpoint--mobile) {
 					width: 100%;

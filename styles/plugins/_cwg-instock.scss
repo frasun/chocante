@@ -33,7 +33,8 @@
 	}
 
 	&_button {
-		@include button($size: lg);
+		@include button;
+		@include button-size-lg;
 		margin-top: var(--spacing--15);
 	}
 

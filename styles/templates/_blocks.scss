@@ -105,24 +105,28 @@
 
 	&-button {
 		&__link {
-			@include button($size: lg);
+			@include button;
+
+			& {
+				@include button-size-lg;
+			}
 		}
 
 		&.is-style-outline {
 			.wp-block-button__link {
-				@include button(secondary, $size: lg);
+				@include button-style-outline;
 			}
 		}
 
 		&.is-style-inverted {
 			.wp-block-button__link {
-				@include button($scheme: dark, $size: lg);
+				@include button-style-inverted;
 			}
 		}
 
 		&.is-style-inverted-outline {
 			.wp-block-button__link {
-				@include button(secondary, $scheme: dark, $size: lg);
+				@include button-style-outline-inverted;
 			}
 		}
 	}

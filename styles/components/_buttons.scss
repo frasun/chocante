@@ -2,10 +2,15 @@ a {
 	@include transition;
 }
 
-[type="submit"] {
+[type="submit"],
+[type="reset"] {
 	@include button;
 }
 
+[type="submit"] {
+	@include button-size-lg;
+}
+
 [type="reset"] {
-	@include button(secondary);
+	@include button-style-outline;
 }

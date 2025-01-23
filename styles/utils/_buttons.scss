@@ -1,139 +1,116 @@
 // Button.
-@mixin button($style: primary, $scheme: light, $size: sm) {
+@mixin button {
+	@include button-size-sm;
+	@include button-style-default;
+
+	border-color: var(--button--border-color);
+	border-width: var(--button--border-width);
+	padding: var(--button--padding-y) var(--button--padding-x);
+	border-style: solid;
 	@include font-size(normal-sm);
 	--line-height: 1.15;
 	font-weight: var(--font-weight--bold);
+	border-radius: var(--border-radius);
 	display: inline-block;
 	text-align: center;
 	text-decoration: none;
-	border-radius: var(--border-radius);
-	background-color: transparent;
-	border-style: solid;
-	border-color: transparent;
 	white-space: nowrap;
 	text-overflow: ellipsis;
 	overflow: hidden;
-
-	@if $size == sm {
-		@include button-sm;
-	} @else {
-		@include button-lg;
-	}
-
-	&:not([disabled]):not(.disabled) {
-		@if $style == primary {
-			@include button-primary($scheme);
-		}
-
-		@if $style == secondary {
-			@include button-secondary($scheme);
-		}
-	}
-
-	&[disabled],
-	&.disabled {
-		cursor: not-allowed;
-
-		@if $style == primary {
-			@if $scheme == light {
-				@include bg(grey-3);
-				color: white;
-			}
-
-			@if $scheme == dark {
-				background-color: white;
-				@include color(grey-3);
-			}
-		}
-
-		@if $style == secondary {
-			border-color: var(--wp--custom--color--grey-3);
-			color: var(--wp--custom---color--grey-3);
-		}
-	}
-}
-
-@mixin button-sm {
-	padding: 0.65em 1.35em;
-	border-width: 3px;
-}
-
-@mixin button-lg {
-	padding: 0.85em 2em 0.95em;
-	border-width: 3px;
-}
-
-@mixin button-primary($theme: light) {
-	@if $theme == light {
-		@include button-color(
-			$bg: var(--wp--preset--color--accent),
-			$bg-hover: var(--wp--custom--color--accent-2),
-			$color: white,
-			$hover-color: white
-		);
-	}
-
-	@if $theme == dark {
-		@include button-color(
-			$bg: white,
-			$bg-hover: var(--wp--custom--color--base-7),
-			$color: var(--wp--preset--color--base),
-			$hover-color: var(--wp--preset--color--base)
-		);
-	}
-}
-
-@mixin button-secondary($theme: light) {
-	@if $theme == light {
-		@include button-color(
-			$bg: transparent,
-			$bg-hover: var(--wp--custom--color--accent-2),
-			$color: var(--wp--preset--color--accent),
-			$hover-color: white,
-			$border: true
-		);
-	}
-
-	@if $theme == dark {
-		@include button-color(
-			$bg: transparent,
-			$bg-hover: white,
-			$color: white,
-			$hover-color: var(--wp--preset--color--base),
-			$border: true
-		);
-	}
-}
-
-@mixin button-color(
-	$bg,
-	$bg-hover: transparent,
-	$color: currentColor,
-	$hover-color: currentColor,
-	$border: false
-) {
-	background-image: linear-gradient(to right, $bg-hover 50%, $bg 50%);
-	color: $color;
+	background-image: linear-gradient(
+		to right,
+		var(--button--background-color--hover) 50%,
+		var(--button--background-color) 50%
+	);
 	background-size: calc(200% + 12px) calc(100% + 6px);
 	--wp--custom--transition--property: color, background-position, box-shadow,
-		opacity;
-	@include transition;
+		opacity, border-color;
 	background-position: calc(100% + 3px);
-	box-shadow: none;
+	background-color: unset;
+	color: var(--button--color);
+	box-shadow: var(--button--shadow);
 
-	@if $border {
-		border-color: $bg-hover;
+	&:where(:not([disabled], .disabled)) {
+		@include transition;
+
+		&:hover {
+			color: var(--button--color--hover);
+			box-shadow: var(--button--shadow--hover, var(--shadow--1));
+			border-color: var(--button--border-color--hover);
+			background-position: -3px;
+		}
+
+		&:active {
+			opacity: 0.9;
+		}
 	}
 
-	&:hover {
-		background-position: -3px;
-		color: $hover-color;
-		box-shadow: var(--shadow--1);
-	}
+	&:where([disabled], .disabled) {
+		background-image: none;
+		background-color: var(--button--background-color--disabled);
+		color: var(--button--color--disabled);
+		border-color: var(--button--border-color--disabled);
 
-	&:active {
-		opacity: 0.9;
+		cursor: not-allowed;
 	}
+}
+
+@mixin button-size-sm {
+	--button--padding-y: 0.65em;
+	--button--padding-x: 1.35em;
+}
+
+@mixin button-size-lg {
+	--button--padding-y: 0.95em;
+	--button--padding-x: 2em;
+}
+
+@mixin button-style-default {
+	--button--background-color: var(--wp--preset--color--accent);
+	--button--background-color--hover: var(--wp--custom--color--accent-2);
+	--button--color: white;
+	--button--color--hover: white;
+	--button--border-color: var(--wp--preset--color--accent);
+	--button--border-color--hover: var(--wp--custom--color--accent-2);
+	--button--background-color--disabled: var(--wp--custom--color--grey-3);
+	--button--color--disabled: white;
+	--button--border-color--disabled: var(--wp--custom--color--grey-3);
+}
+
+@mixin button-style-inverted {
+	--button--background-color: white;
+	--button--background-color--hover: var(--wp--custom--color--base-7);
+	--button--color: var(--wp--preset--color--base);
+	--button--color--hover: var(--wp--preset--color--base);
+	--button--border-color: white;
+	--button--border-color--hover: var(--wp--custom--color--base-7);
+	--button--background-color--disabled: white;
+	--button--color--disabled: var(--wp--custom--color--grey-3);
+	--button--border-color--disabled: white;
+}
+
+@mixin button-style-outline {
+	--button--background-color: transparent;
+	--button--background-color--hover: var(--wp--custom--color--accent-2);
+	--button--color: var(--wp--preset--color--accent);
+	--button--color--hover: white;
+	--button--border-color: var(--wp--preset--color--accent);
+	--button--border-color--hover: var(--wp--custom--color--accent-2);
+	--button--background-color--disabled: transparent;
+	--button--color--disabled: var(--wp--custom--color--grey-3);
+	--button--border-color--disabled: var(--wp--custom--color--grey-3);
+}
+
+@mixin button-style-outline-inverted {
+	--button--background-color: transparent;
+	--button--background-color--hover: var(--wp--custom--color--accent-2);
+	--button--color: var(--wp--preset--color--accent);
+	--button--color--hover: white;
+	--button--border-color: var(--wp--preset--color--accent);
+	--button--border-color--hover: var(--wp--custom--color--accent-2);
+	--button--background-color--disabled: transparent;
+	--button--color--disabled: var(--wp--custom--color--grey-3);
+	--button--border-color--disabled: var(--wp--custom--color--grey-3);
 }
 
 // Icon button.
@@ -155,15 +132,14 @@
 		opacity: 0.5;
 	}
 
-	&:active svg,
-	&.active svg {
+	&:where(:active, .active) svg {
 		opacity: 1;
 		transition: none;
 	}
 }
 
 // Navigation button.
-@mixin nav-button($disabled: "") {
+@mixin nav-button {
 	--nav-button--size: 50px;
 
 	width: var(--nav-button--size);
@@ -175,17 +151,13 @@
 	font-weight: var(--font-weight--semibold);
 	text-decoration: none;
 
-	@if $disabled == "" {
+	&:where(a, button):not(:disabled) {
 		@include bg(accent);
-	} @else {
-		@include bg(base-6);
-	}
 
-	svg {
-		@include transition;
-	}
+		svg {
+			@include transition;
+		}
 
-	@if $disabled == "" {
 		&:hover {
 			box-shadow: var(--shadow--1);
 
@@ -202,5 +174,10 @@
 			transition: none;
 			@include bg(accent);
 		}
+	}
+
+	&:where(span, :disabled) {
+		@include bg(base-6);
+		cursor: default;
 	}
 }

@@ -108,8 +108,12 @@
 		}
 
 		&__submit-btn.rmp-btn {
-			@include button(secondary);
-			margin-bottom: var(--spacing--20);
+			@include button;
+
+			& {
+				@include button-style-outline;
+				margin-bottom: var(--spacing--20);
+			}
 		}
 
 		&--has-rated {

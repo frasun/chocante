@@ -22,9 +22,14 @@ $slider-navigation-size: 50px;
 		@include container;
 
 		a {
-			@include button(secondary, $size: lg);
-			flex-shrink: 0;
-			@include hide(mobile);
+			@include button;
+			@include button-size-lg;
+			@include button-style-outline;
+
+			& {
+				flex-shrink: 0;
+				@include hide(mobile);
+			}
 		}
 	}
 
@@ -109,10 +114,13 @@ $slider-navigation-size: 50px;
 
 		&__arrow {
 			@include nav-button;
-			position: absolute;
-			top: 100%;
-			z-index: 10;
-			margin-top: var(--spacing--15);
+
+			& {
+				position: absolute;
+				top: 100%;
+				z-index: 10;
+				margin-top: var(--spacing--15);
+			}
 
 			@include min-width($breakpoint--desktop + $slider-navigation-size) {
 				top: 50%;

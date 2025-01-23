@@ -118,7 +118,8 @@
 		@include hide(desktop);
 
 		& {
-			@include button(secondary);
+			@include button;
+			@include button-style-outline;
 		}
 	}
 }
@@ -162,7 +163,9 @@
 
 		@include max-width($breakpoint--desktop-sm) {
 			select {
-				@include button(secondary);
+				@include button;
+				@include button-style-outline;
+
 				width: 100%;
 				text-align: left;
 

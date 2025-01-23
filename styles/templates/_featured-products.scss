@@ -51,7 +51,9 @@
 			}
 
 			.shop-link {
-				@include button(secondary, $scheme: dark, $size: lg);
+				@include button;
+				@include button-size-lg;
+				@include button-style-outline-inverted;
 			}
 		}
 

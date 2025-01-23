@@ -319,7 +319,8 @@
 								}
 
 								.button {
-									@include button(secondary);
+									@include button;
+									@include button-style-outline;
 								}
 							}
 						}
@@ -352,7 +353,8 @@
 
 			.wc-proceed-to-checkout .checkout-button {
 				width: 100%;
-				@include button($size: lg);
+				@include button;
+				@include button-size-lg;
 			}
 		}
 

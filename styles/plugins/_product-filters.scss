@@ -54,13 +54,7 @@
 
 		button,
 		.button {
-			&[type="submit"] {
-				@include button;
-			}
-
-			&[type="reset"] {
-				@include button(secondary);
-			}
+			@include button-size-sm;
 		}
 	}
 }

@@ -87,11 +87,12 @@
 		}
 
 		.button {
-			@include button($size: lg);
+			@include button;
+			@include button-size-lg;
 		}
 
 		&.outofstock .button {
-			@include button(secondary, $size: lg);
+			@include button-style-outline;
 		}
 	}
 }

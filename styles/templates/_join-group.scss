@@ -30,8 +30,13 @@
 		z-index: 1;
 
 		a {
-			@include button($scheme: dark, $size: lg);
-			margin-top: var(--spacing--30);
+			@include button;
+			@include button-size-lg;
+			@include button-style-inverted;
+
+			& {
+				margin-top: var(--spacing--30);
+			}
 		}
 	}
 

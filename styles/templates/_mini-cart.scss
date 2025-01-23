@@ -8,11 +8,11 @@
 	font-weight: var(--font-weight--bold);
 
 	@if $color != "" {
-		color: var(--color--#{$color});
+		@include color($color);
 	}
 
 	@if $bg != "" {
-		background-color: var(--color--#{$bg});
+		@include bg($bg);
 	}
 }
 
@@ -231,7 +231,10 @@
 
 			.button {
 				@include button;
-				width: 100%;
+
+				& {
+					width: 100%;
+				}
 			}
 		}
 

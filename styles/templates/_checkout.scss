@@ -159,8 +159,13 @@
 	}
 
 	.back-to-cart {
-		@include button(secondary, $size: lg);
-		margin-top: var(--spacing--20);
+		@include button;
+		@include button-size-lg;
+		@include button-style-outline;
+
+		& {
+			margin-top: var(--spacing--20);
+		}
 	}
 
 	&-review-order {
@@ -254,10 +259,6 @@
 
 	.wc-item-meta {
 		display: none;
-	}
-
-	button[type="submit"] {
-		@include button-lg;
 	}
 }
 

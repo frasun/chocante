@@ -187,8 +187,8 @@
 				}
 
 				&__back-button {
-					@include nav-button;
 					--nav-button--size: 40px;
+					@include nav-button;
 				}
 
 				form {
@@ -322,7 +322,8 @@
 			}
 
 			.edit {
-				@include button(secondary);
+				@include button;
+				@include button-style-outline;
 			}
 		}
 
@@ -372,7 +373,8 @@
 
 		&__link {
 			margin-top: var(--spacing--20);
-			@include button(secondary);
+			@include button;
+			@include button-style-outline;
 		}
 
 		.order-status-number {
@@ -613,7 +615,8 @@
 	}
 
 	.order-again .button {
-		@include button(secondary);
+		@include button;
+		@include button-style-outline;
 		margin-top: var(--spacing--15);
 	}
 }

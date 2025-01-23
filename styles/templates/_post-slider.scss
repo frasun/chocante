@@ -116,7 +116,9 @@
 			flex-wrap: wrap;
 
 			a {
-				@include button($scheme: dark, $size: lg);
+				@include button;
+				@include button-size-lg;
+				@include button-style-inverted;
 				@include max-width($breakpoint--desktop-sm) {
 					width: 100%;
 				}
@@ -290,10 +292,12 @@
 
 		&__arrow {
 			@include nav-button;
-			position: absolute;
-			top: 100%;
-			z-index: 10;
-			margin-top: var(--spacing--15);
+			& {
+				position: absolute;
+				top: 100%;
+				z-index: 10;
+				margin-top: var(--spacing--15);
+			}
 
 			@include min-width($breakpoint--desktop + $slider-navigation-size) {
 				top: 50%;

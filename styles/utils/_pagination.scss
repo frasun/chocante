@@ -13,11 +13,8 @@
 		justify-content: center;
 	}
 
-	a {
-		@include nav-button;
-	}
-
+	a,
 	span:not(.dots) {
-		@include nav-button(disabled);
+		@include nav-button;
 	}
 }

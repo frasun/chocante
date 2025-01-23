@@ -14,7 +14,8 @@
 
 	.button {
 		margin-top: var(--spacing--20);
-		@include button(secondary);
+		@include button;
+		@include button-style-outline;
 	}
 
 	label {

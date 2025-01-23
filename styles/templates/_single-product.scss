@@ -275,7 +275,8 @@
 
 	.single_add_to_cart_button.button {
 		width: 100%;
-		@include button($size: lg);
+		@include button;
+		@include button-size-lg;
 	}
 
 	.infobox {
