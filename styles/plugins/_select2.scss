@@ -35,7 +35,7 @@
 									position: static;
 									@include transition;
 									font-size: 0.75em;
-									@include color(text);
+									@include color(body);
 									opacity: 0.5;
 								}
 							}
@@ -45,7 +45,7 @@
 							padding-left: 0;
 							padding-right: 0;
 							line-height: inherit;
-							@include color(text);
+							@include color(body);
 						}
 					}
 				}
@@ -61,7 +61,7 @@
 						&[aria-selected],
 						&[data-selected] {
 							@include bg(grey-4);
-							@include color(text);
+							@include color(body);
 						}
 					}
 

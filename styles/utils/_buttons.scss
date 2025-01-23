@@ -23,14 +23,13 @@
 		var(--button--background-color) 50%
 	);
 	background-size: calc(200% + 12px) calc(100% + 6px);
-	--wp--custom--transition--property: color, background-position, box-shadow,
-		opacity, border-color;
 	background-position: calc(100% + 3px);
 	background-color: unset;
 	color: var(--button--color);
 	box-shadow: var(--button--shadow);
 
 	&:where(:not([disabled], .disabled)) {
+		--wp--custom--transition--property: color, background-position, box-shadow;
 		@include transition;
 
 		&:hover {
@@ -38,6 +37,8 @@
 			box-shadow: var(--button--shadow--hover, var(--shadow--1));
 			border-color: var(--button--border-color--hover);
 			background-position: -3px;
+			--wp--custom--transition--property: color, background-position, box-shadow,
+				opacity, border-color;
 		}
 
 		&:active {
@@ -103,11 +104,11 @@
 
 @mixin button-style-outline-inverted {
 	--button--background-color: transparent;
-	--button--background-color--hover: var(--wp--custom--color--accent-2);
-	--button--color: var(--wp--preset--color--accent);
-	--button--color--hover: white;
-	--button--border-color: var(--wp--preset--color--accent);
-	--button--border-color--hover: var(--wp--custom--color--accent-2);
+	--button--background-color--hover: white;
+	--button--color: white;
+	--button--color--hover: var(--wp--preset--color--accent);
+	--button--border-color: white;
+	--button--border-color--hover: white;
 	--button--background-color--disabled: transparent;
 	--button--color--disabled: var(--wp--custom--color--grey-3);
 	--button--border-color--disabled: var(--wp--custom--color--grey-3);

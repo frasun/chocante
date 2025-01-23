@@ -25,7 +25,7 @@
 .cwgstock {
 	&_name,
 	&_email {
-		@include input(sm);
+		@include input-sm;
 
 		& {
 			text-align: left !important;
@@ -50,7 +50,7 @@
 		.cwginstock {
 			&error {
 				@include bg(error-bg);
-				color: var(--color--error) !important;
+				color: var(--wp--custom--color--error) !important;
 			}
 
 			&success {

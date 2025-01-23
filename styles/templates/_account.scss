@@ -323,7 +323,10 @@
 
 			.edit {
 				@include button;
-				@include button-style-outline;
+
+				& {
+					@include button-style-outline;
+				}
 			}
 		}
 
@@ -372,9 +375,12 @@
 		}
 
 		&__link {
-			margin-top: var(--spacing--20);
 			@include button;
-			@include button-style-outline;
+
+			& {
+				@include button-style-outline;
+				margin-top: var(--spacing--20);
+			}
 		}
 
 		.order-status-number {
@@ -616,8 +622,11 @@
 
 	.order-again .button {
 		@include button;
-		@include button-style-outline;
-		margin-top: var(--spacing--15);
+
+		& {
+			@include button-style-outline;
+			margin-top: var(--spacing--15);
+		}
 	}
 }
 

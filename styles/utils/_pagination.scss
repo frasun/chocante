@@ -9,8 +9,10 @@
 		@include list-reset;
 	}
 
-	@include max-width($breakpoint--desktop-sm) {
-		justify-content: center;
+	& {
+		@include max-width($breakpoint--desktop-sm) {
+			justify-content: center;
+		}
 	}
 
 	a,

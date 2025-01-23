@@ -61,7 +61,7 @@
 				content: "\0041";
 				@include transition;
 				font-size: 0.75em;
-				@include color(text);
+				@include color(body);
 			}
 		}
 

@@ -181,7 +181,7 @@
 						font-weight: var(--font-weight--normal);
 						font-size: var(--font-size--normal-sm);
 						padding: 0.5em 0;
-						@include color(text);
+						@include color(body);
 					}
 				}
 
@@ -364,8 +364,8 @@
 	}
 
 	.coupon-error-notice {
-		--notice--background-color: var(--color--error-bg);
-		--notice--color: var(--color--error);
+		--notice--background-color: var(--wp--custom--color--error-bg);
+		--notice--color: var(--wp--custom--color--error);
 		--notice--icon: url(../icons/icon-error.svg);
 		@include notice;
 	}

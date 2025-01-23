@@ -2,6 +2,7 @@ a {
 	@include transition;
 }
 
+input[type="button"],
 [type="submit"],
 [type="reset"] {
 	@include button;

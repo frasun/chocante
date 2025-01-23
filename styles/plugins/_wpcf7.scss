@@ -9,8 +9,8 @@
 		}
 
 		&.invalid {
-			--notice--background-color: var(--color--error-bg);
-			--notice--color: var(--color--error);
+			--notice--background-color: var(--wp--custom--color--error-bg);
+			--notice--color: var(--wp--custom--color--error);
 			--notice--icon: url(../icons//icon-error.svg);
 			--notice--icon-color: var(--wp--custom--color--contrast);
 		}
@@ -22,7 +22,7 @@
 		}
 
 		label:has(.wpcf7-not-valid) {
-			--label--color: var(--color--error);
+			--label--color: var(--wp--custom--color--error);
 		}
 
 		.wpcf7 {
@@ -46,9 +46,9 @@
 	}
 
 	&-not-valid {
-		--input--border: var(--color--error);
-		--input--background-color: var(--color--error-bg);
-		--radio--border: var(--color--error);
+		--input--border: var(--wp--custom--color--error);
+		--input--background-color: var(--wp--custom--color--error-bg);
+		--radio--border: var(--wp--custom--color--error);
 	}
 
 	&-response-output {

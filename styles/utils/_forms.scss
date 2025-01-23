@@ -18,9 +18,16 @@
 	row-gap: var(--fields--row-gap);
 	max-width: var(--size--form, 570px);
 
-	.form-row {
+	> * {
 		grid-column: 1/7;
 		margin: 0;
+	}
+
+	.form-row {
+		.woocommerce-input-wrapper,
+		.password-input {
+			margin-top: var(--spacing--10);
+		}
 
 		@include min-width($breakpoint--mobile-sm) {
 			&:has(label[for*="first_name"]) {
@@ -80,26 +87,6 @@
 	label {
 		& + .input-text {
 			margin-top: var(--spacing--10);
-		}
-	}
-
-	&:has(label[for*="state"]:not([style])) {
-		.form-row {
-			&:has(label[for*="city"]) {
-				grid-column: 1/7;
-			}
-
-			&:has(label[for*="state"]) {
-				@include min-width($breakpoint--desktop-sm) {
-					grid-column: 1/5;
-				}
-			}
-
-			&:has(label[for*="postcode"]) {
-				@include min-width($breakpoint--desktop-sm) {
-					grid-column: 5/7;
-				}
-			}
 		}
 	}
 }

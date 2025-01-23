@@ -7,16 +7,24 @@
 	display: flex;
 	flex-direction: column;
 	margin-top: var(--spacing--30);
+	margin-bottom: var(--spacing--30);
 	@include select2-sm;
+
+	th {
+		@include font-style(section-label);
+	}
 
 	td {
 		margin-top: var(--spacing--15);
 		width: 100%;
 
 		button {
-			margin-top: var(--spacing--20);
 			@include button;
-			@include button-style-outline;
+
+			& {
+				@include button-style-outline;
+				margin-top: var(--spacing--20);
+			}
 		}
 	}
 }

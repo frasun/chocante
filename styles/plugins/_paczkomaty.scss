@@ -15,12 +15,15 @@
 	.button {
 		margin-top: var(--spacing--20);
 		@include button;
-		@include button-style-outline;
+
+		& {
+			@include button-style-outline;
+		}
 	}
 
 	label {
 		@include font-style(section-label);
-		@include color(text);
+		@include color(body);
 	}
 
 	span.paczkomat_id_wrapper span.woocommerce-input-wrapper {

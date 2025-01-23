@@ -1,5 +1,5 @@
 // Input.
-@mixin input($size: "") {
+@mixin input {
 	@include font-size(normal-sm);
 	border: 1px solid var(--input--border, var(--wp--custom--color--base-6));
 	background-color: var(
@@ -10,15 +10,10 @@
 	@include transition;
 	font-weight: inherit;
 	width: 100%;
-
-	@if $size == sm {
-		@include input-sm;
-	} @else {
-		padding: var(--input--padding-y, var(--spacing--15))
-			var(--input--padding-x, var(--spacing--20));
-		border-radius: var(--input--border-radius, var(--border-radius));
-		--line-height: 1.2;
-	}
+	padding: var(--input--padding-y, var(--spacing--15))
+		var(--input--padding-x, var(--spacing--20));
+	border-radius: var(--input--border-radius, var(--border-radius));
+	--line-height: 1.2;
 
 	&:hover {
 		box-shadow: var(--shadow--2);
@@ -82,11 +77,8 @@
 	}
 
 	& + label {
-		display: inline-block;
 		margin-left: var(--spacing--10);
 		margin-bottom: 0;
-		vertical-align: middle;
-		cursor: pointer;
 		@include font-size(normal-sm);
 		@include radio-label;
 	}
@@ -123,6 +115,7 @@
 @mixin radio-label {
 	font-weight: var(--font-weight--normal);
 	@include transition;
+	cursor: pointer;
 
 	&:hover {
 		opacity: 0.75;

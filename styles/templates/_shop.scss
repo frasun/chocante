@@ -119,7 +119,10 @@
 
 		& {
 			@include button;
-			@include button-style-outline;
+
+			& {
+				@include button-style-outline;
+			}
 		}
 	}
 }
@@ -164,10 +167,12 @@
 		@include max-width($breakpoint--desktop-sm) {
 			select {
 				@include button;
-				@include button-style-outline;
 
-				width: 100%;
-				text-align: left;
+				& {
+					@include button-style-outline;
+					width: 100%;
+					text-align: left;
+				}
 
 				&:not(.disabled):not([disabled]) {
 					@include select-arrow;

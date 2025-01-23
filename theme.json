@@ -42,7 +42,7 @@
 				{
 					"color": "#454545",
 					"name": "Text",
-					"slug": "text"
+					"slug": "body"
 				},
 				{
 					"color": "#aba7a4",
@@ -339,7 +339,7 @@
 	},
 	"styles": {
 		"color": {
-			"text": "var:preset|color|text"
+			"text": "var:preset|color|body"
 		},
 		"spacing": {
 			"padding": {

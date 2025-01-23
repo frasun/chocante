@@ -1,8 +1,15 @@
-input[type="text"],
-input[type="password"],
-input[type="number"],
-input[type="email"],
-input[type="tel"],
+[type="text"],
+[type="password"],
+[type="number"],
+[type="email"],
+[type="tel"],
+[type="date"],
+[type="datetime-local"],
+[type="month"],
+[type="search"],
+[type="time"],
+[type="url"],
+[type="week"],
 textarea,
 .input-text {
 	@include input;
@@ -13,36 +20,20 @@ label {
 	font-weight: var(--font-weight--bold);
 	color: var(--label--color, var(--wp--preset--color--base));
 	line-height: 1.15;
+	display: inline-block;
+	vertical-align: middle;
 
 	&[for] {
 		cursor: pointer;
 	}
 
-	&:has(input[type="checkbox"]) {
-		align-items: center;
-		gap: var(--spacing--10);
-		cursor: pointer;
-		font-weight: var(--font-weight--normal);
+	&:has([type="checkbox"]) {
 		--label--color: var(--wp--preset--color--text);
+		@include radio-label;
 
-		&:hover {
-			opacity: 0.9;
-		}
-	}
-
-	&.woocommerce-form__label,
-	.form-row & {
-		display: grid;
-		align-items: baseline;
-		grid-template-columns: auto 1fr;
-
-		&.checkbox {
-			display: flex;
-			gap: 0;
-
-			input[type="checkbox"] {
-				margin-right: var(--spacing--10);
-			}
+		[type="checkbox"] {
+			margin-right: var(--spacing--10);
+			vertical-align: middle;
 		}
 	}
 
@@ -54,12 +45,6 @@ label {
 		@include font-size(small);
 		@include color(grey-2);
 		font-weight: var(--font-weight--normal);
-		justify-self: end;
-	}
-
-	& + .woocommerce-input-wrapper,
-	& + .password-input {
-		margin-top: var(--spacing--10);
 	}
 }
 
@@ -67,7 +52,7 @@ label {
 select {
 	@include select-arrow;
 	padding-right: 40px;
-	@include color(text);
+	@include color(body);
 	border: 0;
 	font-weight: var(--font-weight--normal);
 }
@@ -95,7 +80,6 @@ input[type="checkbox"] {
 }
 
 // WooCommerce.
-
 [class$="-fields"] {
 	@include form-wrapper;
 }
@@ -104,15 +88,11 @@ input[type="checkbox"] {
 	@include fields-wrapper;
 }
 
-.form-row {
-	margin: 0;
-}
-
 .woocommerce-invalid {
-	--input--border: var(--color--error);
-	--input--background-color: var(--color--error-bg);
-	--label--color: var(--color--error);
-	--radio--border: var(--color--error);
+	--input--border: var(--wp--custom--color--error);
+	--input--background-color: var(--wp--custom--color--error-bg);
+	--label--color: var(--wp--custom--color--error);
+	--radio--border: var(--wp--custom--color--error);
 }
 
 [class*="inline-error-message"],
