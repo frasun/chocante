@@ -100,6 +100,15 @@ label {
 		display: grid;
 		align-items: baseline;
 		grid-template-columns: auto 1fr;
+
+		&.checkbox {
+			display: flex;
+			gap: 0;
+
+			input[type="checkbox"] {
+				margin-right: var(--spacing--10);
+			}
+		}
 	}
 
 	.required {

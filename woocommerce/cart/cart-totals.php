@@ -38,6 +38,13 @@ defined( 'ABSPATH' ) || exit;
 			</tr>
 		<?php endforeach; ?>
 
+		<?php foreach ( WC()->cart->get_fees() as $fee ) : ?>
+			<tr class="fee">
+				<th><?php echo esc_html( $fee->name ); ?></th>
+				<td data-title="<?php echo esc_attr( $fee->name ); ?>"><?php wc_cart_totals_fee_html( $fee ); ?></td>
+			</tr>
+		<?php endforeach; ?>
+
 		<?php do_action( 'woocommerce_cart_totals_before_shipping' ); ?>
 
 		<?php if ( WC()->cart->needs_shipping() && WC()->cart->show_shipping() ) : ?>
@@ -54,13 +61,6 @@ defined( 'ABSPATH' ) || exit;
 		<?php endif; ?>
 
 		<?php do_action( 'woocommerce_cart_totals_after_shipping' ); ?>
-
-		<?php foreach ( WC()->cart->get_fees() as $fee ) : ?>
-			<tr class="fee">
-				<th><?php echo esc_html( $fee->name ); ?></th>
-				<td data-title="<?php echo esc_attr( $fee->name ); ?>"><?php wc_cart_totals_fee_html( $fee ); ?></td>
-			</tr>
-		<?php endforeach; ?>
 
 		<?php
 		if ( wc_tax_enabled() && ! WC()->cart->display_prices_including_tax() ) {

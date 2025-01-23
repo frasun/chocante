@@ -119,6 +119,11 @@ class Chocante_WooCommerce {
 
 		// Shortcodes.
 		add_action( 'init', array( __CLASS__, 'add_shortcodes' ) );
+
+		// Gift wrapper.
+		add_filter( 'tgpc_wc_gift_wrapper_icon_html', array( __CLASS__, 'disable_gift_wrapper_icon_in_admin' ) );
+		add_filter( 'tgpc_wc_gift_wrapper_checkout_label', array( __CLASS__, 'display_gift_wrapper_label' ), 10, 3 );
+		add_filter( 'tgpc_wc_gift_wrapper_cost', array( __CLASS__, 'convert_gift_wrapper_fee' ) );
 	}
 
 	/**
@@ -498,5 +503,40 @@ class Chocante_WooCommerce {
 		$fragments['cart-count'] = WC()->cart->get_cart_contents_count();
 
 		return $fragments;
+	}
+
+	/**
+	 * Disable gift wrapping icon in admin
+	 *
+	 * @return string
+	 */
+	public static function disable_gift_wrapper_icon_in_admin() {
+		return '';
+	}
+
+	/**
+	 * Modify gift wrapper checkbox label
+	 *
+	 * @param string $label The input label as html.
+	 * @param string $label_icon The html of the icon.
+	 * @param string $label_text The escaped text of the label.
+	 * @return string
+	 */
+	public static function display_gift_wrapper_label( $label, $label_icon, $label_text ) {
+		return $label_text;
+	}
+
+	/**
+	 * Convert gift wrapper fee to selected currency
+	 *
+	 * @param float $fee Gift wrapper fee in base currency.
+	 * @return float
+	 */
+	public static function convert_gift_wrapper_fee( $fee ) {
+		if ( has_filter( 'wcml_raw_price_amount' ) ) {
+			return apply_filters( 'wcml_raw_price_amount', $fee );
+		}
+
+		return $fee;
 	}
 }
