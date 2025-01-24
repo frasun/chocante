@@ -36,12 +36,8 @@
 				width: 100%;
 				display: flex;
 				flex-direction: column;
-				gap: var(--spacing--20);
+				gap: var(--spacing--15);
 				align-items: start;
-
-				@include min-width($breakpoint--desktop-sm) {
-					gap: var(--spacing--30);
-				}
 			}
 
 			#ship-to-different-address {
@@ -58,6 +54,7 @@
 
 			#order_review_heading {
 				@include font-style(section-label);
+				margin: 0;
 			}
 
 			.payment__heading {
@@ -219,6 +216,8 @@
 
 				a {
 					display: block;
+					text-decoration: none;
+					color: unset;
 				}
 
 				small {

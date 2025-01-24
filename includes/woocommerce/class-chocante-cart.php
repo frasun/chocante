@@ -36,11 +36,11 @@ class Chocante_Cart {
 	 * Enqueue scripts & styles
 	 */
 	public static function enqueue_scripts() {
-		$cart_js = include get_theme_file_path() . '/build/cart-scripts.asset.php';
+		$cart_js = include get_theme_file_path( 'build/cart-scripts.asset.php' );
 
 		wp_enqueue_script(
 			'chocante-cart-js',
-			get_theme_file_uri() . '/build/cart-scripts.js',
+			get_theme_file_uri( 'build/cart-scripts.js' ),
 			array_merge( $cart_js['dependencies'], array( 'jquery' ) ),
 			$cart_js['version'],
 			array(
@@ -49,11 +49,11 @@ class Chocante_Cart {
 			)
 		);
 
-		$cart_css = include get_theme_file_path() . '/build/cart.asset.php';
+		$cart_css = include get_theme_file_path( 'build/cart.asset.php' );
 
 		wp_enqueue_style(
 			'chocante-cart-css',
-			get_theme_file_uri() . '/build/cart.css',
+			get_theme_file_uri( 'build/cart.css' ),
 			$cart_css['dependencies'],
 			$cart_css['version'],
 		);

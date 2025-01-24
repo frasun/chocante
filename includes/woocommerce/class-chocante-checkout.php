@@ -34,11 +34,11 @@ class Chocante_Checkout {
 	 * Enqueue scripts & styles
 	 */
 	public static function enqueue_scripts() {
-		$checkout_css = include get_theme_file_path() . '/build/checkout.asset.php';
+		$checkout_css = include get_theme_file_path( 'build/checkout.asset.php' );
 
 		wp_enqueue_style(
 			'chocante-checkout-css',
-			get_theme_file_uri() . '/build/checkout.css',
+			get_theme_file_uri( 'build/checkout.css' ),
 			$checkout_css['dependencies'],
 			$checkout_css['version'],
 		);

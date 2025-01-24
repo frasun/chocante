@@ -1,7 +1,7 @@
 @mixin form-wrapper {
 	display: flex;
 	flex-direction: column;
-	row-gap: var(--spacing--30);
+	row-gap: var(--spacing--15);
 	width: 100%;
 
 	[type="submit"] {
@@ -10,58 +10,68 @@
 }
 
 @mixin fields-wrapper {
-	--fields--row-gap: var(--spacing--30);
+	--fields--row-gap: var(--spacing--20);
+
 	display: grid;
-	align-items: end;
 	grid-template-columns: repeat(6, 1fr);
 	column-gap: var(--spacing--20);
 	row-gap: var(--fields--row-gap);
 	max-width: var(--size--form, 570px);
 
+	@include min-width($breakpoint--mobile) {
+		--fields--row-gap: var(--spacing--30);
+	}
+
 	> * {
-		grid-column: 1/7;
+		grid-column: span 6;
 		margin: 0;
 	}
 
+	@include min-width($breakpoint--mobile-sm) {
+		> [id*="first_name"],
+		.form-row-first {
+			grid-column: span 3;
+		}
+
+		> [id*="last_name"],
+		.form-row-last {
+			grid-column: 4 / span 3;
+		}
+
+		&:has(> [id*="state"][style*="display: none"]) {
+			&:has(> [id*="postcode"] ~ [id*="city"]) {
+				> [id*="postcode"] {
+					grid-column: span 2;
+				}
+
+				> [id*="city"] {
+					grid-column: 3 / span 4;
+				}
+			}
+
+			&:has(> [id*="city"] ~ [id*="postcode"]) {
+				> [id*="postcode"] {
+					grid-column: 5 / span 2;
+				}
+
+				> [id*="city"] {
+					grid-column: span 4;
+				}
+			}
+		}
+	}
+
+	[id*="address_2"] {
+		margin-top: calc(-0.5 * var(--fields--row-gap));
+	}
+
+	.woocommerce-input-wrapper,
+	.password-input {
+		margin-top: var(--spacing--10);
+	}
+
 	.form-row {
-		.woocommerce-input-wrapper,
-		.password-input {
-			margin-top: var(--spacing--10);
-		}
-
-		@include min-width($breakpoint--mobile-sm) {
-			&:has(label[for*="first_name"]) {
-				grid-column: 1/4;
-			}
-
-			&:has(label[for*="last_name"]) {
-				grid-column: 4/7;
-			}
-		}
-
-		&:has(label[for*="postcode"]) {
-			@include min-width($breakpoint--mobile-sm) {
-				grid-column: 1/4;
-			}
-
-			@include min-width($breakpoint--desktop-sm) {
-				grid-column: 1/3;
-			}
-		}
-
-		&:has(label[for*="city"]) {
-			@include min-width($breakpoint--mobile-sm) {
-				grid-column: 4/7;
-			}
-
-			@include min-width($breakpoint--desktop-sm) {
-				grid-column: 3/7;
-			}
-		}
-
-		&:has(label[class="screen-reader-text"]) {
-			margin-top: calc(var(--fields--row-gap) * -1);
-		}
+		margin: 0;
 
 		em {
 			font-style: normal;

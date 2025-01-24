@@ -113,6 +113,7 @@
 }
 
 @mixin radio-label {
+	--label--color: var(--wp--preset--color--body);
 	font-weight: var(--font-weight--normal);
 	@include transition;
 	cursor: pointer;

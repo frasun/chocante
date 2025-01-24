@@ -8,11 +8,11 @@
 
 defined( 'ABSPATH' ) || exit;
 
-require_once get_theme_file_path() . '/includes/class-chocante.php';
+require_once get_theme_file_path( 'includes/class-chocante.php' );
 Chocante::init();
 
 // ACF.
 if ( class_exists( 'ACF' ) ) {
-	require_once get_theme_file_path() . '/includes/class-chocante-acf.php';
+	require_once get_theme_file_path( 'includes/class-chocante-acf.php' );
 	Chocante_ACF::init();
 }

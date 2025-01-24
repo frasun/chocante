@@ -92,9 +92,11 @@
 
 	.widget_shopping_cart_content {
 		display: grid;
+		align-items: end;
 		grid-template-rows: repeat(3, auto);
 		grid-template-columns: 1fr auto;
-		gap: var(--spacing--5);
+		row-gap: var(--spacing--5);
+		column-gap: var(--spacing--10);
 		width: 100%;
 
 		.woocommerce-mini-cart {
@@ -227,11 +229,12 @@
 			display: flex;
 			align-items: end;
 			margin: 0;
-			overflow: hidden;
 
 			.button {
 				@include button;
 				width: 100%;
+				white-space: normal;
+				word-break: break-word;
 			}
 		}
 

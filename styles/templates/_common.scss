@@ -201,6 +201,7 @@
 		}
 
 		&-shipping-methods {
+			--label--color: var(--wp--preset--color--body);
 			display: flex;
 			flex-direction: column;
 			gap: var(--spacing--15);

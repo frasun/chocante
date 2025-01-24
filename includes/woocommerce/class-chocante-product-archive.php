@@ -45,11 +45,11 @@ class Chocante_Product_Archive {
 	 * Enqueue scripts & styles
 	 */
 	public static function enqueue_scripts() {
-		$shop_js = include get_theme_file_path() . '/build/shop-scripts.asset.php';
+		$shop_js = include get_theme_file_path( 'build/shop-scripts.asset.php' );
 
 		wp_enqueue_script(
 			'chocante-shop-js',
-			get_theme_file_uri() . '/build/shop-scripts.js',
+			get_theme_file_uri( 'build/shop-scripts.js' ),
 			array_merge( $shop_js['dependencies'], array() ),
 			$shop_js['version'],
 			array(
@@ -58,11 +58,11 @@ class Chocante_Product_Archive {
 			)
 		);
 
-		$shop_css = include get_theme_file_path() . '/build/shop.asset.php';
+		$shop_css = include get_theme_file_path( 'build/shop.asset.php' );
 
 		wp_enqueue_style(
 			'chocante-shop-css',
-			get_theme_file_uri() . '/build/shop.css',
+			get_theme_file_uri( 'build/shop.css' ),
 			$shop_css['dependencies'],
 			$shop_css['version'],
 		);

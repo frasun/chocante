@@ -19,11 +19,11 @@ class Chocante_Product_Section {
 	 * @param string $content Product section description text.
 	 */
 	public static function display_product_section( $args = array(), $content = '' ) {
-		$product_section = include get_theme_file_path() . '/build/product-section.asset.php';
+		$product_section = include get_theme_file_path( 'build/product-section.asset.php' );
 
 		wp_enqueue_script(
 			'product-section',
-			get_theme_file_uri() . '/build/product-section.js',
+			get_theme_file_uri( 'build/product-section.js' ),
 			array_merge( $product_section['dependencies'] ),
 			$product_section['version'],
 			array(

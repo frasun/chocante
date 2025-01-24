@@ -189,10 +189,8 @@
 					h2 {
 						@include font-style(section-label);
 						@include color(base);
-					}
-
-					.woocommerce-address-fields {
-						margin-top: var(--spacing--20);
+						margin: 0;
+						padding-bottom: var(--spacing--20);
 					}
 				}
 
@@ -651,7 +649,8 @@
 		h2 {
 			@include font-style(section-label);
 			@include color(base);
-			padding-bottom: var(--spacing--30);
+			padding-bottom: var(--spacing--20);
+			margin: 0;
 		}
 	}
 }
