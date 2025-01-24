@@ -109,11 +109,8 @@
 
 		&__submit-btn.rmp-btn {
 			@include button;
-
-			& {
-				@include button-style-outline;
-				margin-bottom: var(--spacing--20);
-			}
+			@include button-style-outline;
+			margin-bottom: var(--spacing--20);
 		}
 
 		&--has-rated {

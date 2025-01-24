@@ -5,20 +5,18 @@
 @mixin content-short {
 	@include content-shared;
 
-	& {
-		h3,
-		h4 {
-			font-family: var(--font-family--body);
-			font-weight: var(--font-weight--bold);
-		}
+	h3,
+	h4 {
+		font-family: var(--font-family--body);
+		font-weight: var(--font-weight--bold);
+	}
 
-		h3 {
-			@include font-size(big);
-		}
+	h3 {
+		@include font-size(big);
+	}
 
-		h4 {
-			@include font-size(medium);
-		}
+	h4 {
+		@include font-size(medium);
 	}
 }
 
@@ -57,27 +55,25 @@
 @mixin content-sm {
 	@include content-shared;
 
-	& {
-		font-size: 0.8em;
+	font-size: 0.8em;
 
-		h1,
-		h2,
-		h3,
-		h4,
-		h5,
-		h6 {
-			font-weight: var(--font-weight--bold);
-			font-size: 1.2em;
-		}
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		font-weight: var(--font-weight--bold);
+		font-size: 1.2em;
+	}
 
-		h1,
-		h2,
-		h3,
-		h4,
-		h5,
-		h6 {
-			margin-top: 0.5em;
-			margin-bottom: 1.2em;
-		}
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		margin-top: 0.5em;
+		margin-bottom: 1.2em;
 	}
 }

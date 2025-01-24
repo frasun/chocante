@@ -163,6 +163,13 @@ class Chocante {
 			$styles['version'],
 		);
 
+		// style.css.
+		wp_enqueue_style(
+			'chocante-style',
+			get_theme_file_uri() . '/style.css',
+			array()
+		);
+
 		$scripts = include get_theme_file_path() . '/build/chocante-scripts.asset.php';
 
 		wp_enqueue_script(

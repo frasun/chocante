@@ -108,11 +108,9 @@
 		}
 
 		&-order {
-			@include empty-screen;
+			--empty-screen--width: 850px;
 
-			& {
-				--empty-screen--width: 850px;
-			}
+			@include empty-screen;
 		}
 
 		&-bacs-bank-details {
@@ -159,18 +157,9 @@
 
 	.back-to-cart {
 		@include button;
-
-		& {
-			@include button-size-lg;
-		}
-
-		& {
-			@include button-style-outline;
-		}
-
-		& {
-			margin-top: var(--spacing--20);
-		}
+		@include button-size-lg;
+		@include button-style-outline;
+		margin-top: var(--spacing--20);
 	}
 
 	&-review-order {

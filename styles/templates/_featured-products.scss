@@ -21,22 +21,30 @@
 
 		&__title {
 			@include font-size(xx-large);
+			line-height: 1.4;
 
-			& {
+			@include min-width($breakpoint--desktop + 1px) {
+				@include font-size(huge);
 				line-height: 1.4;
+			}
 
-				@include min-width($breakpoint--desktop + 1px) {
-					@include font-size(huge);
-					line-height: 1.4;
-				}
-
-				span {
-					border-bottom: 2px solid white;
-				}
+			a {
+				border-bottom: 2px solid white;
+				font-weight: unset;
+				color: unset;
+				text-decoration: none;
 			}
 		}
 
 		&__thumbnail {
+			figure {
+				position: absolute;
+				left: 0;
+				top: 0;
+				right: 0;
+				bottom: 0;
+			}
+
 			.onsale {
 				position: absolute;
 				right: 15px;

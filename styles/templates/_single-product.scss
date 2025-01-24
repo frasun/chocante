@@ -59,14 +59,11 @@
 
 		&_title {
 			@include font-style(page-title);
+			@include color(base);
 
-			& {
-				@include color(base);
-
-				@include max-width($breakpoint--mobile) {
-					padding-top: 0;
-					padding-bottom: 0.75em;
-				}
+			@include max-width($breakpoint--mobile) {
+				padding-top: 0;
+				padding-bottom: 0.75em;
 			}
 		}
 
@@ -116,6 +113,7 @@
 			h4 {
 				@include font-style(section-label);
 				@include color(grey-2);
+				margin: 0;
 			}
 
 			table {

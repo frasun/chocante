@@ -6,3 +6,7 @@
  * Requires at least: 4.7
  * Requires PHP: 8.0.0
  */
+
+[lang="es-ES"] .products .product .price {
+	font-size: var(--font-size--normal);
+}

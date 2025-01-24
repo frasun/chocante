@@ -33,9 +33,6 @@
 
 	.button {
 		@include button;
-
-		& {
-			@include button-size-lg;
-		}
+		@include button-size-lg;
 	}
 }

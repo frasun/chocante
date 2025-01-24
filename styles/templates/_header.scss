@@ -26,10 +26,8 @@
 	&__container {
 		@include container;
 
-		& {
-			@include max-width($breakpoint--desktop-sm) {
-				padding: 0;
-			}
+		@include max-width($breakpoint--desktop-sm) {
+			padding: 0;
 		}
 	}
 

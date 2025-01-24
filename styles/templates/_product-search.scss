@@ -48,22 +48,17 @@
 				--input--color: white;
 				--input--placeholder: white;
 
-				& {
-					padding-left: var(--spacing--50);
-					flex: 1 1 300px;
-				}
+				padding-left: var(--spacing--50);
+				flex: 1 1 300px;
 			}
 		}
 	}
 
 	&__title {
-		@include font(body);
-		@include font-size(normal);
-		font-weight: var(--font-weight--semibold);
-		text-transform: uppercase;
-		letter-spacing: 0.4em;
+		@include font-style(subheading);
 		@include color(base-8);
 		text-align: center;
+		margin: 0;
 	}
 
 	&__icon {

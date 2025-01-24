@@ -22,27 +22,23 @@ $slider-navigation-size: 50px;
 		@include container;
 
 		a {
+			flex-shrink: 0;
+
 			@include button;
 			@include button-size-lg;
 			@include button-style-outline;
-
-			& {
-				flex-shrink: 0;
-				@include hide(mobile);
-			}
+			@include hide(mobile);
 		}
 	}
 
 	&__heading {
 		@include font-style(page-title);
 
-		& {
-			flex-grow: 1;
-			max-width: var(--size--content);
+		flex-grow: 1;
+		max-width: var(--size--content);
 
-			&:is(h3) {
-				margin: 0;
-			}
+		&:is(h3) {
+			margin: 0;
 		}
 
 		span {
@@ -55,10 +51,7 @@ $slider-navigation-size: 50px;
 
 	&__description {
 		@include container();
-
-		& {
-			margin-bottom: var(--spacing--10);
-		}
+		margin-bottom: var(--spacing--10);
 
 		> * {
 			max-width: var(--size--content);
@@ -68,10 +61,8 @@ $slider-navigation-size: 50px;
 	&__empty {
 		@include empty-screen;
 
-		& {
-			min-height: 300px;
-			position: relative;
-		}
+		min-height: 300px;
+		position: relative;
 	}
 
 	&__spinner {
@@ -115,12 +106,10 @@ $slider-navigation-size: 50px;
 		&__arrow {
 			@include nav-button;
 
-			& {
-				position: absolute;
-				top: 100%;
-				z-index: 10;
-				margin-top: var(--spacing--15);
-			}
+			position: absolute;
+			top: 100%;
+			z-index: 10;
+			margin-top: var(--spacing--15);
 
 			@include min-width($breakpoint--desktop + $slider-navigation-size) {
 				top: 50%;

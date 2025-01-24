@@ -19,16 +19,17 @@ body {
 
 .posts {
 	--post-thumbnail-size: 330px;
-	@include container;
 
-	& {
-		padding-top: var(--spacing--50);
-		padding-bottom: var(--spacing--100);
-	}
+	padding-top: var(--spacing--50);
+	padding-bottom: var(--spacing--100);
+
+	@include container;
 
 	&__loop {
 		display: grid;
 		gap: var(--spacing--30);
+		grid-auto-rows: var(--post-thumbnail-size);
+		padding: 0.5em 0 var(--spacing--30);
 
 		@include min-width($breakpoint--mobile) {
 			grid-template-columns: repeat(2, 1fr);
@@ -41,23 +42,15 @@ body {
 		@include min-width($breakpoint--desktop-md + 40) {
 			grid-template-columns: repeat(4, 1fr);
 		}
-
-		& {
-			grid-auto-rows: var(--post-thumbnail-size);
-			padding: 0.5em 0 var(--spacing--30);
-		}
 	}
 
 	.post {
 		@include loop-item-link;
 		height: var(--post-thumbnail-size);
-
-		& {
-			display: flex;
-			align-items: end;
-			position: relative;
-			background: white;
-		}
+		display: flex;
+		align-items: end;
+		position: relative;
+		background: white;
 
 		&:hover {
 			.post__thumbnail {

@@ -28,7 +28,7 @@ label {
 	}
 
 	&:has([type="checkbox"]) {
-		--label--color: var(--wp--preset--color--text);
+		--label--color: var(--wp--preset--color--body);
 		@include radio-label;
 
 		[type="checkbox"] {

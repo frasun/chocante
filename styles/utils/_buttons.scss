@@ -27,10 +27,10 @@
 	background-color: unset;
 	color: var(--button--color);
 	box-shadow: var(--button--shadow);
+	@include transition;
 
 	&:where(:not([disabled], .disabled)) {
 		--wp--custom--transition--property: color, background-position, box-shadow;
-		@include transition;
 
 		&:hover {
 			color: var(--button--color--hover);
@@ -51,6 +51,7 @@
 		background-color: var(--button--background-color--disabled);
 		color: var(--button--color--disabled);
 		border-color: var(--button--border-color--disabled);
+		transition: none;
 
 		cursor: not-allowed;
 	}

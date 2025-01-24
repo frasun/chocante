@@ -25,31 +25,29 @@
 				&__link {
 					@include loop-item-link;
 
-					& {
-						background-color: white;
-						position: relative;
-						display: block;
+					background-color: white;
+					position: relative;
+					display: block;
 
-						&:hover {
-							img {
-								transform: translateY(-2%);
-							}
-
-							.woocommerce-loop-product__info-wrapper {
-								transform: translateY(0);
-							}
+					&:hover {
+						img {
+							transform: translateY(-2%);
 						}
 
-						img {
+						.woocommerce-loop-product__info-wrapper {
 							transform: translateY(0);
 						}
+					}
 
-						.onsale {
-							position: absolute;
-							left: var(--spacing--20);
-							top: var(--spacing--15);
-							z-index: 10;
-						}
+					img {
+						transform: translateY(0);
+					}
+
+					.onsale {
+						position: absolute;
+						left: var(--spacing--20);
+						top: var(--spacing--15);
+						z-index: 10;
 					}
 				}
 

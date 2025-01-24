@@ -20,11 +20,8 @@
 
 		button {
 			@include button;
-
-			& {
-				@include button-style-outline;
-				margin-top: var(--spacing--20);
-			}
+			@include button-style-outline;
+			margin-top: var(--spacing--20);
 		}
 	}
 }

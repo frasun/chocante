@@ -6,7 +6,7 @@
 		--input--background-color,
 		var(--wp--preset--color--grey)
 	);
-	color: var(--input--color, var(--wp--preset--color--text));
+	color: var(--input--color, var(--wp--preset--color--body));
 	@include transition;
 	font-weight: inherit;
 	width: 100%;
@@ -26,7 +26,7 @@
 
 	&::placeholder {
 		opacity: 0.5;
-		color: var(--input--placeholder, var(--wp--preset--color--text));
+		color: var(--input--placeholder, var(--wp--preset--color--body));
 	}
 }
 
@@ -42,7 +42,7 @@
 	width: 25px;
 	height: 25px;
 	border-radius: 50%;
-	border: 1px solid var(--radio--border, var(--wp--preset--color--text));
+	border: 1px solid var(--radio--border, var(--wp--preset--color--body));
 	@include flex(center);
 	display: inline-flex;
 	@include transition;
@@ -88,7 +88,7 @@
 @mixin checkbox {
 	width: 25px;
 	height: 25px;
-	border: 1px solid var(--radio--border, var(--wp--preset--color--text));
+	border: 1px solid var(--radio--border, var(--wp--preset--color--body));
 	display: inline-block;
 	border-radius: var(--border-radius--xs);
 	@include transition;

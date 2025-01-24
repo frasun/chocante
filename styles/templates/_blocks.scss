@@ -106,10 +106,7 @@
 	&-button {
 		&__link {
 			@include button;
-
-			& {
-				@include button-size-lg;
-			}
+			@include button-size-lg;
 		}
 
 		&.is-style-outline {

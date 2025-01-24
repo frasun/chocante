@@ -19,14 +19,11 @@
 
 	main {
 		@include container;
+		padding-top: var(--spacing--20);
+		padding-bottom: var(--spacing--50);
 
-		& {
-			padding-top: var(--spacing--20);
-			padding-bottom: var(--spacing--50);
-
-			@include min-width($breakpoint--desktop-md) {
-				padding-bottom: var(--spacing--100);
-			}
+		@include min-width($breakpoint--desktop-md) {
+			padding-bottom: var(--spacing--100);
 		}
 	}
 
@@ -172,14 +169,11 @@
 
 			&-content {
 				&__header {
+					display: flex;
+					align-items: center;
+					gap: var(--spacing--10);
+					margin-bottom: var(--spacing--20);
 					@include hide(tablet);
-
-					& {
-						display: flex;
-						align-items: center;
-						gap: var(--spacing--10);
-						margin-bottom: var(--spacing--20);
-					}
 
 					.page-title {
 						padding: 0;
@@ -323,10 +317,7 @@
 
 			.edit {
 				@include button;
-
-				& {
-					@include button-style-outline;
-				}
+				@include button-style-outline;
 			}
 		}
 
@@ -375,12 +366,10 @@
 		}
 
 		&__link {
-			@include button;
+			margin-top: var(--spacing--20);
 
-			& {
-				@include button-style-outline;
-				margin-top: var(--spacing--20);
-			}
+			@include button;
+			@include button-style-outline;
 		}
 
 		.order-status-number {
@@ -621,12 +610,10 @@
 	}
 
 	.order-again .button {
-		@include button;
+		margin-top: var(--spacing--15);
 
-		& {
-			@include button-style-outline;
-			margin-top: var(--spacing--15);
-		}
+		@include button;
+		@include button-style-outline;
 	}
 }
 

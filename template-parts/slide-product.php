@@ -18,7 +18,7 @@ $product_info      = apply_filters( 'chocante_featured_products_diet_icons', arr
 		<h5 class="post__heading"><?php echo esc_html( $product_category ); ?></h5>
 	<?php endif; ?>
 	<h2 class="post__title">
-		<span><?php echo esc_html( $product_name ); ?></span>
+		<a href="<?php echo esc_url( get_permalink( get_the_ID() ) ); ?>"><?php echo esc_html( $product_name ); ?></a>
 	</h2>
 	<div class="post__cta">
 		<a href="<?php echo esc_url( get_permalink( get_the_ID() ) ); ?>"><?php echo esc_html_x( 'Buy now', 'product loop', 'chocante' ); ?></a>
@@ -34,13 +34,15 @@ $product_info      = apply_filters( 'chocante_featured_products_diet_icons', arr
 	</div>
 	<?php endif; ?>
 	<?php if ( isset( $product_thumbnail ) ) : ?>
-		<figure class="post__thumbnail">
-			<?php
-			if ( $args['onsale'] ) {
-				echo wp_kses_post( '<span class="onsale">' . esc_html__( 'Sale!', 'woocommerce' ) . '</span>' );
-			}
-			?>
-			<?php echo wp_kses_post( $product_thumbnail ); ?>
-		</figure>
+		<a class="post__thumbnail" href="<?php echo esc_url( get_permalink( get_the_ID() ) ); ?>">
+			<figure>
+					<?php
+					if ( $args['onsale'] ) {
+						echo wp_kses_post( '<span class="onsale">' . esc_html__( 'Sale!', 'woocommerce' ) . '</span>' );
+					}
+					?>
+					<?php echo wp_kses_post( $product_thumbnail ); ?>
+			</figure>
+		</a>
 	<?php endif; ?>
 </div>

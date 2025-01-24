@@ -10,7 +10,7 @@
 		--notice--background-color,
 		var(--wp--preset--color--grey)
 	);
-	color: var(--notice--color, var(--wp--preset--color--text));
+	color: var(--notice--color, var(--wp--preset--color--body));
 
 	@include min-width($breakpoint--mobile-lg) {
 		padding-right: var(--spacing--20);

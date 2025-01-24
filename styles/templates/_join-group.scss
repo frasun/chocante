@@ -34,19 +34,14 @@
 			@include button-size-lg;
 			@include button-style-inverted;
 
-			& {
-				margin-top: var(--spacing--30);
-			}
+			margin-top: var(--spacing--30);
 		}
 	}
 
 	&__heading {
 		@include font-style(page-title);
-
-		& {
-			color: white;
-			margin-bottom: 0.5em;
-		}
+		color: white;
+		margin-bottom: 0.5em;
 	}
 
 	&__subheading {

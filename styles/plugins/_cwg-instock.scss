@@ -26,10 +26,7 @@
 	&_name,
 	&_email {
 		@include input-sm;
-
-		& {
-			text-align: left !important;
-		}
+		text-align: left !important;
 	}
 
 	&_button {
@@ -41,10 +38,7 @@
 	&_output {
 		> div {
 			@include notice;
-
-			& {
-				margin-top: var(--spacing--15);
-			}
+			margin-top: var(--spacing--15);
 		}
 
 		.cwginstock {
@@ -54,7 +48,7 @@
 			}
 
 			&success {
-				color: var(--wp--preset--color--text) !important;
+				color: var(--wp--preset--color--body) !important;
 			}
 		}
 	}
