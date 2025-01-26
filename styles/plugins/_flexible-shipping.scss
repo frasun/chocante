@@ -5,5 +5,11 @@
 			font-size: 80%;
 			margin: 0;
 		}
+
+		&:has(input[type="hidden"]) {
+			.shipping-method-description {
+				grid-column-start: 1;
+			}
+		}
 	}
 }
