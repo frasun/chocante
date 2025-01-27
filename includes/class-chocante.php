@@ -99,7 +99,9 @@ class Chocante {
 	public static function debug_log( $data ) {
 		/* phpcs:disable */
 		if ( true === WP_DEBUG ) {
-			if ( is_array( $data ) || is_object( $data ) ) {
+			if(!isset($data)) {
+				error_log('null');
+			} elseif ( is_array( $data ) || is_object( $data ) ) {
 				error_log( print_r( $data, true ) );
 			} else {
 				error_log( $data );
@@ -458,7 +460,7 @@ class Chocante {
 
 		wp_enqueue_style(
 			'chocante-editor-css',
-			get_theme_file_uri() . '/build/editor.css',
+			get_theme_file_uri( 'build/editor.css' ),
 			$editor_styles['dependencies'],
 			$editor_styles['version'],
 		);

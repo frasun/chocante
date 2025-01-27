@@ -10,6 +10,7 @@ defined( 'ABSPATH' ) || exit;
 
 // Common modules.
 require_once __DIR__ . '/woocommerce/class-chocante-product-section.php';
+require_once __DIR__ . '/woocommerce/class-globkurier-shipping.php';
 
 /**
  * Chocante_WooCommerce class.
@@ -124,6 +125,9 @@ class Chocante_WooCommerce {
 		add_filter( 'tgpc_wc_gift_wrapper_icon_html', array( __CLASS__, 'disable_gift_wrapper_icon_in_admin' ) );
 		add_filter( 'tgpc_wc_gift_wrapper_checkout_label', array( __CLASS__, 'display_gift_wrapper_label' ), 10, 3 );
 		add_filter( 'tgpc_wc_gift_wrapper_cost', array( __CLASS__, 'convert_gift_wrapper_fee' ) );
+
+		// Globkurier.
+		add_filter( 'woocommerce_shipping_methods', array( __CLASS__, 'add_globkurier_shipping_method' ) );
 	}
 
 	/**
@@ -538,5 +542,16 @@ class Chocante_WooCommerce {
 		}
 
 		return $fee;
+	}
+
+	/**
+	 * Add Globkurier to shipping methods
+	 *
+	 * @param array $shipping_methods Shipping methods.
+	 * @return array
+	 */
+	public static function add_globkurier_shipping_method( $shipping_methods ) {
+		$shipping_methods['globkurier'] = 'Globkurier_Shipping';
+		return $shipping_methods;
 	}
 }
