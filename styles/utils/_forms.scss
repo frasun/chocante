@@ -70,7 +70,7 @@
 		margin-top: var(--spacing--10);
 	}
 
-	.form-row {
+	:where(.form-row) {
 		margin: 0;
 
 		em {
