@@ -5,6 +5,11 @@ export default class ChocanteWooCommerce {
   constructor() {
     this.initMiniCart();
     this.initProductSearch();
+
+    // Force shipping cost recalculation.
+    window.jQuery('form.checkout').on('change', 'input[name="billing_postcode"], input[name="shipping_postcode"]', () => {
+      window.jQuery('form.checkout').trigger('update');
+    });
   }
 
   initMiniCart() {

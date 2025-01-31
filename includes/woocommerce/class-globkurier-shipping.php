@@ -8,7 +8,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * WC_Shipping_Flat_Rate class.
+ * Globkurier_Shipping class.
  */
 class Globkurier_Shipping extends WC_Shipping_Method {
 	/**
@@ -33,16 +33,43 @@ class Globkurier_Shipping extends WC_Shipping_Method {
 	private $password = 'BsudaKuda92%';
 
 	/**
+	 * Transport type
+	 *
+	 * @var string
+	 */
+	public $transport_code = 'road';
+
+	/**
+	 * Default rate
+	 *
+	 * @var float|null
+	 */
+	public $default_rate = null;
+
+	/**
+	 * Default delivery time
+	 *
+	 * @var string
+	 */
+	public $default_delivery_time = '';
+
+	/**
+	 * API error
+	 *
+	 * @var null|boolean
+	 */
+	private $api_error = null;
+
+	/**
 	 * Constructor.
 	 *
 	 * @param int $instance_id Shipping method instance ID.
 	 */
 	public function __construct( $instance_id = 0 ) {
-		$this->id                 = 'globkurier';
-		$this->instance_id        = absint( $instance_id );
-		$this->method_title       = 'Globkurier';
-		$this->method_description = __( 'Calculates shipping cost using Globkurier API.', 'chocante' );
-		$this->supports           = array(
+		$this->id           = 'globkurier';
+		$this->instance_id  = absint( $instance_id );
+		$this->method_title = 'Globkurier';
+		$this->supports     = array(
 			'shipping-zones',
 			'instance-settings',
 			'instance-settings-modal',
@@ -56,9 +83,11 @@ class Globkurier_Shipping extends WC_Shipping_Method {
 	 * Init user set variables.
 	 */
 	public function init() {
-		$this->instance_form_fields = include __DIR__ . '/settings-globkurier.php';
-		$this->title                = $this->get_option( 'title' );
-		$this->tax_status           = $this->get_option( 'tax_status' );
+		$this->instance_form_fields  = include __DIR__ . '/settings-globkurier.php';
+		$this->title                 = $this->get_option( 'title' );
+		$this->transport_code        = $this->get_option( 'transport_code' );
+		$this->default_rate          = $this->get_option( 'default_rate' );
+		$this->default_delivery_time = $this->get_option( 'default_delivery_time' );
 	}
 
 	/**
@@ -69,24 +98,50 @@ class Globkurier_Shipping extends WC_Shipping_Method {
 	public function calculate_shipping( $package = array() ) {
 		$product = $this->find_product();
 
+		if ( isset( $this->api_error ) ) {
+			if ( isset( $this->default_rate ) && $this->default_rate > 0 ) {
+				$rate = array(
+					'id'      => $this->get_rate_id(),
+					'label'   => $this->get_label( $this->title, null, $this->default_delivery_time ),
+					'cost'    => $this->default_rate,
+					'package' => $package,
+				);
+			}
+		}
+
 		if ( isset( $product ) ) {
 			$rate = array(
 				'id'      => $this->get_rate_id(),
-				'label'   => $product['carrier'],
+				'label'   => $this->get_label( $product['carrier'], $product['delivery_time'], $this->default_delivery_time ),
 				'cost'    => $product['price'],
 				'package' => $package,
 			);
+		}
 
+		if ( isset( $rate ) ) {
 			$this->add_rate( $rate );
-
-			/**
-		 * Developers can add additional flat rates based on this one via this action since @version 2.4.
-		 *
-		 * Previously there were (overly complex) options to add additional rates however this was not user.
-		 * friendly and goes against what Flat Rate Shipping was originally intended for.
-		 */
 			do_action( 'woocommerce_' . $this->id . '_shipping_add_rate', $this, $rate );
 		}
+	}
+
+	/**
+	 * Return shipping method label
+	 *
+	 * @param string   $carrier_name Carrier name.
+	 * @param int|null $delivery_time Days of delivery.
+	 * @param string   $default_delivery_time Default delivery time.
+	 * @return string
+	 */
+	public function get_label( $carrier_name, $delivery_time, $default_delivery_time = '' ) {
+		$label = $carrier_name;
+
+		if ( isset( $delivery_time ) ) {
+			$label .= sprintf( ' (%d %s)', (int) $delivery_time + 1, __( 'days', 'woocommerce' ) );
+		} elseif ( ! empty( $default_delivery_time ) ) {
+			$label .= sprintf( ' (%s %s)', $default_delivery_time, __( 'days', 'woocommerce' ) );
+		}
+
+		return $label;
 	}
 
 	/**
@@ -113,6 +168,7 @@ class Globkurier_Shipping extends WC_Shipping_Method {
 		$response = wp_remote_post( $url, $args );
 
 		if ( is_wp_error( $response ) ) {
+			$this->api_error = true;
 			error_log( 'Authentication failed: ' . $response->get_error_message() );
 			return false;
 		}
@@ -126,6 +182,7 @@ class Globkurier_Shipping extends WC_Shipping_Method {
 			return $token;
 		}
 
+		$this->api_error = true;
 		error_log( 'Authentication failed: Invalid credentials or response.' );
 		return false;
 	}
@@ -147,6 +204,7 @@ class Globkurier_Shipping extends WC_Shipping_Method {
 		$response = wp_remote_get( $url );
 
 		if ( is_wp_error( $response ) ) {
+			$this->api_error = true;
 			error_log( 'Failed to fetch countries: ' . $response->get_error_message() );
 			return null;
 		}
@@ -160,6 +218,7 @@ class Globkurier_Shipping extends WC_Shipping_Method {
 			return $data;
 		}
 
+		$this->api_error = true;
 		error_log( 'Failed to fetch countries: Invalid response.' );
 		return null;
 	}
@@ -175,6 +234,7 @@ class Globkurier_Shipping extends WC_Shipping_Method {
 		$token = $this->authenticate();
 
 		if ( ! $token ) {
+			$this->api_error = true;
 			error_log( 'Cannot fetch products: No authentication token.' );
 			return null;
 		}
@@ -191,6 +251,7 @@ class Globkurier_Shipping extends WC_Shipping_Method {
 		$response = wp_remote_get( $url, $args );
 
 		if ( is_wp_error( $response ) ) {
+			$this->api_error = true;
 			error_log( 'Failed to fetch products: ' . $response->get_error_message() );
 			return null;
 		}
@@ -210,14 +271,25 @@ class Globkurier_Shipping extends WC_Shipping_Method {
 		$packages = $this->get_cart_packages();
 
 		$params = array(
-			'weight'            => isset( $packages['weight'] ) ? $packages['weight'] : 1.5,
+			'weight'            => isset( $packages['weight'] ) ? $packages['weight'] : 1,
 			'length'            => isset( $packages['length'] ) ? $packages['length'] : 30,
 			'width'             => isset( $packages['width'] ) ? $packages['width'] : 30,
 			'height'            => isset( $packages['height'] ) ? $packages['height'] : 20,
-			'quantity'          => isset( $packages['quantity'] ) ? $packages['quantity'] : 2,
+			'quantity'          => isset( $packages['quantity'] ) ? $packages['quantity'] : 1,
 			'senderCountryId'   => $this->get_country_id_by_iso( WC()->countries->get_base_country() ),
 			'receiverCountryId' => $this->get_country_id_by_iso( WC()->customer->get_shipping_country() ),
 		);
+
+		$shipping_postcode = WC()->customer->get_shipping_postcode();
+		$store_postcode    = WC()->countries->get_base_postcode();
+
+		if ( isset( $shipping_postcode ) && ! empty( wc_trim_string( $shipping_postcode ) ) ) {
+			$params['receiverPostCode'] = $shipping_postcode;
+		}
+
+		if ( isset( $store_postcode ) && ! empty( wc_trim_string( $store_postcode ) ) ) {
+			$params['senderPostCode'] = $store_postcode;
+		}
 
 		$products = $this->get_products( $params );
 
@@ -226,12 +298,14 @@ class Globkurier_Shipping extends WC_Shipping_Method {
 		}
 
 		foreach ( $products['standard'] as $product ) {
-			if ( isset( $product['collectionTypes'], $product['deliveryTypes'], $product['grossPrice'], $product['carrierName'] ) &&
+			if ( isset( $product['collectionTypes'], $product['deliveryTypes'], $product['grossPrice'], $product['carrierName'], $product['transport'] ) &&
 				in_array( 'PICKUP', $product['collectionTypes'], true ) &&
-				in_array( 'PICKUP', $product['deliveryTypes'], true ) ) {
+				in_array( 'PICKUP', $product['deliveryTypes'], true ) &&
+				strtolower( $product['transport']['code'] ) === $this->transport_code ) {
 				return array(
-					'carrier' => $product['carrierName'],
-					'price'   => (float) $product['grossPrice'],
+					'carrier'       => $product['carrierName'],
+					'price'         => (float) $product['grossPrice'],
+					'delivery_time' => $product['averageDelivery'],
 				);
 			}
 		}
@@ -250,6 +324,11 @@ class Globkurier_Shipping extends WC_Shipping_Method {
 
 		if ( ! is_array( $countries ) ) {
 			return null;
+		}
+
+		// England.
+		if ( 'GB' === $iso_code ) {
+			$iso_code = 'GB1';
 		}
 
 		foreach ( $countries as $country ) {
@@ -273,37 +352,55 @@ class Globkurier_Shipping extends WC_Shipping_Method {
 		foreach ( $cart->get_cart() as $cart_item ) {
 			$product_weight = $cart_item['data']->get_weight();
 
-			if ( ! isset( $product_weight ) ) {
+			if ( ! isset( $product_weight ) || empty( $product_weight ) ) {
 				$product_weight = 0.25;
 			}
 
 			$total_weight += (float) $product_weight * $cart_item['quantity'];
 		}
 
-		if ( $total_weight < 2 ) {
+		if ( $total_weight <= 1 ) {
 			return array(
 				'weight'   => $total_weight,
 				'quantity' => 1,
-				'length'   => 30,
+				'length'   => 20,
+				'width'    => 20,
+				'height'   => 8,
+			);
+		} elseif ( $total_weight <= 3 ) {
+			return array(
+				'weight'   => $total_weight,
+				'quantity' => 1,
+				'length'   => 20,
 				'width'    => 30,
 				'height'   => 20,
 			);
-		} elseif ( $total_weight >= 2 && $total_weight <= 5 ) {
+		} elseif ( $total_weight <= 7 ) {
 			return array(
 				'weight'   => $total_weight,
 				'quantity' => 1,
 				'length'   => 30,
 				'width'    => 30,
-				'height'   => 40,
+				'height'   => 30,
 			);
 		} else {
 			return array(
 				'weight'   => $total_weight,
-				'quantity' => ceil( $total_weight / 5 ),
-				'length'   => 30,
-				'width'    => 30,
+				'quantity' => ceil( $total_weight / 7 ),
+				'length'   => 40,
+				'width'    => 40,
 				'height'   => 40,
 			);
 		}
+	}
+
+	/**
+	 * Sanitize default rate
+	 *
+	 * @param string $rate Default rate.
+	 * @return float
+	 */
+	public function sanitize_default_rate( $rate ) {
+		return floatval( $rate );
 	}
 }

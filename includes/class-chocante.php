@@ -460,7 +460,7 @@ class Chocante {
 
 		wp_enqueue_style(
 			'chocante-editor-css',
-			get_theme_file_uri() . '/build/editor.css',
+			get_theme_file_uri( 'build/editor.css' ),
 			$editor_styles['dependencies'],
 			$editor_styles['version'],
 		);
