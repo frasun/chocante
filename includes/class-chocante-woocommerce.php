@@ -256,10 +256,7 @@ class Chocante_WooCommerce {
 	 * @return string
 	 */
 	public static function display_mini_cart_item_total( $quantity, $cart_item ) {
-		$item_price  = $cart_item['data']->get_price();
-		$total_price = $item_price * $cart_item['quantity'];
-
-		return '<footer>' . $quantity . '<strong>' . wc_price( wc_get_price_to_display( $cart_item['data'] ) ) . '</strong></footer>';
+		return '<footer>' . $quantity . '<strong>' . wc_price( wc_get_price_to_display( $cart_item['data'], array( 'qty' => $cart_item['quantity'] ) ) ) . '</strong></footer>';
 	}
 
 	/**
