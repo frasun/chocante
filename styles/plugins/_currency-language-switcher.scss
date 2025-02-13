@@ -131,3 +131,12 @@
 .wpml-ls-legacy-dropdown a.wpml-ls-item-toggle::after {
 	background-image: none;
 }
+
+.site-footer {
+	.wpml-ls-legacy-dropdown .wpml-ls-sub-menu,
+	.wpml-ls-legacy-dropdown-click .wpml-ls-sub-menu,
+	.wcml-dropdown .wcml-cs-submenu,
+	.wcml-dropdown-click .wcml-cs-submenu {
+		z-index: var(--z-index--overlay);
+	}
+}
