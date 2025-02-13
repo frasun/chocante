@@ -268,6 +268,13 @@ class Globkurier_Shipping extends WC_Shipping_Method {
 	 * @return float|null Gross price of the matching product or null if not found.
 	 */
 	public function find_product() {
+		$shipping_postcode = WC()->customer->get_shipping_postcode();
+		$store_postcode    = WC()->countries->get_base_postcode();
+
+		if ( ! empty( wc_trim_string( $shipping_postcode ) ) && ! WC_Validation::is_postcode( $shipping_postcode, WC()->customer->get_shipping_country() ) ) {
+			return null;
+		}
+
 		$packages = $this->get_cart_packages();
 
 		$params = array(
@@ -279,9 +286,6 @@ class Globkurier_Shipping extends WC_Shipping_Method {
 			'senderCountryId'   => $this->get_country_id_by_iso( WC()->countries->get_base_country() ),
 			'receiverCountryId' => $this->get_country_id_by_iso( WC()->customer->get_shipping_country() ),
 		);
-
-		$shipping_postcode = WC()->customer->get_shipping_postcode();
-		$store_postcode    = WC()->countries->get_base_postcode();
 
 		if ( isset( $shipping_postcode ) && ! empty( wc_trim_string( $shipping_postcode ) ) ) {
 			$params['receiverPostCode'] = $shipping_postcode;
@@ -326,7 +330,7 @@ class Globkurier_Shipping extends WC_Shipping_Method {
 			return null;
 		}
 
-		// England.
+		// UK.
 		if ( 'GB' === $iso_code ) {
 			$iso_code = 'GB1';
 		}

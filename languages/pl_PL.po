@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bricks Child Theme 1.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/chocante\n"
-"POT-Creation-Date: 2025-02-11T11:55:09+00:00\n"
-"PO-Revision-Date: 2025-02-11 13:05+0100\n"
+"POT-Creation-Date: 2025-02-13T15:42:04+00:00\n"
+"PO-Revision-Date: 2025-02-13 16:42+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pl_PL\n"
@@ -57,37 +57,37 @@ msgctxt "blog"
 msgid "Other articles"
 msgstr "Pozostałe artykuły"
 
-#: includes/class-chocante-woocommerce.php:208
+#: includes/class-chocante-woocommerce.php:212
 msgctxt "sorting option"
 msgid "Default"
 msgstr "Domyślnie"
 
-#: includes/class-chocante-woocommerce.php:209
+#: includes/class-chocante-woocommerce.php:213
 msgctxt "sorting option"
 msgid "Popularity"
 msgstr "Wg popularności"
 
-#: includes/class-chocante-woocommerce.php:210
+#: includes/class-chocante-woocommerce.php:214
 msgctxt "sorting option"
 msgid "Average rating"
 msgstr "Wg oceny"
 
-#: includes/class-chocante-woocommerce.php:211
+#: includes/class-chocante-woocommerce.php:215
 msgctxt "sorting option"
 msgid "Latest"
 msgstr "Od najnowszych"
 
-#: includes/class-chocante-woocommerce.php:212
+#: includes/class-chocante-woocommerce.php:216
 msgctxt "sorting option"
 msgid "Lowest price"
 msgstr "Od najtańszych"
 
-#: includes/class-chocante-woocommerce.php:213
+#: includes/class-chocante-woocommerce.php:217
 msgctxt "sorting option"
 msgid "Highest price"
 msgstr "Od najdroższych"
 
-#: includes/class-chocante-woocommerce.php:401
+#: includes/class-chocante-woocommerce.php:402
 #: template-parts/slide-product.php:24
 msgctxt "product loop"
 msgid "Buy now"
@@ -197,10 +197,20 @@ msgctxt "login page"
 msgid "Already have an account?"
 msgstr "Masz już konto?"
 
-#: includes/woocommerce/class-chocante-checkout.php:111
+#: includes/woocommerce/class-chocante-checkout.php:140
 msgctxt "checkout"
 msgid "Edit previous step"
 msgstr "Edytuj poprzedni krok"
+
+#: includes/woocommerce/class-chocante-checkout.php:163
+msgctxt "checkout postcode validation"
+msgid "Eircode is not valid."
+msgstr "Eircode ma nieprawidłowy format."
+
+#: includes/woocommerce/class-chocante-checkout.php:166
+msgctxt "checkout postcode validation"
+msgid "Postcode / ZIP is not valid."
+msgstr "Kod pocztowy ma nieprawidłowy format."
 
 #: includes/woocommerce/class-chocante-product-page.php:144
 msgctxt "product slider"
@@ -289,17 +299,17 @@ msgctxt "globkurier"
 msgid "Default rate"
 msgstr "Domyślna stawka"
 
-#: includes/woocommerce/settings-globkurier.php:34
+#: includes/woocommerce/settings-globkurier.php:35
 msgid "This rate will be shown when in case of Globurier API error."
 msgstr ""
 "Stawka będzie wyświetlona w przypadku błędu połączenia z API Globkurier."
 
-#: includes/woocommerce/settings-globkurier.php:38
+#: includes/woocommerce/settings-globkurier.php:39
 msgctxt "globkurier"
 msgid "Default delivery time (days)"
 msgstr "Domyślny czas dostarczenia (dni)"
 
-#: includes/woocommerce/settings-globkurier.php:41
+#: includes/woocommerce/settings-globkurier.php:42
 msgid ""
 "This delivery time will be shown when in case of Globurier API error or "
 "missing delivery time entry."
