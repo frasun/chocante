@@ -9,6 +9,11 @@
 defined( 'ABSPATH' ) || exit;
 
 // Common modules.
+require_once __DIR__ . '/woocommerce/class-chocante-product-archive.php';
+require_once __DIR__ . '/woocommerce/class-chocante-product-page.php';
+require_once __DIR__ . '/woocommerce/class-chocante-cart.php';
+require_once __DIR__ . '/woocommerce/class-chocante-checkout.php';
+require_once __DIR__ . '/woocommerce/class-chocante-account.php';
 require_once __DIR__ . '/woocommerce/class-chocante-product-section.php';
 require_once __DIR__ . '/woocommerce/class-globkurier-shipping.php';
 
@@ -57,6 +62,10 @@ class Chocante_WooCommerce {
 		// Cart & product page.
 		add_action( 'woocommerce_before_quantity_input_field', array( __CLASS__, 'display_remove_quantity_button' ) );
 		add_action( 'woocommerce_after_quantity_input_field', array( __CLASS__, 'display_add_quantity_button' ), 20 );
+
+		// Checkout.
+		add_action( 'wp_ajax_validate_postcode', array( Chocante_Checkout::class, 'validate_postcode' ) );
+		add_action( 'wp_ajax_nopriv_validate_postcode', array( Chocante_Checkout::class, 'validate_postcode' ) );
 
 		// Free shipping.
 		if ( class_exists( 'Chocante_Free_Shipping' ) ) {
@@ -142,31 +151,26 @@ class Chocante_WooCommerce {
 	 */
 	public static function load_page_hooks() {
 		if ( is_shop() || is_product_category() || is_product_taxonomy() || is_product_tag() ) {
-			require_once __DIR__ . '/woocommerce/class-chocante-product-archive.php';
 			Chocante_Product_Archive::init();
 			return;
 		}
 
 		if ( is_product() ) {
-			require_once __DIR__ . '/woocommerce/class-chocante-product-page.php';
 			Chocante_Product_Page::init();
 			return;
 		}
 
 		if ( is_cart() || ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) {
-			require_once __DIR__ . '/woocommerce/class-chocante-cart.php';
 			Chocante_Cart::init();
 			return;
 		}
 
 		if ( is_checkout() || ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) {
-			require_once __DIR__ . '/woocommerce/class-chocante-checkout.php';
 			Chocante_Checkout::init();
 			return;
 		}
 
 		if ( is_account_page() ) {
-			require_once __DIR__ . '/woocommerce/class-chocante-account.php';
 			Chocante_Account::init();
 			return;
 		}

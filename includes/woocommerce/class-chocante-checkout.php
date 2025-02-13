@@ -41,6 +41,28 @@ class Chocante_Checkout {
 	 * Enqueue scripts & styles
 	 */
 	public static function enqueue_scripts() {
+		$checkout_js = include get_theme_file_path( 'build/checkout-scripts.asset.php' );
+
+		wp_enqueue_script(
+			'chocante-checkout-js',
+			get_theme_file_uri( 'build/checkout-scripts.js' ),
+			array_merge( $checkout_js['dependencies'], array( 'jquery' ) ),
+			$checkout_js['version'],
+			array(
+				'in_footer' => true,
+				'strategy'  => 'defer',
+			)
+		);
+
+		wp_localize_script(
+			'chocante-checkout-js',
+			'chocante',
+			array(
+				'ajaxurl' => admin_url( 'admin-ajax.php' ),
+				'nonce'   => wp_create_nonce( 'chocante' ),
+			)
+		);
+
 		$checkout_css = include get_theme_file_path( 'build/checkout.asset.php' );
 
 		wp_enqueue_style(
@@ -116,5 +138,35 @@ class Chocante_Checkout {
 	 */
 	public static function show_back_to_cart() {
 		echo '<a href="' . esc_url( wc_get_cart_url() ) . '" class="back-to-cart">' . esc_html_x( 'Edit previous step', 'checkout', 'chocante' ) . '</a>';
+	}
+
+	/**
+	 * Validate postcode format
+	 */
+	public static function validate_postcode() {
+		check_ajax_referer( 'chocante' );
+
+		$postcode = isset( $_POST['postcode'] ) ? sanitize_text_field( wp_unslash( $_POST['postcode'] ) ) : null;
+		$country  = isset( $_POST['country'] ) ? sanitize_text_field( wp_unslash( $_POST['country'] ) ) : null;
+
+		if ( ! isset( $postcode ) || ! isset( $country ) ) {
+			wp_send_json_error();
+		}
+
+		$is_valid_postcode = WC_Validation::is_postcode( $postcode, $country );
+
+		if ( $is_valid_postcode ) {
+			wp_send_json_success();
+		} else {
+			switch ( $country ) {
+				case 'IE':
+					$response_error = _x( 'Eircode is not valid.', 'checkout postcode validation', 'chocante' );
+					break;
+				default:
+					$response_error = _x( 'Postcode / ZIP is not valid.', 'checkout postcode validation', 'chocante' );
+			}
+
+			wp_send_json_success( $response_error );
+		}
 	}
 }
