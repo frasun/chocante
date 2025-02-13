@@ -1,4 +1,18 @@
-.badge,
+.badge {
+	@include badge;
+
+	&__container {
+		display: flex;
+		gap: var(--spacing--5);
+		flex-direction: column;
+		align-items: start;
+	}
+
+	&--bio {
+		--badge--background-color: #58a82b;
+	}
+}
+
 .onsale {
 	@include badge;
 }

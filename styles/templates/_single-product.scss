@@ -47,11 +47,16 @@
 			position: relative;
 			z-index: 10;
 
-			@include max-width($breakpoint--mobile) {
-				.onsale {
+			.badge__container {
+				@include min-width($breakpoint--mobile) {
+					flex-direction: row;
+					flex-wrap: wrap;
+				}
+
+				@include max-width($breakpoint--mobile) {
 					position: absolute;
 					top: 100%;
-					margin-top: var(--spacing--15);
+					margin-top: var(--spacing--40);
 					margin-left: var(--spacing--15);
 				}
 			}
@@ -62,8 +67,8 @@
 			@include color(base);
 
 			@include max-width($breakpoint--mobile) {
-				padding-top: 0;
-				padding-bottom: 0.75em;
+				margin-top: 0;
+				margin-bottom: 0.75em;
 			}
 		}
 

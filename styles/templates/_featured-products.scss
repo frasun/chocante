@@ -45,11 +45,12 @@
 				bottom: 0;
 			}
 
-			.onsale {
+			.badge__container {
 				position: absolute;
 				right: 15px;
 				top: 15px;
 				z-index: 2;
+				align-items: end;
 			}
 		}
 
