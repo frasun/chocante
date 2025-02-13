@@ -19,6 +19,13 @@ class Chocante_Checkout {
 	public static function init() {
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'enqueue_scripts' ) );
 		add_action( 'woocommerce_before_checkout_form', array( __CLASS__, 'display_page_title' ), 1 );
+
+		// Fix for free shipping notice order.
+		remove_action( 'woocommerce_before_checkout_form', 'woocommerce_checkout_login_form', 10 );
+		remove_action( 'woocommerce_before_checkout_form', 'woocommerce_checkout_coupon_form', 10 );
+		add_action( 'woocommerce_before_checkout_form', 'woocommerce_checkout_login_form', 10 );
+		add_action( 'woocommerce_before_checkout_form', 'woocommerce_checkout_coupon_form', 10 );
+
 		add_filter( 'woocommerce_checkout_cart_item_quantity', array( __CLASS__, 'modify_item_quantity' ), 10, 2 );
 		add_action( 'woocommerce_review_order_before_payment', array( __CLASS__, 'display_payment_title' ) );
 		add_action( 'woocommerce_checkout_after_customer_details', array( __CLASS__, 'show_back_to_cart' ) );
