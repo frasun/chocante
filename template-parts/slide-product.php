@@ -36,11 +36,7 @@ $product_info      = apply_filters( 'chocante_featured_products_diet_icons', arr
 	<?php if ( isset( $product_thumbnail ) ) : ?>
 		<a class="post__thumbnail" href="<?php echo esc_url( get_permalink( get_the_ID() ) ); ?>">
 			<figure>
-					<?php
-					if ( $args['onsale'] ) {
-						echo wp_kses_post( '<span class="onsale">' . esc_html__( 'Sale!', 'woocommerce' ) . '</span>' );
-					}
-					?>
+					<?php woocommerce_show_product_sale_flash(); ?>
 					<?php echo wp_kses_post( $product_thumbnail ); ?>
 			</figure>
 		</a>
