@@ -1,87 +1,98 @@
 export default class ModalService {
-  static CLASS_BACKDROP = 'backdrop';
-  static CLASS_TRANSITION = 'transition';
-  static CLASS_ACTIVE = 'active';
+	static CLASS_BACKDROP = 'backdrop';
+	static CLASS_TRANSITION = 'transition';
+	static CLASS_ACTIVE = 'active';
 
-  constructor() {
-    this.modal = null;
-    this.backdrop = null;
+	constructor() {
+		this.modal = null;
+		this.backdrop = null;
 
-    document.addEventListener('showModal', this.onModalShow.bind(this));
-    document.addEventListener('hideModal', this.onModalHide.bind(this));
-  }
+		document.addEventListener( 'showModal', this.onModalShow.bind( this ) );
+		document.addEventListener( 'hideModal', this.onModalHide.bind( this ) );
+	}
 
-  onModalShow(event) {
-    const modalId = event.detail.modalId;
+	onModalShow( event ) {
+		const modalId = event.detail.modalId;
 
-    if (modalId) {
-      this.showModal(modalId);
-    }
-  }
+		if ( modalId ) {
+			this.showModal( modalId );
+		}
+	}
 
-  onModalHide(event) {
-    const resize = event.detail && event.detail.resize ? event.detail.resize : false;
+	onModalHide( event ) {
+		const resize =
+			event.detail && event.detail.resize ? event.detail.resize : false;
 
-    this.hideModal(!resize);
-  }
+		this.hideModal( ! resize );
+	}
 
-  showModal(modalId) {
-    this.modal = document.querySelector(modalId);
+	showModal( modalId ) {
+		this.modal = document.querySelector( modalId );
 
-    if (!this.modal) return;
+		if ( ! this.modal ) {
+			return;
+		}
 
-    this.setModalTransition();
-    this.showBackdrop();
-  }
+		this.setModalTransition();
+		this.showBackdrop();
+	}
 
-  hideModal(setTransition = true) {
-    this.setModalTransition(false, setTransition);
-    this.hideBackdrop();
-  }
+	hideModal( setTransition = true ) {
+		this.setModalTransition( false, setTransition );
+		this.hideBackdrop();
+	}
 
-  showBackdrop() {
-    if (this.backdrop) return;
+	showBackdrop() {
+		if ( this.backdrop ) {
+			return;
+		}
 
-    const elem = document.createElement('div');
-    elem.className = ModalService.CLASS_BACKDROP;
+		const elem = document.createElement( 'div' );
+		elem.className = ModalService.CLASS_BACKDROP;
 
-    document.body.append(elem);
+		document.body.append( elem );
 
-    this.backdrop = document.querySelector(`.${ModalService.CLASS_BACKDROP}`);
+		this.backdrop = document.querySelector(
+			`.${ ModalService.CLASS_BACKDROP }`
+		);
 
-    window.requestAnimationFrame(() => {
-      this.backdrop.classList.add(ModalService.CLASS_ACTIVE);
-    });
-  }
+		window.requestAnimationFrame( () => {
+			this.backdrop.classList.add( ModalService.CLASS_ACTIVE );
+		} );
+	}
 
-  hideBackdrop() {
-    if (!this.backdrop) return;
+	hideBackdrop() {
+		if ( ! this.backdrop ) {
+			return;
+		}
 
-    this.backdrop.classList.remove(ModalService.CLASS_ACTIVE);
+		this.backdrop.classList.remove( ModalService.CLASS_ACTIVE );
 
-    this.backdrop.addEventListener('transitionend', () => {
-      this.backdrop.remove();
-      this.backdrop = null;
-    })
-  }
+		this.backdrop.addEventListener( 'transitionend', () => {
+			this.backdrop.remove();
+			this.backdrop = null;
+		} );
+	}
 
-  setModalTransition(active = true, setTransition = true) {
-    if (!this.modal) return;
+	setModalTransition( active = true, setTransition = true ) {
+		if ( ! this.modal ) {
+			return;
+		}
 
-    if (setTransition) {
-      this.modal.classList.add(ModalService.CLASS_TRANSITION);
-    }
+		if ( setTransition ) {
+			this.modal.classList.add( ModalService.CLASS_TRANSITION );
+		}
 
-    if (active) {
-      this.modal.classList.add(ModalService.CLASS_ACTIVE);
-    } else {
-      this.modal.classList.remove(ModalService.CLASS_ACTIVE);
-    }
+		if ( active ) {
+			this.modal.classList.add( ModalService.CLASS_ACTIVE );
+		} else {
+			this.modal.classList.remove( ModalService.CLASS_ACTIVE );
+		}
 
-    if (setTransition) {
-      this.modal.addEventListener('transitionend', () => {
-        this.modal.classList.remove(ModalService.CLASS_TRANSITION);
-      });
-    }
-  }
+		if ( setTransition ) {
+			this.modal.addEventListener( 'transitionend', () => {
+				this.modal.classList.remove( ModalService.CLASS_TRANSITION );
+			} );
+		}
+	}
 }

@@ -196,19 +196,19 @@
 							"fontFamily": "Montserrat",
 							"fontStyle": "normal",
 							"fontWeight": 500,
-							"src": ["file:./fonts/montserrat-medium.woff2"]
+							"src": [ "file:./fonts/montserrat-medium.woff2" ]
 						},
 						{
 							"fontFamily": "Montserrat",
 							"fontStyle": "normal",
 							"fontWeight": 600,
-							"src": ["file:./fonts/montserrat-semibold.woff2"]
+							"src": [ "file:./fonts/montserrat-semibold.woff2" ]
 						},
 						{
 							"fontFamily": "Monsterrat",
 							"fontStyle": "normal",
 							"fontWeight": 700,
-							"src": ["file:./fonts/montserrat-bold.woff2"]
+							"src": [ "file:./fonts/montserrat-bold.woff2" ]
 						}
 					],
 					"fontFamily": "Montserrat, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif",
@@ -221,7 +221,9 @@
 							"fontFamily": "Playfair Display",
 							"fontStyle": "normal",
 							"fontWeight": 500,
-							"src": ["file:./fonts/playfair_display-medium.woff2"]
+							"src": [
+								"file:./fonts/playfair_display-medium.woff2"
+							]
 						}
 					],
 					"fontFamily": "Playfair Display, Iowan Old Style, Apple Garamond, Baskerville, Times New Roman, Droid Serif, Times, Source Serif Pro, serif",
