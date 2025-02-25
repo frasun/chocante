@@ -10,11 +10,13 @@
 	}
 
 	&:is(ul, ol) {
+
 		@include list-reset;
 	}
 
 	a,
 	span:not(.dots) {
+
 		@include nav-button;
 	}
 }

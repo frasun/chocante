@@ -1,7 +1,9 @@
 .reading-time {
+
 	@include color(grey-2);
 	text-transform: uppercase;
 	letter-spacing: 0.2em;
+
 	@include font-size(small-sm);
 	display: flex;
 	align-items: center;

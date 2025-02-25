@@ -8,12 +8,14 @@ $breakpoint--desktop: 1280px;
 $breakpoint--desktop-lg: 1440px;
 
 @mixin max-width($breakpoint) {
+
 	@media (max-width: calc($breakpoint - 1px)) {
 		@content;
 	}
 }
 
 @mixin min-width($breakpoint) {
+
 	@media (min-width: $breakpoint) {
 		@content;
 	}
@@ -49,15 +51,19 @@ $breakpoint--desktop-lg: 1440px;
 }
 
 @mixin hide($device: "") {
+
 	@if $device == desktop {
+
 		@include min-width($breakpoint--desktop-sm) {
 			display: none !important;
 		}
 	} @else if $device == mobile {
+
 		@include max-width($breakpoint--desktop-sm) {
 			display: none !important;
 		}
 	} @else if $device == tablet {
+
 		@include min-width($breakpoint--mobile-lg) {
 			display: none !important;
 		}

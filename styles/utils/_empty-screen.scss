@@ -15,7 +15,8 @@
 		width: var(--empty-scree-badge-size);
 		height: var(--empty-scree-badge-size);
 		border-radius: 50%;
-		background-color: white;
+		background-color: var(--wp--preset--color--white);
+
 		@include flex(center);
 		margin: var(--spacing--10) auto;
 
@@ -26,12 +27,14 @@
 	}
 
 	p {
+
 		@include min-width($breakpoint--mobile-lg) {
 			font-size: var(--font-size--medium);
 		}
 	}
 
 	.button {
+
 		@include button;
 		@include button-size-lg;
 	}

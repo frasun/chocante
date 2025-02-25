@@ -1,14 +1,12 @@
 @mixin badge {
 	padding: var(--badge--padding, var(--spacing--5) var(--spacing--10));
 	border-radius: var(--badge--border-radius, var(--border-radius--sm));
-	background-color: var(
-		--badge--background-color,
-		var(--wp--custom--color--contrast)
-	);
+	background-color: var(--badge--background-color, var(--wp--custom--color--contrast));
 	letter-spacing: 0.2em;
 	text-transform: uppercase;
+
 	@include font(labels);
 	@include font-size(x-small);
 	--line-height: 1;
-	color: var(--badge--color, white);
+	color: var(--badge--color, var(--wp--preset--color--white));
 }

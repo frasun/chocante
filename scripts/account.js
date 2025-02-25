@@ -1,4 +1,4 @@
-window.jQuery( function ( $ ) {
+jQuery( function ( $ ) {
 	const BREAKPOINT = 768;
 
 	$( '.woocommerce-MyAccount-content__back-button' ).on( 'click', () => {

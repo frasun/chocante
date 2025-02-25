@@ -1,4 +1,5 @@
 .site-footer {
+
 	@include bg(base-2);
 	@include color(base-6);
 
@@ -8,7 +9,8 @@
 		padding: 0.35em 0;
 		display: block;
 		text-decoration: none;
-		color: currentColor;
+		color: currentcolor;
+
 		@include font-size(small);
 	}
 
@@ -16,6 +18,7 @@
 		padding-top: var(--spacing--20);
 		display: flex;
 		flex-direction: column;
+
 		@include container;
 
 		@include min-width($breakpoint--desktop-sm) {
@@ -31,16 +34,19 @@
 		}
 
 		&-menu {
+
 			@include max-width($breakpoint--desktop-sm) {
+
 				@include border(base-3, 0 0 1px);
 			}
 		}
 
 		&-header {
+
 			@include font(body);
 			@include font-size(normal-sm);
 			font-weight: var(--font-weight--semibold);
-			color: white;
+			color: var(--wp--preset--color--white);
 			text-transform: uppercase;
 			letter-spacing: 0.4em;
 			margin-top: var(--spacing--15);
@@ -55,18 +61,22 @@
 			}
 
 			&::after {
+
 				@include icon-font;
 				content: "\0041";
+
 				@include transition;
 				transform-origin: center;
 				width: 15px;
 				height: 15px;
 				display: block;
+
 				@include hide(desktop);
 			}
 		}
 
 		&--open {
+
 			.site-footer__nav-header::after {
 				transform: rotate(180deg);
 			}
@@ -78,7 +88,7 @@
 			gap: var(--spacing--10);
 
 			a:hover {
-				color: white;
+				color: var(--wp--preset--color--white);
 			}
 
 			@include max-width($breakpoint--desktop-sm) {
@@ -88,7 +98,9 @@
 		}
 
 		@include min-width($breakpoint--desktop-md) {
+
 			&-menu--products {
+
 				.menu {
 					display: grid;
 					grid-template-columns: 1fr 1fr;
@@ -101,6 +113,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
+
 		@include container;
 
 		@include max-width($breakpoint--desktop-sm) {
@@ -111,6 +124,7 @@
 			gap: var(--spacing--10);
 			padding-top: var(--spacing--20);
 			padding-bottom: var(--spacing--20);
+
 			@include border(base-3, 1px 0 0);
 		}
 
@@ -121,6 +135,7 @@
 		&-left,
 		&-mobile,
 		.menu {
+
 			@include flex(center);
 		}
 
@@ -128,19 +143,17 @@
 		.menu {
 			padding-top: var(--spacing--20);
 			padding-bottom: var(--spacing--20);
+			gap: var(--spacing--20);
 
 			@include max-width($breakpoint--desktop-sm) {
 				width: 100%;
+
 				@include border(base-3, 0 0 1px);
 			}
 		}
 
-		&-left,
-		.menu {
-			gap: var(--spacing--20);
-		}
-
 		&-left {
+
 			.wp-block-image {
 				margin: 0;
 				width: auto;
@@ -158,6 +171,7 @@
 
 		&-mobile {
 			gap: var(--spacing--10);
+
 			@include hide(desktop);
 
 			@include max-width($breakpoint--desktop-sm) {
@@ -172,10 +186,12 @@
 	}
 
 	#menu-social-media {
+
 		a {
 			padding: 0;
 
 			&:not(:hover) {
+
 				@include color(base-5);
 			}
 
@@ -186,6 +202,7 @@
 	}
 
 	&__copy {
+
 		@include bg(base-4);
 		@include color(base);
 		padding-top: var(--spacing--20);
@@ -200,6 +217,7 @@
 			display: flex;
 			justify-content: space-between;
 			align-items: baseline;
+
 			@include font-size(small);
 			@include container;
 
@@ -219,6 +237,7 @@
 			}
 
 			.menu {
+
 				@include flex(baseline);
 				column-gap: var(--spacing--30);
 
@@ -228,7 +247,9 @@
 				}
 
 				a {
+
 					&:hover {
+
 						@include color(base-6);
 					}
 				}

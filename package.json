@@ -1,11 +1,14 @@
 {
 	"name": "chocante-wp-theme",
-	"version": "0.18.2",
+	"version": "0.18.3",
 	"main": "",
 	"scripts": {
 		"start": "wp-scripts start",
-		"build": "npm run lint:js && NODE_ENV=production wp-scripts build",
-		"lint:js": "wp-scripts lint-js --fix && wp-scripts format",
+		"build": "NODE_ENV=production wp-scripts build",
+		"build:prod": "npm run lint && npm run build",
+		"lint:js": "wp-scripts format && wp-scripts lint-js --fix",
+		"lint:style": "wp-scripts lint-style --fix",
+		"lint": "npm run lint:js && npm run lint:style",
 		"packages-update": "wp-scripts packages-update"
 	},
 	"author": "",

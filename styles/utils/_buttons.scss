@@ -1,5 +1,6 @@
 // Button.
 @mixin button {
+
 	@include button-size-sm;
 	@include button-style-default;
 
@@ -7,6 +8,7 @@
 	border-width: var(--button--border-width);
 	padding: var(--button--padding-y) var(--button--padding-x);
 	border-style: solid;
+
 	@include font-size(normal-sm);
 	--line-height: 1.15;
 	font-weight: var(--font-weight--bold);
@@ -17,34 +19,14 @@
 	white-space: nowrap;
 	text-overflow: ellipsis;
 	overflow: hidden;
-	background-image: linear-gradient(
-		to right,
-		var(--button--background-color--hover) 50%,
-		var(--button--background-color) 50%
-	);
+	background-image: linear-gradient(to right, var(--button--background-color--hover) 50%, var(--button--background-color) 50%);
 	background-size: calc(200% + 12px) calc(100% + 6px);
 	background-position: calc(100% + 3px);
 	background-color: unset;
 	color: var(--button--color);
 	box-shadow: var(--button--shadow);
+
 	@include transition;
-
-	&:where(:not([disabled], .disabled)) {
-		--wp--custom--transition--property: color, background-position, box-shadow;
-
-		&:hover {
-			color: var(--button--color--hover);
-			box-shadow: var(--button--shadow--hover, var(--shadow--1));
-			border-color: var(--button--border-color--hover);
-			background-position: -3px;
-			--wp--custom--transition--property: color, background-position, box-shadow,
-				opacity, border-color;
-		}
-
-		&:active {
-			opacity: 0.9;
-		}
-	}
 
 	&:where([disabled], .disabled) {
 		background-image: none;
@@ -54,6 +36,27 @@
 		transition: none;
 
 		cursor: not-allowed;
+	}
+
+	&:where(:not([disabled], .disabled)) {
+		--wp--custom--transition--property: color, background-position, box-shadow;
+
+		&:hover {
+			color: var(--button--color--hover);
+			box-shadow: var(--button--shadow--hover, var(--shadow--1));
+			border-color: var(--button--border-color--hover);
+			background-position: -3px;
+			--wp--custom--transition--property:
+				color,
+				background-position,
+				box-shadow,
+				opacity,
+				border-color;
+		}
+
+		&:active {
+			opacity: 0.9;
+		}
 	}
 }
 
@@ -70,32 +73,32 @@
 @mixin button-style-default {
 	--button--background-color: var(--wp--preset--color--accent);
 	--button--background-color--hover: var(--wp--custom--color--accent-2);
-	--button--color: white;
-	--button--color--hover: white;
+	--button--color: var(--wp--preset--color--white);
+	--button--color--hover: var(--wp--preset--color--white);
 	--button--border-color: var(--wp--preset--color--accent);
 	--button--border-color--hover: var(--wp--custom--color--accent-2);
 	--button--background-color--disabled: var(--wp--custom--color--grey-3);
-	--button--color--disabled: white;
+	--button--color--disabled: var(--wp--preset--color--white);
 	--button--border-color--disabled: var(--wp--custom--color--grey-3);
 }
 
 @mixin button-style-inverted {
-	--button--background-color: white;
+	--button--background-color: var(--wp--preset--color--white);
 	--button--background-color--hover: var(--wp--custom--color--base-7);
 	--button--color: var(--wp--preset--color--base);
 	--button--color--hover: var(--wp--preset--color--base);
-	--button--border-color: white;
+	--button--border-color: var(--wp--preset--color--white);
 	--button--border-color--hover: var(--wp--custom--color--base-7);
-	--button--background-color--disabled: white;
+	--button--background-color--disabled: var(--wp--preset--color--white);
 	--button--color--disabled: var(--wp--custom--color--grey-3);
-	--button--border-color--disabled: white;
+	--button--border-color--disabled: var(--wp--preset--color--white);
 }
 
 @mixin button-style-outline {
 	--button--background-color: transparent;
 	--button--background-color--hover: var(--wp--custom--color--accent-2);
 	--button--color: var(--wp--preset--color--accent);
-	--button--color--hover: white;
+	--button--color--hover: var(--wp--preset--color--white);
 	--button--border-color: var(--wp--preset--color--accent);
 	--button--border-color--hover: var(--wp--custom--color--accent-2);
 	--button--background-color--disabled: transparent;
@@ -105,11 +108,11 @@
 
 @mixin button-style-outline-inverted {
 	--button--background-color: transparent;
-	--button--background-color--hover: white;
-	--button--color: white;
+	--button--background-color--hover: var(--wp--preset--color--white);
+	--button--color: var(--wp--preset--color--white);
 	--button--color--hover: var(--wp--preset--color--accent);
-	--button--border-color: white;
-	--button--border-color--hover: white;
+	--button--border-color: var(--wp--preset--color--white);
+	--button--border-color--hover: var(--wp--preset--color--white);
 	--button--background-color--disabled: transparent;
 	--button--color--disabled: var(--wp--custom--color--grey-3);
 	--button--border-color--disabled: var(--wp--custom--color--grey-3);
@@ -122,21 +125,22 @@
 	@include flex(center);
 	min-width: var(--icon-button-size);
 	height: var(--icon-button-size);
-	color: currentColor;
+	color: currentcolor;
 	background-color: transparent;
 
 	svg {
 		opacity: 1;
-		@include transition;
-	}
 
-	&:hover svg {
-		opacity: 0.5;
+		@include transition;
 	}
 
 	&:where(:active, .active) svg {
 		opacity: 1;
 		transition: none;
+	}
+
+	&:hover svg {
+		opacity: 0.5;
 	}
 }
 
@@ -147,16 +151,25 @@
 	width: var(--nav-button--size);
 	height: var(--nav-button--size);
 	border-radius: 50%;
-	color: white;
+	color: var(--wp--preset--color--white);
+
 	@include flex(center);
 	@include font-size(small-sm);
 	font-weight: var(--font-weight--semibold);
 	text-decoration: none;
 
+	&:where(span, :disabled) {
+
+		@include bg(base-6);
+		cursor: default;
+	}
+
 	&:where(a, button):not(:disabled) {
+
 		@include bg(accent);
 
 		svg {
+
 			@include transition;
 		}
 
@@ -164,6 +177,7 @@
 			box-shadow: var(--shadow--1);
 
 			&:not(:active) {
+
 				@include bg(accent-2);
 
 				svg {
@@ -174,12 +188,8 @@
 
 		&:active {
 			transition: none;
+
 			@include bg(accent);
 		}
-	}
-
-	&:where(span, :disabled) {
-		@include bg(base-6);
-		cursor: default;
 	}
 }

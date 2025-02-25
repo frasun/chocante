@@ -74,7 +74,7 @@ class Chocante {
 new Chocante();
 new ChocanteWooCommerce();
 
-window.jQuery( function ( $ ) {
+jQuery( function ( $ ) {
 	// Include header when scrolling to notices.
 	// @see: /plugins/woocommerce/assets/js/frontend/woocommerce.js:87
 	// const SCROLL_OFFSET = 15;

@@ -1,5 +1,5 @@
 @mixin box {
-	background-color: white;
+	background-color: var(--wp--preset--color--white);
 	padding: var(--spacing--20);
 	border-radius: var(--border-radius);
 }

@@ -4,8 +4,10 @@
 	right: 0;
 	top: 0;
 	bottom: 0;
+
 	@include transition;
 	opacity: 0;
+
 	@include bg(base);
 	z-index: var(--z-index--modal-backdrop);
 
@@ -15,5 +17,6 @@
 }
 
 button[data-close-modal] {
+
 	@include icon-button;
 }

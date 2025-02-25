@@ -18,10 +18,12 @@
 }
 
 .woocommerce {
+
 	&-info,
 	&-success,
 	&-message,
 	&-error {
+
 		@include notice;
 	}
 

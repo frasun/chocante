@@ -1,8 +1,9 @@
 .woocommerce-checkout {
 	--body--background-color: var(--wp--preset--color--grey);
-	--notice--background-color: white;
+	--notice--background-color: var(--wp--preset--color--white);
 
 	main {
+
 		@include container;
 	}
 
@@ -47,17 +48,20 @@
 			}
 
 			.shipping_address {
+
 				.woocommerce-shipping-fields__field-wrapper {
 					margin-bottom: var(--spacing--30);
 				}
 			}
 
 			#order_review_heading {
+
 				@include font-style(section-label);
 				margin: 0;
 			}
 
 			.payment__heading {
+
 				@include font-style(section-label);
 				margin-bottom: var(--spacing--15);
 				padding-bottom: 0.35em;
@@ -74,7 +78,9 @@
 		}
 
 		&-billing-fields {
+
 			h3 {
+
 				@include font-style(section-label);
 
 				@include min-width($breakpoint--desktop-sm) {
@@ -110,6 +116,7 @@
 
 		&-info,
 		&-error {
+
 			a:not(.button) {
 				display: inline-block;
 				vertical-align: text-top;
@@ -127,13 +134,16 @@
 			margin-bottom: var(--spacing--20);
 
 			.wc-bacs-bank-details {
+
 				@include list-reset;
 
 				&-heading {
+
 					@include font-style(section-label);
 				}
 
 				&-account-name {
+
 					@include font(body);
 					@include font-size(normal);
 					font-weight: var(--font-weight--bold);
@@ -148,16 +158,20 @@
 	}
 
 	form {
+
 		&.checkout,
 		&.checkout_coupon {
-			& > .blockUI.blockOverlay {
+
+			> .blockUI.blockOverlay {
 				background-color: var(--wp--preset--color--grey) !important;
 			}
 		}
 
 		&.checkout:has(.blockUI) {
+
 			#order_review_heading,
 			.payment__heading {
+
 				@include transition;
 				opacity: 0.4;
 			}
@@ -165,6 +179,7 @@
 	}
 
 	.back-to-cart {
+
 		@include button;
 		@include button-size-lg;
 		@include button-style-outline;
@@ -176,6 +191,7 @@
 	}
 
 	&.woocommerce-order-pay {
+
 		.woocommerce {
 			gap: var(--spacing--20);
 			margin-bottom: var(--spacing--50);
@@ -183,6 +199,7 @@
 		}
 
 		button[type="submit"] {
+
 			@include max-width($breakpoint--mobile-lg) {
 				width: 100%;
 			}
@@ -200,6 +217,7 @@
 	flex: 1 1 33%;
 	width: 100%;
 	overflow: hidden;
+
 	@include box;
 
 	thead {
@@ -219,7 +237,9 @@
 		}
 
 		.product {
+
 			&-name {
+
 				@include font-size(normal-sm);
 				font-weight: var(--font-weight--semibold);
 				--line-height: 1.15;
@@ -233,6 +253,7 @@
 				}
 
 				small {
+
 					@include font-size(small-sm);
 					font-weight: var(--font-weight--normal);
 					--line-height: 1.5;
@@ -254,9 +275,12 @@
 	}
 
 	.order_item {
+
 		.product {
+
 			&-variation-quantity,
 			&-quantity {
+
 				@include font-size(normal-sm);
 			}
 		}
@@ -268,7 +292,9 @@
 }
 
 #payment {
+
 	.payment_methods {
+
 		@include list-reset;
 		display: flex;
 		flex-direction: column;
@@ -292,9 +318,11 @@
 		.payment_box {
 			grid-row: 2 / 2;
 			grid-column: 1 / 3;
+
 			@include bg(grey-4);
 			border-radius: var(--border-radius--sm);
 			padding: var(--spacing--10) var(--spacing--20);
+
 			@include font-size(x-small);
 			margin-top: var(--spacing--15);
 
@@ -312,6 +340,7 @@
 .woocommerce-terms-and-conditions-wrapper {
 	display: flex;
 	flex-direction: column;
+
 	@include font-size(normal-sm);
 	margin-bottom: var(--spacing--30);
 
@@ -331,8 +360,10 @@
 		overflow-x: hidden;
 		order: 3;
 		margin-top: var(--spacing--20);
+
 		@include content-sm;
 
+		/* stylelint-disable-next-line no-descending-specificity */
 		p:not(:last-of-type) {
 			margin-bottom: 0.75em;
 		}

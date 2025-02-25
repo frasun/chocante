@@ -1,4 +1,5 @@
 .cwginstock-subscribe-form {
+
 	form.cart & {
 		grid-column: 1 / span 3;
 	}
@@ -9,6 +10,7 @@
 		gap: var(--spacing--15);
 
 		@include min-width($breakpoint--mobile-sm) {
+
 			&:first-child {
 				flex-direction: row;
 			}
@@ -17,32 +19,40 @@
 
 	h4 {
 		text-align: left !important;
+
 		@include font-style(section-label);
 		margin-bottom: 1em;
 	}
 }
 
 .cwgstock {
+
 	&_name,
 	&_email {
+
 		@include input-sm;
 		text-align: left !important;
 	}
 
 	&_button {
+
 		@include button;
 		@include button-size-lg;
 		margin-top: var(--spacing--15);
 	}
 
 	&_output {
+
 		> div {
+
 			@include notice;
 			margin-top: var(--spacing--15);
 		}
 
 		.cwginstock {
+
 			&error {
+
 				@include bg(error-bg);
 				color: var(--wp--custom--color--error) !important;
 			}

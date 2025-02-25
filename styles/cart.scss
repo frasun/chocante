@@ -1,11 +1,8 @@
-@import "_utils";
-
+@import "utils";
 @import "templates/infobox";
 @import "templates/quantity-input";
-
 @import "plugins/free-shipping";
 @import "plugins/delivery-time";
 @import "plugins/flexible-shipping";
 @import "plugins/select2";
-
 @import "templates/cart";

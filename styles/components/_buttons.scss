@@ -1,17 +1,21 @@
 a {
+
 	@include transition;
 }
 
 input[type="button"],
 [type="submit"],
 [type="reset"] {
+
 	@include button;
 }
 
 [type="submit"] {
+
 	@include button-size-lg;
 }
 
 [type="reset"] {
+
 	@include button-style-outline;
 }

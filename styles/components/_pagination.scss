@@ -1,5 +1,7 @@
 .woocommerce-pagination {
+
 	ul.page-numbers {
+
 		@include pagination;
 	}
 
@@ -8,6 +10,7 @@
 		justify-content: space-between;
 
 		.woocommerce-button {
+
 			@include button;
 			@include button-style-outline;
 
@@ -19,5 +22,6 @@
 }
 
 .pagination .nav-links {
+
 	@include pagination;
 }

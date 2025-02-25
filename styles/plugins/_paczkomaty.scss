@@ -1,6 +1,7 @@
 .paczkomaty-shipping {
 	display: flex;
 	flex-direction: column;
+
 	@include select2-sm;
 
 	#paczkomat_id_wrapper {
@@ -14,11 +15,13 @@
 
 	.button {
 		margin-top: var(--spacing--20);
+
 		@include button;
 		@include button-style-outline;
 	}
 
 	label {
+
 		@include font-style(section-label);
 		@include color(body);
 	}
@@ -38,7 +41,9 @@
 }
 
 .order-details {
+
 	.woocommerce-order-details {
+
 		> header {
 			margin-top: var(--spacing--20);
 
@@ -48,6 +53,7 @@
 		}
 
 		> dl {
+
 			@include font-size(normal-sm);
 			margin: var(--spacing--10) 0;
 		}

@@ -1,4 +1,5 @@
 @mixin remove-button {
+
 	@include flex(center);
 	@include color(base);
 
@@ -8,6 +9,7 @@
 	}
 
 	&:hover {
+
 		@include color(contrast);
 	}
 

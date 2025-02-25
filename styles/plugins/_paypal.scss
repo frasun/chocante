@@ -1,5 +1,7 @@
 woocommerce-order-pay {
+
 	.ppc-button-wrapper {
+
 		@include min-width($breakpoint--mobile-lg) {
 			max-width: 300px;
 		}

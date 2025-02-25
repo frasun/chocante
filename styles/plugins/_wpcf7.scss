@@ -1,5 +1,7 @@
 .wpcf7 {
+
 	&-form {
+
 		@include form-wrapper;
 		@include transition;
 
@@ -26,6 +28,7 @@
 		}
 
 		.wpcf7 {
+
 			&-submit {
 				margin-top: 0;
 				align-self: end;
@@ -38,6 +41,7 @@
 	}
 
 	&-not-valid-tip {
+
 		@include font-size(small-sm);
 		@include color(error);
 		padding-top: 0.35em;
@@ -52,6 +56,7 @@
 	}
 
 	&-response-output {
+
 		@include notice;
 
 		&:empty {

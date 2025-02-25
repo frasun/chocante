@@ -1,16 +1,19 @@
 @mixin dropdown($list: false) {
 	position: absolute;
 	background-color: rgba(255, 255, 255, 0.95);
+
 	@include color(base);
 	z-index: var(--z-index--dropdown);
 	box-shadow: var(--shadow--4);
 	border-radius: var(--border-radius--md);
+
 	@include transition;
 	transform: translateY(-5px);
 	opacity: 0;
 	pointer-events: none;
 
 	@if $list {
+
 		@include dropdown-list-item;
 	}
 }
@@ -22,6 +25,7 @@
 }
 
 @mixin dropdown-list-item() {
+
 	li {
 		position: relative;
 
@@ -30,6 +34,7 @@
 			display: flex;
 
 			@include min-width($breakpoint--desktop-sm) {
+
 				span {
 					display: inline-block;
 					position: relative;
@@ -43,9 +48,10 @@
 						margin-top: 0.05em;
 						height: 2px;
 						border-radius: 2px;
-						background-color: currentColor;
+						background-color: currentcolor;
 						transform: scale(0, 1);
 						transform-origin: 0%;
+
 						@include transition;
 					}
 				}
@@ -53,6 +59,7 @@
 		}
 
 		&:hover {
+
 			> a span::before {
 				transform: scale(1, 1);
 			}

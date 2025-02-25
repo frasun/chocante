@@ -1,19 +1,8 @@
 .quantity {
 	position: relative;
 
-	&:hover {
-		input.qty {
-			box-shadow: var(--shadow--2);
-		}
-	}
-
-	&:active {
-		input.qty {
-			background-color: white;
-		}
-	}
-
 	input.qty {
+
 		@include input;
 
 		padding: var(--spacing--10) calc(var(--spacing--20) + 24px);
@@ -21,6 +10,7 @@
 		text-overflow: ellipsis;
 		text-align: center;
 		-moz-appearance: textfield;
+		appearance: textfield;
 
 		&::-webkit-outer-spin-button,
 		&::-webkit-inner-spin-button {
@@ -34,16 +24,34 @@
 		}
 	}
 
+	&:hover {
+
+		input.qty {
+			box-shadow: var(--shadow--2);
+		}
+	}
+
+	&:active {
+
+		input.qty {
+			background-color: var(--wp--preset--color--white);
+		}
+	}
+
 	button {
+
 		@include flex(center);
 		background: transparent;
+
 		@include transition;
 		width: 24px;
 		height: 24px;
+
 		@include color(accent);
 		opacity: 1;
 
 		&:hover {
+
 			@include color(contrast);
 
 			&:active {

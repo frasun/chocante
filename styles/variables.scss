@@ -1,3 +1,5 @@
+@use "sass:list";
+
 :root {
 	// Z-index.
 	--z-index--dropdown: 1000;
@@ -5,8 +7,8 @@
 	--z-index--modal-backdrop: 2999;
 	--z-index--modal: 3000;
 	// Shadows.
-	@for $i from 1 through length($shadows) {
-		--shadow--#{$i}: #{nth($shadows, $i)};
+	@for $i from 1 through list.length($shadows) {
+		--shadow--#{$i}: #{list.nth($shadows, $i)};
 	}
 	// Spacing.
 	--spacing--5: var(--wp--preset--spacing--5, 5px);
@@ -25,35 +27,20 @@
 	// Line height.
 	--line-height: 1.5;
 	// Font family.
-	--font-family--body: var(
-		--wp--preset--font-family--body,
-		#{$font-family--body-default}
-	);
-	--font-family--headings: var(
-		--wp--preset--font-family--headings,
-		#{$font-family--headings-default}
-	);
+	--font-family--body: var(--wp--preset--font-family--body, #{$font-family--body-default});
+	--font-family--headings: var(--wp--preset--font-family--headings, #{$font-family--headings-default});
 	// Font weight.
 	--font-weight--normal: 500;
 	--font-weight--semibold: 600;
 	--font-weight--bold: 700;
 	// Font size.
-	--font-size--huge: var(
-		--wp--preset--font-size--huge,
-		clamp(45px, 3.125rem + ((1vw - 6px) * 4.762), 90px)
-	);
+	--font-size--huge: var(--wp--preset--font-size--huge, clamp(45px, 3.125rem + ((1vw - 6px) * 4.762), 90px));
 	--font-size--xx-large: clamp(40px, 2.5rem + ((1vw - 3.75px) * 5.089), 60px);
-	--font-size--x-large: var(
-		--wp--preset--font-size--x-large,
-		clamp(30px, 1.875rem + ((1vw - 6px) * 2.381), 50px)
-	);
+	--font-size--x-large: var(--wp--preset--font-size--x-large, clamp(30px, 1.875rem + ((1vw - 6px) * 2.381), 50px));
 	--font-size--large: var(--wp--preset--font-size--large, 30px);
 	--font-size--big: var(--wp--preset--font-size--big, 24px);
 	--font-size--medium: var(--wp--preset--font-size--medium, 20px);
-	--font-size--medium-sm: var(
-		--wp--preset--font-size--medium-sm,
-		clamp(16px, 1rem + ((1vw - 3.75px) * 0.509), 18px)
-	);
+	--font-size--medium-sm: var(--wp--preset--font-size--medium-sm, clamp(16px, 1rem + ((1vw - 3.75px) * 0.509), 18px));
 	--font-size--normal: var(--wp--preset--font-size--normal, 16px);
 	--font-size--normal-sm: var(--wp--preset--font-size--normal-sm, 15px);
 	--font-size--small: var(--wp--preset--font-size--small, 14px);

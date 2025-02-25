@@ -1,10 +1,13 @@
 .search-products {
+
 	&__form {
+
 		@include flex(center);
 		flex-direction: column;
 		gap: var(--spacing--30);
 		transform: translate3d(100%, 0, 0);
-		color: white;
+		color: var(--wp--preset--color--white);
+
 		@include side-nav(false);
 
 		button[data-close-modal] {
@@ -30,6 +33,7 @@
 			position: relative;
 
 			button[type="submit"] {
+
 				@include button;
 				@include button-size-lg;
 				@include button-style-inverted;
@@ -40,13 +44,14 @@
 			}
 
 			.search-field {
+
 				@include input;
 				--input--background-color: transparent;
 				--input--background-color--focus: transparent;
-				--input--border: white;
-				--input--border--focus: white;
-				--input--color: white;
-				--input--placeholder: white;
+				--input--border: var(--wp--preset--color--white);
+				--input--border--focus: var(--wp--preset--color--white);
+				--input--color: var(--wp--preset--color--white);
+				--input--placeholder: var(--wp--preset--color--white);
 
 				padding-left: var(--spacing--50);
 				flex: 1 1 300px;
@@ -55,6 +60,7 @@
 	}
 
 	&__title {
+
 		@include font-style(subheading);
 		@include color(base-8);
 		text-align: center;

@@ -1,5 +1,7 @@
 .woocommerce-shipping-methods {
+
 	li {
+
 		.shipping-method-description {
 			grid-column-start: 2;
 			font-size: 80%;
@@ -7,6 +9,7 @@
 		}
 
 		&:has(input[type="hidden"]) {
+
 			.shipping-method-description {
 				grid-column-start: 1;
 			}

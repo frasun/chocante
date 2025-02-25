@@ -1,8 +1,10 @@
 @mixin content {
+
 	@include content-shared;
 }
 
 @mixin content-short {
+
 	@include content-shared;
 
 	h3,
@@ -12,16 +14,20 @@
 	}
 
 	h3 {
+
 		@include font-size(big);
 	}
 
 	h4 {
+
 		@include font-size(medium);
 	}
 }
 
 @mixin content-shared {
+
 	@include max-width($breakpoint--mobile) {
+
 		@include font-size(normal-sm);
 	}
 
@@ -33,6 +39,7 @@
 	h6 {
 		margin-top: 1em;
 		margin-bottom: 0.5em;
+
 		@include color(base);
 	}
 
@@ -53,6 +60,7 @@
 }
 
 @mixin content-sm {
+
 	@include content-shared;
 
 	font-size: 0.8em;
@@ -65,14 +73,6 @@
 	h6 {
 		font-weight: var(--font-weight--bold);
 		font-size: 1.2em;
-	}
-
-	h1,
-	h2,
-	h3,
-	h4,
-	h5,
-	h6 {
 		margin-top: 0.5em;
 		margin-bottom: 1.2em;
 	}

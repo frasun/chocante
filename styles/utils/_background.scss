@@ -9,21 +9,15 @@
 		top: 0;
 		bottom: 0;
 		background: url(../images/bg-pattern.png);
-		background-position: var(--bg-pattern--position-y, bottom)
+		background-position:
+			var(--bg-pattern--position-y, bottom)
 			var(--bg-pattern--position-x, center);
 		z-index: 0;
 	}
 }
 
 @mixin bg-gradient {
-	background: linear-gradient(
-		to top,
-		var(--bg-gradient--second-color, white),
-		var(--bg-gradient--second-color, white) var(--bg-gradient--bottom, 50%),
-		var(
-				--bg-gradient--first-color,
-				var(--header--background-color, var(--wp--preset--color--base))
-			)
-			var(--bg-gradient--bottom, 50%)
-	);
+	background:
+		linear-gradient(to top, var(--bg-gradient--second-color, var(--wp--preset--color--white)), var(--bg-gradient--second-color, var(--wp--preset--color--white)) var(--bg-gradient--bottom, 50%), var(--bg-gradient--first-color, var(--header--background-color, var(--wp--preset--color--base)))
+		var(--bg-gradient--bottom, 50%));
 }

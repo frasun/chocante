@@ -3,15 +3,18 @@
 	height: 18px;
 	border-radius: 9px;
 	padding: 3px;
+
 	@include flex(center);
 	@include font-size(normal-sm);
 	font-weight: var(--font-weight--bold);
 
 	@if $color != "" {
+
 		@include color($color);
 	}
 
 	@if $bg != "" {
+
 		@include bg($bg);
 	}
 }
@@ -31,7 +34,8 @@
 		position: absolute;
 		right: 0;
 		top: var(--spacing--5);
-		background-color: white;
+		background-color: var(--wp--preset--color--white);
+
 		@include counter-badge(base);
 
 		@include min-width($breakpoint--desktop-sm) {
@@ -40,6 +44,7 @@
 	}
 
 	&__content {
+
 		@include dropdown;
 
 		top: 100%;
@@ -58,6 +63,7 @@
 	}
 
 	&:hover &__content {
+
 		@include dropdown-active;
 	}
 
@@ -65,6 +71,7 @@
 		display: flex;
 		align-items: center;
 		gap: var(--spacing--5);
+
 		@include font-style(body);
 		@include font-size(medium);
 		font-weight: var(--font-weight--semibold);
@@ -74,19 +81,153 @@
 		margin: 0;
 
 		.count {
+
 			@include counter-badge($bg: base);
-			color: white;
+			color: var(--wp--preset--color--white);
 			font-size: 0.55em;
 		}
 
 		a {
 			font-weight: var(--font-weight--semibold);
-			color: currentColor;
+			color: currentcolor;
 			text-decoration: none;
 
 			&:hover {
 				text-decoration: underline;
 			}
+		}
+	}
+
+	.woocommerce-mini-cart {
+		display: grid;
+		gap: var(--spacing--5);
+
+		&-item {
+			display: grid;
+			grid-template-columns: auto min-content;
+			grid-template-rows: auto auto;
+			column-gap: var(--spacing--10);
+			align-items: start;
+			padding-top: var(--spacing--10);
+			padding-bottom: var(--spacing--10);
+			margin-left: var(--spacing--20);
+			margin-right: var(--spacing--20);
+
+			&:not(:last-child) {
+
+				@include border(grey-3, 0 0 1px);
+			}
+
+			.remove_from_cart_button {
+				grid-column-start: 2;
+				grid-row-start: 1;
+
+				@include remove-button;
+			}
+
+			> a:not(.remove_from_cart_button) {
+				grid-column-start: 1;
+				grid-row-start: 1;
+				--line-height: 1.15;
+				font-weight: var(--font-weight--semibold);
+				position: relative;
+				padding-left: calc(var(--mini-cart--image-size) + var(--spacing--10));
+
+				@include font-size(normal-sm);
+				color: currentcolor;
+				text-decoration: none;
+
+				&:hover {
+					text-decoration: underline;
+				}
+
+				small {
+					display: block;
+					padding-top: 0.15em;
+
+					@include font-size(small);
+					font-weight: var(--font-weight--normal);
+
+					@include color(body);
+				}
+			}
+
+			img {
+				width: var(--mini-cart--image-size);
+				height: var(--mini-cart--image-size);
+				border-radius: var(--border-radius--xs);
+
+				@include border(grey-3);
+				position: absolute;
+				left: 0;
+				top: 0;
+			}
+
+			footer {
+				grid-column-start: 1;
+				grid-column-end: span 2;
+				grid-row-start: 2;
+
+				@include flex(baseline);
+				justify-content: space-between;
+				padding-left: 60px;
+
+				.quantity {
+					margin-top: 0.15em;
+
+					@include flex(baseline);
+					gap: var(--spacing--5);
+
+					@include font-size(normal-sm);
+
+					.woocommerce-price-suffix {
+
+						@include font-size(x-small);
+					}
+				}
+			}
+		}
+
+		&__total {
+			margin: 0;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+
+			> strong {
+				font-weight: var(--font-weight--normal);
+			}
+
+			.woocommerce-Price-amount {
+				display: block;
+				font-weight: var(--font-weight--bold);
+				--line-height: 1;
+
+				@include font-size(big);
+			}
+		}
+
+		&__buttons {
+			text-align: right;
+			display: flex;
+			align-items: end;
+			margin: 0;
+
+			.button {
+
+				@include button;
+				width: 100%;
+				white-space: normal;
+				word-break: break-word;
+			}
+		}
+
+		&__empty-message {
+			padding-left: var(--spacing--20);
+			padding-right: var(--spacing--20);
+			padding-top: var(--spacing--10);
+			width: 100%;
+			margin: 0;
 		}
 	}
 
@@ -123,127 +264,6 @@
 		.mini-cart__content-title {
 			grid-column-start: 1;
 			grid-column-end: span 2;
-		}
-	}
-
-	.woocommerce-mini-cart {
-		display: grid;
-		gap: var(--spacing--5);
-
-		&-item {
-			display: grid;
-			grid-template-columns: auto min-content;
-			grid-template-rows: auto auto;
-			column-gap: var(--spacing--10);
-			align-items: start;
-			padding-top: var(--spacing--10);
-			padding-bottom: var(--spacing--10);
-			margin-left: var(--spacing--20);
-			margin-right: var(--spacing--20);
-
-			&:not(:last-child) {
-				@include border(grey-3, 0 0 1px);
-			}
-
-			.remove_from_cart_button {
-				grid-column-start: 2;
-				grid-row-start: 1;
-				@include remove-button;
-			}
-
-			> a:not(.remove_from_cart_button) {
-				grid-column-start: 1;
-				grid-row-start: 1;
-				--line-height: 1.15;
-				font-weight: var(--font-weight--semibold);
-				position: relative;
-				padding-left: calc(var(--mini-cart--image-size) + var(--spacing--10));
-				@include font-size(normal-sm);
-				color: currentColor;
-				text-decoration: none;
-
-				&:hover {
-					text-decoration: underline;
-				}
-
-				small {
-					display: block;
-					padding-top: 0.15em;
-					@include font-size(small);
-					font-weight: var(--font-weight--normal);
-					@include color(body);
-				}
-			}
-
-			img {
-				width: var(--mini-cart--image-size);
-				height: var(--mini-cart--image-size);
-				border-radius: var(--border-radius--xs);
-				@include border(grey-3);
-				position: absolute;
-				left: 0;
-				top: 0;
-			}
-
-			footer {
-				grid-column-start: 1;
-				grid-column-end: span 2;
-				grid-row-start: 2;
-				@include flex(baseline);
-				justify-content: space-between;
-				padding-left: 60px;
-
-				.quantity {
-					margin-top: 0.15em;
-					@include flex(baseline);
-					gap: var(--spacing--5);
-					@include font-size(normal-sm);
-
-					.woocommerce-price-suffix {
-						@include font-size(x-small);
-					}
-				}
-			}
-		}
-
-		&__total {
-			margin: 0;
-			display: flex;
-			flex-direction: column;
-			justify-content: center;
-
-			> strong {
-				font-weight: var(--font-weight--normal);
-			}
-
-			.woocommerce-Price-amount {
-				display: block;
-				font-weight: var(--font-weight--bold);
-				--line-height: 1;
-				@include font-size(big);
-			}
-		}
-
-		&__buttons {
-			text-align: right;
-			display: flex;
-			align-items: end;
-			margin: 0;
-
-			.button {
-				@include button;
-				width: 100%;
-				white-space: normal;
-				word-break: break-word;
-			}
-		}
-
-		&__empty-message {
-			padding-left: var(--spacing--20);
-			padding-right: var(--spacing--20);
-			padding-top: var(--spacing--10);
-			width: 100%;
-			margin: 0;
 		}
 	}
 }

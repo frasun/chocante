@@ -1,9 +1,10 @@
 @mixin loop-item-link {
 	border-radius: var(--border-radius);
+
 	@include border(grey-4);
 	overflow: hidden;
 	font-weight: var(--font-weight--normal);
-	color: currentColor;
+	color: currentcolor;
 	text-decoration: none;
 
 	&:hover {
@@ -11,11 +12,13 @@
 	}
 
 	img {
+
 		@include transition;
 	}
 }
 
 @mixin loop-item-title {
+
 	@include font-size(medium-sm);
 	font-weight: var(--font-weight--bold);
 	font-family: var(--font-family--body);

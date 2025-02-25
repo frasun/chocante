@@ -4,14 +4,12 @@
 }
 
 .site-header {
-	background-color: var(
-		--header--background-color,
-		var(--wp--preset--color--base)
-	);
-	color: var(--header--text-color, white);
+	background-color: var(--header--background-color, var(--wp--preset--color--base));
+	color: var(--header--text-color, var(--wp--preset--color--white));
 	position: sticky;
 	top: 0;
 	z-index: var(--z-index--overlay);
+
 	@include transition;
 
 	// WP admin bar fix.
@@ -24,6 +22,7 @@
 	}
 
 	&__container {
+
 		@include container;
 
 		@include max-width($breakpoint--desktop-sm) {
@@ -37,9 +36,40 @@
 		align-items: baseline;
 		justify-content: end;
 		gap: var(--spacing--20);
+		padding-top: var(--spacing--10);
+		padding-bottom: var(--spacing--10);
+		border-bottom: 1px solid var(--header--border-color, var(--wp--custom--color--base-9));
+
+		@include hide(mobile);
+
+		@include max-width($breakpoint--desktop-md) {
+			padding-right: var(--spacing--10);
+			padding-left: var(--spacing--10);
+		}
 
 		@include max-width($breakpoint--desktop-sm) {
 			display: none;
+		}
+
+		.menu {
+			display: flex;
+			flex-direction: row;
+			align-items: end;
+			width: 100%;
+			gap: var(--spacing--5);
+
+			a {
+				text-transform: uppercase;
+				font-weight: var(--font-weight--bold);
+				font-size: var(--font-size--x-small);
+				padding: var(--spacing--5) var(--spacing--10);
+				color: var(--header--text-color-secondary, var(--wp--custom--color--base-6));
+				text-decoration: none;
+
+				&:hover {
+					color: var(--text-color);
+				}
+			}
 		}
 
 		div[class^="menu-"] {
@@ -47,6 +77,7 @@
 		}
 
 		> *:last-child {
+
 			.wpml-ls-sub-menu,
 			.wcml-cs-submenu {
 				right: 0;
@@ -59,11 +90,14 @@
 		.wpml-ls-legacy-dropdown-click,
 		.wcml-dropdown,
 		.wcml-dropdown-click {
+
 			a {
+
 				@include font-size(normal-sm);
 
 				&.wpml-ls-item-toggle,
 				&.wcml-cs-item-toggle {
+
 					@include font-size(x-small);
 				}
 			}
@@ -71,6 +105,7 @@
 	}
 
 	&__menu {
+
 		@include flex(baseline);
 		gap: var(--spacing--10);
 		width: 100%;
@@ -96,6 +131,7 @@
 		flex: 1;
 		justify-content: center;
 		gap: var(--spacing--10);
+
 		@include hide(mobile);
 		@include dropdown-list-item;
 
@@ -104,13 +140,15 @@
 		}
 
 		> li {
+
+			/* stylelint-disable-next-line no-descending-specificity */
 			> a {
 				text-transform: uppercase;
 				font-weight: var(--font-weight--bold);
 				font-size: var(--font-size--small);
 				padding: var(--spacing--10);
 				text-align: center;
-				color: currentColor;
+				color: currentcolor;
 
 				span {
 					line-height: 1.2;
@@ -123,21 +161,27 @@
 		}
 
 		li {
+
 			&:hover {
+
 				> ul {
+
 					@include dropdown-active;
 				}
 			}
 
 			&.menu-item-has-children {
-				& > a > span {
+
+				> a > span {
 					display: inline-flex;
 					gap: var(--spacing--5);
 					align-items: center;
 
 					&::after {
+
 						@include icon-font;
 						content: "\0041";
+
 						@include transition;
 						font-size: 0.65em;
 					}
@@ -160,25 +204,29 @@
 			padding-bottom: var(--spacing--10);
 			width: max-content;
 			max-width: 90vw;
+
 			@include dropdown;
 
 			ul {
 				left: var(--spacing--40);
 			}
 
+			/* stylelint-disable-next-line no-descending-specificity */
 			a {
 				padding-top: var(--spacing--10);
 				padding-bottom: var(--spacing--5);
 				padding-right: var(--spacing--40);
 				padding-left: var(--spacing--20);
+
 				@include font-size(medium);
 				font-weight: var(--font-weight--semibold);
-				color: currentColor;
+				color: currentcolor;
 			}
 		}
 	}
 
 	&__aside {
+
 		@include flex(center);
 		justify-content: end;
 		position: relative;
@@ -189,45 +237,9 @@
 	}
 
 	&__toggle {
+
 		@include icon-button;
 		@include hide(desktop);
-	}
-
-	&__top {
-		padding-top: var(--spacing--10);
-		padding-bottom: var(--spacing--10);
-		border-bottom: 1px solid
-			var(--header--border-color, var(--wp--custom--color--base-9));
-		@include hide(mobile);
-
-		@include max-width($breakpoint--desktop-md) {
-			padding-right: var(--spacing--10);
-			padding-left: var(--spacing--10);
-		}
-
-		.menu {
-			display: flex;
-			flex-direction: row;
-			align-items: end;
-			width: 100%;
-			gap: var(--spacing--5);
-
-			a {
-				text-transform: uppercase;
-				font-weight: var(--font-weight--bold);
-				font-size: var(--font-size--x-small);
-				padding: var(--spacing--5) var(--spacing--10);
-				color: var(
-					--header--text-color-secondary,
-					var(--wp--custom--color--base-6)
-				);
-				text-decoration: none;
-
-				&:hover {
-					color: var(--text-color);
-				}
-			}
-		}
 	}
 
 	.custom-logo-link {
@@ -249,6 +261,7 @@
 	.mini-cart__button,
 	.customer-account-link,
 	.search-products__display {
+
 		@include icon-button;
 
 		@include min-width($breakpoint--desktop-sm) {
@@ -260,8 +273,9 @@
 	}
 
 	.customer-account-link {
+
 		svg path {
-			fill: white;
+			fill: var(--wp--preset--color--white);
 		}
 	}
 }

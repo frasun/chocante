@@ -1,4 +1,5 @@
 .badge {
+
 	@include badge;
 
 	&__container {
@@ -14,5 +15,6 @@
 }
 
 .onsale {
+
 	@include badge;
 }

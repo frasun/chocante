@@ -1,9 +1,9 @@
 // Theme variables & utility classes.
-@import "_utils";
-@import "_variables";
+@import "utils";
+@import "variables";
 
 // Reset / normalize.
-@import "_reset";
+@import "reset";
 
 // Components.
 @import "components/badge";
@@ -31,7 +31,6 @@
 @import "templates/content-header";
 @import "templates/page";
 @import "templates/featured-products";
-@import "templates/menu";
 @import "templates/price";
 @import "templates/product-loop";
 @import "templates/product-section";

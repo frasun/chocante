@@ -1,4 +1,4 @@
-window.jQuery( function ( $ ) {
+jQuery( function ( $ ) {
 	validatePostCode( $( '[name="billing_postcode"]' ) );
 	validatePostCode( $( '[name="shipping_postcode"]' ) );
 

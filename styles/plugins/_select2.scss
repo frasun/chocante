@@ -1,13 +1,18 @@
 .select2 {
+
 	&-container {
 		vertical-align: text-bottom;
 
 		&,
 		&--default {
+
 			.select2 {
+
 				&-selection {
+
 					&--single,
 					&--multiple {
+
 						@include input;
 						padding-left: var(--spacing--20);
 						padding-right: 35px;
@@ -29,12 +34,15 @@
 								margin: 0;
 
 								&::after {
+
 									@include icon-font;
 									content: "\0041";
 									border: 0;
 									position: static;
+
 									@include transition;
 									font-size: 0.75em;
+
 									@include color(body);
 									opacity: 0.5;
 								}
@@ -45,6 +53,7 @@
 							padding-left: 0;
 							padding-right: 0;
 							line-height: inherit;
+
 							@include color(body);
 						}
 					}
@@ -52,20 +61,25 @@
 			}
 
 			.select2-results {
+
 				&__option {
 					padding-left: var(--spacing--15);
 					padding-right: var(--spacing--15);
+
 					@include font-size(normal-sm);
 
 					&--highlighted {
+
 						&[aria-selected],
 						&[data-selected] {
+
 							@include bg(grey-4);
 							@include color(body);
 						}
 					}
 
 					&[data-selected="true"] {
+
 						@include color(accent);
 						font-weight: var(--font-weight--bold);
 						background-color: transparent;
@@ -75,8 +89,11 @@
 		}
 
 		&:hover {
+
 			.select2-selection__arrow {
+
 				b {
+
 					&::after {
 						opacity: 1;
 					}
@@ -86,12 +103,15 @@
 	}
 
 	&-container--open {
+
 		.select2-selection {
-			background-color: white;
+			background-color: var(--wp--preset--color--white);
 			box-shadow: var(--shadow--2);
+
 			@include border(accent);
 
 			.select2-selection__arrow {
+
 				b {
 					border: 0;
 
@@ -104,6 +124,7 @@
 		}
 
 		&.select2-container--below {
+
 			.select2-selection {
 				border-bottom-left-radius: 0;
 				border-bottom-right-radius: 0;
@@ -111,6 +132,7 @@
 		}
 
 		&.select2-container--above {
+
 			.select2-selection {
 				border-top-left-radius: 0;
 				border-top-right-radius: 0;
@@ -119,7 +141,9 @@
 	}
 
 	&-search--dropdown {
+
 		.select2-search__field {
+
 			@include font-size(normal-sm);
 			padding: var(--spacing--5) var(--spacing--10);
 		}
@@ -142,20 +166,28 @@
 }
 
 @mixin select2-sm {
+
 	.select2 {
+
 		&-container {
+
 			&,
 			&--default {
+
 				.select2 {
+
 					&-selection {
+
 						&--single,
 						&--multiple {
+
 							@include input-sm;
 						}
 					}
 				}
 
 				.select2-results {
+
 					&__option {
 						padding-left: var(--spacing--10);
 						padding-right: var(--spacing--10);
@@ -165,7 +197,9 @@
 		}
 
 		&-container--open {
+
 			&.select2-container--below {
+
 				.select2-selection {
 					border-bottom-left-radius: 0;
 					border-bottom-right-radius: 0;
@@ -173,6 +207,7 @@
 			}
 
 			&.select2-container--above {
+
 				.select2-selection {
 					border-top-left-radius: 0;
 					border-top-right-radius: 0;
@@ -181,12 +216,14 @@
 		}
 
 		&-search--dropdown {
+
 			.select2-search__field {
 				padding: var(--spacing--5);
 			}
 		}
 
 		&-dropdown {
+
 			&.select2-dropdown--below {
 				border-bottom-left-radius: var(--border-radius--xs);
 				border-bottom-right-radius: var(--border-radius--xs);

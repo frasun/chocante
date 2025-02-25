@@ -1,5 +1,6 @@
 .chocante-omnibus {
 	display: block;
+
 	@include color(grey-2);
 	@include font-size(x-small);
 	font-weight: var(--font-weight--semibold);
@@ -9,6 +10,7 @@
 	text-transform: uppercase;
 
 	.woocommerce-Price-amount {
+
 		&,
 		.product & {
 			font-size: inherit;

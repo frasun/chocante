@@ -1,4 +1,5 @@
 .menu {
+
 	@include list-reset;
 }
 
@@ -6,13 +7,36 @@
 	display: flex;
 	flex-direction: column;
 	gap: var(--spacing--20);
-	color: white;
+	color: var(--wp--preset--color--white);
+
 	@include side-nav;
+
+	&__nav,
+	&__after-nav {
+
+		a {
+			font-weight: var(--font-weight--semibold);
+			font-size: var(--font-size--medium);
+			padding: var(--spacing--10) 0;
+			display: block;
+			color: currentcolor;
+			text-decoration: none;
+		}
+
+		ul {
+
+			@include list-reset;
+			text-align: left;
+			display: flex;
+			flex-direction: column;
+		}
+	}
 
 	&__nav {
 		gap: var(--spacing--15);
 
 		> li {
+
 			> a {
 				font-family: var(--font-family--headings);
 				font-weight: var(--font-weight--normal);
@@ -29,25 +53,6 @@
 		}
 	}
 
-	&__nav,
-	&__after-nav {
-		a {
-			font-weight: var(--font-weight--semibold);
-			font-size: var(--font-size--medium);
-			padding: var(--spacing--10) 0;
-			display: block;
-			color: currentColor;
-			text-decoration: none;
-		}
-
-		ul {
-			@include list-reset;
-			text-align: left;
-			display: flex;
-			flex-direction: column;
-		}
-	}
-
 	&__top {
 		display: flex;
 		align-items: start;
@@ -57,11 +62,14 @@
 		.wpml-ls-legacy-dropdown-click,
 		.wcml-dropdown,
 		.wcml-dropdown-click {
+
 			a {
+
 				@include font-size(medium);
 
 				&.wpml-ls-item-toggle,
 				&.wcml-cs-item-toggle {
+
 					@include font-size(normal);
 				}
 			}

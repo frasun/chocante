@@ -2,13 +2,16 @@
 	display: flex;
 	flex-direction: column;
 	row-gap: 20px;
+
 	@include box;
 
 	button[data-close-modal] {
+
 		@include hide(desktop);
 	}
 
 	header {
+
 		@include font-style(section-label);
 		@include color(grey-2);
 	}
@@ -25,20 +28,23 @@
 			gap: var(--spacing--10);
 			align-items: start;
 
-			& + div {
+			+ div {
 				padding-top: var(--spacing--15);
 			}
 		}
 	}
 
 	legend {
+
 		@include font-size(medium-sm);
 		font-weight: var(--font-weight--bold);
+
 		@include color(base);
 		padding-bottom: var(--spacing--10);
 	}
 
 	label {
+
 		span {
 			opacity: 0.4;
 			margin-left: 0.35em;
@@ -54,6 +60,7 @@
 
 		button,
 		.button {
+
 			@include button-size-sm;
 		}
 	}

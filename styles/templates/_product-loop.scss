@@ -1,9 +1,11 @@
 .products {
 	--loop-item-width: 270px;
+
 	@include list-reset;
 
 	.product {
 		--wp--custom--transition--easing: ease-in;
+
 		@include transition;
 
 		@include max-width($breakpoint--desktop-md) {
@@ -15,21 +17,30 @@
 		}
 
 		.woocommerce {
+
 			&-loop-product {
+
 				&__title {
+
 					@include loop-item-title;
 					@include color(base);
 					margin: 0 0 0.2em;
 				}
 
 				&__link {
+
 					@include loop-item-link;
 
-					background-color: white;
+					background-color: var(--wp--preset--color--white);
 					position: relative;
 					display: block;
 
+					img {
+						transform: translateY(0);
+					}
+
 					&:hover {
+
 						img {
 							transform: translateY(-2%);
 						}
@@ -37,10 +48,6 @@
 						.woocommerce-loop-product__info-wrapper {
 							transform: translateY(0);
 						}
-					}
-
-					img {
-						transform: translateY(0);
 					}
 
 					.badge__container {
@@ -63,8 +70,9 @@
 					z-index: -1;
 					transform: translateY(-100%);
 					padding: var(--spacing--10) var(--spacing--20) var(--spacing--15);
-					background: white;
+					background: var(--wp--preset--color--white);
 
+					/* stylelint-disable-next-line no-descending-specificity */
 					&-wrapper {
 						padding: var(--spacing--5) var(--spacing--20) var(--spacing--20);
 						display: flex;
@@ -73,8 +81,9 @@
 						align-items: start;
 						position: relative;
 						transform: translateY(100%);
+
 						@include transition;
-						background-color: white;
+						background-color: var(--wp--preset--color--white);
 						margin-top: 2em;
 					}
 				}
@@ -89,11 +98,13 @@
 		}
 
 		.button {
+
 			@include button;
 			@include button-size-lg;
 		}
 
 		&.outofstock .button {
+
 			@include button-style-outline;
 		}
 	}

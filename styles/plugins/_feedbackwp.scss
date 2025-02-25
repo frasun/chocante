@@ -3,10 +3,13 @@
 }
 
 .rmp {
+
 	&-icon {
+
 		&--ratings {
 			font-size: 16px;
 			padding: 0 0.1em;
+
 			@include color(grey-3);
 		}
 
@@ -15,18 +18,17 @@
 		}
 
 		&--half-highlight {
-			background: linear-gradient(
-				to right,
-				var(--rating--highlight) 50%,
-				var(--wp--custom--color--grey-3) 50%
-			);
+			background: linear-gradient(to right, var(--rating--highlight) 50%, var(--wp--custom--color--grey-3) 50%);
 			-webkit-background-clip: text;
+			background-clip: text;
 			-webkit-text-fill-color: transparent;
 		}
 	}
 
 	&-heading {
+
 		&--title {
+
 			@include font-style(section-label);
 		}
 
@@ -36,8 +38,10 @@
 	}
 
 	&-results-widget {
+
 		@include color(grey-2);
 		text-transform: uppercase;
+
 		@include font-size(small-sm);
 		display: flex;
 		align-items: center;
@@ -57,6 +61,7 @@
 	}
 
 	&-rating-widget {
+
 		&__icons_list {
 			display: flex;
 		}
@@ -65,14 +70,18 @@
 		&__not-rated {
 			text-transform: uppercase;
 			letter-spacing: 0.2em;
+
 			@include font-size(small-sm);
 		}
 
 		.rmp {
+
 			&-icon {
+
 				&--ratings {
 					font-size: 16px;
 					padding: 0 0.1em;
+
 					@include color(grey-3);
 
 					@include max-width($breakpoint--mobile-lg) {
@@ -81,11 +90,7 @@
 				}
 
 				&--half-highlight {
-					background: linear-gradient(
-						to right,
-						var(--rating--highlight) 50%,
-						var(--wp--custom--color--grey-3) 50%
-					);
+					background: linear-gradient(to right, var(--rating--highlight) 50%, var(--wp--custom--color--grey-3) 50%);
 					-webkit-background-clip: text;
 					-webkit-text-fill-color: transparent;
 
@@ -108,12 +113,14 @@
 		}
 
 		&__submit-btn.rmp-btn {
+
 			@include button;
 			@include button-style-outline;
 			margin-bottom: var(--spacing--20);
 		}
 
 		&--has-rated {
+
 			.rmp-icon--full-highlight {
 				color: var(--rating--highlight);
 			}
@@ -122,6 +129,7 @@
 }
 
 .rmp-widgets-container.rmp-wp-plugin.rmp-main-container {
+
 	.rmp-heading,
 	.rmp-rating-widget__icons {
 		margin-bottom: 0.75em;

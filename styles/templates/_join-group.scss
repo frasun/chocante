@@ -1,16 +1,14 @@
 .join-group {
-	background-color: var(
-		--join-group--background-color,
-		var(--content--background-color)
-	);
+	background-color: var(--join-group--background-color, var(--content--background-color));
 	position: relative;
 	overflow: hidden;
 
 	&__wrapper {
-		color: white;
+		color: var(--wp--preset--color--white);
 		background: var(--wp--preset--color--base);
 		padding-top: var(--spacing--50);
 		margin-top: var(--spacing--100);
+
 		@include bg-pattern;
 
 		@include min-width($breakpoint--mobile-lg) {
@@ -30,6 +28,7 @@
 		z-index: 1;
 
 		a {
+
 			@include button;
 			@include button-size-lg;
 			@include button-style-inverted;
@@ -39,12 +38,14 @@
 	}
 
 	&__heading {
+
 		@include font-style(page-title);
-		color: white;
+		color: var(--wp--preset--color--white);
 		margin-bottom: 0.5em;
 	}
 
 	&__subheading {
+
 		@include font-style(section-label);
 	}
 

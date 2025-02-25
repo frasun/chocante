@@ -6,15 +6,19 @@
 	}
 
 	main {
+
 		> .product {
 			padding-top: var(--spacing--10);
 			padding-bottom: var(--spacing--50);
+
 			@include container;
 		}
 	}
 
 	.product {
+
 		@include min-width($breakpoint--desktop-sm) {
+
 			&__summary {
 				display: grid;
 				grid-template-columns: 1fr 1fr;
@@ -48,6 +52,7 @@
 			z-index: 10;
 
 			.badge__container {
+
 				@include min-width($breakpoint--mobile) {
 					flex-direction: row;
 					flex-wrap: wrap;
@@ -63,6 +68,7 @@
 		}
 
 		&_title {
+
 			@include font-style(page-title);
 			@include color(base);
 
@@ -88,6 +94,7 @@
 		&__description {
 			padding-top: var(--spacing--50);
 			padding-bottom: var(--spacing--50);
+
 			@include container(content);
 			@include content;
 
@@ -105,6 +112,7 @@
 				grid-template-columns: 1fr 1fr;
 
 				span {
+
 					@include font-style(section-label);
 					@include color(grey-2);
 					padding-left: var(--spacing--10);
@@ -116,6 +124,7 @@
 			}
 
 			h4 {
+
 				@include font-style(section-label);
 				@include color(grey-2);
 				margin: 0;
@@ -127,6 +136,7 @@
 
 				th,
 				td {
+
 					@include font-size(small);
 					@include bg("grey");
 					padding: var(--spacing--10);
@@ -153,17 +163,20 @@
 		&_meta {
 			display: flex;
 			flex-direction: column;
+
 			@include font-size(small-sm);
 			@include color(grey-2);
 			text-transform: uppercase;
 
 			span {
+
 				span,
 				a {
 					font-weight: var(--font-weight--semibold);
 				}
 
 				span {
+
 					@include color(body);
 				}
 			}
@@ -175,6 +188,7 @@
 	}
 
 	.woocommerce {
+
 		&-notices-wrapper > * {
 			margin-top: var(--spacing--10);
 			margin-bottom: var(--spacing--10);
@@ -196,12 +210,14 @@
 			.flex-viewport {
 				border-radius: var(--border-radius);
 				overflow: hidden;
+
 				@include border(grey-4);
 				max-width: 600px;
 				margin: auto;
 			}
 
 			.flex-control-thumbs {
+
 				@include list-reset;
 				margin-top: var(--spacing--15);
 				display: grid;
@@ -215,8 +231,10 @@
 				li {
 					border-radius: 15px;
 					overflow: hidden;
+
 					@include border(grey-4);
 					cursor: pointer;
+
 					@include transition;
 
 					&:hover {
@@ -238,6 +256,7 @@
 		}
 
 		&-variation-description {
+
 			@include font-size(small);
 		}
 	}
@@ -267,17 +286,20 @@
 	}
 
 	.variations {
+		/* stylelint-disable-next-line no-descending-specificity */
 		th {
 			display: none;
 		}
 
 		select {
+
 			@include input;
 		}
 	}
 
 	.single_add_to_cart_button.button {
 		width: 100%;
+
 		@include button;
 		@include button-size-lg;
 	}
@@ -287,6 +309,7 @@
 		margin-bottom: var(--spacing--30);
 
 		@include min-width($breakpoint--mobile-lg) {
+
 			&__stock {
 				flex-basis: 150px;
 			}
@@ -307,6 +330,7 @@
 	// Fix for setting font-weight in editor.
 	.entry-summary,
 	.product__description {
+
 		*[style*="font-weight"] {
 			font-weight: 500 !important;
 		}

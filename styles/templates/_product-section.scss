@@ -1,7 +1,7 @@
 $slider-navigation-size: 50px;
 
 .product-section {
-	background-color: var(--product-section--background-color, white);
+	background-color: var(--product-section--background-color, var(--wp--preset--color--white));
 	padding-top: var(--spacing--30);
 	padding-bottom: var(--spacing--40);
 	overflow: hidden;
@@ -19,6 +19,7 @@ $slider-navigation-size: 50px;
 		justify-content: space-between;
 		padding-bottom: var(--spacing--20);
 		padding-top: var(--spacing--15);
+
 		@include container;
 
 		a {
@@ -32,6 +33,7 @@ $slider-navigation-size: 50px;
 	}
 
 	&__heading {
+
 		@include font-style(page-title);
 
 		flex-grow: 1;
@@ -42,6 +44,7 @@ $slider-navigation-size: 50px;
 		}
 
 		span {
+
 			@include font-style(section-label);
 			@include color(grey-2);
 			display: block;
@@ -50,6 +53,7 @@ $slider-navigation-size: 50px;
 	}
 
 	&__description {
+
 		@include container();
 		margin-bottom: var(--spacing--10);
 
@@ -59,6 +63,7 @@ $slider-navigation-size: 50px;
 	}
 
 	&__empty {
+
 		@include empty-screen;
 
 		min-height: 300px;
@@ -66,6 +71,7 @@ $slider-navigation-size: 50px;
 	}
 
 	&__spinner {
+
 		@include flex(center);
 		min-height: 300px;
 	}
@@ -75,6 +81,7 @@ $slider-navigation-size: 50px;
 		padding-right: var(--spacing--20);
 
 		&.is-initialized {
+
 			.product {
 				opacity: 0.3;
 
@@ -89,12 +96,7 @@ $slider-navigation-size: 50px;
 			padding-right: 0;
 			padding-top: var(--spacing--10);
 			overflow: visible;
-			max-width: calc(
-				var(--size--container) - var(
-						--wp--style--root--padding-right,
-						var(--spacing--20)
-					) - var(--wp--style--root--padding-left, var(--spacing--20))
-			);
+			max-width: calc(var(--size--container) - var(--wp--style--root--padding-right, var(--spacing--20)) - var(--wp--style--root--padding-left, var(--spacing--20)));
 			margin: auto;
 
 			@include min-width($breakpoint--desktop) {
@@ -104,6 +106,7 @@ $slider-navigation-size: 50px;
 		}
 
 		&__arrow {
+
 			@include nav-button;
 
 			position: absolute;

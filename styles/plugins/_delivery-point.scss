@@ -8,9 +8,11 @@
 	flex-direction: column;
 	margin-top: var(--spacing--30);
 	margin-bottom: var(--spacing--30);
+
 	@include select2-sm;
 
 	th {
+
 		@include font-style(section-label);
 	}
 
@@ -19,6 +21,7 @@
 		width: 100%;
 
 		button {
+
 			@include button;
 			@include button-style-outline;
 			margin-top: var(--spacing--20);

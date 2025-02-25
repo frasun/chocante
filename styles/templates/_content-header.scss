@@ -18,6 +18,7 @@
 		gap: var(--spacing--10);
 		position: relative;
 		z-index: 1;
+
 		@include container;
 
 		@include min-width($breakpoint--mobile-lg) {
@@ -27,12 +28,14 @@
 
 	&__title {
 		color: var(--content-header--title-color, var(--wp--preset--color--base));
+
 		@include font-style(page-title);
 	}
 
 	&__breadcrumbs,
 	.rank-math-breadcrumb,
 	.woocommerce-breadcrumb {
+
 		@include breadcrumbs;
 		padding-top: var(--spacing--5);
 
@@ -76,10 +79,7 @@
 		@include bg-pattern;
 
 		&:has(.content-header__thumbnail) {
-			--content-header--background-bottom: calc(
-				var(--content-header--thumbnail-height) / 2 +
-					var(--content-header--padding-bottom)
-			);
+			--content-header--background-bottom: calc(var(--content-header--thumbnail-height) / 2 + var(--content-header--padding-bottom));
 			--bg-gradient--second-color: var(--content-header--background);
 			--bg-gradient--bottom: var(--content-header--background-bottom);
 
@@ -87,6 +87,7 @@
 		}
 
 		.content-header {
+
 			&__title {
 				margin-top: 0;
 				order: 2;
@@ -102,10 +103,11 @@
 				color: var(--header--text-color-secondary);
 
 				a {
+
 					@include font-style(subheading);
 
 					&:hover {
-						color: white;
+						color: var(--wp--preset--color--white);
 					}
 
 					svg {
@@ -116,10 +118,8 @@
 
 			&__lead {
 				order: 1;
-				color: var(
-					--content-header--text-color-secondary,
-					var(--header--text-color-secondary)
-				);
+				color: var(--content-header--text-color-secondary, var(--header--text-color-secondary));
+
 				@include font-style(subheading);
 				margin: auto;
 				padding-bottom: 0;

@@ -12,6 +12,7 @@
 [type="week"],
 textarea,
 .input-text {
+
 	@include input;
 }
 
@@ -29,6 +30,7 @@ label {
 
 	&:has([type="checkbox"]) {
 		--label--color: var(--wp--preset--color--body);
+
 		@include radio-label;
 
 		[type="checkbox"] {
@@ -38,10 +40,12 @@ label {
 	}
 
 	.required {
+
 		@include color(contrast);
 	}
 
 	.optional {
+
 		@include font-size(small);
 		@include color(grey-2);
 		font-weight: var(--font-weight--normal);
@@ -50,41 +54,50 @@ label {
 
 // Select.
 select {
+
 	@include select-arrow;
 	padding-right: 40px;
+
 	@include color(body);
 	border: 0;
 	font-weight: var(--font-weight--normal);
 }
 
 .dropdown {
+
 	@include dropdown;
 
 	&__list {
+
 		@include dropdown(true);
 	}
 
 	&__list-item {
+
 		@include dropdown-list-item;
 	}
 }
 
 // Radio.
 input[type="radio"] {
+
 	@include radio;
 }
 
 // Checkox.
 input[type="checkbox"] {
+
 	@include checkbox;
 }
 
 // WooCommerce.
 [class$="-fields"] {
+
 	@include form-wrapper;
 }
 
 [class$="__field-wrapper"] {
+
 	@include fields-wrapper;
 }
 
@@ -97,6 +110,7 @@ input[type="checkbox"] {
 
 [class*="inline-error-message"],
 .coupon-error-notice {
+
 	@include font-size(small-sm);
 	@include color(error);
 	padding-top: 0.35em;

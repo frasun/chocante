@@ -28,6 +28,7 @@
 	}
 
 	@include min-width($breakpoint--mobile-sm) {
+
 		> [id*="first_name"],
 		.form-row-first {
 			grid-column: span 3;
@@ -39,7 +40,9 @@
 		}
 
 		&:has(> [id*="state"][style*="display: none"]) {
+
 			&:has(> [id*="postcode"] ~ [id*="city"]) {
+
 				> [id*="postcode"] {
 					grid-column: span 2;
 				}
@@ -50,6 +53,7 @@
 			}
 
 			&:has(> [id*="city"] ~ [id*="postcode"]) {
+
 				> [id*="postcode"] {
 					grid-column: 5 / span 2;
 				}
@@ -75,6 +79,7 @@
 
 		em {
 			font-style: normal;
+
 			@include font-size(small-sm);
 			display: block;
 			padding-top: 0.5em;
@@ -89,13 +94,15 @@
 
 		legend {
 			padding: var(--spacing--20) 0;
+
 			@include font-style(section-label);
 			@include color(base);
 		}
 	}
 
 	label {
-		& + .input-text {
+
+		+ .input-text {
 			margin-top: var(--spacing--10);
 		}
 	}

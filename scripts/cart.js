@@ -1,6 +1,6 @@
 import QuantityInput from './quantity-input';
 
-window.jQuery( function ( $ ) {
+jQuery( function ( $ ) {
 	// Quantity.
 	initQuantityInputs();
 	$( document.body ).on( 'updated_wc_div', initQuantityInputs );

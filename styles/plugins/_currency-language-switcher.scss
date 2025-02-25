@@ -9,6 +9,7 @@
 .wpml-ls-legacy-dropdown-click .wpml-ls-sub-menu,
 .wcml-dropdown .wcml-cs-submenu,
 .wcml-dropdown-click .wcml-cs-submenu {
+
 	@include dropdown;
 
 	padding-top: var(--spacing--10);
@@ -19,6 +20,7 @@
 
 	a {
 		font-weight: var(--font-weight--semibold);
+
 		@include color(base);
 		display: flex;
 		gap: var(--spacing--5);
@@ -36,16 +38,20 @@
 
 .wpml-ls-legacy-dropdown .wpml-ls-current-language:hover .wpml-ls-sub-menu,
 .wcml-dropdown .wcml-cs-active-currency:hover .wcml-cs-submenu {
+
 	@include dropdown-active;
 }
 
 .wpml-ls-sub-menu,
 .wcml-cs-submenu {
+
 	&[style*="visibility: visible;"] {
+
 		@include dropdown-active;
 	}
 }
 
+/* stylelint-disable no-descending-specificity */
 .wpml-ls-legacy-dropdown a,
 .wpml-ls-legacy-dropdown .wpml-ls-current-language:hover > a,
 .wpml-ls-legacy-dropdown a:focus,
@@ -70,6 +76,7 @@
 .wcml-dropdown-click .wcml-cs-submenu li {
 	border: 0;
 }
+/* stylelint-enable no-descending-specificity */
 
 .wpml-ls-legacy-dropdown a.wpml-ls-item-toggle,
 .wpml-ls-legacy-dropdown-click a.wpml-ls-item-toggle,
@@ -84,19 +91,27 @@
 	align-items: baseline;
 
 	&::after {
+
 		@include icon-font;
 		content: "\0041";
 		border: 0;
 		position: static;
+
 		@include transition;
 		font-size: 0.75em;
 	}
 }
 
+.wpml-ls-legacy-dropdown a.wpml-ls-item-toggle::after {
+	background-image: none;
+}
+
 .wpml-ls-legacy-dropdown a.wpml-ls-item-toggle,
 .wcml-dropdown a.wcml-cs-item-toggle {
+
 	&:hover,
 	&:focus {
+
 		&::after {
 			transform: rotate(180deg);
 		}
@@ -106,15 +121,17 @@
 .wpml-ls-legacy-dropdown a.wpml-ls-item-toggle,
 .wcml-dropdown a.wcml-cs-item-toggle,
 .wcml-cs-active-currency a.wcml-cs-item-toggle {
+
 	&:hover {
-		color: white;
+		color: var(--wp--preset--color--white);
 	}
 }
 
 .wpml-ls-legacy-dropdown a.wpml-ls-item-toggle:hover {
+
 	span,
 	&::after {
-		color: white;
+		color: var(--wp--preset--color--white);
 	}
 }
 
@@ -123,16 +140,13 @@
 }
 
 .wpml-ls-legacy-dropdown .wpml-ls-current-language:hover > a,
-.wpml-ls-legacy-dropdown a:focus,
-.wpml-ls-legacy-dropdown a:hover {
+.wpml-ls-legacy-dropdown a:hover
+.wpml-ls-legacy-dropdown a:focus {
 	color: inherit;
 }
 
-.wpml-ls-legacy-dropdown a.wpml-ls-item-toggle::after {
-	background-image: none;
-}
-
 .site-footer {
+
 	.wpml-ls-legacy-dropdown .wpml-ls-sub-menu,
 	.wpml-ls-legacy-dropdown-click .wpml-ls-sub-menu,
 	.wcml-dropdown .wcml-cs-submenu,

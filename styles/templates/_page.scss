@@ -1,6 +1,7 @@
 .page {
 	// @todo: Background hack. Fix by moving to block theme page templates.
 	&:not(.woocommerce-page) {
+
 		&:has(:where(main, article) .product-section:last-child),
 		&:has(.product-section + .join-group),
 		&:has(.wp-site-blocks .has-grey-background-color:last-child) {
@@ -13,7 +14,7 @@
 	&-template-with-header--gift-sets,
 	&-template-with-header--left {
 		--body--background-color: var(--header--background-color);
-		--content--background-color: white;
+		--content--background-color: var(--wp--preset--color--white);
 
 		&:has(.product-section + .join-group) {
 			--join-group--background-color: var(--wp--preset--color--grey);
@@ -21,12 +22,13 @@
 
 		--product-section--background-color: var(--wp--preset--color--grey);
 
-		--content-header--title-color: white;
+		--content-header--title-color: var(--wp--preset--color--white);
 		--content-header--background-bottom: 0;
 		--content-header--text-color-secondary: var(--wp--custom--color--base-7);
 	}
 
 	&-template-with-header--gift-sets {
+
 		.content-header {
 			--content-header--thumbnail-height: 250px;
 
@@ -45,7 +47,9 @@
 	}
 
 	&-template-with-header--left {
+
 		.content-header {
+
 			&__container {
 				align-items: start;
 				text-align: left;
@@ -65,6 +69,7 @@ body.error404 {
 		margin: var(--spacing--100) auto;
 
 		svg {
+
 			path {
 				fill: var(--wp--preset--color--body);
 			}

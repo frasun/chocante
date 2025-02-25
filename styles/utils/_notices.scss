@@ -2,14 +2,12 @@
 	display: block;
 	border-radius: var(--border-radius);
 	padding: var(--spacing--15);
+
 	@include font-size(small);
 	text-align: left;
 	list-style: none;
 	width: 100%;
-	background-color: var(
-		--notice--background-color,
-		var(--wp--preset--color--grey)
-	);
+	background-color: var(--notice--background-color, var(--wp--preset--color--grey));
 	color: var(--notice--color, var(--wp--preset--color--body));
 
 	@include min-width($breakpoint--mobile-lg) {
@@ -35,6 +33,7 @@
 		margin: 0;
 
 		li {
+
 			&::before {
 				margin-right: var(--spacing--10);
 			}

@@ -1,11 +1,12 @@
 .chocante-free-shipping {
+
 	.woocommerce-shipping-methods & {
 		font-weight: var(--font-weight--bold);
 	}
 }
 
 .woocommerce-notices-wrapper
-	.woocommerce-info[data-type="chocante-free-shipping"] {
+.woocommerce-info[data-type="chocante-free-shipping"] {
 	--notice--icon: url(../icons/icon-shipping.svg);
 
 	span {

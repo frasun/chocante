@@ -1,16 +1,16 @@
 // Input.
 @mixin input {
+
 	@include font-size(normal-sm);
 	border: 1px solid var(--input--border, var(--wp--custom--color--base-6));
-	background-color: var(
-		--input--background-color,
-		var(--wp--preset--color--grey)
-	);
+	background-color: var(--input--background-color, var(--wp--preset--color--grey));
 	color: var(--input--color, var(--wp--preset--color--body));
+
 	@include transition;
 	font-weight: inherit;
 	width: 100%;
-	padding: var(--input--padding-y, var(--spacing--15))
+	padding:
+		var(--input--padding-y, var(--spacing--15))
 		var(--input--padding-x, var(--spacing--20));
 	border-radius: var(--input--border-radius, var(--border-radius));
 	--line-height: 1.2;
@@ -20,7 +20,7 @@
 	}
 
 	&:focus {
-		background-color: var(--input--background-color--focus, white);
+		background-color: var(--input--background-color--focus, var(--wp--preset--color--white));
 		border-color: var(--input--border--focus, var(--wp--preset--color--accent));
 	}
 
@@ -43,8 +43,10 @@
 	height: 25px;
 	border-radius: 50%;
 	border: 1px solid var(--radio--border, var(--wp--preset--color--body));
+
 	@include flex(center);
 	display: inline-flex;
+
 	@include transition;
 	-webkit-appearance: none;
 	cursor: pointer;
@@ -53,10 +55,11 @@
 
 	&::after {
 		content: "";
-		background-color: white;
+		background-color: var(--wp--preset--color--white);
 		width: 10px;
 		height: 10px;
 		border-radius: 50%;
+
 		@include transition;
 		transform: scale(1);
 		transform-origin: center center;
@@ -68,6 +71,7 @@
 	}
 
 	&:checked {
+
 		@include bg(accent);
 
 		&::after {
@@ -76,9 +80,10 @@
 		}
 	}
 
-	& + label {
+	+ label {
 		margin-left: var(--spacing--10);
 		margin-bottom: 0;
+
 		@include font-size(normal-sm);
 		@include radio-label;
 	}
@@ -91,6 +96,7 @@
 	border: 1px solid var(--radio--border, var(--wp--preset--color--body));
 	display: inline-block;
 	border-radius: var(--border-radius--xs);
+
 	@include transition;
 	-webkit-appearance: none;
 	cursor: pointer;
@@ -100,14 +106,16 @@
 	}
 
 	&:checked {
+
 		@include bg(accent);
 		background-image: url(../icons/icon-tick.svg);
 		background-position: center;
 		background-repeat: no-repeat;
 	}
 
-	& + label {
+	+ label {
 		padding-top: 0.2em;
+
 		@include radio-label;
 	}
 }
@@ -115,6 +123,7 @@
 @mixin radio-label {
 	--label--color: var(--wp--preset--color--body);
 	font-weight: var(--font-weight--normal);
+
 	@include transition;
 	cursor: pointer;
 

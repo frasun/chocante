@@ -1,13 +1,15 @@
 @mixin breadcrumbs {
+
 	@include font-size(x-small);
 	@include color(grey-2);
 
 	a {
 		font-weight: var(--font-weight--semibold);
 		text-decoration: none;
-		color: currentColor;
+		color: currentcolor;
 
 		&:hover {
+
 			@include color(contrast);
 		}
 	}
