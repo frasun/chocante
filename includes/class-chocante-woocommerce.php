@@ -46,7 +46,6 @@ class Chocante_WooCommerce {
 
 		// Catalog settings.
 		add_filter( 'woocommerce_pagination_args', array( __CLASS__, 'set_pagination_args' ) );
-		add_filter( 'woocommerce_catalog_orderby', array( __CLASS__, 'set_caralog_orderby' ) );
 
 		// Mini-cart.
 		add_action( 'woocommerce_before_mini_cart', array( __CLASS__, 'display_mini_cart_title' ) );
@@ -202,20 +201,6 @@ class Chocante_WooCommerce {
 		$pagination['next_text'] = is_rtl() ? $prev_icon : $next_icon;
 
 		return $pagination;
-	}
-
-	/**
-	 * Set orderby options
-	 */
-	public static function set_caralog_orderby() {
-		return array(
-			'menu_order' => _x( 'Default', 'sorting option', 'chocante' ),
-			'popularity' => _x( 'Popularity', 'sorting option', 'chocante' ),
-			'rating'     => _x( 'Average rating', 'sorting option', 'chocante' ),
-			'date'       => _x( 'Latest', 'sorting option', 'chocante' ),
-			'price'      => _x( 'Lowest price', 'sorting option', 'chocante' ),
-			'price-desc' => _x( 'Highest price', 'sorting option', 'chocante' ),
-		);
 	}
 
 	/**

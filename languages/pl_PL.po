@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bricks Child Theme 1.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/chocante\n"
-"POT-Creation-Date: 2025-02-13T15:42:04+00:00\n"
-"PO-Revision-Date: 2025-02-13 16:42+0100\n"
+"POT-Creation-Date: 2025-02-28T16:03:54+00:00\n"
+"PO-Revision-Date: 2025-02-28 17:04+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pl_PL\n"
@@ -57,37 +57,7 @@ msgctxt "blog"
 msgid "Other articles"
 msgstr "Pozostałe artykuły"
 
-#: includes/class-chocante-woocommerce.php:212
-msgctxt "sorting option"
-msgid "Default"
-msgstr "Domyślnie"
-
-#: includes/class-chocante-woocommerce.php:213
-msgctxt "sorting option"
-msgid "Popularity"
-msgstr "Wg popularności"
-
-#: includes/class-chocante-woocommerce.php:214
-msgctxt "sorting option"
-msgid "Average rating"
-msgstr "Wg oceny"
-
-#: includes/class-chocante-woocommerce.php:215
-msgctxt "sorting option"
-msgid "Latest"
-msgstr "Od najnowszych"
-
-#: includes/class-chocante-woocommerce.php:216
-msgctxt "sorting option"
-msgid "Lowest price"
-msgstr "Od najtańszych"
-
-#: includes/class-chocante-woocommerce.php:217
-msgctxt "sorting option"
-msgid "Highest price"
-msgstr "Od najdroższych"
-
-#: includes/class-chocante-woocommerce.php:402
+#: includes/class-chocante-woocommerce.php:387
 #: template-parts/slide-product.php:24
 msgctxt "product loop"
 msgid "Buy now"
@@ -474,11 +444,6 @@ msgctxt "no products found"
 msgid "or"
 msgstr "lub"
 
-#: woocommerce/loop/orderby.php:24
-msgctxt "product listing"
-msgid "Sort by"
-msgstr "Sortuj"
-
 #: woocommerce/loop/result-count.php:28
 msgctxt "product listing"
 msgid "1 product"
@@ -501,6 +466,34 @@ msgid_plural "%1$d&ndash;%2$d of %3$d products"
 msgstr[0] "%1$d&ndash;%2$d z %3$d produktów"
 msgstr[1] "%1$d&ndash;%2$d z %3$d produktów"
 msgstr[2] "%1$d&ndash;%2$d z %3$d produktów"
+
+#~ msgctxt "sorting option"
+#~ msgid "Default"
+#~ msgstr "Domyślnie"
+
+#~ msgctxt "sorting option"
+#~ msgid "Popularity"
+#~ msgstr "Wg popularności"
+
+#~ msgctxt "sorting option"
+#~ msgid "Average rating"
+#~ msgstr "Wg oceny"
+
+#~ msgctxt "sorting option"
+#~ msgid "Latest"
+#~ msgstr "Od najnowszych"
+
+#~ msgctxt "sorting option"
+#~ msgid "Lowest price"
+#~ msgstr "Od najtańszych"
+
+#~ msgctxt "sorting option"
+#~ msgid "Highest price"
+#~ msgstr "Od najdroższych"
+
+#~ msgctxt "product listing"
+#~ msgid "Sort by"
+#~ msgstr "Sortuj"
 
 #~ msgctxt "sorting option"
 #~ msgid "Price: low to high"

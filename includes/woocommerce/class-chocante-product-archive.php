@@ -35,6 +35,14 @@ class Chocante_Product_Archive {
 			add_action( 'woocommerce_before_shop_loop', array( __CLASS__, 'output_mobile_filter_trigger' ), 25 );
 			add_action( 'chocante_product_filters_header', array( __CLASS__, 'output_mobile_filter_close' ) );
 		}
+		remove_action( 'woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', 30 );
+		add_action(
+			'woocommerce_before_shop_loop',
+			function () {
+				woocommerce_catalog_ordering( array( 'useLabel' => true ) );
+			},
+			30
+		);
 		add_action( 'woocommerce_before_shop_loop', array( __CLASS__, 'close_shop_loop_header' ), 35 );
 		add_action( 'woocommerce_after_main_content', array( __CLASS__, 'close_shop_loop_wrapper' ) );
 		add_action( 'woocommerce_after_main_content', array( __CLASS__, 'close_shop_loop_section' ) );

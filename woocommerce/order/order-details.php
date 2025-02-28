@@ -12,7 +12,7 @@
  *
  * @see     https://woocommerce.com/document/template-structure/
  * @package WooCommerce\Templates
- * @version 9.0.0
+ * @version 9.6.0
  *
  * @var bool $show_downloads Controls whether the downloads table should be rendered.
  */
@@ -44,78 +44,78 @@ if ( $show_downloads ) {
 	);
 }
 ?>
-	<section class="woocommerce-order-details">
-		<?php do_action( 'woocommerce_order_details_before_order_table', $order ); ?>
 
-		<h2 class="woocommerce-order-details__title"><?php esc_html_e( 'Order details', 'woocommerce' ); ?></h2>
+<section class="woocommerce-order-details">
+	<?php do_action( 'woocommerce_order_details_before_order_table', $order ); ?>
 
-		<table class="woocommerce-table woocommerce-table--order-details shop_table order_details">
+	<h2 class="woocommerce-order-details__title"><?php esc_html_e( 'Order details', 'woocommerce' ); ?></h2>
 
-			<thead>
-				<tr>
-					<th class="woocommerce-table__product-name product-name"><?php esc_html_e( 'Product', 'woocommerce' ); ?></th>
-					<th class="woocommerce-table__product-table product-total"><?php esc_html_e( 'Total', 'woocommerce' ); ?></th>
-				</tr>
-			</thead>
+	<table class="woocommerce-table woocommerce-table--order-details shop_table order_details">
 
-			<tbody>
-				<?php
-				do_action( 'woocommerce_order_details_before_order_table_items', $order );
+		<thead>
+			<tr>
+				<th class="woocommerce-table__product-name product-name"><?php esc_html_e( 'Product', 'woocommerce' ); ?></th>
+				<th class="woocommerce-table__product-table product-total"><?php esc_html_e( 'Total', 'woocommerce' ); ?></th>
+			</tr>
+		</thead>
 
-				foreach ( $order_items as $item_id => $item ) {
-					$product = $item->get_product();
+		<tbody>
+			<?php
+			do_action( 'woocommerce_order_details_before_order_table_items', $order );
 
-					wc_get_template(
-						'order/order-details-item.php',
-						array(
-							'order'              => $order,
-							'item_id'            => $item_id,
-							'item'               => $item,
-							'show_purchase_note' => $show_purchase_note,
-							'purchase_note'      => $product ? $product->get_purchase_note() : '',
-							'product'            => $product,
-						)
-					);
-				}
+			foreach ( $order_items as $item_id => $item ) {
+				$product = $item->get_product();
 
-				do_action( 'woocommerce_order_details_after_order_table_items', $order );
+				wc_get_template(
+					'order/order-details-item.php',
+					array(
+						'order'              => $order,
+						'item_id'            => $item_id,
+						'item'               => $item,
+						'show_purchase_note' => $show_purchase_note,
+						'purchase_note'      => $product ? $product->get_purchase_note() : '',
+						'product'            => $product,
+					)
+				);
+			}
+
+			do_action( 'woocommerce_order_details_after_order_table_items', $order );
+			?>
+		</tbody>
+
+		<tfoot>
+			<?php
+			foreach ( $order->get_order_item_totals() as $key => $total ) {
 				?>
-			</tbody>
-
-			<tfoot>
-				<?php
-				foreach ( $order->get_order_item_totals() as $key => $total ) {
-					?>
-						<tr class="<?php echo esc_attr( $key ); ?>">
-							<th scope="row"><?php echo esc_html( $total['label'] ); ?></th>
-							<td><?php echo wp_kses_post( $total['value'] ); ?></td>
-						</tr>
-						<?php
-				}
-				?>
-				<?php if ( $order->get_customer_note() ) : ?>
-					<tr class="customer-note">
-						<th><?php esc_html_e( 'Note:', 'woocommerce' ); ?></th>
-						<td><?php echo wp_kses( nl2br( wptexturize( $order->get_customer_note() ) ), array() ); ?></td>
+					<tr class="<?php echo esc_attr( $key ); ?>">
+						<th scope="row"><?php echo esc_html( $total['label'] ); ?></th>
+						<td><?php echo wp_kses_post( $total['value'] ); ?></td>
 					</tr>
-				<?php endif; ?>
-			</tfoot>
-		</table>
+					<?php
+			}
+			?>
+			<?php if ( $order->get_customer_note() ) : ?>
+				<tr class="customer-note">
+					<th><?php esc_html_e( 'Note:', 'woocommerce' ); ?></th>
+					<td><?php echo wp_kses( nl2br( wptexturize( $order->get_customer_note() ) ), array() ); ?></td>
+				</tr>
+			<?php endif; ?>
+		</tfoot>
+	</table>
 
-		<?php do_action( 'woocommerce_order_details_after_order_table', $order ); ?>
-	</section>
+	<?php do_action( 'woocommerce_order_details_after_order_table', $order ); ?>
+</section>
 
-	<?php
-	/**
-	 * Action hook fired after the order details.
-	 *
-	 * @since 4.4.0
-	 * @param WC_Order $order Order data.
-	 */
-	do_action( 'woocommerce_after_order_details', $order );
+<?php
+/**
+ * Action hook fired after the order details.
+ *
+ * @since 4.4.0
+ * @param WC_Order $order Order data.
+ */
+do_action( 'woocommerce_after_order_details', $order );
 
-	if ( $show_customer_details ) {
-		wc_get_template( 'order/order-details-customer.php', array( 'order' => $order ) );
-	}
-	?>
-</div>
+if ( $show_customer_details ) {
+	wc_get_template( 'order/order-details-customer.php', array( 'order' => $order ) );
+}
+?>
