@@ -291,6 +291,12 @@
 			// margin-top: 0.2em;
 			margin-top: 0;
 		}
+
+		&[style*="underline"] {
+			text-underline-offset: 0.25em;
+			text-decoration-thickness: 3px !important;
+			line-height: 1.4;
+		}
 	}
 
 	// @todo: revisit.
