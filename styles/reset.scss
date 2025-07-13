@@ -263,6 +263,12 @@ h5,
 h6 {
 	text-rendering: optimizelegibility;
 
+	&[style*="underline"] {
+		text-underline-offset: 0.25em;
+		text-decoration-thickness: 3px !important;
+		line-height: 1.4;
+	}
+
 	a {
 		color: currentcolor;
 	}
