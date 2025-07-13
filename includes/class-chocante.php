@@ -22,6 +22,7 @@ class Chocante {
 		add_action( 'after_setup_theme', array( __CLASS__, 'register_nav_menus' ) );
 		add_action( 'widgets_init', array( __CLASS__, 'register_sidebars' ) );
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'enqueue_scripts' ), 20 );
+		add_action( 'init', array( __CLASS__, 'add_page_excerpt_support' ) );
 
 		// Custom logo.
 		add_action( 'after_setup_theme', array( __CLASS__, 'support_custom_logo' ) );
@@ -76,6 +77,13 @@ class Chocante {
 	 */
 	public static function load_textdomain() {
 		load_theme_textdomain( 'chocante', get_theme_file_path( 'languages' ) );
+	}
+
+	/**
+	 * WP post support
+	 */
+	public static function add_page_excerpt_support() {
+		add_post_type_support( 'page', 'excerpt' );
 	}
 
 	/**

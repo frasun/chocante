@@ -4,10 +4,10 @@
 	"settings": {
 		"appearanceTools": false,
 		"border": {
-			"color": false,
+			"color": true,
 			"radius": false,
 			"style": false,
-			"width": false
+			"width": true
 		},
 		"color": {
 			"text": true,
@@ -53,6 +53,26 @@
 					"color": "#fff",
 					"name": "White",
 					"slug": "white"
+				},
+				{
+					"color": "#3A1A13",
+					"name": "Brown (mushroom)",
+					"slug": "base-10"
+				},
+				{
+					"color": "#213A13",
+					"name": "Green (mushroom)",
+					"slug": "accent-3"
+				},
+				{
+					"color": "#DEE1DC",
+					"name": "Light (mushroom)",
+					"slug": "grey-5"
+				},
+				{
+					"color": "#6E463C",
+					"name": "Red (mushroom)",
+					"slug": "contrast-2"
 				}
 			]
 		},

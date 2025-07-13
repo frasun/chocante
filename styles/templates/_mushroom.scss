@@ -1,0 +1,16 @@
+body.page-template-no-header--alt {
+	--header--background-color: var(--wp--preset--color--accent-3);
+	--header--text-color-secondary: #4d6d3a;
+	--header--border-color: #4d6d3a;
+	--body--background-color: var(--header--background-color);
+	--join-group--background-color: var(--wp--preset--color--grey-5);
+	--product-section--background-color: var(--wp--preset--color--grey-5);
+
+	&.page:has(.product-section:last-child) {
+		--join-group--background-color: var(--wp--preset--color--grey-5);
+	}
+
+	main {
+		background-color: var(--wp--preset--color--white);
+	}
+}
