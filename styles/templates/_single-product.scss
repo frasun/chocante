@@ -25,6 +25,7 @@
 				grid-template-rows: auto auto 1fr;
 				column-gap: var(--spacing--30);
 				margin-top: var(--spacing--10);
+				align-items: start;
 			}
 
 			&__header,
@@ -88,6 +89,7 @@
 
 			img {
 				margin: 0 auto;
+				height: 56px;
 			}
 		}
 

@@ -32,7 +32,7 @@ class Chocante_ACF {
 		add_action( 'woocommerce_before_single_product_summary', array( __CLASS__, 'modify_product_page_title' ), 15 );
 		add_filter( 'woocommerce_display_product_attributes', array( __CLASS__, 'add_product_attributes' ), 20, 2 );
 		add_action( 'woocommerce_single_product_summary', array( __CLASS__, 'display_nutritional_data' ), 36 );
-		add_action( 'woocommerce_before_single_product_summary', array( __CLASS__, 'display_diet_icons' ), 25 );
+		// add_action( 'woocommerce_before_single_product_summary', array( __CLASS__, 'display_diet_icons' ), 25 );
 
 		// Product category page.
 		add_action( 'woocommerce_after_main_content', array( __CLASS__, 'display_category_description' ), 20 );
@@ -44,7 +44,7 @@ class Chocante_ACF {
 		add_filter( 'chocante_featured_products_category', array( __CLASS__, 'get_featured_category' ), 10, 2 );
 		add_filter( 'chocante_featured_products_title', array( __CLASS__, 'get_featured_title' ), 10, 2 );
 		add_filter( 'chocante_featured_products_thumbnail', array( __CLASS__, 'get_featured_thumbnail' ), 10, 2 );
-		add_filter( 'chocante_featured_products_diet_icons', array( __CLASS__, 'get_featured_diet_icons' ), 10, 2 );
+		// add_filter( 'chocante_featured_products_diet_icons', array( __CLASS__, 'get_featured_diet_icons' ), 10, 2 );
 	}
 
 	/**

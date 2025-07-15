@@ -12,6 +12,7 @@ $product_category  = apply_filters( 'chocante_featured_products_category', null,
 $product_name      = apply_filters( 'chocante_featured_products_title', get_the_title(), get_the_ID() );
 $product_thumbnail = apply_filters( 'chocante_featured_products_thumbnail', get_the_post_thumbnail( get_the_ID(), array( 570, 700 ) ), get_the_ID() );
 $product_info      = apply_filters( 'chocante_featured_products_diet_icons', array(), get_the_ID() );
+
 ?>
 <div class="post">
 	<?php if ( isset( $product_category ) ) : ?>
@@ -26,11 +27,7 @@ $product_info      = apply_filters( 'chocante_featured_products_diet_icons', arr
 	</div>
 	<?php if ( ! empty( $product_info ) ) : ?>
 	<div class="post__info">
-		<?php
-		foreach ( $product_info as $icon ) {
-			echo wp_get_attachment_image( $icon['id'], 'full' );
-		}
-		?>
+		<?php Chocante_Product_Tags::display_diet_icons( $product_info ); ?>
 	</div>
 	<?php endif; ?>
 	<?php if ( isset( $product_thumbnail ) ) : ?>
