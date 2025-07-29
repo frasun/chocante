@@ -6,6 +6,7 @@ import { MOBILE_BREAKPOINT } from './constants';
 // import Splide from '@splidejs/splide';
 import Accordion from './details';
 import PostSlider from './post-slider';
+import ContentSlider from './content-slider';
 
 const Splide = window.Splide || {};
 
@@ -26,7 +27,7 @@ class Chocante {
 
 		// Sliders.
 		// window.Splide = Splide;
-		this.setPostSliders();
+		this.initSliders();
 
 		// <details> Accordion.
 		document
@@ -49,7 +50,7 @@ class Chocante {
 		} );
 	}
 
-	setPostSliders() {
+	initSliders() {
 		// @todo: Chocante - Bricks Change class to '.splide'.
 		const postSliders = document.querySelectorAll( '.post-slider' );
 
@@ -68,6 +69,57 @@ class Chocante {
 		Array.from( blogSliders ).forEach( ( slider ) => {
 			new PostSlider( slider );
 		} );
+
+		// Sliders in the editor content
+		const contentSliders = document.querySelectorAll(
+			'.wp-block-group.splide'
+		);
+
+		Array.from( contentSliders ).forEach( ( slider ) => {
+			new ContentSlider( slider );
+		} );
+	}
+
+	// Sliders added by adding classes in the editor.
+	setEditorSliders() {
+		const contentSliders = document.querySelectorAll(
+			'.wp-block-group.splide'
+		);
+		const screenWidth = window.innerWidth;
+
+		if ( Array.from( contentSliders ).length ) {
+			for ( const sliderElement of Array.from( contentSliders ) ) {
+				const slider = new Splide( sliderElement, {
+					type: 'slide',
+					perPage: 1,
+					gap: 20,
+					drag: 'free',
+					snap: true,
+					speed: 350,
+					mediaQuery: 'min',
+					breakpoints: {
+						600: {
+							perPage: 2,
+						},
+						900: {
+							perPage: 3,
+						},
+						1180: {
+							gap: 30,
+							perPage: 4,
+						},
+					},
+					live: false,
+					slideFocus: false,
+				} );
+
+				slider.mount();
+
+				if ( screenWidth >= 1024 ) {
+					slider.remove( '.splide--mobile' );
+				}
+			}
+		}
 	}
 }
 

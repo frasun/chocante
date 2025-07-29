@@ -1,10 +1,12 @@
 @use "sass:meta";
 @import "utils";
 @import "variables";
+@import "@splidejs/splide/css/core";
 
 .editor-styles-wrapper {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+	overflow: hidden;
 
 	@include meta.load-css("templates/blocks");
 

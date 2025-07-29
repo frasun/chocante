@@ -5,6 +5,10 @@ wp.domReady( function () {
 	// core/button.
 	wp.blocks.registerBlockStyle( 'core/button', [
 		{
+			name: 'chocante-outline',
+			label: 'Outline',
+		},
+		{
 			name: 'inverted',
 			label: 'Inverted',
 		},
@@ -13,6 +17,7 @@ wp.domReady( function () {
 			label: 'Inverted outline',
 		},
 	] );
+	wp.blocks.unregisterBlockStyle( 'core/button', 'outline' );
 
 	// core/group.
 	wp.blocks.registerBlockStyle( 'core/group', [

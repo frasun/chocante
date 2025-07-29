@@ -49,7 +49,7 @@ class Chocante_Product_Section {
 				'heading'       => isset( $args['heading'] ) ? $args['heading'] : __( 'Related products', 'woocommerce' ),
 				'subheading'    => isset( $args['subheading'] ) ? $args['subheading'] : null,
 				'cta_link'      => isset( $args['cta_link'] ) ? $args['cta_link'] : get_permalink( wc_get_page_id( 'shop' ) ),
-				'cta_text'      => isset( $args['cta_text'] ) ? $args['cta_text'] : __( 'View all', 'woocommerce' ),
+				'cta_text'      => isset( $args['cta_text'] ) ? $args['cta_text'] : __( 'View products', 'woocommerce' ),
 				'content'       => shortcode_unautop( $content ),
 				'filters'       => self::get_product_section_atts(
 					array(

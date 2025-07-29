@@ -116,6 +116,54 @@
 		&.is-style-rounded {
 			border-radius: var(--border-radius);
 		}
+
+		&.splide {
+			visibility: visible;
+
+			.splide__arrows {
+				display: none;
+			}
+
+			@include min-width($breakpoint--desktop-md) {
+
+				&,
+				&.splide.is-initialized:not(.is-active) {
+
+					.splide {
+
+						&__list {
+							display: flex;
+							gap: var(--wp--preset--spacing--30);
+							justify-content: center;
+						}
+					}
+				}
+			}
+
+			@include max-width($breakpoint--desktop-md) {
+
+				.splide {
+
+					&__list {
+
+						&,
+						&.is-layout-flex {
+							flex-wrap: nowrap;
+							gap: 0;
+							justify-content: start;
+						}
+					}
+
+					&__track {
+						overflow: visible;
+					}
+
+					&__slide {
+						margin-right: 20px;
+					}
+				}
+			}
+		}
 	}
 
 	&-button {
@@ -126,7 +174,8 @@
 			@include button-size-lg;
 		}
 
-		&.is-style-outline {
+		&.is-style-outline,
+		&.is-style-chocante-outline {
 
 			.wp-block-button__link {
 
