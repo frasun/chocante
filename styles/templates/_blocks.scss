@@ -113,6 +113,10 @@
 			--wp--preset--spacing--100: var(--spacing--30);
 		}
 
+		&.alignfull {
+			overflow: hidden;
+		}
+
 		&.is-style-rounded {
 			border-radius: var(--border-radius);
 		}

@@ -3,6 +3,8 @@
 	@include bg(base-2);
 	@include color(base-6);
 
+	--header--text-color-secondary: var(--wp--custom--color--base-6);
+
 	.menu a {
 		font-weight: var(--font-weight--semibold);
 		text-transform: uppercase;

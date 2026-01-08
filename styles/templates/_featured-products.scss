@@ -71,6 +71,7 @@
 		}
 
 		&__info {
+			--icon-size: 56px;
 			grid-area: 4 / 1 / 4 / 4;
 			column-gap: var(--spacing--10);
 			display: grid;
@@ -79,10 +80,16 @@
 			padding-top: var(--spacing--10);
 			row-gap: var(--spacing--20);
 
+			@include max-width($breakpoint--desktop) {
+				height: calc(var(--icon-size) + var(--spacing--30));
+				overflow: hidden;
+				margin-bottom: var(--spacing--10);
+			}
+
 			img {
 				filter: brightness(0) invert(1);
 				margin: auto;
-				height: 56px;
+				height: var(--icon-size);
 			}
 		}
 	}

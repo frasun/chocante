@@ -1,0 +1,23 @@
+#blpaczka-map {
+	display: block;
+}
+
+.blpaczka-point-modal-btn {
+
+	@include button;
+	@include button-style-outline;
+}
+
+#blpaczka-point-checkout-modal {
+	z-index: var(--z-index--modal);
+}
+
+.blpaczka-chosen-point-info {
+	border-radius: var(--border-radius--sm);
+	margin-top: var(--spacing--10);
+	padding: var(--spacing--10) var(--spacing--20);
+	border: none;
+
+	@include bg(grey-4);
+	@include font-size(x-small);
+}
