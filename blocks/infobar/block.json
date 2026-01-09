@@ -1,0 +1,41 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "chocante/infobar",
+	"version": "0.1.0",
+	"title": "Infobar",
+	"category": "theme",
+	"icon": "info-outline",
+	"description": "Block with important information sticky to the page top",
+	"example": {},
+	"attributes": {
+		"content": {
+			"type": "rich-text",
+			"source": "rich-text",
+			"selector": "p",
+			"role": "content",
+			"default": "Do 20.01 <strong>do wszystkich zamówień dodajemy prezent niespodziankę</strong> <a href=\"#\">zobacz</a>"
+		},
+		"style": {
+			"type": "object",
+			"default": {
+				"color": {
+					"background": "var(--wp--custom--color--grey-6)",
+					"text": "var:preset|color|body"
+				}
+			}
+		}
+	},
+	"supports": {
+		"html": false,
+		"color": {
+			"background": true,
+			"link": true,
+			"text": true
+		}
+	},
+	"textdomain": "chocante",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css"
+}

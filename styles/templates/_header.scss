@@ -4,13 +4,10 @@
 }
 
 .site-header {
-	background-color: var(--header--background-color, var(--wp--preset--color--base));
 	color: var(--header--text-color, var(--wp--preset--color--white));
 	position: sticky;
 	top: 0;
 	z-index: var(--z-index--overlay);
-
-	@include transition;
 
 	// WP admin bar fix.
 	body.admin-bar & {
@@ -21,6 +18,17 @@
 		}
 	}
 
+	&__affix {
+		position: relative;
+		z-index: 2;
+	}
+
+	&__banner {
+		background-color: var(--header--background-color, var(--wp--preset--color--base));
+
+		@include transition;
+	}
+
 	&__container {
 
 		@include container;
@@ -28,6 +36,10 @@
 		@include max-width($breakpoint--desktop-sm) {
 			padding: 0;
 		}
+	}
+
+	&:has(.site-header__affix) .site-header__container {
+		margin-top: -1px;
 	}
 
 	&__top {
@@ -277,5 +289,13 @@
 		svg path {
 			fill: var(--wp--preset--color--white);
 		}
+	}
+}
+
+/* Fix adminbar so that header sticks to screen top */
+@media screen and (max-width: 600px) {
+
+	#wpadminbar {
+		position: fixed;
 	}
 }

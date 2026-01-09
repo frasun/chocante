@@ -1,0 +1,23 @@
+/**
+ * The following styles get applied inside the editor only.
+ *
+ * Replace them with your own styles or remove the file completely.
+ */
+.wp-block-chocante-infobar {
+
+	a {
+		color: currentcolor;
+
+		&:hover {
+			color: var(--wp--custom--color--contrast);
+		}
+	}
+
+	&__container {
+
+		.wp-block-widget-area__inner-blocks & {
+			padding-left: var(--wp--preset--spacing--10);
+			padding-right: var(--wp--preset--spacing--10);
+		}
+	}
+}

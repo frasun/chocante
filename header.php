@@ -18,33 +18,40 @@ defined( 'ABSPATH' ) || exit;
 <body <?php body_class(); ?>>
 	<?php wp_body_open(); ?>
 	<header class="site-header">
-		<div class="site-header__container">
-			<?php get_template_part( 'template-parts/menu-top' ); ?>
+		<?php
+		if ( is_active_sidebar( 'header-affix' ) ) {
+			dynamic_sidebar( 'header-affix' );
+		}
+		?>
+		<div id="siteHeader" class="site-header__banner">
+			<div class="site-header__container">
+				<?php get_template_part( 'template-parts/menu-top' ); ?>
 
-			<div class="site-header__menu">
-				<button class="site-header__toggle" aria-label="<?php esc_html_e( 'Toggle menu', 'chocante' ); ?>" aria-expanded="false" aria-controls="mobileMenu">
-					<?php Chocante::icon( 'menu-toggle' ); ?>
-				</button>
+				<div class="site-header__menu">
+					<button class="site-header__toggle" aria-label="<?php esc_html_e( 'Toggle menu', 'chocante' ); ?>" aria-expanded="false" aria-controls="mobileMenu">
+						<?php Chocante::icon( 'menu-toggle' ); ?>
+					</button>
 
-				<?php
-				if ( has_custom_logo() ) {
-					the_custom_logo();
-				}
+					<?php
+					if ( has_custom_logo() ) {
+						the_custom_logo();
+					}
 
-				if ( has_nav_menu( 'chocante_menu_main' ) ) {
-					wp_nav_menu(
-						array(
-							'theme_location' => 'chocante_menu_main',
-							'container'      => false,
-							'link_before'    => '<span>',
-							'link_after'     => '</span>',
-							'menu_class'     => 'menu site-header__nav',
-						)
-					);
-				}
+					if ( has_nav_menu( 'chocante_menu_main' ) ) {
+						wp_nav_menu(
+							array(
+								'theme_location' => 'chocante_menu_main',
+								'container'      => false,
+								'link_before'    => '<span>',
+								'link_after'     => '</span>',
+								'menu_class'     => 'menu site-header__nav',
+							)
+						);
+					}
 
-				do_action( 'chocante_header_aside', 'site-header__aside' );
-				?>
+					do_action( 'chocante_header_aside', 'site-header__aside' );
+					?>
+				</div>
 			</div>
 		</div>
 	</header>

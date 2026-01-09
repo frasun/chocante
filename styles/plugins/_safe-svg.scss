@@ -1,0 +1,4 @@
+/* Fix for SVG icon container */
+.wp-block-safe-svg-svg-icon {
+	display: flex;
+}

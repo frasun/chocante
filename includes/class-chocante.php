@@ -23,6 +23,7 @@ class Chocante {
 		add_action( 'widgets_init', array( __CLASS__, 'register_sidebars' ) );
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'enqueue_scripts' ), 20 );
 		add_action( 'init', array( __CLASS__, 'add_page_excerpt_support' ) );
+		add_action( 'init', array( __CLASS__, 'init_blocks' ) );
 
 		// Custom logo.
 		add_action( 'after_setup_theme', array( __CLASS__, 'support_custom_logo' ) );
@@ -233,6 +234,18 @@ class Chocante {
 	 * Register widget areas
 	 */
 	public static function register_sidebars() {
+		register_sidebar(
+			array(
+				'name'           => _x( 'Header - affix', 'admin', 'chocante' ),
+				'id'             => 'header-affix',
+				'description'    => _x( 'Widgets in this area will be sticky to the top of the page.', 'admin', 'chocante' ),
+				'before_widget'  => '',
+				'after_widget'   => '',
+				'before_sidebar' => '<div class="site-header__affix">',
+				'after_sidebar'  => '</div>',
+			)
+		);
+
 		// Header Top Nav.
 		register_sidebar(
 			array(
@@ -530,5 +543,13 @@ class Chocante {
 				return ob_get_clean();
 			}
 		);
+	}
+
+	/**
+	 * Register theme blocks.
+	 */
+	public static function init_blocks() {
+		register_block_type( dirname( __DIR__ ) . '/build/infobar' );
+		wp_set_script_translations( 'chocante-infobar-editor-script', 'chocante', get_theme_file_path( 'languages' ) );
 	}
 }

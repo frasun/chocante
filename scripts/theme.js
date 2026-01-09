@@ -19,7 +19,7 @@ class Chocante {
 		new Modal( '#mobileMenu', '.site-header__toggle', MOBILE_BREAKPOINT );
 
 		// Menu on scroll.
-		new MenuScroll( '.site-header' );
+		new MenuScroll( '#siteHeader' );
 
 		// Dropdowns - mini-cart, currency/language switcher etc.
 		this.setDropdownSize();
