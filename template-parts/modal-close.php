@@ -9,6 +9,6 @@
 defined( 'ABSPATH' ) || exit;
 ?>
 
-<button data-close-modal aria-label="<?php esc_attr_e( 'Close' ); ?>">
+<button data-close-modal aria-label="<?php esc_attr_e( 'Close' ); ?>" aria-controls="mobileMenu">
 	<?php Chocante::icon( 'close' ); ?>
 </button>

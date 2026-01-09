@@ -13,4 +13,8 @@ body.page-template-no-header--alt {
 	main {
 		background-color: var(--wp--preset--color--white);
 	}
+
+	.mobile-menu {
+		--header--text-color-secondary: var(--wp--custom--color--base-6);
+	}
 }

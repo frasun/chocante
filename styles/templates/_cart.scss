@@ -322,6 +322,7 @@
 							&-form {
 								display: flex;
 								gap: var(--spacing--15);
+								align-items: end;
 
 								@include max-width($breakpoint--mobile-sm) {
 									flex-direction: column;
@@ -330,11 +331,17 @@
 								@include select2-sm;
 
 								p {
-									margin: var(--spacing--10) 0 0;
+									margin: var(--spacing--10) 0 2px;
 
 									&.form-row-wide {
 										flex-grow: 1;
 									}
+								}
+
+								label {
+									padding-bottom: var(--wp--preset--spacing--10);
+
+									@include font-style(section-label);
 								}
 
 								.button {

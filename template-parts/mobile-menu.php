@@ -9,7 +9,7 @@
 defined( 'ABSPATH' ) || exit;
 ?>
 
-<nav class="mobile-menu">
+<nav id="mobileMenu" class="mobile-menu">
 	<header class="mobile-menu__top">
 		<?php
 		get_template_part( 'template-parts/modal-close' );

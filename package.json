@@ -1,6 +1,6 @@
 {
 	"name": "chocante-wp-theme",
-	"version": "0.19.2",
+	"version": "0.19.4",
 	"main": "",
 	"scripts": {
 		"start": "wp-scripts start",
@@ -9,7 +9,8 @@
 		"lint:js": "wp-scripts format && wp-scripts lint-js --fix",
 		"lint:style": "wp-scripts lint-style --fix",
 		"lint": "npm run lint:js && npm run lint:style",
-		"packages-update": "wp-scripts packages-update"
+		"packages-update": "wp-scripts packages-update",
+		"make-theme": " zip -r chocante.zip build fonts icons images includes languages page-templates template-parts woocommerce 404.php archive-product.php footer.php functions.php header.php home.php index.php page.php screenshot.png sidebar.php single.php style.css theme.json wpml-config.xml"
 	},
 	"author": "",
 	"license": "ISC",

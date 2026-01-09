@@ -50,6 +50,15 @@ label {
 		@include color(grey-2);
 		font-weight: var(--font-weight--normal);
 	}
+
+	&.woocommerce-form__label {
+
+		&.woocommerce-form__label-for-checkbox {
+			display: grid;
+			grid-template-columns: auto 1fr;
+			align-items: center;
+		}
+	}
 }
 
 // Select.

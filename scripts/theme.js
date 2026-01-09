@@ -16,7 +16,7 @@ class Chocante {
 		new ModalService();
 
 		// Mobile menu.
-		new Modal( '.mobile-menu', '.site-header__toggle', MOBILE_BREAKPOINT );
+		new Modal( '#mobileMenu', '.site-header__toggle', MOBILE_BREAKPOINT );
 
 		// Menu on scroll.
 		new MenuScroll( '.site-header' );

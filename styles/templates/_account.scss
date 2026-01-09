@@ -585,6 +585,17 @@
 						}
 					}
 				}
+
+				.actions {
+					display: flex;
+					gap: var(--wp--preset--spacing--10);
+
+					.button {
+
+						@include button;
+						@include button-style-outline;
+					}
+				}
 			}
 
 			/* stylelint-disable-next-line no-descending-specificity */

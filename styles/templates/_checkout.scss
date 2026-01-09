@@ -307,7 +307,7 @@
 		column-gap: var(--spacing--10);
 		grid-template-columns: auto 1fr;
 
-		label {
+		label:not(.checkbox) {
 			margin: 0;
 			display: flex;
 			align-items: center;

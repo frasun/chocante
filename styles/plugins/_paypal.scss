@@ -1,9 +1,19 @@
-woocommerce-order-pay {
+/** PayPal **/
+.woocommerce-order-pay {
 
 	.ppc-button-wrapper {
 
 		@include min-width($breakpoint--mobile-lg) {
 			max-width: 300px;
 		}
+	}
+}
+
+// Override default inline style.
+#ppcp-recaptcha-v2-container {
+	margin: 0 0 var(--spacing--30) !important;
+
+	&:empty {
+		margin: 0 !important;
 	}
 }

@@ -1,18 +1,3 @@
-.wp-block-woocommerce-coming-soon {
-
-	.wp-block-site-title {
-		display: none;
-	}
-
-	.wp-block-site-logo {
-
-		.custom-logo {
-			width: min(250px, 80vw);
-			height: auto;
-		}
-	}
-}
-
 body:has(.woocommerce-coming-soon-banner) {
 	--woocommerce-coming-soon-color: var(--wp--preset--color--base);
 	--wp--preset--font-family--cardo: var(--font-family--body);
@@ -40,4 +25,20 @@ body:has(.woocommerce-coming-soon-entire-site)
 	justify-content: center;
 	align-items: center;
 	gap: var(--spacing--30);
+}
+
+.wp-block-woocommerce-coming-soon {
+	background-color: var(--wp--preset--color--base) !important;
+
+	.wp-block-site-title {
+		display: none;
+	}
+
+	.wp-block-site-logo {
+
+		.custom-logo {
+			width: min(250px, 80vw);
+			height: auto;
+		}
+	}
 }

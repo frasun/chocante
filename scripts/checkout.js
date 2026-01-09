@@ -10,7 +10,14 @@ jQuery( function ( $ ) {
 
 	function handleChange( e ) {
 		const field = $( e.target );
-		validatePostCode( field );
+		const fieldName = field.attr( 'name' );
+
+		if (
+			( fieldName && fieldName.includes( 'billing_' ) ) ||
+			fieldName.includes( 'shipping_' )
+		) {
+			validatePostCode( field );
+		}
 	}
 
 	function validatePostCode( field ) {

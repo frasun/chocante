@@ -30,6 +30,7 @@ export default class Modal {
 		}
 
 		this.open = true;
+		this.toggle.setAttribute( 'aria-expanded', this.open );
 		document.dispatchEvent(
 			new CustomEvent( 'showModal', { detail: { modalId: this.nav } } )
 		);
@@ -42,6 +43,7 @@ export default class Modal {
 		}
 
 		this.open = false;
+		this.toggle.setAttribute( 'aria-expanded', this.open );
 		document.dispatchEvent(
 			new CustomEvent( 'hideModal', { detail: { resize } } )
 		);

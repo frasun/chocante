@@ -22,7 +22,7 @@ defined( 'ABSPATH' ) || exit;
 			<?php get_template_part( 'template-parts/menu-top' ); ?>
 
 			<div class="site-header__menu">
-				<button class="site-header__toggle">
+				<button class="site-header__toggle" aria-label="<?php esc_html_e( 'Toggle menu', 'chocante' ); ?>" aria-expanded="false" aria-controls="mobileMenu">
 					<?php Chocante::icon( 'menu-toggle' ); ?>
 				</button>
 
