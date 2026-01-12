@@ -110,4 +110,42 @@
 	}
 
 	/* END Editor post container */
+
+	/*
+	 * Legacy widget areas.
+	 */
+	&[data-widget-area-id="header-top"],
+	&[data-widget-area-id="mobile-menu-top"],
+	&[data-widget-area-id="mobile-menu-after-nav"],
+	&[data-widget-area-id="footer-bottom-mobile"] {
+		padding-top: var(--spacing--10);
+		padding-bottom: var(--spacing--10);
+		background-color: var(--header--background-color, var(--wp--preset--color--base));
+
+		.block-editor-block-list__layout {
+			width: 100%;
+			display: flex;
+			align-items: top;
+			justify-content: end;
+			gap: var(--spacing--20);
+		}
+	}
+
+	&[data-widget-area-id="footer-bottom-left"] {
+		background-color: var(--wp--custom--color--base-2);
+
+		.block-editor-block-list__layout {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			padding-top: var(--spacing--20);
+			padding-bottom: var(--spacing--20);
+			gap: var(--spacing--20);
+			flex-wrap: wrap;
+		}
+	}
+
+	&[data-widget-area-id="footer-bottom-mobile"] {
+		background-color: var(--wp--custom--color--base-4);
+	}
 }
