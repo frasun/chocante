@@ -1,4 +1,10 @@
 // Input.
+@mixin disabled {
+	opacity: 0.25;
+	// cursor: not-allowed;
+	pointer-events: none;
+}
+
 @mixin input {
 
 	@include font-size(normal-sm);
@@ -22,6 +28,12 @@
 	&:focus {
 		background-color: var(--input--background-color--focus, var(--wp--preset--color--white));
 		border-color: var(--input--border--focus, var(--wp--preset--color--accent));
+	}
+
+	&:disabled,
+	&.disabled {
+
+		@include disabled;
 	}
 
 	&::placeholder {
@@ -80,6 +92,17 @@
 		}
 	}
 
+	&:disabled,
+	&.disabled {
+
+		@include disabled;
+
+		+ label {
+
+			@include disabled;
+		}
+	}
+
 	+ label {
 		margin-left: var(--spacing--10);
 		margin-bottom: 0;
@@ -111,6 +134,17 @@
 		background-image: url(../icons/icon-tick.svg);
 		background-position: center;
 		background-repeat: no-repeat;
+	}
+
+	&:disabled,
+	&.disabled {
+
+		@include disabled;
+
+		+ label {
+
+			@include disabled;
+		}
 	}
 
 	+ label {
