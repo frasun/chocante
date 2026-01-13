@@ -1,6 +1,6 @@
 {
 	"name": "chocante-wp-theme",
-	"version": "0.20.0",
+	"version": "0.20.2",
 	"main": "",
 	"scripts": {
 		"start": "wp-scripts start",

@@ -16,6 +16,35 @@ export default class ChocanteWooCommerce {
 					window.jQuery( 'form.checkout' ).trigger( 'update' );
 				}
 			);
+
+		window.ChocanteProductFiltersScrollTo = () => {
+			const shopLoop = document.querySelector( '.shop-loop' );
+			const header = document.querySelector( '.site-header' );
+
+			if ( ! shopLoop || ! header ) {
+				return null;
+			}
+
+			const top =
+				window.scrollY +
+				shopLoop.getBoundingClientRect().top -
+				header.offsetHeight;
+			const adminBar = document.querySelector( '#wpadminbar' );
+
+			if ( adminBar ) {
+				return top - adminBar.offsetHeight;
+			}
+
+			return top;
+		};
+
+		window.ChocanteProductFiltersAfterScroll = () => {
+			window.requestAnimationFrame( () => {
+				document
+					.getElementById( 'siteHeader' )
+					.removeAttribute( 'style' );
+			} );
+		};
 	}
 
 	initMiniCart() {
