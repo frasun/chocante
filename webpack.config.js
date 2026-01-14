@@ -62,6 +62,20 @@ module.exports = {
 			'single-post.scss'
 		),
 	},
+	// Do not bundle fonts.
+	module: {
+		...defaultConfig.module,
+		rules: [
+			...defaultConfig.module.rules,
+			{
+				test: /\.(woff|woff2|eot|ttf|otf)$/i,
+				type: 'asset/resource',
+				generator: {
+					filename: 'fonts/[name][ext]',
+				},
+			},
+		],
+	},
 	plugins: [
 		// Include WP's plugin config.
 		...defaultConfig.plugins,

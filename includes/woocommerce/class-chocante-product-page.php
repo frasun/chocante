@@ -18,6 +18,7 @@ class Chocante_Product_Page {
 	 */
 	public static function init() {
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'enqueue_scripts' ) );
+		add_action( 'wp_head', array( __CLASS__, 'preload_assets' ), 1 );
 
 		remove_action( 'woocommerce_before_single_product', 'woocommerce_output_all_notices' );
 		remove_action( 'woocommerce_before_single_product_summary', 'woocommerce_show_product_sale_flash', 10 );
@@ -58,7 +59,7 @@ class Chocante_Product_Page {
 	 * Enqueue scripts & styles
 	 */
 	public static function enqueue_scripts() {
-		$product_js = include get_theme_file_path( 'build/single-product-scripts.asset.php' );
+		$product_js = Chocante::asset( 'single-product-scripts' );
 
 		wp_enqueue_script(
 			'chocante-single-product-js',
@@ -71,7 +72,7 @@ class Chocante_Product_Page {
 			)
 		);
 
-		$product_css = include get_theme_file_path( 'build/single-product.asset.php' );
+		$product_css = Chocante::asset( 'single-product' );
 
 		wp_enqueue_style(
 			'chocante-single-product-css',
@@ -79,6 +80,16 @@ class Chocante_Product_Page {
 			$product_css['dependencies'],
 			$product_css['version'],
 		);
+	}
+
+	/**
+	 * Preload assets.
+	 */
+	public static function preload_assets() {
+		$product_css      = Chocante::asset( 'single-product' );
+		$product_css_path = get_theme_file_uri( 'build/single-product.css' ) . '?ver=' . $product_css['version'];
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo "<link rel=\"preload\" href=\"{$product_css_path}\" as=\"style\" />";
 	}
 
 	/**

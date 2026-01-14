@@ -47,7 +47,7 @@ class Chocante_Account {
 	 * Enqueue scripts & styles
 	 */
 	public static function enqueue_scripts() {
-		$account_js = include get_theme_file_path( 'build/account-scripts.asset.php' );
+		$account_js = Chocante::asset( 'account-scripts' );
 
 		wp_enqueue_script(
 			'chocante-account-js',
@@ -60,7 +60,7 @@ class Chocante_Account {
 			)
 		);
 
-		$account_css = include get_theme_file_path( 'build/account.asset.php' );
+		$account_css = Chocante::asset( 'account' );
 
 		wp_enqueue_style(
 			'chocante-account-css',
@@ -68,6 +68,16 @@ class Chocante_Account {
 			$account_css['dependencies'],
 			$account_css['version'],
 		);
+	}
+
+	/**
+	 * Preload assets.
+	 */
+	public static function preload_assets() {
+		$account_css = Chocante::asset( 'account' );
+		$css_path    = get_theme_file_uri( 'build/account.css' ) . '?ver=' . $account_css['version'];
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo "<link rel=\"preload\" href=\"{$css_path}\" as=\"style\" />";
 	}
 
 	/**

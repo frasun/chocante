@@ -41,7 +41,9 @@
 
 // 3rd party plugins.
 @import "plugins/omnibus";
+@import "plugins/wpml/legacy-dropdown";
+@import "plugins/wpml/legacy-dropdown-click";
+@import "plugins/wpml/menu-item";
 @import "plugins/currency-language-switcher";
 @import "plugins/wpcf7";
-@import "plugins/ml";
 @import "plugins/safe-svg";

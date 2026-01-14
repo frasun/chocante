@@ -13,7 +13,35 @@ defined( 'ABSPATH' ) || exit;
  */
 class Chocante {
 	/**
-	 * Class constructor.
+	 * Image quality.
+	 *
+	 * @var int;
+	 */
+	const IMAGE_QUALITY = 70;
+
+	/**
+	 * Assets.
+	 *
+	 * @var array;
+	 */
+	private static $assets = array();
+
+	/**
+	 * Assets helper.
+	 *
+	 * @param string $key Name of the asset.
+	 * @return array
+	 */
+	public static function asset( $key ) {
+		if ( ! isset( self::$assets[ $key ] ) ) {
+			self::$assets[ $key ] = include get_theme_file_path( "build/{$key}.asset.php" );
+		}
+
+		return self::$assets[ $key ];
+	}
+
+	/**
+	 * Class initialization.
 	 */
 	public static function init() {
 		// Setup.
@@ -24,14 +52,15 @@ class Chocante {
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'enqueue_scripts' ), 20 );
 		add_action( 'init', array( __CLASS__, 'add_page_excerpt_support' ) );
 		add_action( 'init', array( __CLASS__, 'init_blocks' ) );
+		add_filter( 'image_editor_output_format', array( __CLASS__, 'use_web_images' ) );
+		add_filter( 'wp_editor_set_quality', array( __CLASS__, 'set_images_quality' ) );
+		add_filter( 'wp_image_editors', array( __CLASS__, 'use_gd' ) );
 
 		// Custom logo.
 		add_action( 'after_setup_theme', array( __CLASS__, 'support_custom_logo' ) );
 		add_filter( 'get_custom_logo_image_attributes', array( __CLASS__, 'set_custom_logo_attributes' ), 10, 2 );
 
 		// Menu.
-		// add_filter( 'nav_menu_css_class', array( __CLASS__, 'set_menu_item_class' ), 10, 2 );?
-		// add_filter( 'nav_menu_submenu_css_class', array( __CLASS__, 'set_submenu_class' ) );?
 		if ( ! is_admin() ) {
 			add_action( 'wp_footer', array( __CLASS__, 'output_mobile_menu' ), 20 );
 			add_filter( 'nav_menu_item_title', array( __CLASS__, 'social_media_icons' ), 10, 3 );
@@ -71,6 +100,16 @@ class Chocante {
 
 		// Shortcodes.
 		add_action( 'init', array( __CLASS__, 'add_shortcodes' ) );
+
+		// Performance.
+		add_action( 'wp_head', array( __CLASS__, 'preload_assets' ), 1 );
+		if ( ! is_admin() ) {
+			add_action( 'wp_default_scripts', array( __CLASS__, 'disable_jquery_migrate' ) );
+		}
+		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'disable_block_styles' ), 1000 );
+		if ( class_exists( 'SitePress' ) ) {
+			add_action( 'wp_enqueue_scripts', array( __CLASS__, 'manage_wpml_scripts' ), 1000 );
+		}
 	}
 
 	/**
@@ -110,10 +149,10 @@ class Chocante {
 		if ( true === WP_DEBUG ) {
 			if(!isset($data)) {
 				error_log('null');
-			} elseif ( is_array( $data ) || is_object( $data ) ) {
-				error_log( print_r( $data, true ) );
-			} else {
-				error_log( $data );
+				} elseif ( is_array( $data ) || is_object( $data ) ) {
+			error_log( print_r( $data, true ) );
+				} else {
+			error_log( $data );
 			}
 		}
 		/* phpcs:enable */
@@ -165,7 +204,7 @@ class Chocante {
 	 */
 	public static function enqueue_scripts() {
 		// Common.
-		$styles = include get_theme_file_path( 'build/chocante.asset.php' );
+		$styles = self::asset( 'chocante' );
 
 		wp_enqueue_style(
 			'chocante-css',
@@ -180,7 +219,7 @@ class Chocante {
 			get_theme_file_uri( 'style.css' )
 		);
 
-		$scripts = include get_theme_file_path( 'build/chocante-scripts.asset.php' );
+		$scripts = self::asset( 'chocante-scripts' );
 
 		wp_enqueue_script(
 			'chocante-js',
@@ -207,7 +246,7 @@ class Chocante {
 
 		// Blog.
 		if ( is_home() ) {
-			$blog_styles = include get_theme_file_path( 'build/blog.asset.php' );
+			$blog_styles = self::asset( 'blog' );
 
 			wp_enqueue_style(
 				'blog-css',
@@ -219,7 +258,7 @@ class Chocante {
 
 		// Single post.
 		if ( is_singular( 'post' ) ) {
-			$post_styles = include get_theme_file_path( 'build/single-post.asset.php' );
+			$post_styles = self::asset( 'single-post' );
 
 			wp_enqueue_style(
 				'post-css',
@@ -326,28 +365,6 @@ class Chocante {
 	 */
 	public static function spinner() {
 		echo '<img src="' . esc_url( get_theme_file_uri( 'images/spinner-2x.gif' ) ) . '" alt="' . esc_attr_x( 'Loading', 'product slider', 'chocante' ) . '" class="spinner">';
-	}
-
-	/**
-	 * Clean menu list item classes
-	 *
-	 * @param array $classes List of menu item classes.
-	 * @return array
-	 */
-	public static function set_menu_item_class( $classes ) {
-		return array_intersect( array( 'menu-item-has-children' ), $classes );
-	}
-
-	/**
-	 * Clean sub-menu classes
-	 *
-	 * @param array $classes List of sub-menu classes.
-	 * @return array
-	 */
-	public static function set_submenu_class( $classes ) {
-		$classes = array();
-
-		return $classes;
 	}
 
 	/**
@@ -477,7 +494,7 @@ class Chocante {
 	 */
 	public static function enqueue_editor_assets() {
 		// Editor specific.
-		$editor_styles = include get_theme_file_path( 'build/editor.asset.php' );
+		$editor_styles = self::asset( 'editor' );
 
 		wp_enqueue_style(
 			'chocante-editor-css',
@@ -486,7 +503,7 @@ class Chocante {
 			$editor_styles['version'],
 		);
 
-		$ediotr_scripts = include get_theme_file_path( 'build/editor-scripts.asset.php' );
+		$ediotr_scripts = self::asset( 'editor-scripts' );
 
 		wp_enqueue_script(
 			'chocante-editor-js',
@@ -551,5 +568,171 @@ class Chocante {
 	public static function init_blocks() {
 		register_block_type( dirname( __DIR__ ) . '/build/infobar' );
 		wp_set_script_translations( 'chocante-infobar-editor-script', 'chocante', get_theme_file_path( 'languages' ) );
+	}
+
+	/**
+	 * Use web format for uploaded images.
+	 *
+	 * @param string[] $formats An array of mime type mappings. Maps a source mime type to a new destination mime type. Default empty array.
+	 * @return string[]
+	 */
+	public static function use_web_images( $formats ) {
+		$formats['image/jpg']           = 'image/avif';
+		$formats['image/jpeg']          = 'image/avif';
+		$formats['image/png']           = 'image/avif';
+		$formats['image/webp']          = 'image/avif';
+		$formats['image/heic']          = 'image/avif';
+		$formats['image/heif']          = 'image/avif';
+		$formats['image/heic-sequence'] = 'image/avif';
+		$formats['image/heif-sequence'] = 'image/avif';
+
+		return $formats;
+	}
+
+	/**
+	 * Set quality of uploaded images
+	 */
+	public static function set_images_quality() {
+		return self::IMAGE_QUALITY;
+	}
+
+	/**
+	 * Use WP GD for avif support
+	 */
+	public static function use_gd() {
+		return array( 'WP_Image_Editor_GD' );
+	}
+
+	/**
+	 * Preload critical assets
+	 */
+	public static function preload_assets() {
+		$links = array();
+
+		// Theme styles.
+		$styles  = self::asset( 'chocante' );
+		$links[] = array(
+			'path' => get_theme_file_uri( 'build/chocante.css' ) . '?ver=' . $styles['version'],
+			'as'   => 'style',
+		);
+
+		if ( is_singular( 'post' ) ) {
+			$post_styles = self::asset( 'single-post' );
+			$links[]     = array(
+				'path' => get_theme_file_uri( 'build/single-post.css' ) . '?ver=' . $post_styles['version'],
+				'as'   => 'style',
+			);
+		}
+
+		if ( is_home() ) {
+			$blog_styles = self::asset( 'blog' );
+			$links[]     = array(
+				'path' => get_theme_file_uri( 'build/blog.css' ) . '?ver=' . $blog_styles['version'],
+				'as'   => 'style',
+			);
+		}
+
+		// Fonts.
+		$fonts = array( 'fonts/montserrat-medium.woff2', 'fonts/montserrat-semibold.woff2', 'fonts/montserrat-bold.woff2', 'fonts/playfair_display-medium.woff2', 'build/fonts/glyphter.woff' );
+		foreach ( $fonts as $font ) {
+			$name    = explode( '.', $font );
+			$ext     = end( $name );
+			$links[] = array(
+				'path'  => get_theme_file_uri( $font ),
+				'as'    => 'font',
+				'extra' => array(
+					"type=\"font/{$ext}\"",
+					'crossorigin',
+				),
+			);
+		}
+
+		// jQuery preload hack.
+		global $wp_scripts;
+		if ( isset( $wp_scripts->registered['jquery'] ) ) {
+			$suffix  = wp_scripts_get_suffix();
+			$version = $wp_scripts->registered['jquery']->ver;
+			$links[] = array(
+				'path' => "/wp-includes/js/jquery/jquery{$suffix}.js?ver={$version}",
+				'as'   => 'script',
+			);
+		}
+
+		foreach ( $links as $link ) {
+			$extra = isset( $link['extra'] ) ? implode( ' ', $link['extra'] ) : '';
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo "<link rel=\"preload\" href=\"{$link['path']}\" as=\"{$link['as']}\" {$extra} />";
+		}
+	}
+
+	/**
+	 * Disable jQuery migrate on frontend
+	 *
+	 * @param WP_Scripts $scripts WP Scripts object.
+	 */
+	public static function disable_jquery_migrate( $scripts ) {
+		if ( isset( $scripts->registered['jquery'] ) ) {
+			$scripts->registered['jquery']->deps = array_diff( $scripts->registered['jquery']->deps, array( 'jquery-migrate' ) );
+		}
+	}
+
+	/**
+	 * Disable WP blocks styles on pages without blocks.
+	 */
+	public static function disable_block_styles() {
+		global $post;
+
+		$has_blocks = false;
+		if ( isset( $post->post_content ) ) {
+			$has_blocks = has_blocks( $post->post_content );
+		}
+
+		if ( ! $has_blocks ) {
+			wp_dequeue_style( 'wp-block-library' );
+			wp_dequeue_style( 'wp-block-library-theme' );
+			wp_dequeue_style( 'global-styles' );
+			wp_dequeue_style( 'classic-theme-styles' );
+
+			if ( class_exists( 'WooCommerce' ) && function_exists( 'WC' ) ) {
+				wp_dequeue_style( 'wc-blocks-style' );
+				wp_deregister_style( 'wc-blocks-style' );
+			}
+		}
+	}
+
+	/**
+	 * Move WPML language switcher scripts to footer and disable styles (moved to main theme)
+	 */
+	public static function manage_wpml_scripts() {
+		global $wp_scripts;
+		global $wp_styles;
+
+		$wpml_dropdown  = 'wpml-legacy-dropdown';
+		$wpml_menu_item = 'wpml-menu-item';
+
+		foreach ( $wp_styles->queue as $handle ) {
+			if ( str_contains( $handle, $wpml_dropdown ) || str_contains( $handle, $wpml_menu_item ) ) {
+				wp_dequeue_style( $handle );
+				wp_deregister_style( $handle );
+			}
+		}
+
+		foreach ( $wp_scripts->queue as $handle ) {
+			$script = $wp_scripts->registered[ $handle ];
+
+			if ( str_contains( $handle, $wpml_dropdown ) ) {
+				wp_dequeue_script( $handle );
+				wp_enqueue_script(
+					$handle,
+					$script->src,
+					$script->deps,
+					$script->ver,
+					array(
+						'in_footer' => true,
+						'strategy'  => 'defer',
+					)
+				);
+			}
+		}
 	}
 }

@@ -18,6 +18,8 @@ class Chocante_Checkout {
 	 */
 	public static function init() {
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'enqueue_scripts' ) );
+		add_action( 'wp_head', array( __CLASS__, 'preload_assets' ), 1 );
+
 		add_action( 'woocommerce_before_checkout_form', array( __CLASS__, 'display_page_title' ), 1 );
 
 		// Fix for free shipping notice order.
@@ -41,7 +43,7 @@ class Chocante_Checkout {
 	 * Enqueue scripts & styles
 	 */
 	public static function enqueue_scripts() {
-		$checkout_js = include get_theme_file_path( 'build/checkout-scripts.asset.php' );
+		$checkout_js = Chocante::asset( 'checkout-scripts' );
 
 		wp_enqueue_script(
 			'chocante-checkout-js',
@@ -63,7 +65,7 @@ class Chocante_Checkout {
 			)
 		);
 
-		$checkout_css = include get_theme_file_path( 'build/checkout.asset.php' );
+		$checkout_css = Chocante::asset( 'checkout' );
 
 		wp_enqueue_style(
 			'chocante-checkout-css',
@@ -71,6 +73,16 @@ class Chocante_Checkout {
 			$checkout_css['dependencies'],
 			$checkout_css['version'],
 		);
+	}
+
+	/**
+	 * Preload assets.
+	 */
+	public static function preload_assets() {
+		$checkout_css = Chocante::asset( 'checkout' );
+		$css_path     = get_theme_file_uri( 'build/checkout.css' ) . '?ver=' . $checkout_css['version'];
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo "<link rel=\"preload\" href=\"{$css_path}\" as=\"style\" />";
 	}
 
 	/**

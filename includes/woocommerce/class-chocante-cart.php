@@ -18,6 +18,7 @@ class Chocante_Cart {
 	 */
 	public static function init() {
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'enqueue_scripts' ) );
+		add_action( 'wp_head', array( __CLASS__, 'preload_assets' ), 1 );
 
 		add_action( 'woocommerce_before_cart', array( __CLASS__, 'display_cart_title' ), 1 );
 		add_action( 'woocommerce_after_cart_table', array( __CLASS__, 'display_cart_info' ) );
@@ -36,7 +37,7 @@ class Chocante_Cart {
 	 * Enqueue scripts & styles
 	 */
 	public static function enqueue_scripts() {
-		$cart_js = include get_theme_file_path( 'build/cart-scripts.asset.php' );
+		$cart_js = Chocante::asset( 'cart-scripts' );
 
 		wp_enqueue_script(
 			'chocante-cart-js',
@@ -49,7 +50,7 @@ class Chocante_Cart {
 			)
 		);
 
-		$cart_css = include get_theme_file_path( 'build/cart.asset.php' );
+		$cart_css = Chocante::asset( 'cart' );
 
 		wp_enqueue_style(
 			'chocante-cart-css',
@@ -57,6 +58,16 @@ class Chocante_Cart {
 			$cart_css['dependencies'],
 			$cart_css['version'],
 		);
+	}
+
+	/**
+	 * Preload assets.
+	 */
+	public static function preload_assets() {
+		$cart_css = Chocante::asset( 'cart' );
+		$css_path = get_theme_file_uri( 'build/cart.css' ) . '?ver=' . $cart_css['version'];
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo "<link rel=\"preload\" href=\"{$css_path}\" as=\"style\" />";
 	}
 
 	/**

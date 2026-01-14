@@ -18,6 +18,7 @@ class Chocante_Product_Archive {
 	 */
 	public static function init() {
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'enqueue_scripts' ) );
+		add_action( 'wp_head', array( __CLASS__, 'preload_assets' ), 1 );
 
 		// Breadcrumbs.
 		add_action( 'chocante_product_archive_header', 'woocommerce_breadcrumb', 20 );
@@ -53,7 +54,7 @@ class Chocante_Product_Archive {
 	 * Enqueue scripts & styles
 	 */
 	public static function enqueue_scripts() {
-		$shop_js = include get_theme_file_path( 'build/shop-scripts.asset.php' );
+		$shop_js = Chocante::asset( 'shop-scripts' );
 
 		wp_enqueue_script(
 			'chocante-shop-js',
@@ -66,7 +67,7 @@ class Chocante_Product_Archive {
 			)
 		);
 
-		$shop_css = include get_theme_file_path( 'build/shop.asset.php' );
+		$shop_css = Chocante::asset( 'shop' );
 
 		wp_enqueue_style(
 			'chocante-shop-css',
@@ -74,6 +75,16 @@ class Chocante_Product_Archive {
 			$shop_css['dependencies'],
 			$shop_css['version'],
 		);
+	}
+
+	/**
+	 * Preload assets.
+	 */
+	public static function preload_assets() {
+		$shop_css = Chocante::asset( 'shop' );
+		$css_path = get_theme_file_uri( 'build/shop.css' ) . '?ver=' . $shop_css['version'];
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo "<link rel=\"preload\" href=\"{$css_path}\" as=\"style\" />";
 	}
 
 	/**

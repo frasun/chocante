@@ -8,6 +8,8 @@
 
 defined( 'ABSPATH' ) || exit;
 
+define( 'GLOBKURIER_ENABLED', true );
+
 // Common modules.
 require_once __DIR__ . '/woocommerce/class-chocante-product-archive.php';
 require_once __DIR__ . '/woocommerce/class-chocante-product-page.php';
@@ -15,8 +17,11 @@ require_once __DIR__ . '/woocommerce/class-chocante-cart.php';
 require_once __DIR__ . '/woocommerce/class-chocante-checkout.php';
 require_once __DIR__ . '/woocommerce/class-chocante-account.php';
 require_once __DIR__ . '/woocommerce/class-chocante-product-section.php';
-require_once __DIR__ . '/woocommerce/class-globkurier-shipping.php';
 require_once __DIR__ . '/woocommerce/class-chocante-product-tags.php';
+
+if ( defined( 'GLOBKURIER_ENABLED' ) && GLOBKURIER_ENABLED ) {
+	require_once __DIR__ . '/woocommerce/class-globkurier-shipping.php';
+}
 
 /**
  * Chocante_WooCommerce class.
@@ -101,7 +106,7 @@ class Chocante_WooCommerce {
 		if ( ! is_admin() ) {
 			add_action( 'after_setup_theme', array( __CLASS__, 'setup_product_gallery' ), 99 );
 		}
-		add_filter( 'woocommerce_get_image_size_gallery_thumbnail', array( __CLASS__, 'set_gallery_thumbnail_size' ) );
+		add_filter( 'woocommerce_get_image_size_gallery_thumbnail', array( __CLASS__, 'disable_gallery_thumbnail_size' ) );
 
 		// Page footer.
 		if ( ! is_admin() ) {
@@ -121,9 +126,6 @@ class Chocante_WooCommerce {
 		 */
 		remove_filter( 'admin_head', 'wp_check_widget_editor_deps' );
 
-		// Remove WooCommerce styles.
-		add_filter( 'woocommerce_enqueue_styles', '__return_false' );
-
 		// Thankyou / order emails.
 		add_filter( 'woocommerce_bacs_account_fields', array( __CLASS__, 'add_currency_to_bank_details' ) );
 
@@ -131,17 +133,25 @@ class Chocante_WooCommerce {
 		add_action( 'init', array( __CLASS__, 'add_shortcodes' ) );
 
 		// Gift wrapper.
-		add_filter( 'tgpc_wc_gift_wrapper_icon_html', array( __CLASS__, 'disable_gift_wrapper_icon_in_admin' ) );
-		add_filter( 'tgpc_wc_gift_wrapper_checkout_label', array( __CLASS__, 'display_gift_wrapper_label' ), 10, 3 );
-		add_filter( 'tgpc_wc_gift_wrapper_cost', array( __CLASS__, 'convert_gift_wrapper_fee' ) );
-
-		// Globkurier.
-		add_filter( 'woocommerce_shipping_methods', array( __CLASS__, 'add_globkurier_shipping_method' ) );
+		if ( class_exists( 'Tgpc_Wc_Gift_Wrap' ) ) {
+			add_filter( 'tgpc_wc_gift_wrapper_icon_html', array( __CLASS__, 'disable_gift_wrapper_icon_in_admin' ) );
+			add_filter( 'tgpc_wc_gift_wrapper_checkout_label', array( __CLASS__, 'display_gift_wrapper_label' ), 10, 3 );
+			add_filter( 'tgpc_wc_gift_wrapper_cost', array( __CLASS__, 'convert_gift_wrapper_fee' ) );
+		}
 
 		// Product Tags.
 		Chocante_Product_Tags::init();
 		add_action( 'woocommerce_before_single_product_summary', array( Chocante_Product_Tags::class, 'display_diet_icons_product_page' ), 25 );
 		add_filter( 'chocante_featured_products_diet_icons', array( Chocante_Product_Tags::class, 'get_product_tags' ), 10, 2 );
+
+		// Globkurier.
+		if ( defined( 'GLOBKURIER_ENABLED' ) && GLOBKURIER_ENABLED ) {
+			add_filter( 'woocommerce_shipping_methods', array( __CLASS__, 'add_globkurier_shipping_method' ) );
+		}
+
+		// Performance.
+		add_filter( 'woocommerce_enqueue_styles', '__return_false' );
+		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'manage_woo_scripts' ), 1000 );
 	}
 
 	/**
@@ -427,17 +437,6 @@ class Chocante_WooCommerce {
 	}
 
 	/**
-	 * Product gallery thumbnail size
-	 */
-	public static function set_gallery_thumbnail_size() {
-		return array(
-			'width'  => 150,
-			'height' => 150,
-			'crop'   => 1,
-		);
-	}
-
-	/**
 	 * Add currency info to bank account details displayed in thankyou page and emails
 	 *
 	 * @param array $account_details Account details.
@@ -545,5 +544,50 @@ class Chocante_WooCommerce {
 	public static function add_globkurier_shipping_method( $shipping_methods ) {
 		$shipping_methods['globkurier'] = 'Globkurier_Shipping';
 		return $shipping_methods;
+	}
+
+	/**
+	 * Disable woocommerce_gallery_thumbnail image size.
+	 */
+	public static function disable_gallery_thumbnail_size() {
+		return array(
+			'width'  => 150,
+			'height' => 150,
+			'crop'   => 1,
+		);
+	}
+
+	/**
+	 * Load Woo non-critical scripts in footer
+	 */
+	public static function manage_woo_scripts() {
+		global $wp_scripts;
+
+		$footer_scripts = array(
+			'js-cookie',
+			'woocommerce',
+		);
+
+		if ( is_product() ) {
+			$footer_scripts[] = 'flexslider';
+		}
+
+		foreach ( $footer_scripts as $handle ) {
+			if ( isset( $wp_scripts->registered[ $handle ] ) ) {
+				$script = $wp_scripts->registered[ $handle ];
+
+				wp_dequeue_script( $handle );
+				wp_enqueue_script(
+					$handle,
+					$script->src,
+					$script->deps,
+					$script->ver,
+					array(
+						'in_footer' => true,
+						'strategy'  => 'defer',
+					)
+				);
+			}
+		}
 	}
 }
