@@ -206,10 +206,16 @@ class Chocante_WooCommerce {
 	 */
 	public static function set_pagination_args( $pagination ) {
 		ob_start();
+		echo '<span class="screen-reader-text">';
+		esc_html_e( 'Previous page', 'woocommerce' );
+		echo '</span>';
 		Chocante::icon( 'prev' );
 		$prev_icon = ob_get_clean();
 
 		ob_start();
+		echo '<span class="screen-reader-text">';
+		esc_html_e( 'Next page', 'woocommerce' );
+		echo '</span>';
 		Chocante::icon( 'next' );
 		$next_icon = ob_get_clean();
 
