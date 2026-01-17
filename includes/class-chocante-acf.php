@@ -342,8 +342,8 @@ class Chocante_ACF {
 	/**
 	 * Get featured product thumbnail
 	 *
-	 * @param string|null $image The post thumbnail image tag.
-	 * @param int         $product_id Product ID.
+	 * @param int $image The post thumbnail ID.
+	 * @param int $product_id Product ID.
 	 * @return string|null
 	 */
 	public static function get_featured_thumbnail( $image, $product_id ) {
@@ -354,7 +354,7 @@ class Chocante_ACF {
 				return $image;
 			}
 
-			return wp_get_attachment_image( $thumbnail, array( 570, 700 ) );
+			return $thumbnail;
 		}
 
 		return $image;

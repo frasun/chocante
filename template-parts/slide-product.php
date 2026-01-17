@@ -10,7 +10,7 @@ defined( 'ABSPATH' ) || exit;
 
 $product_category  = apply_filters( 'chocante_featured_products_category', null, get_the_ID() );
 $product_name      = apply_filters( 'chocante_featured_products_title', get_the_title(), get_the_ID() );
-$product_thumbnail = apply_filters( 'chocante_featured_products_thumbnail', get_the_post_thumbnail( get_the_ID(), array( 570, 700 ) ), get_the_ID() );
+$product_thumbnail = apply_filters( 'chocante_featured_products_thumbnail', wc_get_product( get_the_ID() )->get_image_id(), get_the_ID() );
 $product_info      = apply_filters( 'chocante_featured_products_diet_icons', array(), get_the_ID() );
 
 ?>
@@ -34,7 +34,17 @@ $product_info      = apply_filters( 'chocante_featured_products_diet_icons', arr
 		<a class="post__thumbnail" href="<?php echo esc_url( get_permalink( get_the_ID() ) ); ?>">
 			<figure>
 					<?php woocommerce_show_product_sale_flash(); ?>
-					<?php echo wp_kses_post( $product_thumbnail ); ?>
+					<?php
+					echo wp_get_attachment_image(
+						$product_thumbnail,
+						'large',
+						false,
+						array(
+							'fetchpriority' => true === $args['first'] ? 'high' : 'low',
+							'loading'       => true === $args['first'] ? 'eager' : 'lazy',
+						)
+					);
+					?>
 			</figure>
 		</a>
 	<?php endif; ?>

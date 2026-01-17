@@ -18,7 +18,7 @@ class Chocante_Product_Page {
 	 */
 	public static function init() {
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'enqueue_scripts' ) );
-		add_action( 'wp_head', array( __CLASS__, 'preload_assets' ), 1 );
+		add_action( 'wp_head', array( __CLASS__, 'preload_assets' ), 0 );
 
 		remove_action( 'woocommerce_before_single_product', 'woocommerce_output_all_notices' );
 		remove_action( 'woocommerce_before_single_product_summary', 'woocommerce_show_product_sale_flash', 10 );
@@ -53,6 +53,8 @@ class Chocante_Product_Page {
 		// Product attributes.
 		add_filter( 'woocommerce_display_product_attributes', array( __CLASS__, 'filter_product_attributes' ), 10, 2 );
 		add_filter( 'woocommerce_format_weight', array( __CLASS__, 'format_weight_dimension' ), 10, 2 );
+
+		add_filter( 'woocommerce_gallery_image_html_attachment_image_params', array( __CLASS__, 'add_atts_to_main_image' ), 10, 4 );
 	}
 
 	/**
@@ -86,10 +88,19 @@ class Chocante_Product_Page {
 	 * Preload assets.
 	 */
 	public static function preload_assets() {
+		// Preload styles.
 		$product_css      = Chocante::asset( 'single-product' );
 		$product_css_path = get_theme_file_uri( 'build/single-product.css' ) . '?ver=' . $product_css['version'];
 		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo "<link rel=\"preload\" href=\"{$product_css_path}\" as=\"style\" />";
+
+		// Preload main image.
+		$post_thumbnail_id = wc_get_product( get_the_ID() )->get_image_id();
+		$image_size        = 'woocommerce_single';
+		$image_url         = wp_get_attachment_image_url( $post_thumbnail_id, $image_size );
+
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo "<link rel=\"preload\" href=\"{$image_url}\" as=\"image\" />";
 	}
 
 	/**
@@ -215,5 +226,24 @@ class Chocante_Product_Page {
 		}
 
 		return $weight_string;
+	}
+
+	/**
+	 * Add LCP attributes to main product image
+	 *
+	 * @param array  $image_attributes Attributes for the image markup.
+	 * @param int    $attachment_id Attachment ID.
+	 * @param string $image_size Image size.
+	 * @param bool   $main_image Is this the main image or a thumbnail?.
+	 * @return array
+	 */
+	public static function add_atts_to_main_image( $image_attributes, $attachment_id, $image_size, $main_image ) {
+		if ( $main_image ) {
+			$image_attributes['fetchpriority'] = 'high';
+		} else {
+			$image_attributes['loading'] = 'lazy';
+		}
+
+		return $image_attributes;
 	}
 }

@@ -27,6 +27,8 @@
 		&__track {
 
 			@include container;
+
+			padding: 0;
 		}
 
 		&__list {

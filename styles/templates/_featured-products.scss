@@ -14,6 +14,8 @@
 			--bg-gradient--second-color: var(--post-slider--secondary-background-color);
 			--bg-gradient--bottom: 50%;
 
+			visibility: visible;
+
 			@include bg-gradient;
 			@include bg-pattern;
 		}

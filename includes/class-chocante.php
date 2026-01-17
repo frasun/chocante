@@ -71,9 +71,6 @@ class Chocante {
 
 		// Images.
 		add_action( 'after_setup_theme', array( __CLASS__, 'support_thumbnails' ) );
-		if ( ! is_admin() ) {
-			add_filter( 'wp_get_attachment_image_attributes', array( __CLASS__, 'set_image_lazy_loading' ) );
-		}
 
 		// WooCommerce.
 		if ( class_exists( 'WooCommerce' ) && function_exists( 'WC' ) ) {
@@ -381,18 +378,6 @@ class Chocante {
 		$title = '<h1>' . get_the_title() . '</h1>';
 
 		echo wp_kses_post( apply_filters( 'chocante_page_title', $title, get_the_title() ) );
-	}
-
-	/**
-	 * Add lazy loading to images.
-	 *
-	 * @param array $atts Image attributes.
-	 * @return array
-	 */
-	public static function set_image_lazy_loading( $atts ) {
-		$atts['loading'] = 'lazy';
-
-		return $atts;
 	}
 
 	/**

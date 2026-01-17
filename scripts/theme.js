@@ -27,7 +27,9 @@ class Chocante {
 
 		// Sliders.
 		// window.Splide = Splide;
-		this.initSliders();
+		window.requestAnimationFrame( () => {
+			this.initSliders();
+		} );
 
 		// <details> Accordion.
 		document
