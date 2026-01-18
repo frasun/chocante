@@ -1,6 +1,6 @@
 <?php
 /**
- * Mini Cart
+ * Customer account link
  *
  * @package WordPress
  * @subpackage Chocante

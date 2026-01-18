@@ -14,7 +14,7 @@ export default class MiniCart {
 			window
 				.jQuery( document.body )
 				.on(
-					'wc_fragments_refreshed',
+					'wc_fragments_refreshed removed_from_cart added_to_cart',
 					this.updateContent.bind( this )
 				);
 		}
@@ -32,16 +32,25 @@ export default class MiniCart {
 		}
 	}
 
-	updateContent() {
-		const fragments = JSON.parse(
+	updateContent( event, fragments ) {
+		if ( fragments && MiniCart.FRAGMENT_CART_COUNT in fragments ) {
+			this.miniCartCount.innerHTML =
+				fragments[ MiniCart.FRAGMENT_CART_COUNT ];
+			return;
+		}
+
+		let count = this.miniCartCount.dataset.count;
+
+		const storeFragments = JSON.parse(
 			window.sessionStorage.getItem(
 				window.wc_cart_fragments_params.fragment_name
 			)
 		);
-		let count = this.miniCartCount.dataset.count;
-
-		if ( fragments && fragments[ MiniCart.FRAGMENT_CART_COUNT ] ) {
-			count = fragments[ MiniCart.FRAGMENT_CART_COUNT ];
+		if (
+			storeFragments &&
+			MiniCart.FRAGMENT_CART_COUNT in storeFragments
+		) {
+			count = storeFragments[ MiniCart.FRAGMENT_CART_COUNT ];
 		}
 
 		this.miniCartCount.innerHTML = count;
