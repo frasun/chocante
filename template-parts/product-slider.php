@@ -30,6 +30,7 @@ if ( $args['products'] ) : ?>
 				</button>
 			</nav>
 		</div>
+		<ul class="splide__pagination"></ul>
 	</section>
 <?php else : ?>
 	<section class="product-section__empty">

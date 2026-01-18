@@ -36,6 +36,9 @@ defined( 'ABSPATH' ) || exit;
 					<?php endforeach; ?>
 				</ul>
 			</div>
+			<?php if ( count( $fetured_products ) > 1 ) : ?>
+				<ul class="splide__pagination"></ul>
+			<?php endif; ?>
 		</section>
 	</header>
 <?php endif; ?>

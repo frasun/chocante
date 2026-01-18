@@ -1,10 +1,11 @@
 .splide {
 
 	&__pagination {
-		display: flex;
+		display: flex !important;
 		justify-content: center;
 		padding: var(--spacing--30) 70px 0;
 		gap: var(--spacing--10);
+		min-height: calc(16px + var(--spacing--30));
 
 		&:is(ul) {
 			list-style: none;

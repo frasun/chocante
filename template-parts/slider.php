@@ -22,6 +22,7 @@ defined( 'ABSPATH' ) || exit;
 			?>
 		</ul>
 	</div>
+	<ul class="splide__pagination"></ul>
 </section>
 <?php else :
 	while ( $args['posts']->have_posts() ) {
