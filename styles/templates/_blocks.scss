@@ -204,6 +204,14 @@
 		}
 	}
 
+	&-buttons > .wp-block-button.has-custom-width {
+
+		@include max-width($breakpoint--mobile-sm) {
+			width: 100%;
+		}
+	}
+
+
 	&-media-text {
 		gap: var(--wp--preset--spacing--30);
 
