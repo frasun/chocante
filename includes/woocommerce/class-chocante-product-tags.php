@@ -270,7 +270,7 @@ class Chocante_Product_Tags {
 	 * @param  string $size     Thumbnail image size.
 	 * @return string
 	 */
-	public static function get_tag_thumbnail_url( $tag_id, $size = 'full' ) {
+	public static function get_tag_thumbnail_url( $tag_id, $size = array( 56, 56 ) ) {
 		$thumbnail_id = get_term_meta( $tag_id, 'thumbnail_id', true );
 
 		if ( $thumbnail_id ) {

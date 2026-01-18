@@ -16,7 +16,7 @@ if ( ! isset( $args['data'] ) || empty( $args['data'] ) ) {
 <aside class="product__diet-info">
 	<?php
 	foreach ( $args['data'] as $icon ) {
-		echo wp_get_attachment_image( $icon['id'], 'full' );
+		echo wp_get_attachment_image( $icon['id'], array( 56, 56 ), array( 'loading' => 'lazy' ) );
 	}
 	?>
 </aside>
