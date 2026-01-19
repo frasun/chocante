@@ -105,8 +105,15 @@ class Chocante {
 			add_action( 'wp_default_scripts', array( __CLASS__, 'disable_jquery_migrate' ) );
 		}
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'disable_block_styles' ), 1000 );
+		// WPML.
 		if ( class_exists( 'SitePress' ) ) {
 			add_action( 'wp_enqueue_scripts', array( __CLASS__, 'manage_wpml_scripts' ), 1000 );
+		}
+		// Curcy.
+		if ( class_exists( 'WOOMULTI_CURRENCY_F' ) ) {
+			add_action( 'wp_enqueue_scripts', array( __CLASS__, 'manage_wmc_assets' ), 9999999 );
+			// Bufix with premium?
+			add_action( 'admin_enqueue_scripts', array( __CLASS__, 'admin_enqueue_scripts' ), 99 );
 		}
 	}
 
@@ -736,5 +743,63 @@ class Chocante {
 				);
 			}
 		}
+	}
+
+	/**
+	 * Move Curcy scripts to footer and disable styles (moved to main theme)
+	 *
+	 * `woo` is a prefix for a free version
+	 * `woocommerce` for premium
+	 */
+	public static function manage_wmc_assets() {
+		global $wp_scripts;
+		$footer_scripts = array(
+			'woo-multi-currency',
+			'woo-multi-currency-cart',
+			'woocommerce-multi-currency',
+			'woocommerce-multi-currency-cart',
+		);
+
+		foreach ( $footer_scripts as $handle ) {
+			if ( isset( $wp_scripts->registered[ $handle ] ) ) {
+				$script = $wp_scripts->registered[ $handle ];
+
+				wp_dequeue_script( $handle );
+				wp_enqueue_script(
+					$handle,
+					$script->src,
+					$script->deps,
+					$script->ver,
+					array(
+						'in_footer' => true,
+						'strategy'  => 'defer',
+					)
+				);
+			}
+		}
+
+		wp_deregister_script( 'woocommerce-multi-currency-switcher' );
+		wp_dequeue_script( 'woocommerce-multi-currency-switcher' );
+		wp_deregister_script( 'woocommerce-multi-currency-convertor' );
+		wp_dequeue_script( 'woocommerce-multi-currency-convertor' );
+
+		wp_dequeue_style( 'woo-multi-currency' );
+		wp_dequeue_style( 'woocommerce-multi-currency' );
+		wp_dequeue_style( 'wmc-flags' );
+	}
+
+	/**
+	 * Fix Curcy admin scripts
+	 *
+	 * @todo check on update
+	 *
+	 * @param string $hook The current admin page.
+	 */
+	public static function admin_enqueue_scripts( $hook ) {
+		if ( 'woocommerce_page_woocommerce-multi-currency' !== $hook ) {
+			return;
+		}
+
+		wp_enqueue_script( 'select2' );
 	}
 }

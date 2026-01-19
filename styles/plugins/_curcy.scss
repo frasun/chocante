@@ -1,0 +1,138 @@
+.woo-multi-currency,
+.woocommerce-multi-currency {
+
+	.wmc-currency-wrapper {
+		position: relative;
+	}
+
+	.wmc-sub-currency {
+
+		@include dropdown;
+
+		padding-top: var(--spacing--10);
+		padding-bottom: var(--spacing--10);
+		overflow-y: auto;
+		width: fit-content;
+
+		a {
+			font-weight: var(--font-weight--semibold);
+
+			@include color(base);
+			display: flex;
+			gap: var(--spacing--5);
+			padding: var(--spacing--10) var(--spacing--20);
+			text-decoration: none;
+			line-height: var(--line-height);
+
+			&:hover {
+				text-decoration: underline;
+			}
+
+			&:active {
+				opacity: 0.7;
+			}
+		}
+	}
+
+	.wmc-current-currency {
+		text-transform: uppercase;
+		font-weight: var(--font-weight--bold);
+		color: var(--header--text-color-secondary, var(--wp--custom--color--base-6));
+		padding: var(--spacing--10) var(--spacing--15);
+		display: flex;
+		gap: var(--spacing--10);
+		align-items: baseline;
+		line-height: var(--line-height);
+		cursor: pointer;
+
+		&-arrow,
+		.wmc-open-dropdown-currencies {
+
+			&::after {
+
+				@include icon-font;
+				content: "\0041";
+				border: 0;
+				position: static;
+
+				@include transition;
+				font-size: 0.75em;
+			}
+		}
+	}
+
+	&:hover .wmc-sub-currency {
+
+		@include dropdown-active;
+	}
+
+	&:hover,
+	&:focus {
+
+		.wmc-current-currency {
+
+			color: var(--wp--preset--color--white);
+		}
+
+		.wmc-open-dropdown-currencies::after,
+		.wmc-current-currency-arrow::after {
+			transform: rotate(180deg);
+		}
+	}
+
+	.site-header__top &,
+	.mobile-menu__top & {
+
+		.wmc-sub-currency {
+			margin-left: -5px;
+		}
+	}
+
+	.site-header__top & {
+
+		.wmc-current-currency {
+			font-size: var(--font-size--x-small);
+
+		}
+
+		.wmc-sub-currency {
+
+			a {
+				font-size: var(--font-size--normal-sm);
+
+			}
+		}
+	}
+
+	.mobile-menu__top & {
+
+		.wmc-sub-currency {
+
+			a {
+				font-size: var(--font-size--medium);
+
+			}
+		}
+	}
+
+	.site-footer & {
+
+		.wmc-sub-currency {
+			z-index: var(--z-index--overlay);
+			bottom: 100%;
+			top: auto;
+			margin-bottom: -3px;
+
+			a {
+				line-height: 1;
+			}
+		}
+
+		&:not(:hover) {
+
+			.wmc-sub-currency {
+				transform: translateY(var(--spacing--10));
+			}
+		}
+	}
+}
