@@ -429,6 +429,7 @@ class Chocante_WooCommerce {
 	public static function setup_product_gallery() {
 		remove_theme_support( 'wc-product-gallery-zoom' );
 		add_theme_support( 'wc-product-gallery-slider' );
+		add_theme_support( 'wc-product-gallery-lightbox' );
 	}
 
 	/**
@@ -576,6 +577,8 @@ class Chocante_WooCommerce {
 
 		if ( is_product() ) {
 			$footer_scripts[] = 'flexslider';
+			$footer_scripts[] = 'photoswipe';
+			$footer_scripts[] = 'photoswipe-ui-default';
 		}
 
 		foreach ( $footer_scripts as $handle ) {
