@@ -27,7 +27,7 @@ class Chocante {
 
 		// Sliders.
 		// window.Splide = Splide;
-		window.requestAnimationFrame( () => {
+		document.addEventListener( 'DOMContentLoaded', () => {
 			this.initSliders();
 		} );
 
