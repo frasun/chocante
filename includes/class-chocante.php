@@ -218,12 +218,6 @@ class Chocante {
 			$styles['version'],
 		);
 
-		// style.css.
-		wp_enqueue_style(
-			'chocante-style',
-			get_theme_file_uri( 'style.css' )
-		);
-
 		$scripts = self::asset( 'chocante-scripts' );
 
 		wp_enqueue_script(
