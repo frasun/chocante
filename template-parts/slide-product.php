@@ -25,11 +25,7 @@ $product_info      = apply_filters( 'chocante_featured_products_diet_icons', arr
 		<a href="<?php echo esc_url( get_permalink( get_the_ID() ) ); ?>"><?php echo esc_html_x( 'Buy now', 'product loop', 'chocante' ); ?></a>
 		<a href="<?php echo esc_url( get_permalink( wc_get_page_id( 'shop' ) ) ); ?>" class="shop-link"><?php esc_html_e( 'Go to shop', 'woocommerce' ); ?></a>
 	</div>
-	<?php if ( ! empty( $product_info ) ) : ?>
-	<div class="post__info">
-		<?php Chocante_Product_Tags::display_diet_icons( $product_info ); ?>
-	</div>
-	<?php endif; ?>
+	<div class="post__info"><?php Chocante_Product_Tags::display_diet_icons( $product_info ); ?></div>
 	<?php if ( isset( $product_thumbnail ) ) : ?>
 		<a class="post__thumbnail" href="<?php echo esc_url( get_permalink( get_the_ID() ) ); ?>">
 			<figure>

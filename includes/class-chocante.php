@@ -110,7 +110,7 @@ class Chocante {
 			add_action( 'wp_enqueue_scripts', array( __CLASS__, 'manage_wpml_scripts' ), 1000 );
 		}
 		// Curcy.
-		if ( class_exists( 'WOOMULTI_CURRENCY_F' ) ) {
+		if ( class_exists( 'WOOMULTI_CURRENCY' ) || class_exists( 'WOOMULTI_CURRENCY_F' ) ) {
 			add_action( 'wp_enqueue_scripts', array( __CLASS__, 'manage_wmc_assets' ), 9999999 );
 			// Bufix with premium?
 			add_action( 'admin_enqueue_scripts', array( __CLASS__, 'admin_enqueue_scripts' ), 99 );
@@ -586,14 +586,13 @@ class Chocante {
 	 * @return string[]
 	 */
 	public static function use_web_images( $formats ) {
-		$formats['image/jpg']           = 'image/avif';
-		$formats['image/jpeg']          = 'image/avif';
-		$formats['image/png']           = 'image/avif';
-		$formats['image/webp']          = 'image/avif';
-		$formats['image/heic']          = 'image/avif';
-		$formats['image/heif']          = 'image/avif';
-		$formats['image/heic-sequence'] = 'image/avif';
-		$formats['image/heif-sequence'] = 'image/avif';
+		$formats['image/jpg']           = 'image/webp';
+		$formats['image/jpeg']          = 'image/webp';
+		$formats['image/png']           = 'image/webp';
+		$formats['image/heic']          = 'image/webp';
+		$formats['image/heif']          = 'image/webp';
+		$formats['image/heic-sequence'] = 'image/webp';
+		$formats['image/heif-sequence'] = 'image/webp';
 
 		return $formats;
 	}
@@ -796,7 +795,7 @@ class Chocante {
 	 * @param string $hook The current admin page.
 	 */
 	public static function admin_enqueue_scripts( $hook ) {
-		if ( 'woocommerce_page_woocommerce-multi-currency' !== $hook ) {
+		if ( 'toplevel_page_woocommerce-multi-currency' !== $hook ) {
 			return;
 		}
 

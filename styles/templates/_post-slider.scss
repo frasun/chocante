@@ -132,6 +132,7 @@
 			height: var(--mobile-thumbnail-height);
 			width: 100%;
 			position: relative;
+			display: block;
 
 			@include max-width($breakpoint--desktop-sm) {
 				margin-top: var(--spacing--20);
