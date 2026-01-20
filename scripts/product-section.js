@@ -20,7 +20,15 @@ export default class ProductSlider {
 		const fetchUrl = new URL( window.chocante.ajaxurl );
 
 		fetchUrl.searchParams.append( 'nonce', window.chocante.nonce );
-		fetchUrl.searchParams.append( 'lang', window.chocante.lang );
+		if ( window.chocante.lang ) {
+			fetchUrl.searchParams.append( 'lang', window.chocante.lang );
+		}
+		if ( window.chocante.currency ) {
+			fetchUrl.searchParams.append(
+				'currency',
+				window.chocante.currency
+			);
+		}
 		fetchUrl.searchParams.append( 'action', 'get_product_section' );
 
 		for ( const [ key, value ] of Object.entries( element.dataset ) ) {

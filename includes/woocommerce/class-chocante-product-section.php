@@ -32,14 +32,32 @@ class Chocante_Product_Section {
 			)
 		);
 
+		$script_data = array(
+			'ajaxurl' => admin_url( 'admin-ajax.php' ),
+			'nonce'   => wp_create_nonce( 'chocante' ),
+		);
+
+		// WPML.
+		if ( has_filter( 'wpml_current_language' ) ) {
+			$script_data['lang'] = apply_filters( 'wpml_current_language', null );
+		}
+
+		// Curcy free version.
+		if ( class_exists( 'WOOMULTI_CURRENCY_F_Data' ) ) {
+			$currency_setting        = WOOMULTI_CURRENCY_F_Data::get_ins();
+			$script_data['currency'] = $currency_setting->get_current_currency();
+		}
+
+		// Curcy premium version.
+		if ( class_exists( 'WOOMULTI_CURRENCY_Data' ) ) {
+			$currency_setting        = WOOMULTI_CURRENCY_Data::get_ins();
+			$script_data['currency'] = $currency_setting->get_current_currency();
+		}
+
 		wp_localize_script(
 			'product-section',
 			'chocante',
-			array(
-				'ajaxurl' => admin_url( 'admin-ajax.php' ),
-				'nonce'   => wp_create_nonce( 'chocante' ),
-				'lang'    => apply_filters( 'wpml_current_language', null ),
-			)
+			$script_data
 		);
 
 		get_template_part(
