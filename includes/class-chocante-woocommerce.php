@@ -573,6 +573,7 @@ class Chocante_WooCommerce {
 		$footer_scripts = array(
 			'js-cookie',
 			'woocommerce',
+			'wc-single-product',
 		);
 
 		if ( is_product() ) {
@@ -596,6 +597,43 @@ class Chocante_WooCommerce {
 						'strategy'  => 'defer',
 					)
 				);
+			}
+		}
+
+		global $wp_styles;
+
+		$async_styles = array(
+			'photoswipe',
+			'photoswipe-default-skin',
+		);
+
+		foreach ( $async_styles as $handle ) {
+			if ( isset( $wp_styles->registered[ $handle ] ) ) {
+				$style = $wp_styles->registered[ $handle ];
+
+				wp_deregister_style( $handle );
+
+				if ( is_product() ) {
+					wp_enqueue_style(
+						$handle,
+						$style->src,
+						$style->deps,
+						$style->ver,
+						'print'
+					);
+
+					add_filter(
+						'style_loader_tag',
+						function ( $html, $h ) use ( $handle ) {
+							if ( $h === $handle ) {
+								$html = str_replace( "media='print'", "media='print' onload=\"this.media='all'\"", $html );
+							}
+							return $html;
+						},
+						10,
+						2
+					);
+				}
 			}
 		}
 	}
