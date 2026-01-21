@@ -126,8 +126,10 @@ class Chocante_WooCommerce {
 		 */
 		remove_filter( 'admin_head', 'wp_check_widget_editor_deps' );
 
-		// Thankyou / order emails.
-		add_filter( 'woocommerce_bacs_account_fields', array( __CLASS__, 'add_currency_to_bank_details' ) );
+		// Thankyou / order emails - add currency from WCML.
+		if ( class_exists( 'WCML_Multi_Currency' ) ) {
+			add_filter( 'woocommerce_bacs_account_fields', array( __CLASS__, 'add_currency_to_bank_details' ) );
+		}
 
 		// Shortcodes.
 		add_action( 'init', array( __CLASS__, 'add_shortcodes' ) );
