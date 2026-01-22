@@ -116,7 +116,12 @@ class Chocante_WooCommerce {
 		// Product sliders.
 		add_action( 'wp_ajax_get_product_section', array( Chocante_Product_Section::class, 'ajax_get_product_section' ) );
 		add_action( 'wp_ajax_nopriv_get_product_section', array( Chocante_Product_Section::class, 'ajax_get_product_section' ) );
-		add_action( 'woocommerce_after_product_object_save', array( Chocante_Product_Section::class, 'clear_cached_products' ) );
+		add_action( 'woocommerce_product_object_updated_props', array( Chocante_Product_Section::class, 'clear_cached_products_on_props_change' ), 10, 2 );
+		add_action( 'before_delete_post', array( Chocante_Product_Section::class, 'clear_cached_products_on_delete' ) );
+		add_action( 'wc_after_products_starting_sales', array( Chocante_Product_Section::class, 'clear_cached_products' ) );
+		add_action( 'wc_after_products_ending_sales', array( Chocante_Product_Section::class, 'clear_cached_products' ) );
+
+		// WCML.
 		add_filter( 'wcml_multi_currency_ajax_actions', array( Chocante_Product_Section::class, 'use_wcml_in_ajax_actions' ) );
 
 		/**

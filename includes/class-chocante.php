@@ -55,6 +55,7 @@ class Chocante {
 		add_filter( 'image_editor_output_format', array( __CLASS__, 'use_web_images' ) );
 		add_filter( 'wp_editor_set_quality', array( __CLASS__, 'set_images_quality' ) );
 		add_filter( 'wp_image_editors', array( __CLASS__, 'use_gd' ) );
+		add_filter( 'wp_kses_allowed_html', array( __CLASS__, 'escpae_svg' ), 10, 2 );
 
 		// Custom logo.
 		add_action( 'after_setup_theme', array( __CLASS__, 'support_custom_logo' ) );
@@ -794,5 +795,53 @@ class Chocante {
 		}
 
 		wp_enqueue_script( 'select2' );
+	}
+
+	/**
+	 * Add SVG tags to wp_kses_post.
+	 *
+	 * @param array[] $html Allowed HTML tags.
+	 * @param string  $context Context name.
+	 * @return array[]
+	 */
+	public static function escpae_svg( $html, $context ) {
+		if ( 'post' !== $context ) {
+			return $html;
+		}
+
+		$html['svg'] = array(
+			'xmlns'           => true,
+			'fill'            => true,
+			'viewbox'         => true,
+			'role'            => true,
+			'aria-hidden'     => true,
+			'aria-labelledby' => true,
+			'class'           => true,
+			'width'           => true,
+			'height'          => true,
+		);
+
+		$html['path'] = array(
+			'd'               => true,
+			'fill'            => true,
+			'stroke'          => true,
+			'stroke-width'    => true,
+			'stroke-linecap'  => true,
+			'stroke-linejoin' => true,
+		);
+
+		$html['g'] = array(
+			'fill'      => true,
+			'transform' => true,
+		);
+
+		$html['circle'] = array(
+			'cx'   => true,
+			'cy'   => true,
+			'r'    => true,
+			'fill' => true,
+		);
+
+		return $html;
 	}
 }

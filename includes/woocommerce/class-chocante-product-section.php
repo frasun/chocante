@@ -13,6 +13,11 @@ defined( 'ABSPATH' ) || exit;
  */
 class Chocante_Product_Section {
 	/**
+	 * Cache group.
+	 */
+	const CACHE_GROUP = 'chocante_products';
+
+	/**
 	 * Display product section
 	 *
 	 * @param array  $args Product section arguments.
@@ -34,7 +39,6 @@ class Chocante_Product_Section {
 
 		$script_data = array(
 			'ajaxurl' => admin_url( 'admin-ajax.php' ),
-			'nonce'   => wp_create_nonce( 'chocante' ),
 		);
 
 		// WPML.
@@ -52,6 +56,10 @@ class Chocante_Product_Section {
 		if ( class_exists( 'WOOMULTI_CURRENCY_Data' ) ) {
 			$currency_setting        = WOOMULTI_CURRENCY_Data::get_ins();
 			$script_data['currency'] = $currency_setting->get_current_currency();
+		}
+
+		if ( is_product() ) {
+			$script_data['productId'] = get_the_ID();
 		}
 
 		wp_localize_script(
@@ -92,12 +100,23 @@ class Chocante_Product_Section {
 	 * @param boolean $onsale Include only products that are on sale.
 	 * @param boolean $latest Get newly added products.
 	 * @param array   $exclude Product IDs to exclude.
+	 * @param string  $lang Language code.
+	 * @return string
 	 */
-	public static function get_product_section( $category = array(), $featured = false, $onsale = false, $latest = false, $exclude = array() ) {
+	public static function get_product_section( $category = array(), $featured = false, $onsale = false, $latest = false, $exclude = array(), $lang = null ) {
+		do_action( 'litespeed_control_force_public', self::CACHE_GROUP );
+
+		$current_lang = apply_filters( 'wpml_current_language', null );
+
+		if ( $lang !== $current_lang ) {
+			do_action( 'wpml_switch_language', $lang );
+		}
+
 		$products = self::get_products( $category, $featured, $onsale, $latest, $exclude );
 
 		add_filter( 'woocommerce_post_class', array( __CLASS__, 'slider_item_class' ) );
 
+		ob_start();
 		get_template_part(
 			'template-parts/product',
 			'slider',
@@ -106,6 +125,10 @@ class Chocante_Product_Section {
 				'labels'   => self::get_slider_labels(),
 			)
 		);
+
+		remove_filter( 'woocommerce_post_class', array( __CLASS__, 'slider_item_class' ) );
+
+		return ob_get_clean();
 	}
 
 	/**
@@ -119,10 +142,9 @@ class Chocante_Product_Section {
 	 * @return array
 	 */
 	public static function get_products( $category = array(), $featured = false, $onsale = false, $latest = false, $exclude = array() ) {
-		$limit     = 12;
-		$orderby   = $latest ? 'id' : 'rand';
-		$order     = 'desc';
-		$cache_key = 'chocante_products';
+		$limit   = 12;
+		$orderby = $latest ? 'id' : 'rand';
+		$order   = 'desc';
 
 		$args = array(
 			'limit'      => $limit,
@@ -138,43 +160,30 @@ class Chocante_Product_Section {
 
 		if ( ! empty( $category ) ) {
 			$args['product_category_id'] = $category;
-			$cache_key                  .= '_category-' . implode( '-', $category );
 		}
 
 		if ( $featured ) {
 			$args['featured'] = $featured;
-			$cache_key       .= '_featured';
 		}
 
 		if ( $onsale ) {
 			$args['include'] = wc_get_product_ids_on_sale();
-			$cache_key      .= '_onsale';
-		}
-
-		if ( $latest ) {
-			$cache_key .= '_latest';
 		}
 
 		if ( ! empty( $exclude ) ) {
 			$args['exclude'] = $exclude;
-			$cache_key       = '_exclude-' . implode( '-', $exclude );
 		}
 
 		// WPML support.
 		$lang = apply_filters( 'wpml_current_language', null );
 
-		if ( isset( $lang ) ) {
-			$cache_key .= $lang;
-		}
+		$cache_key = md5( wp_json_encode( array( ...func_get_args(), $lang ) ) );
+		$products  = wp_cache_get( $cache_key, self::CACHE_GROUP );
 
-		$products = wp_cache_get( $cache_key, 'chocante_products', false, $products_found );
-
-		if ( false === $products_found ) {
+		if ( false === $products ) {
 			$products = wc_get_products( $args );
+			wp_cache_set( $cache_key, $products, self::CACHE_GROUP );
 		}
-
-		wp_cache_set( $cache_key, $products, 'chocante_products' );
-		$products = wc_products_array_orderby( $products, $orderby, $order );
 
 		return $products;
 	}
@@ -202,26 +211,19 @@ class Chocante_Product_Section {
 	}
 
 	/**
-	 * Return featured products HTML using AJAX
+	 * Return products HTML using AJAX
+	 *
+	 * @phpcs:disable WordPress.Security.NonceVerification.Recommended
 	 */
 	public static function ajax_get_product_section() {
-		if ( ! isset( $_GET['nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['nonce'] ) ), 'chocante' ) ) {
-			wp_die();
-		}
-
-		if ( has_action( 'wpml_switch_language' ) && isset( $_GET['lang'] ) ) {
-			do_action( 'wpml_switch_language', sanitize_text_field( wp_unslash( $_GET['lang'] ) ) );
-		}
-
 		$category = isset( $_GET['category'] ) ? explode( ',', sanitize_text_field( wp_unslash( $_GET['category'] ) ) ) : array();
 		$featured = isset( $_GET['featured'] ) ? sanitize_text_field( wp_unslash( $_GET['featured'] ) ) : false;
 		$onsale   = isset( $_GET['onsale'] ) ? sanitize_text_field( wp_unslash( $_GET['onsale'] ) ) : false;
 		$latest   = isset( $_GET['latest'] ) ? sanitize_text_field( wp_unslash( $_GET['latest'] ) ) : false;
 		$exclude  = isset( $_GET['exclude'] ) ? explode( ',', sanitize_text_field( wp_unslash( $_GET['exclude'] ) ) ) : array();
+		$lang     = isset( $_GET['lang'] ) ? sanitize_text_field( wp_unslash( $_GET['lang'] ) ) : null;
 
-		ob_start();
-		self::get_product_section( $category, $featured, $onsale, $latest, $exclude );
-		echo ob_get_clean(); // @codingStandardsIgnoreLine.
+		echo wp_kses_post( self::get_product_section( $category, $featured, $onsale, $latest, $exclude, $lang ) );
 
 		wp_die();
 	}
@@ -230,10 +232,42 @@ class Chocante_Product_Section {
 	 * Clear cached products used in sliders
 	 */
 	public static function clear_cached_products() {
-		if ( ! wp_cache_supports( 'chocante_products' ) ) {
-			wp_cache_flush_group( 'chocante_products' );
+		if ( ! wp_cache_supports( 'flush_group' ) ) {
+			wp_cache_flush_group( self::CACHE_GROUP );
 		} else {
 			wp_cache_flush();
+		}
+
+		do_action( 'litespeed_purge', 'AJAX.get_product_section' );
+	}
+
+	/**
+	 * Clear cached products used in sliders on admin changes or when stock status changes
+	 *
+	 * @param WC_Product $product Product object.
+	 * @param array      $props Updated props.
+	 */
+	public static function clear_cached_products_on_props_change( $product, $props ) {
+		static $already_be_done = false;
+
+		if ( $already_be_done ) {
+			return;
+		}
+
+		if ( is_admin() || ( in_array( 'stock_status', $props, true ) ) ) {
+			self::clear_cached_products();
+			$already_be_done = true;
+		}
+	}
+
+	/**
+	 * Clear cached products used in sliders on admin changes or when stock status changes
+	 *
+	 * @param int $post_id Post ID.
+	 */
+	public static function clear_cached_products_on_delete( $post_id ) {
+		if ( get_post_type( $post_id ) === 'product' ) {
+			self::clear_cached_products();
 		}
 	}
 
