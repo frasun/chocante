@@ -1,6 +1,14 @@
 jQuery( function ( $ ) {
-	validatePostCode( $( '[name="billing_postcode"]' ) );
-	validatePostCode( $( '[name="shipping_postcode"]' ) );
+	const billingPostcode = $( '[name="billing_postcode"]' );
+	const shippingPostcode = $( '[name="shipping_postcode"]' );
+
+	if ( billingPostcode.length ) {
+		validatePostCode( billingPostcode );
+	}
+
+	if ( shippingPostcode.length ) {
+		validatePostCode( shippingPostcode );
+	}
 
 	$( 'form.checkout' ).on(
 		'change',
@@ -9,25 +17,18 @@ jQuery( function ( $ ) {
 	);
 
 	function handleChange( e ) {
-		const field = $( e.target );
-		const fieldName = field.attr( 'name' );
-
-		if (
-			( fieldName && fieldName.includes( 'billing_' ) ) ||
-			fieldName.includes( 'shipping_' )
-		) {
-			validatePostCode( field );
-		}
+		validatePostCode( $( e.target ) );
 	}
 
 	function validatePostCode( field ) {
 		const fieldType = field.attr( 'name' ).split( '_' )[ 0 ];
-
-		const postcode = $( `[name="${ fieldType }_postcode"]` ).val();
-		const country = $( `[name="${ fieldType }_country"]` ).val();
+		const postcodeField = $( `[name="${ fieldType }_postcode"]` );
+		const postcode = postcodeField ? postcodeField.val() : null;
+		const countryField = $( `[name="${ fieldType }_country"]` );
+		const country = countryField ? countryField.val() : null;
 
 		if ( postcode && country ) {
-			$( `[name="${ fieldType }_postcode"]` )
+			postcodeField
 				.parents( '.form-row' )
 				.find( '.checkout-inline-error-message' )
 				.remove();
@@ -44,7 +45,7 @@ jQuery( function ( $ ) {
 					const { data: response } = data;
 
 					if ( response ) {
-						$( `[name="${ fieldType }_postcode"]` )
+						postcodeField
 							.parents( '.form-row' )
 							.append(
 								`<p class="checkout-inline-error-message">${ response }</p>`
