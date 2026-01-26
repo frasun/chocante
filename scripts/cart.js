@@ -33,9 +33,11 @@ jQuery( function ( $ ) {
 	}
 
 	function submitCartForm() {
-		$( ':input[name="update_cart"]' )
-			.prop( 'disabled', false )
-			.trigger( 'click' );
+		window.requestAnimationFrame( () => {
+			$( ':input[name="update_cart"]' )
+				.prop( 'disabled', false )
+				.trigger( 'click' );
+		} );
 	}
 
 	function setCouponValue( event ) {

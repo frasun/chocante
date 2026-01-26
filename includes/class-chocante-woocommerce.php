@@ -67,6 +67,7 @@ class Chocante_WooCommerce {
 		// Cart & product page.
 		add_action( 'woocommerce_before_quantity_input_field', array( __CLASS__, 'display_remove_quantity_button' ) );
 		add_action( 'woocommerce_after_quantity_input_field', array( __CLASS__, 'display_add_quantity_button' ), 20 );
+		add_filter( 'woocommerce_quantity_input_type', array( __CLASS__, 'set_quantity_input_type' ) );
 
 		// Checkout.
 		add_action( 'wp_ajax_validate_postcode', array( Chocante_Checkout::class, 'validate_postcode' ) );
@@ -363,6 +364,13 @@ class Chocante_WooCommerce {
 	 */
 	public static function display_remove_quantity_button() {
 		get_template_part( 'template-parts/quantity', 'minus' );
+	}
+
+	/**
+	 * Always set quantity input to type="number"
+	 */
+	public static function set_quantity_input_type() {
+		return 'number';
 	}
 
 	/**

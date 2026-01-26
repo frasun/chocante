@@ -26,14 +26,14 @@
 
 	&:hover {
 
-		input.qty {
+		input.qty:not([readonly]) {
 			box-shadow: var(--shadow--2);
 		}
 	}
 
 	&:active {
 
-		input.qty {
+		input.qty:not([readonly]) {
 			background-color: var(--wp--preset--color--white);
 		}
 	}
@@ -49,6 +49,11 @@
 
 		@include color(accent);
 		opacity: 1;
+
+		&:disabled {
+			pointer-events: none;
+			transition: none;
+		}
 
 		&:hover {
 
@@ -73,5 +78,18 @@
 
 	&__minus {
 		left: var(--spacing--10);
+	}
+
+	&:has(input.qty[readonly]) {
+
+		.quantity {
+
+			&__plus,
+			&__minus {
+				pointer-events: none;
+				transition: none;
+			}
+		}
+
 	}
 }
