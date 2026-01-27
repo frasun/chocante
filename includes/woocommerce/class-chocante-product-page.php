@@ -20,6 +20,7 @@ class Chocante_Product_Page {
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'enqueue_scripts' ) );
 		add_action( 'wp_head', array( __CLASS__, 'preload_assets' ), 0 );
 
+		// Template.
 		remove_action( 'woocommerce_before_single_product', 'woocommerce_output_all_notices' );
 		remove_action( 'woocommerce_before_single_product_summary', 'woocommerce_show_product_sale_flash', 10 );
 		add_action( 'woocommerce_before_single_product_summary', 'woocommerce_output_all_notices', 5 );
@@ -52,9 +53,13 @@ class Chocante_Product_Page {
 
 		// Product attributes.
 		add_filter( 'woocommerce_display_product_attributes', array( __CLASS__, 'filter_product_attributes' ), 10, 2 );
-		add_filter( 'woocommerce_format_weight', array( __CLASS__, 'format_weight_dimension' ), 10, 2 );
 
+		// Gallery.
 		add_filter( 'woocommerce_gallery_image_html_attachment_image_params', array( __CLASS__, 'add_atts_to_main_image' ), 10, 4 );
+
+		// Availability (cache friendly).
+		add_filter( 'woocommerce_get_availability_text', array( __CLASS__, 'get_availability_text' ), 10, 2 );
+		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'localize_availability_endpoints' ) );
 	}
 
 	/**
@@ -66,7 +71,7 @@ class Chocante_Product_Page {
 		wp_enqueue_script(
 			'chocante-single-product-js',
 			get_theme_file_uri( 'build/single-product-scripts.js' ),
-			array_merge( $product_js['dependencies'], array() ),
+			array_merge( $product_js['dependencies'], array( 'jquery' ) ),
 			$product_js['version'],
 			array(
 				'in_footer' => true,
@@ -82,6 +87,34 @@ class Chocante_Product_Page {
 			$product_css['dependencies'],
 			$product_css['version'],
 		);
+	}
+
+	/**
+	 * Expose API endpoints to fetch product availability data client-side.
+	 */
+	public static function localize_availability_endpoints() {
+		$product = wc_get_product( get_the_ID() );
+
+		$client_side_fetch = false;
+
+		if ( $product ) {
+			if ( $product->is_type( 'variable' ) ) {
+				$client_side_fetch = $product->is_in_stock();
+			} elseif ( $product->is_type( 'simple' ) ) {
+				$client_side_fetch = $product->managing_stock() && $product->is_in_stock() && ! $product->is_on_backorder( 1 );
+			}
+		}
+
+		if ( $client_side_fetch ) {
+			wp_localize_script(
+				'chocante-single-product-js',
+				'chocanteApi',
+				array(
+					'url'       => rest_url( 'chocante/v1/product/' ),
+					'productId' => get_the_ID(),
+				)
+			);
+		}
 	}
 
 	/**
@@ -244,5 +277,189 @@ class Chocante_Product_Page {
 		}
 
 		return $image_attributes;
+	}
+
+	/**
+	 * Display status if product is not in stock.
+	 * In-stock products handled by REST API call.
+	 *
+	 * @param string     $availability Availability text.
+	 * @param WC_Product $product Product object.
+	 * @return string
+	 */
+	public static function get_availability_text( $availability, $product ) {
+		if ( ! $product->is_in_stock() ) {
+			$availability = __( 'Out of stock', 'woocommerce' );
+		} elseif ( $product->managing_stock() && $product->is_on_backorder( 1 ) ) {
+			$availability = $product->backorders_require_notification() ? __( 'Available on backorder', 'woocommerce' ) : '';
+		} elseif ( ! $product->managing_stock() && $product->is_on_backorder( 1 ) ) {
+			$availability = __( 'Available on backorder', 'woocommerce' );
+		} else {
+			$availability = apply_filters( 'chocante_availability_text', '', $product );
+		}
+
+		return $availability;
+	}
+
+	/**
+	 * Get status if product is in stock.
+	 *
+	 * @param string     $availability Availability text.
+	 * @param WC_Product $product Product object.
+	 * @return string
+	 */
+	public static function get_availability_text_for_rest( $availability, $product ) {
+		add_filter(
+			'chocante_availability_text',
+			function ( $text, $product ) {
+				// translators: Number of pieces.
+				$stock_amount = sprintf( __( '%s pcs', 'chocante' ), $product->get_stock_quantity() );
+
+				$availability = $stock_amount;
+
+				if ( $product instanceof WC_Product_Variation ) {
+					$availability .= ' x ' . wc_format_weight( $product->get_weight() );
+				}
+
+				return $availability;
+			},
+			10,
+			2
+		);
+
+		$availability = self::get_availability_text( '', $product );
+
+		return $availability;
+	}
+
+	/**
+	 * Filter variation data used in add to cart on product page.
+	 *
+	 * @param array $variation_data Array of variation data.
+	 * @return array
+	 */
+	public static function filter_variation_data( $variation_data ) {
+		unset(
+			$variation_data['dimensions'],
+			$variation_data['dimensions_html'],
+			$variation_data['image'],
+			$variation_data['image_id'],
+			$variation_data['is_downloadable'],
+			$variation_data['is_sold_individually'],
+			$variation_data['is_virtual'],
+		);
+
+		return $variation_data;
+	}
+
+	/**
+	 * Add REST API endpoints for product stock data.
+	 */
+	public static function add_stock_api_routes() {
+		/**
+		 * Get available variations for variable products.
+		 * url: /chocante/v1/product/{product_id}/variations_data
+		 */
+		register_rest_route(
+			'chocante/v1',
+			'/product/(?P<id>\d+)/variations',
+			array(
+				'methods'             => 'GET',
+				'callback'            => array( __CLASS__, 'rest_get_product_variations' ),
+				'permission_callback' => '__return_true',
+				'args'                => array(
+					'id' => array(
+						'validate_callback' => function ( $param ) {
+							return is_numeric( $param );
+						},
+					),
+				),
+			)
+		);
+
+		/**
+		 * Get stock html for simple products.
+		 * url: /chocante/v1/product/{product_id}/stock
+		 */
+		register_rest_route(
+			'chocante/v1',
+			'/product/(?P<id>\d+)/stock',
+			array(
+				'methods'             => 'GET',
+				'callback'            => array( __CLASS__, 'rest_get_product_stock' ),
+				'permission_callback' => '__return_true',
+				'args'                => array(
+					'id' => array(
+						'validate_callback' => function ( $param ) {
+							return is_numeric( $param );
+						},
+					),
+				),
+			)
+		);
+	}
+
+	/**
+	 * Get available variations for a variable product
+	 *
+	 * @param WP_REST_Request $request REST API request.
+	 * @return WP_REST_Response|WP_Error
+	 */
+	public static function rest_get_product_variations( $request ) {
+		$product_id = $request['id'];
+		$product    = wc_get_product( $product_id );
+
+		if ( ! $product ) {
+			return new WP_Error( 'product_not_found', 'Product not found', array( 'status' => 404 ) );
+		}
+
+		if ( ! $product instanceof WC_Product_Variable ) {
+			return new WP_Error( 'not_variable_product', 'This product is not a variable product', array( 'status' => 400 ) );
+		}
+
+		add_filter( 'woocommerce_get_availability_text', array( __CLASS__, 'get_availability_text_for_rest' ), 10, 2 );
+
+		$available_variations = $product->get_available_variations();
+
+		remove_filter( 'woocommerce_get_availability_text', array( __CLASS__, 'get_availability_text_for_rest' ), 10, 2 );
+
+		return new WP_REST_Response(
+			array(
+				'variations' => $available_variations,
+			),
+			200
+		);
+	}
+
+	/**
+	 * Get available variations for a variable product
+	 *
+	 * @param WP_REST_Request $request REST API request.
+	 * @return WP_REST_Response|WP_Error
+	 */
+	public static function rest_get_product_stock( $request ) {
+		$product_id = $request['id'];
+		$product    = wc_get_product( $product_id );
+
+		if ( ! $product ) {
+			return new WP_Error( 'product_not_found', 'Product not found', array( 'status' => 404 ) );
+		}
+
+		if ( ! $product instanceof WC_Product_Simple ) {
+			return new WP_Error( 'not_simple_product', 'This product is not a simple product', array( 'status' => 400 ) );
+		}
+
+		add_filter( 'woocommerce_get_availability_text', array( __CLASS__, 'get_availability_text_for_rest' ), 10, 2 );
+
+		$stock_html = wc_get_stock_html( $product );
+
+		remove_filter( 'woocommerce_get_availability_text', array( __CLASS__, 'get_availability_text_for_rest' ), 10, 2 );
+
+		return new WP_REST_Response(
+			array(
+				'stock' => $stock_html,
+			),
+			200
+		);
 	}
 }

@@ -14,9 +14,7 @@ defined( 'ABSPATH' ) || exit;
 	/**
 	 * Stock status
 	 */
-	if ( function_exists( 'chocante_stock_quantity_get_text' ) ) {
-		get_template_part( 'template-parts/info', 'stock' );
-	}
+	get_template_part( 'template-parts/info', 'stock' );
 
 	/**
 	 * Fast shipping
