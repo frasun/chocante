@@ -130,7 +130,7 @@ class Chocante_WooCommerce {
 		add_filter( 'wcml_multi_currency_ajax_actions', array( Chocante_Product_Section::class, 'use_wcml_in_ajax_actions' ) );
 
 		// API endpoints.
-		add_action( 'rest_api_init', array( Chocante_Product_Page::class, 'add_stock_api_routes' ) );
+		add_action( 'rest_api_init', array( Chocante_Product_Page::class, 'add_stock_api_route' ) );
 
 		/**
 		 * Fix PHP notice in widgets page

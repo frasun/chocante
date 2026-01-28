@@ -354,31 +354,10 @@ class Chocante_Product_Page {
 	/**
 	 * Add REST API endpoints for product stock data.
 	 */
-	public static function add_stock_api_routes() {
+	public static function add_stock_api_route() {
 		/**
-		 * Get available variations for variable products.
+		 * Get available stock data for products.
 		 * url: /chocante/v1/product/{product_id}/variations_data
-		 */
-		register_rest_route(
-			'chocante/v1',
-			'/product/(?P<id>\d+)/variations',
-			array(
-				'methods'             => 'GET',
-				'callback'            => array( __CLASS__, 'rest_get_product_variations' ),
-				'permission_callback' => '__return_true',
-				'args'                => array(
-					'id' => array(
-						'validate_callback' => function ( $param ) {
-							return is_numeric( $param );
-						},
-					),
-				),
-			)
-		);
-
-		/**
-		 * Get stock html for simple products.
-		 * url: /chocante/v1/product/{product_id}/stock
 		 */
 		register_rest_route(
 			'chocante/v1',
@@ -399,39 +378,7 @@ class Chocante_Product_Page {
 	}
 
 	/**
-	 * Get available variations for a variable product
-	 *
-	 * @param WP_REST_Request $request REST API request.
-	 * @return WP_REST_Response|WP_Error
-	 */
-	public static function rest_get_product_variations( $request ) {
-		$product_id = $request['id'];
-		$product    = wc_get_product( $product_id );
-
-		if ( ! $product ) {
-			return new WP_Error( 'product_not_found', 'Product not found', array( 'status' => 404 ) );
-		}
-
-		if ( ! $product instanceof WC_Product_Variable ) {
-			return new WP_Error( 'not_variable_product', 'This product is not a variable product', array( 'status' => 400 ) );
-		}
-
-		add_filter( 'woocommerce_get_availability_text', array( __CLASS__, 'get_availability_text_for_rest' ), 10, 2 );
-
-		$available_variations = $product->get_available_variations();
-
-		remove_filter( 'woocommerce_get_availability_text', array( __CLASS__, 'get_availability_text_for_rest' ), 10, 2 );
-
-		return new WP_REST_Response(
-			array(
-				'variations' => $available_variations,
-			),
-			200
-		);
-	}
-
-	/**
-	 * Get available variations for a variable product
+	 * Get product stock data.
 	 *
 	 * @param WP_REST_Request $request REST API request.
 	 * @return WP_REST_Response|WP_Error
@@ -444,19 +391,25 @@ class Chocante_Product_Page {
 			return new WP_Error( 'product_not_found', 'Product not found', array( 'status' => 404 ) );
 		}
 
-		if ( ! $product instanceof WC_Product_Simple ) {
-			return new WP_Error( 'not_simple_product', 'This product is not a simple product', array( 'status' => 400 ) );
+		if ( $product instanceof WC_Product_Variation ) {
+			return new WP_Error( 'bad_product_type', 'Product variations not supported', array( 'status' => 400 ) );
 		}
+
+		$stock = null;
 
 		add_filter( 'woocommerce_get_availability_text', array( __CLASS__, 'get_availability_text_for_rest' ), 10, 2 );
 
-		$stock_html = wc_get_stock_html( $product );
+		if ( $product instanceof WC_Product_Simple ) {
+			$stock = wc_get_stock_html( $product );
+		} elseif ( $product instanceof WC_Product_Variable ) {
+			$stock = $product->get_available_variations();
+		}
 
 		remove_filter( 'woocommerce_get_availability_text', array( __CLASS__, 'get_availability_text_for_rest' ), 10, 2 );
 
 		return new WP_REST_Response(
 			array(
-				'stock' => $stock_html,
+				'stock' => $stock,
 			),
 			200
 		);

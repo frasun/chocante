@@ -31,42 +31,30 @@ const VARIATIONS_STOCK_DATA = 'availability_html';
 		return;
 	}
 
-	if ( isSimple ) {
-		const stockStatusElement = document.querySelector( STOCK_STATUS );
+	try {
+		const response = await fetch(
+			new URL(
+				`${ window.chocanteApi.url }${ window.chocanteApi.productId }/stock`
+			)
+		);
+		const data = await response.json();
 
-		try {
-			const response = await fetch(
-				new URL(
-					`${ window.chocanteApi.url }${ window.chocanteApi.productId }/stock`
-				)
-			);
-			const data = await response.json();
+		if ( ! data.stock.length ) {
+			return;
+		}
 
-			if ( ! data.stock.length ) {
-				return;
-			}
-
+		if ( isSimple ) {
+			const stockStatusElement = document.querySelector( STOCK_STATUS );
 			const stockInfo = document.createElement( 'p' );
+
 			stockInfo.innerHTML = data.stock;
-
 			stockStatusElement.appendChild( stockInfo.firstChild );
-		} catch ( e ) {
-			throw new Error( API_ERROR );
-		}
-	} else {
-		try {
-			const response = await fetch(
-				new URL(
-					`${ window.chocanteApi.url }${ window.chocanteApi.productId }/variations`
-				)
-			);
-			const data = await response.json();
-
-			addToCartForm.data( DATA_VARIATIONS, data.variations );
+		} else {
+			addToCartForm.data( DATA_VARIATIONS, data.stock );
 			addToCartForm.trigger( 'reload_product_variations' );
-		} catch ( e ) {
-			throw new Error( API_ERROR );
 		}
+	} catch {
+		throw new Error( API_ERROR );
 	}
 } )( jQuery );
 
