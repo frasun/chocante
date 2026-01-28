@@ -317,7 +317,11 @@ class Chocante_Product_Page {
 				$availability = $stock_amount;
 
 				if ( $product instanceof WC_Product_Variation ) {
-					$availability .= ' x ' . wc_format_weight( $product->get_weight() );
+					$weight = $product->get_weight();
+
+					if ( '' !== $weight ) {
+						$availability .= ' x ' . wc_format_weight( $weight );
+					}
 				}
 
 				return $availability;
