@@ -49,7 +49,6 @@ class Chocante_Product_Page {
 		// Product variation.
 		add_action( 'woocommerce_after_variations_table', 'woocommerce_single_variation', 10 );
 		add_action( 'woocommerce_after_variations_table', 'woocommerce_single_variation_add_to_cart_button', 20 );
-		add_filter( 'woocommerce_show_variation_price', '__return_true' );
 
 		// Product attributes.
 		add_filter( 'woocommerce_display_product_attributes', array( __CLASS__, 'filter_product_attributes' ), 10, 2 );
