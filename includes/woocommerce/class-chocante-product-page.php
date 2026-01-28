@@ -395,12 +395,15 @@ class Chocante_Product_Page {
 			return new WP_Error( 'bad_product_type', 'Product variations not supported', array( 'status' => 400 ) );
 		}
 
-		$stock = null;
+		$stock = array();
 
 		add_filter( 'woocommerce_get_availability_text', array( __CLASS__, 'get_availability_text_for_rest' ), 10, 2 );
 
 		if ( $product instanceof WC_Product_Simple ) {
-			$stock = wc_get_stock_html( $product );
+			$stock[] = array(
+				'availability_html' => wc_get_stock_html( $product ),
+				'max_qty'           => 0 < $product->get_max_purchase_quantity() ? $product->get_max_purchase_quantity() : '',
+			);
 		} elseif ( $product instanceof WC_Product_Variable ) {
 			$stock = $product->get_available_variations();
 		}
