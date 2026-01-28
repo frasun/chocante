@@ -104,8 +104,6 @@ class Chocante_Product_Section {
 	 * @return string
 	 */
 	public static function get_product_section( $category = array(), $featured = false, $onsale = false, $latest = false, $exclude = array(), $lang = null ) {
-		do_action( 'litespeed_control_force_public', self::CACHE_GROUP );
-
 		$current_lang = apply_filters( 'wpml_current_language', null );
 
 		if ( $lang !== $current_lang ) {
@@ -238,7 +236,7 @@ class Chocante_Product_Section {
 			wp_cache_flush();
 		}
 
-		do_action( 'litespeed_purge', 'AJAX.get_product_section' );
+		do_action( 'chocante_product_section_clear_cached_products' );
 	}
 
 	/**

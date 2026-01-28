@@ -106,6 +106,12 @@ class Chocante {
 			add_action( 'wp_default_scripts', array( __CLASS__, 'disable_jquery_migrate' ) );
 		}
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'disable_block_styles' ), 1000 );
+		// LiteSpeed.
+		if ( defined( 'LSCWP_V' ) ) {
+			require_once get_theme_file_path( 'includes/class-chocante-cache.php' );
+			Chocante_Cache::init();
+		}
+
 		// WPML.
 		if ( class_exists( 'SitePress' ) ) {
 			add_action( 'wp_enqueue_scripts', array( __CLASS__, 'manage_wpml_scripts' ), 1000 );
