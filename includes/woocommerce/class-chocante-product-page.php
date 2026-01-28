@@ -109,7 +109,7 @@ class Chocante_Product_Page {
 				'chocante-single-product-js',
 				'chocanteApi',
 				array(
-					'url'       => rest_url( 'chocante/v1/product/' ),
+					'url'       => admin_url( 'admin-ajax.php' ),
 					'productId' => get_the_ID(),
 				)
 			);
@@ -352,47 +352,20 @@ class Chocante_Product_Page {
 	}
 
 	/**
-	 * Add REST API endpoints for product stock data.
-	 */
-	public static function add_stock_api_route() {
-		/**
-		 * Get available stock data for products.
-		 * url: /chocante/v1/product/{product_id}/variations_data
-		 */
-		register_rest_route(
-			'chocante/v1',
-			'/product/(?P<id>\d+)/stock',
-			array(
-				'methods'             => 'GET',
-				'callback'            => array( __CLASS__, 'rest_get_product_stock' ),
-				'permission_callback' => '__return_true',
-				'args'                => array(
-					'id' => array(
-						'validate_callback' => function ( $param ) {
-							return is_numeric( $param );
-						},
-					),
-				),
-			)
-		);
-	}
-
-	/**
 	 * Get product stock data.
 	 *
-	 * @param WP_REST_Request $request REST API request.
-	 * @return WP_REST_Response|WP_Error
+	 * @phpcs:disable WordPress.Security.NonceVerification.Recommended
 	 */
-	public static function rest_get_product_stock( $request ) {
-		$product_id = $request['id'];
+	public static function ajax_get_product_stock() {
+		$product_id = isset( $_GET['id'] ) ? sanitize_text_field( wp_unslash( $_GET['id'] ) ) : false;
 		$product    = wc_get_product( $product_id );
 
 		if ( ! $product ) {
-			return new WP_Error( 'product_not_found', 'Product not found', array( 'status' => 404 ) );
+			wp_send_json_error( new WP_Error( 'product_not_found', 'Product not found' ), 404 );
 		}
 
 		if ( $product instanceof WC_Product_Variation ) {
-			return new WP_Error( 'bad_product_type', 'Product variations not supported', array( 'status' => 400 ) );
+			wp_send_json_error( new WP_Error( 'bad_product_type', 'Product variations not supported' ), 400 );
 		}
 
 		$stock = array();
@@ -410,7 +383,7 @@ class Chocante_Product_Page {
 
 		remove_filter( 'woocommerce_get_availability_text', array( __CLASS__, 'get_availability_text_for_rest' ), 10, 2 );
 
-		return new WP_REST_Response(
+		wp_send_json(
 			array(
 				'stock' => $stock,
 			),

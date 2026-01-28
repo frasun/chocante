@@ -99,10 +99,14 @@ class Chocante_WooCommerce {
 		remove_action( 'woocommerce_after_main_content', 'woocommerce_output_content_wrapper_end' );
 		add_action( 'woocommerce_after_main_content', array( __CLASS__, 'close_main_element' ), 60 );
 
-		// Needed here to be used in API requests.
+		// Needed here to be used in API/AJAX requests.
 		add_filter( 'woocommerce_format_weight', array( Chocante_Product_Page::class, 'format_weight_dimension' ), 10, 2 );
 		add_filter( 'woocommerce_available_variation', array( Chocante_Product_Page::class, 'filter_variation_data' ), 10 );
 		add_filter( 'woocommerce_show_variation_price', '__return_true' );
+
+		// Product page - stock quantity.
+		add_action( 'wp_ajax_get_product_stock', array( Chocante_Product_Page::class, 'ajax_get_product_stock' ) );
+		add_action( 'wp_ajax_nopriv_get_product_stock', array( Chocante_Product_Page::class, 'ajax_get_product_stock' ) );
 
 		// Breadcrumbs.
 		add_filter( 'woocommerce_breadcrumb_defaults', array( __CLASS__, 'modify_breadcrumbs' ) );
@@ -128,9 +132,6 @@ class Chocante_WooCommerce {
 
 		// WCML.
 		add_filter( 'wcml_multi_currency_ajax_actions', array( Chocante_Product_Section::class, 'use_wcml_in_ajax_actions' ) );
-
-		// API endpoints.
-		add_action( 'rest_api_init', array( Chocante_Product_Page::class, 'add_stock_api_route' ) );
 
 		/**
 		 * Fix PHP notice in widgets page

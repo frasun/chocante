@@ -9,6 +9,7 @@ const DATA_VARIATIONS = 'product_variations';
 const VARIATIONS_STOCK_DATA = 'availability_html';
 const QUANTITY = 'form.cart .quantity';
 const QUANTITY_INPUT = 'input[name="quantity"]';
+const GET_STOCK_ACTION = 'get_product_stock';
 
 const productQuantity = document.querySelector( QUANTITY );
 
@@ -30,11 +31,11 @@ if ( productQuantity ) {
 	}
 
 	try {
-		const response = await fetch(
-			new URL(
-				`${ window.chocanteApi.url }${ window.chocanteApi.productId }/stock`
-			)
-		);
+		const fetchUrl = new URL( window.chocanteApi.url );
+		fetchUrl.searchParams.append( 'action', GET_STOCK_ACTION );
+		fetchUrl.searchParams.append( 'id', window.chocanteApi.productId );
+
+		const response = await fetch( new URL( fetchUrl ) );
 		const data = await response.json();
 
 		if ( ! data.stock.length ) {
