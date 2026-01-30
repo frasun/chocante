@@ -172,6 +172,11 @@
 
 		&.checkout:has(.blockUI) {
 
+			#order_review {
+
+				@include add-spinner;
+			}
+
 			#order_review_heading,
 			.payment__heading {
 

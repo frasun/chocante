@@ -24,6 +24,6 @@ defined( 'ABSPATH' ) || exit;
 	</div>
 	<?php endif; ?>
 	<div class="product-section__spinner">
-		<?php Chocante::spinner(); ?>
+		<?php echo wp_kses_post( Chocante::spinner() ); ?>
 	</div>
 </section>

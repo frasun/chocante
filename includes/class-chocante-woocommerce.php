@@ -8,8 +8,6 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'GLOBKURIER_ENABLED', true );
-
 // Common modules.
 require_once __DIR__ . '/woocommerce/class-chocante-product-archive.php';
 require_once __DIR__ . '/woocommerce/class-chocante-product-page.php';

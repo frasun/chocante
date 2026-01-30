@@ -386,6 +386,14 @@
 				@include button;
 				@include button-size-lg;
 			}
+
+			&:has(.blockUI) {
+
+				.cart_totals {
+
+					@include add-spinner;
+				}
+			}
 		}
 
 		.infobox {

@@ -1,5 +1,23 @@
 $spinner-size: 32px;
 
+@mixin add-spinner {
+	position: relative;
+
+	&::before {
+		content: "";
+		background-image: url(../images/spinner-2x.gif);
+		background-repeat: no-repeat;
+		background-position: center;
+		background-size: $spinner-size $spinner-size;
+		z-index: calc(var(--z-index--overlay) - 1);
+		position: absolute;
+		left: 0;
+		top: 0;
+		right: 0;
+		bottom: 0;
+	}
+}
+
 .spinner {
 	width: $spinner-size;
 	height: $spinner-size;

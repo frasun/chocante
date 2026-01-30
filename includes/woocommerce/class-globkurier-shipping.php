@@ -23,14 +23,21 @@ class Globkurier_Shipping extends WC_Shipping_Method {
 	 *
 	 * @var string
 	 */
-	private $email = 'admin@chocante.pl';
+	private $email;
 
 	/**
 	 * Client password
 	 *
 	 * @var string
 	 */
-	private $password = 'BsudaKuda92%';
+	private $password;
+
+	/**
+	 * Has credentials
+	 *
+	 * @var boolean
+	 */
+	private $has_credentials = false;
 
 	/**
 	 * Transport type
@@ -74,6 +81,16 @@ class Globkurier_Shipping extends WC_Shipping_Method {
 			'instance-settings',
 			'instance-settings-modal',
 		);
+
+		$this->email    = defined( 'GLOBKURIER_EMAIL' ) ? GLOBKURIER_EMAIL : null;
+		$this->password = defined( 'GLOBKURIER_PASSWORD' ) ? GLOBKURIER_PASSWORD : null;
+
+		if ( $this->email && $this->password ) {
+			$this->has_credentials = true;
+		} else {
+			add_action( 'admin_notices', array( $this, 'credentials_missing_notice' ) );
+		}
+
 		$this->init();
 
 		add_action( 'woocommerce_update_options_shipping_' . $this->id, array( $this, 'process_admin_options' ) );
@@ -91,11 +108,26 @@ class Globkurier_Shipping extends WC_Shipping_Method {
 	}
 
 	/**
+	 * Display notice about missing credentials.
+	 */
+	public function credentials_missing_notice() {
+		if ( ! $this->has_credentials ) {
+			echo '<div class="error"><p>';
+			esc_html_e( 'GlobKurier: Missing credentials. Please define GLOBKURIER_EMAIL and GLOBKURIER_PASSWORD constants.', 'chocante' );
+			echo '</p></div>';
+		}
+	}
+
+	/**
 	 * Calculate the shipping costs.
 	 *
 	 * @param array $package Package of items from cart.
 	 */
 	public function calculate_shipping( $package = array() ) {
+		if ( ! $this->has_credentials ) {
+			return;
+		}
+
 		$product = $this->find_product();
 
 		if ( isset( $this->api_error ) ) {
@@ -150,6 +182,11 @@ class Globkurier_Shipping extends WC_Shipping_Method {
 	 * @return string|bool
 	 */
 	public function authenticate() {
+		if ( ! $this->has_credentials ) {
+			error_log( 'Missing Globkurier credentials' );
+			return false;
+		}
+
 		$token = wp_cache_get( 'globkurier_auth_token', '', false, $token_found );
 
 		if ( $token_found ) {
