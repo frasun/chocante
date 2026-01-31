@@ -326,12 +326,17 @@
 
 								@include max-width($breakpoint--mobile-sm) {
 									flex-direction: column;
+									gap: var(--spacing--5);
 								}
 
 								@include select2-sm;
 
 								p {
 									margin: var(--spacing--10) 0 2px;
+
+									@include max-width($breakpoint--mobile-sm) {
+										width: 100%;
+									}
 
 									&.form-row-wide {
 										flex-grow: 1;
@@ -348,6 +353,10 @@
 
 									@include button;
 									@include button-style-outline;
+
+									@include max-width($breakpoint--mobile-sm) {
+										width: 100%;
+									}
 								}
 							}
 						}

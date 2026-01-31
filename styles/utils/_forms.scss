@@ -11,15 +11,20 @@
 
 @mixin fields-wrapper {
 	--fields--row-gap: var(--spacing--20);
+	--size--form: none;
 
 	display: grid;
 	grid-template-columns: repeat(6, 1fr);
 	column-gap: var(--spacing--20);
 	row-gap: var(--fields--row-gap);
-	max-width: var(--size--form, 570px);
+	max-width: var(--size--form);
 
 	@include min-width($breakpoint--mobile) {
 		--fields--row-gap: var(--spacing--30);
+	}
+
+	@include min-width($breakpoint--desktop-sm) {
+		--size--form: 570px;
 	}
 
 	> * {
