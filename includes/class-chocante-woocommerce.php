@@ -16,10 +16,7 @@ require_once __DIR__ . '/woocommerce/class-chocante-checkout.php';
 require_once __DIR__ . '/woocommerce/class-chocante-account.php';
 require_once __DIR__ . '/woocommerce/class-chocante-product-section.php';
 require_once __DIR__ . '/woocommerce/class-chocante-product-tags.php';
-
-if ( defined( 'GLOBKURIER_ENABLED' ) && GLOBKURIER_ENABLED ) {
-	require_once __DIR__ . '/woocommerce/class-globkurier-shipping.php';
-}
+require_once __DIR__ . '/woocommerce/class-globkurier-shipping.php';
 
 /**
  * Chocante_WooCommerce class.
@@ -151,9 +148,7 @@ class Chocante_WooCommerce {
 		add_filter( 'chocante_featured_products_diet_icons', array( Chocante_Product_Tags::class, 'get_product_tags' ), 10, 2 );
 
 		// Globkurier.
-		if ( defined( 'GLOBKURIER_ENABLED' ) && GLOBKURIER_ENABLED ) {
-			add_filter( 'woocommerce_shipping_methods', array( __CLASS__, 'add_globkurier_shipping_method' ) );
-		}
+		add_filter( 'woocommerce_shipping_methods', array( __CLASS__, 'add_globkurier_shipping_method' ) );
 
 		// Performance.
 		add_filter( 'woocommerce_enqueue_styles', '__return_false' );

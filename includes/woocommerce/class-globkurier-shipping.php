@@ -12,14 +12,17 @@ defined( 'ABSPATH' ) || exit;
  */
 class Globkurier_Shipping extends WC_Shipping_Method {
 	/**
-	 * API Base URL.
-	 *
-	 * @var string
+	 * API Base URL
 	 */
-	private $base_url = 'https://api.globkurier.pl/v1';
+	const API_URL = 'https://api.globkurier.pl/v1';
 
 	/**
-	 * Client email.
+	 * API request timeout (seconds)
+	 */
+	const API_TIMEOUT = 12;
+
+	/**
+	 * Client email
 	 *
 	 * @var string
 	 */
@@ -33,18 +36,17 @@ class Globkurier_Shipping extends WC_Shipping_Method {
 	private $password;
 
 	/**
-	 * Has credentials
-	 *
-	 * @var boolean
+	 * Transport codes
 	 */
-	private $has_credentials = false;
+	const TRANSPORT_CODE_AIR  = 'air';
+	const TRANSPORT_CODE_ROAD = 'road';
 
 	/**
-	 * Transport type
+	 * Method transport type
 	 *
 	 * @var string
 	 */
-	public $transport_code = 'road';
+	public $transport_code = self::TRANSPORT_CODE_ROAD;
 
 	/**
 	 * Default rate
@@ -68,6 +70,20 @@ class Globkurier_Shipping extends WC_Shipping_Method {
 	private $api_error = null;
 
 	/**
+	 * Cache keys
+	 */
+	const TOKEN_TRANSIENT_KEY        = 'chocante_globkurier_auth_token';
+	const COUNTRY_LIST_TRANSIENT_KEY = 'chocante_globkurier_country_list';
+	const TOKEN_LIFETIME             = 23 * HOUR_IN_SECONDS;
+	const COUNTRY_LIST_LIFETIME      = 24 * HOUR_IN_SECONDS;
+	const CACHED_PRODUCTS            = 'chocante_globkurier';
+
+	/**
+	 * Default product weight (if not set)
+	 */
+	const DEFAULT_WEIGHT = 0.25;
+
+	/**
 	 * Constructor.
 	 *
 	 * @param int $instance_id Shipping method instance ID.
@@ -85,15 +101,12 @@ class Globkurier_Shipping extends WC_Shipping_Method {
 		$this->email    = defined( 'GLOBKURIER_EMAIL' ) ? GLOBKURIER_EMAIL : null;
 		$this->password = defined( 'GLOBKURIER_PASSWORD' ) ? GLOBKURIER_PASSWORD : null;
 
-		if ( $this->email && $this->password ) {
-			$this->has_credentials = true;
-		} else {
+		if ( ! isset( $this->email ) || ! isset( $this->password ) ) {
 			add_action( 'admin_notices', array( $this, 'credentials_missing_notice' ) );
+		} else {
+			$this->init();
+			add_action( 'woocommerce_update_options_shipping_' . $this->id, array( $this, 'process_admin_options' ) );
 		}
-
-		$this->init();
-
-		add_action( 'woocommerce_update_options_shipping_' . $this->id, array( $this, 'process_admin_options' ) );
 	}
 
 	/**
@@ -111,11 +124,9 @@ class Globkurier_Shipping extends WC_Shipping_Method {
 	 * Display notice about missing credentials.
 	 */
 	public function credentials_missing_notice() {
-		if ( ! $this->has_credentials ) {
-			echo '<div class="error"><p>';
-			esc_html_e( 'GlobKurier: Missing credentials. Please define GLOBKURIER_EMAIL and GLOBKURIER_PASSWORD constants.', 'chocante' );
-			echo '</p></div>';
-		}
+		echo '<div class="error"><p>';
+		esc_html_e( 'GlobKurier: Missing credentials. Please define GLOBKURIER_EMAIL and GLOBKURIER_PASSWORD constants.', 'chocante' );
+		echo '</p></div>';
 	}
 
 	/**
@@ -124,22 +135,7 @@ class Globkurier_Shipping extends WC_Shipping_Method {
 	 * @param array $package Package of items from cart.
 	 */
 	public function calculate_shipping( $package = array() ) {
-		if ( ! $this->has_credentials ) {
-			return;
-		}
-
 		$product = $this->find_product();
-
-		if ( isset( $this->api_error ) ) {
-			if ( isset( $this->default_rate ) && $this->default_rate > 0 ) {
-				$rate = array(
-					'id'      => $this->get_rate_id(),
-					'label'   => $this->get_label( $this->title, null, $this->default_delivery_time ),
-					'cost'    => $this->default_rate,
-					'package' => $package,
-				);
-			}
-		}
 
 		if ( isset( $product ) ) {
 			$rate = array(
@@ -148,6 +144,15 @@ class Globkurier_Shipping extends WC_Shipping_Method {
 				'cost'    => $product['price'],
 				'package' => $package,
 			);
+		} elseif ( isset( $this->api_error ) ) {
+			if ( isset( $this->default_rate ) && $this->default_rate > 0 ) {
+				$rate = array(
+					'id'      => $this->get_rate_id(),
+					'label'   => $this->get_label( $this->title, null, $this->default_delivery_time ),
+					'cost'    => $this->default_rate,
+					'package' => $package,
+				);
+			}
 		}
 
 		if ( isset( $rate ) ) {
@@ -167,6 +172,10 @@ class Globkurier_Shipping extends WC_Shipping_Method {
 	public function get_label( $carrier_name, $delivery_time, $default_delivery_time = '' ) {
 		$label = $carrier_name;
 
+		if ( self::TRANSPORT_CODE_AIR === $this->transport_code ) {
+			$label .= ' - ' . _x( 'Air', 'globkurier', 'chocante' );
+		}
+
 		if ( isset( $delivery_time ) ) {
 			$label .= sprintf( ' (%d %s)', (int) $delivery_time + 1, __( 'days', 'woocommerce' ) );
 		} elseif ( ! empty( $default_delivery_time ) ) {
@@ -182,31 +191,25 @@ class Globkurier_Shipping extends WC_Shipping_Method {
 	 * @return string|bool
 	 */
 	public function authenticate() {
-		if ( ! $this->has_credentials ) {
-			error_log( 'Missing Globkurier credentials' );
-			return false;
-		}
+		$token = get_transient( self::TOKEN_TRANSIENT_KEY );
 
-		$token = wp_cache_get( 'globkurier_auth_token', '', false, $token_found );
-
-		if ( $token_found ) {
+		if ( false !== $token ) {
 			return $token;
 		}
 
-		$url = $this->base_url . '/auth/login';
-
-		$args = array(
+		$url      = self::API_URL . '/auth/login';
+		$args     = array(
 			'body' => array(
 				'email'    => $this->email,
 				'password' => $this->password,
 			),
 		);
-
 		$response = wp_remote_post( $url, $args );
 
 		if ( is_wp_error( $response ) ) {
 			$this->api_error = true;
-			error_log( 'Authentication failed: ' . $response->get_error_message() );
+			// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
+			error_log( '[GLOBKURIER] Authentication failed: ' . $response->get_error_message() );
 			return false;
 		}
 
@@ -215,12 +218,13 @@ class Globkurier_Shipping extends WC_Shipping_Method {
 
 		if ( isset( $data['token'] ) ) {
 			$token = $data['token'];
-			wp_cache_set( 'globkurier_auth_token', $data['token'], '', 23 * HOUR_IN_SECONDS );
+			set_transient( self::TOKEN_TRANSIENT_KEY, $token, self::TOKEN_LIFETIME );
 			return $token;
 		}
 
 		$this->api_error = true;
-		error_log( 'Authentication failed: Invalid credentials or response.' );
+		// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
+		error_log( '[GLOBKURIER] Authentication failed: Invalid credentials or response.' );
 		return false;
 	}
 
@@ -230,19 +234,19 @@ class Globkurier_Shipping extends WC_Shipping_Method {
 	 * @return array|null Country list data or null on failure.
 	 */
 	public function get_country_list() {
-		$cached_countries = wp_cache_get( 'globkurier_country_list' );
+		$cached_countries = get_transient( self::COUNTRY_LIST_TRANSIENT_KEY );
 
-		if ( $cached_countries ) {
+		if ( false !== $cached_countries ) {
 			return $cached_countries;
 		}
 
-		$url = $this->base_url . '/countries';
-
+		$url      = self::API_URL . '/countries';
 		$response = wp_remote_get( $url );
 
 		if ( is_wp_error( $response ) ) {
 			$this->api_error = true;
-			error_log( 'Failed to fetch countries: ' . $response->get_error_message() );
+			// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
+			error_log( '[GLOBKURIER] Failed to fetch countries: ' . $response->get_error_message() );
 			return null;
 		}
 
@@ -250,13 +254,13 @@ class Globkurier_Shipping extends WC_Shipping_Method {
 		$data = json_decode( $body, true );
 
 		if ( $data ) {
-			// Cache the country list for 23 hours.
-			wp_cache_set( 'globkurier_country_list', $data );
+			set_transient( self::COUNTRY_LIST_TRANSIENT_KEY, $data, self::COUNTRY_LIST_LIFETIME );
 			return $data;
 		}
 
 		$this->api_error = true;
-		error_log( 'Failed to fetch countries: Invalid response.' );
+		// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
+		error_log( '[GLOBKURIER] Failed to fetch countries: Invalid response.' );
 		return null;
 	}
 
@@ -272,24 +276,25 @@ class Globkurier_Shipping extends WC_Shipping_Method {
 
 		if ( ! $token ) {
 			$this->api_error = true;
-			error_log( 'Cannot fetch products: No authentication token.' );
+			// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
+			error_log( '[GLOBKURIER] Cannot fetch products: No authentication token.' );
 			return null;
 		}
 
 		$query_string = http_build_query( $params );
-		$url          = $this->base_url . '/products?' . $query_string;
-
-		$args = array(
+		$url          = self::API_URL . '/products?' . $query_string;
+		$args         = array(
 			'headers' => array(
 				'x-auth-token' => $token,
 			),
+			'timeout' => self::API_TIMEOUT,
 		);
-
-		$response = wp_remote_get( $url, $args );
+		$response     = wp_remote_get( $url, $args );
 
 		if ( is_wp_error( $response ) ) {
 			$this->api_error = true;
-			error_log( 'Failed to fetch products: ' . $response->get_error_message() );
+			// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
+			error_log( '[GLOBKURIER] Failed to fetch products: ' . $response->get_error_message() );
 			return null;
 		}
 
@@ -307,14 +312,8 @@ class Globkurier_Shipping extends WC_Shipping_Method {
 	public function find_product() {
 		$shipping_postcode = WC()->customer->get_shipping_postcode();
 		$store_postcode    = WC()->countries->get_base_postcode();
-
-		if ( ! empty( wc_trim_string( $shipping_postcode ) ) && ! WC_Validation::is_postcode( $shipping_postcode, WC()->customer->get_shipping_country() ) ) {
-			return null;
-		}
-
-		$packages = $this->get_cart_packages();
-
-		$params = array(
+		$packages          = $this->get_cart_packages();
+		$params            = array(
 			'weight'            => isset( $packages['weight'] ) ? $packages['weight'] : 1,
 			'length'            => isset( $packages['length'] ) ? $packages['length'] : 30,
 			'width'             => isset( $packages['width'] ) ? $packages['width'] : 30,
@@ -324,15 +323,29 @@ class Globkurier_Shipping extends WC_Shipping_Method {
 			'receiverCountryId' => $this->get_country_id_by_iso( WC()->customer->get_shipping_country() ),
 		);
 
-		if ( isset( $shipping_postcode ) && ! empty( wc_trim_string( $shipping_postcode ) ) ) {
-			$params['receiverPostCode'] = $shipping_postcode;
+		if ( isset( $shipping_postcode ) ) {
+			$trimmed_shipping_post_code = wc_trim_string( $shipping_postcode );
+
+			if ( ! empty( $trimmed_shipping_post_code ) && WC_Validation::is_postcode( $trimmed_shipping_post_code, WC()->customer->get_shipping_country() ) ) {
+				$params['receiverPostCode'] = $trimmed_shipping_post_code;
+			}
 		}
 
-		if ( isset( $store_postcode ) && ! empty( wc_trim_string( $store_postcode ) ) ) {
-			$params['senderPostCode'] = $store_postcode;
+		if ( isset( $store_postcode ) ) {
+			$trimmed_store_postcode = wc_trim_string( $store_postcode );
+
+			if ( ! empty( $trimmed_store_postcode ) ) {
+				$params['senderPostCode'] = $trimmed_store_postcode;
+			}
 		}
 
-		$products = $this->get_products( $params );
+		$products_hash = $this::generate_request_hash( $params );
+		$products      = wp_cache_get( $products_hash, self::CACHED_PRODUCTS );
+
+		if ( false === $products ) {
+			$products = $this->get_products( $params );
+			wp_cache_set( $products_hash, $products, self::CACHED_PRODUCTS, 3600 );
+		}
 
 		if ( ! is_array( $products ) || empty( $products['standard'] ) ) {
 			return null;
@@ -343,6 +356,7 @@ class Globkurier_Shipping extends WC_Shipping_Method {
 				in_array( 'PICKUP', $product['collectionTypes'], true ) &&
 				in_array( 'PICKUP', $product['deliveryTypes'], true ) &&
 				strtolower( $product['transport']['code'] ) === $this->transport_code ) {
+
 				return array(
 					'carrier'       => $product['carrierName'],
 					'price'         => (float) $product['grossPrice'],
@@ -394,7 +408,7 @@ class Globkurier_Shipping extends WC_Shipping_Method {
 			$product_weight = $cart_item['data']->get_weight();
 
 			if ( ! isset( $product_weight ) || empty( $product_weight ) ) {
-				$product_weight = 0.25;
+				$product_weight = self::DEFAULT_WEIGHT;
 			}
 
 			$total_weight += (float) $product_weight * $cart_item['quantity'];
@@ -443,5 +457,27 @@ class Globkurier_Shipping extends WC_Shipping_Method {
 	 */
 	public function sanitize_default_rate( $rate ) {
 		return floatval( $rate );
+	}
+
+	/**
+	 * Generate request hash from parameters
+	 *
+	 * @param array $params Request parameters.
+	 * @return string Hash.
+	 */
+	private static function generate_request_hash( $params ) {
+		$hash_data = array(
+			'weight'            => $params['weight'] ?? 0,
+			'length'            => $params['length'] ?? 0,
+			'width'             => $params['width'] ?? 0,
+			'height'            => $params['height'] ?? 0,
+			'quantity'          => $params['quantity'] ?? 1,
+			'senderCountryId'   => $params['senderCountryId'] ?? '',
+			'receiverCountryId' => $params['receiverCountryId'] ?? '',
+			'receiverPostCode'  => $params['receiverPostCode'] ?? '',
+			'senderPostCode'    => $params['senderPostCode'] ?? '',
+		);
+
+		return md5( wp_json_encode( $hash_data ) );
 	}
 }

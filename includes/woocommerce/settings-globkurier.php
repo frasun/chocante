@@ -22,8 +22,8 @@ $settings = array(
 		'default' => 'road',
 		'class'   => 'wc-enhanced-select',
 		'options' => array(
-			'road' => _x( 'Road', 'globkurier', 'chocante' ),
-			'air'  => _x( 'Air', 'globkurier', 'chocante' ),
+			self::TRANSPORT_CODE_ROAD => _x( 'Road', 'globkurier', 'chocante' ),
+			self::TRANSPORT_CODE_AIR  => _x( 'Air', 'globkurier', 'chocante' ),
 		),
 	),
 	'default_rate'          => array(
