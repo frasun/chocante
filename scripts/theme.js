@@ -2,7 +2,7 @@ import ModalService from './modal-service';
 import Modal from './modal';
 import ChocanteWooCommerce from './woocommerce';
 import MenuScroll from './menu-scroll';
-import { MOBILE_BREAKPOINT } from './constants';
+import { MOBILE_BREAKPOINT, MOBILE_BREAKPOINT_HEIGHT } from './constants';
 // import Splide from '@splidejs/splide';
 import Accordion from './details';
 import PostSlider from './post-slider';
@@ -16,7 +16,12 @@ class Chocante {
 		new ModalService();
 
 		// Mobile menu.
-		new Modal( '#mobileMenu', '.site-header__toggle', MOBILE_BREAKPOINT );
+		new Modal(
+			'#mobileMenu',
+			'.site-header__toggle',
+			MOBILE_BREAKPOINT,
+			MOBILE_BREAKPOINT_HEIGHT
+		);
 
 		// Menu on scroll.
 		new MenuScroll( '#siteHeader' );

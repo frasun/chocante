@@ -52,15 +52,14 @@
 		padding-bottom: var(--spacing--10);
 		border-bottom: 1px solid var(--header--border-color, var(--wp--custom--color--base-9));
 
-		@include hide(mobile);
+
+		@media (max-width: calc($breakpoint--desktop-sm - 1px)) or (max-height: calc($breakpoint--desktop--height - 1px)) {
+			display: none !important;
+		}
 
 		@include max-width($breakpoint--desktop-md) {
 			padding-right: var(--spacing--10);
 			padding-left: var(--spacing--10);
-		}
-
-		@include max-width($breakpoint--desktop-sm) {
-			display: none;
 		}
 
 		.menu {
@@ -123,7 +122,7 @@
 		width: 100%;
 		padding: var(--spacing--20) var(--spacing--10) var(--spacing--10);
 
-		@include min-width($breakpoint--desktop-sm) {
+		@media ((min-width: $breakpoint--desktop-sm) and (min-height: $breakpoint--desktop--height)) {
 			padding-bottom: var(--spacing--15);
 		}
 
@@ -132,7 +131,7 @@
 			padding-right: 0;
 		}
 
-		@include min-width($breakpoint--desktop) {
+		@media ((min-width: $breakpoint--desktop) and (min-height: $breakpoint--desktop--height)) {
 			gap: var(--spacing--30);
 		}
 	}
@@ -144,8 +143,11 @@
 		justify-content: center;
 		gap: var(--spacing--10);
 
-		@include hide(mobile);
 		@include dropdown-list-item;
+
+		@media (max-width: calc($breakpoint--desktop-sm - 1px)) or (max-height: calc($breakpoint--desktop--height - 1px)) {
+			display: none !important;
+		}
 
 		@media (min-width: $breakpoint--desktop-sm) and (max-width: $breakpoint--desktop) {
 			align-self: center;
@@ -243,7 +245,7 @@
 		justify-content: end;
 		position: relative;
 
-		@include max-width($breakpoint--desktop-sm) {
+		@media (max-width: calc($breakpoint--desktop-sm - 1px)) or (max-height: calc($breakpoint--desktop--height - 1px)) {
 			flex-grow: 1;
 		}
 	}
@@ -251,7 +253,10 @@
 	&__toggle {
 
 		@include icon-button;
-		@include hide(desktop);
+
+		@media (min-width: $breakpoint--desktop-sm) and (min-height: $breakpoint--desktop--height) {
+			display: none !important;
+		}
 	}
 
 	.custom-logo-link {
@@ -276,11 +281,14 @@
 
 		@include icon-button;
 
-		@include min-width($breakpoint--desktop-sm) {
-			height: 54px;
+		@media ((min-width: $breakpoint--desktop-sm) and (min-height: $breakpoint--desktop--height)) {
 			max-width: 54px;
 			min-width: 44px;
 			width: fit-content;
+		}
+
+		@include min-width($breakpoint--desktop-sm) {
+			height: 54px;
 		}
 	}
 

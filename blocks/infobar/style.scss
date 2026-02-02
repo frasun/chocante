@@ -13,7 +13,7 @@
 		padding-top: var(--wp--preset--spacing--5);
 		padding-bottom: var(--wp--preset--spacing--5);
 
-		@include max-width($breakpoint--mobile-lg) {
+		@include max-width($breakpoint--desktop-md) {
 			padding-left: var(--spacing--10);
 			padding-right: var(--spacing--10);
 		}

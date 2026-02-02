@@ -1,10 +1,11 @@
 export default class Modal {
 	static MOBILE_BREAKPOINT = 1024;
 
-	constructor( nav, toggle, breakpoint = 0 ) {
+	constructor( nav, toggle, breakpoint = 0, breakpointHeight = 0 ) {
 		this.nav = nav;
 		this.toggle = document.querySelector( toggle );
 		this.breakpoint = breakpoint;
+		this.breakpointHeight = breakpointHeight;
 		this.open = false;
 
 		if ( this.toggle ) {
@@ -51,9 +52,14 @@ export default class Modal {
 	}
 
 	checkBreakpoint() {
-		return this.breakpoint === 0
-			? true
-			: window.innerWidth < this.breakpoint;
+		return (
+			( 0 === this.breakpoint
+				? true
+				: window.innerWidth < this.breakpoint ) ||
+			( 0 === this.breakpointHeight
+				? true
+				: window.innerHeight < this.breakpointHeight )
+		);
 	}
 
 	onResize() {

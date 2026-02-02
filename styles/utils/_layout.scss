@@ -6,6 +6,7 @@ $breakpoint--desktop-sm: 1024px;
 $breakpoint--desktop-md: 1180px;
 $breakpoint--desktop: 1280px;
 $breakpoint--desktop-lg: 1440px;
+$breakpoint--desktop--height: 750px;
 
 @mixin max-width($breakpoint) {
 
