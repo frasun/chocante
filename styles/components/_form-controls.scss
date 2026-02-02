@@ -65,6 +65,7 @@ label {
 select {
 
 	@include select-arrow;
+	background-color: transparent;
 	padding-right: 40px;
 
 	@include color(body);
