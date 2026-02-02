@@ -108,6 +108,13 @@
 			}
 		}
 
+		&-form-login {
+
+			.form-row {
+				align-self: end;
+			}
+		}
+
 		&-form-coupon {
 			width: 100%;
 			max-width: var(--size--form);

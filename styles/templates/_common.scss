@@ -21,6 +21,17 @@
 		@include fields-wrapper;
 	}
 
+	&-ResetPassword {
+
+		@include min-width($breakpoint--mobile-sm) {
+
+			.form-row-first {
+				grid-column: span 6;
+			}
+		}
+	}
+
+
 	&-form {
 
 		p:not([class]) {

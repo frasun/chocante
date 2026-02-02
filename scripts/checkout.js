@@ -16,6 +16,10 @@ jQuery( function ( $ ) {
 		handleChange
 	);
 
+	// Fix default login form scrolling offset.
+	$( document.body ).off( 'click', 'a.showlogin' );
+	$( document.body ).on( 'click', 'a.showlogin', showLoginForm );
+
 	function handleChange( e ) {
 		validatePostCode( $( e.target ) );
 	}
@@ -54,5 +58,39 @@ jQuery( function ( $ ) {
 				}
 			);
 		}
+	}
+
+	function showLoginForm() {
+		const $form = $( 'form.login, form.woocommerce-form--login' );
+		if ( $form.is( ':visible' ) ) {
+			// If already visible, hide it.
+			$form.slideToggle( {
+				duration: 400,
+			} );
+		} else {
+			// If not visible, show it and then scroll
+			$form.slideToggle( {
+				duration: 400,
+				complete() {
+					if ( $form.is( ':visible' ) ) {
+						const SCROLL_OFFSET = 20;
+						const adminBarHeight = $( '#wpadminbar' ).length
+							? $( '#wpadminbar' ).height()
+							: 0;
+						$( 'html, body' ).animate(
+							{
+								scrollTop:
+									$form.offset().top -
+									$( '.site-header' ).height() -
+									SCROLL_OFFSET -
+									adminBarHeight,
+							},
+							300
+						);
+					}
+				},
+			} );
+		}
+		return false;
 	}
 } );
