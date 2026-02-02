@@ -20,11 +20,12 @@ jQuery( function ( $ ) {
 	$( document.body ).on( 'updated_wc_div', displayCouponError );
 	$( document.body ).on( 'removed_coupon', removeCouponError );
 
-	// Remove default option from shipping calculator.
-	$( '#calc_shipping_country option[value="default"]' ).remove();
-
 	// Empty cart.
 	$( document.body ).on( 'wc_cart_emptied', handleEmptyCart );
+
+	// Shipping calculator.
+	setupShippingCountrySelect();
+	$( document.body ).on( 'updated_wc_div', setupShippingCountrySelect );
 
 	function initQuantityInputs() {
 		$( '.woocommerce-cart-form .quantity' ).each( ( index, quantityEl ) => {
@@ -65,5 +66,10 @@ jQuery( function ( $ ) {
 
 	function handleEmptyCart() {
 		$( document.body ).addClass( 'cart-empty' );
+	}
+
+	function setupShippingCountrySelect() {
+		$( '#calc_shipping_country option[value="default"]' ).remove();
+		$( '#calc_shipping_country' ).select2();
 	}
 } );

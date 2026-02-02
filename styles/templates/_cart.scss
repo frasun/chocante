@@ -320,9 +320,15 @@
 							}
 
 							&-form {
+								margin: 0;
+								padding: 0;
+							}
+
+							&-form__wrapper {
 								display: flex;
 								gap: var(--spacing--15);
 								align-items: end;
+								margin: var(--spacing--10) 0;
 
 								@include max-width($breakpoint--mobile-sm) {
 									flex-direction: column;
@@ -332,15 +338,25 @@
 								@include select2-sm;
 
 								p {
-									margin: var(--spacing--10) 0 2px;
+									margin: 0;
 
 									@include max-width($breakpoint--mobile-sm) {
 										width: 100%;
 									}
 
+									&.form-row {
+										display: flex;
+										flex-direction: column;
+									}
+
 									&.form-row-wide {
 										flex-grow: 1;
 									}
+								}
+
+								// Fix for select2.
+								#calc_shipping_country_field {
+									margin-bottom: 4px;
 								}
 
 								label {
@@ -354,7 +370,24 @@
 									@include button;
 									@include button-style-outline;
 
+									align-self: end;
+									flex-basis: auto;
+									flex-shrink: 0;
+
 									@include max-width($breakpoint--mobile-sm) {
+										width: 100%;
+									}
+								}
+
+								.address-field input {
+
+									@include input-sm;
+								}
+
+								&:has(.address-field) {
+									flex-direction: column;
+
+									p {
 										width: 100%;
 									}
 								}
