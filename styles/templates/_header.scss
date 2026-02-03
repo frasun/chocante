@@ -6,24 +6,16 @@
 .site-header {
 	color: var(--header--text-color, var(--wp--preset--color--white));
 	position: sticky;
-	top: 0;
+	top: var(--wp-admin--admin-bar--height, 0);
 	z-index: var(--z-index--overlay);
-
-	// WP admin bar fix.
-	body.admin-bar & {
-		top: 46px;
-
-		@include min-width(782px) {
-			top: 32px;
-		}
-	}
 
 	&__affix {
 		position: relative;
 		z-index: 2;
+		pointer-events: auto;
 	}
 
-	&__banner {
+	&__main {
 		background-color: var(--header--background-color, var(--wp--preset--color--base));
 
 		@include transition;
@@ -296,6 +288,14 @@
 
 		svg path {
 			fill: var(--wp--preset--color--white);
+		}
+	}
+
+	&.is-scrolled {
+		pointer-events: none;
+
+		.site-header__main {
+			transform: translate3d(0, calc(-100% - var(--wp-admin--admin-bar--height, 0px)), 0);
 		}
 	}
 }

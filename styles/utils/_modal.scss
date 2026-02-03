@@ -7,6 +7,7 @@
 	overflow-y: scroll;
 	z-index: var(--z-index--modal);
 	padding: var(--spacing--20);
+	margin-top: var(--wp-admin--admin-bar--height, 0);
 
 	@if $set-initial-position {
 		transform: translate3d(-100%, 0, 0);
@@ -16,15 +17,6 @@
 
 		&.active {
 			transform: translate3d(0, 0, 0);
-		}
-	}
-
-	// WP admin bar fix.
-	body.admin-bar & {
-		margin-top: 46px;
-
-		@include min-width(782px) {
-			margin-top: 32px;
 		}
 	}
 }

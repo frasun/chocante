@@ -17,13 +17,13 @@ defined( 'ABSPATH' ) || exit;
 </head>
 <body <?php body_class(); ?>>
 	<?php wp_body_open(); ?>
-	<header class="site-header">
+	<header id="siteHeader" class="site-header">
 		<?php
 		if ( is_active_sidebar( 'header-affix' ) ) {
 			dynamic_sidebar( 'header-affix' );
 		}
 		?>
-		<div id="siteHeader" class="site-header__banner">
+		<div class="site-header__main">
 			<div class="site-header__container">
 				<?php get_template_part( 'template-parts/menu-top' ); ?>
 

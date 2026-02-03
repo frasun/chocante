@@ -1,6 +1,5 @@
 export default class MenuScroll {
-	static TRANSITION = 'translate3d(0, -100%, 0)';
-	static ADMINBAR_ID = 'wpadminbar';
+	static SCROLLED = 'is-scrolled';
 	static ERROR_MISSING_ELEMENT = 'Element missing in DOM';
 
 	constructor( elem ) {
@@ -52,20 +51,11 @@ export default class MenuScroll {
 	}
 
 	hideMenu() {
-		const adminBar = document.getElementById( MenuScroll.ADMINBAR_ID );
-		let transition = MenuScroll.TRANSITION;
-
-		if ( adminBar ) {
-			transition = `translate3d(0, -${
-				this.elem.offsetHeight + adminBar.offsetHeight
-			}px, 0)`;
-		}
-
-		this.elem.style.transform = transition;
+		this.elem.classList.add( MenuScroll.SCROLLED );
 	}
 
 	showMenu() {
-		this.elem.removeAttribute( 'style' );
+		this.elem.classList.remove( MenuScroll.SCROLLED );
 	}
 
 	handleFootnotes() {
