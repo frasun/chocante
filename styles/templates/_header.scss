@@ -210,6 +210,7 @@
 			padding-bottom: var(--spacing--10);
 			width: max-content;
 			max-width: 90vw;
+			overflow-y: auto;
 
 			@include dropdown;
 

@@ -46,7 +46,7 @@ class Chocante {
 
 	setDropdownSize() {
 		const dropdowns = document.querySelectorAll(
-			':where(.site-header, .mobile-menu) .wcml-cs-submenu, :where(.site-header, .mobile-menu) .wpml-ls-sub-menu, :where(.site-header, .mobile-menu) .wmc-sub-currency'
+			':where(.site-header, .mobile-menu) .wcml-cs-submenu, :where(.site-header, .mobile-menu) .wpml-ls-sub-menu, :where(.site-header, .mobile-menu) .wmc-sub-currency, .site-header__nav .sub-menu'
 		);
 
 		Array.from( dropdowns ).forEach( ( dropdown ) => {
