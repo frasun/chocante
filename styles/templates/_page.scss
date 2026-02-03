@@ -10,6 +10,10 @@
 	}
 	// END TODO.
 
+	&.home {
+		--body--background-color: var(--header--background-color);
+	}
+
 	&-template-with-header,
 	&-template-with-header--gift-sets,
 	&-template-with-header--left {
