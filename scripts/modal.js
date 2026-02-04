@@ -54,10 +54,10 @@ export default class Modal {
 	checkBreakpoint() {
 		return (
 			( 0 === this.breakpoint
-				? true
+				? false
 				: window.innerWidth < this.breakpoint ) ||
 			( 0 === this.breakpointHeight
-				? true
+				? false
 				: window.innerHeight < this.breakpointHeight )
 		);
 	}

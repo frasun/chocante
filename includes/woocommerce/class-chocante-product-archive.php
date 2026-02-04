@@ -139,8 +139,13 @@ class Chocante_Product_Archive {
 	 * Display mobile product filters trigger
 	 */
 	public static function output_mobile_filter_trigger() {
-		if ( woocommerce_products_will_display() ) {
-			echo '<button id="openMobileFilters">' . esc_html__( 'Filter', 'chocante-product-filters' ) . '</button>';
+		if ( woocommerce_products_will_display() && Chocante_Product_Filters::instance()->has_available_filters() ) {
+			echo '<button id="openMobileFilters">';
+			echo esc_html__( 'Filter', 'chocante-product-filters' );
+			if ( Chocante_Product_Filters::instance()->has_filters() ) {
+				printf( '<span>%d</span>', esc_html( Chocante_Product_Filters::instance()->get_active_filters() ) );
+			}
+			echo '</button>';
 		}
 	}
 

@@ -64,8 +64,4 @@
 			@include button-size-sm;
 		}
 	}
-
-	&:not(:has(fieldset)) {
-		display: none;
-	}
 }
