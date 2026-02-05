@@ -48,7 +48,10 @@ export default class ProductSlider {
 			const featuredHtml = await response.text();
 
 			if ( featuredHtml ) {
-				const products = this.shuffleProducts( featuredHtml );
+				const products = this.shuffleProducts(
+					featuredHtml,
+					window.chocante.productId
+				);
 				const spinnerElement = this.productSection.querySelector(
 					ProductSlider.SPINNER_CLASS
 				);
@@ -65,12 +68,16 @@ export default class ProductSlider {
 		}
 	}
 
-	shuffleProducts( featuredHtml ) {
+	shuffleProducts( featuredHtml, productId ) {
 		const parser = new DOMParser();
 		const doc = parser.parseFromString( featuredHtml, 'text/html' );
 		const ul = doc.querySelector( ProductSlider.PRODUCT_LIST );
+
+		if ( ! ul || ! ul.children ) {
+			return doc.body.innerHTML;
+		}
+
 		const items = Array.from( ul.children );
-		const productId = window.chocante.productId;
 
 		// Shuffle items.
 		for ( let i = items.length - 1; i > 0; i-- ) {
