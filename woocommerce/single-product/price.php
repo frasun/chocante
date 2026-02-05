@@ -15,13 +15,15 @@
  * @version 3.0.0
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
-}
+defined( 'ABSPATH' ) || exit;
 
 global $product;
 
 if ( is_a( $product, 'WC_Product_Simple' ) ) :
 	?>
-<p class="<?php echo esc_attr( apply_filters( 'woocommerce_product_price_class', 'price' ) ); ?>"><?php echo wp_kses_post( $product->get_price_html() ); ?></p>
+	<?php if ( $product->is_in_stock() ) : ?>
+		<p class="<?php echo esc_attr( apply_filters( 'woocommerce_product_price_class', 'price' ) ); ?>"><?php echo wp_kses_post( $product->get_price_html() ); ?></p>
+	<?php else : ?>
+		<p class="stock out-of-stock"><?php echo esc_html( apply_filters( 'woocommerce_out_of_stock_message', __( 'This product is currently out of stock and unavailable.', 'woocommerce' ) ) ); ?></p>
+	<?php endif; ?>
 <?php endif; ?>

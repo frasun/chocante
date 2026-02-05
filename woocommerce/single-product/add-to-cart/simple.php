@@ -37,7 +37,8 @@ if ( $product->is_in_stock() ) : ?>
 			array(
 				'min_value'   => $product->get_min_purchase_quantity(),
 				'max_value'   => $product->get_max_purchase_quantity(),
-				'input_value' => isset( $_POST['quantity'] ) ? wc_stock_amount( wp_unslash( $_POST['quantity'] ) ) : $product->get_min_purchase_quantity(), // WPCS: CSRF ok, input var ok.
+				// phpcs:ignore WordPress.Security.NonceVerification.Missing, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+				'input_value' => isset( $_POST['quantity'] ) ? wc_stock_amount( wp_unslash( $_POST['quantity'] ) ) : $product->get_min_purchase_quantity(),
 			)
 		);
 

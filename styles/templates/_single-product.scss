@@ -184,8 +184,20 @@
 			}
 		}
 
-		&-type-simple .product__summary .price {
-			padding-top: var(--spacing--20);
+		&-type-simple {
+
+			.product__summary {
+
+				.price {
+					padding-top: var(--spacing--20);
+				}
+
+				.summary > .out-of-stock {
+					margin-top: var(--spacing--20);
+					padding-bottom: var(--spacing--20);
+					font-weight: var(--font-weight--bold);
+				}
+			}
 		}
 	}
 
@@ -281,9 +293,10 @@
 		padding-top: var(--spacing--20);
 		padding-bottom: var(--spacing--10);
 
+		/* stylelint-disable-next-line no-descending-specificity */
 		.out-of-stock {
-			grid-column: 1 / span 3;
 			font-weight: var(--font-weight--bold);
+			grid-column: 1 / span 3;
 		}
 	}
 
@@ -310,6 +323,11 @@
 		margin-top: var(--spacing--30);
 		margin-bottom: var(--spacing--30);
 
+		/* stylelint-disable-next-line no-descending-specificity */
+		.out-of-stock {
+			font-weight: var(--font-weight--normal);
+		}
+
 		@include min-width($breakpoint--mobile-lg) {
 
 			&__stock {
@@ -326,15 +344,6 @@
 		@include min-width($breakpoint--desktop-sm) {
 			padding-top: 80px;
 			padding-bottom: var(--spacing--100);
-		}
-	}
-
-	// Fix for setting font-weight in editor.
-	.entry-summary,
-	.product__description {
-
-		*[style*="font-weight"] {
-			font-weight: 500 !important;
 		}
 	}
 }

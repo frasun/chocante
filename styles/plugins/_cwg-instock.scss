@@ -1,5 +1,9 @@
 .cwginstock-subscribe-form {
 
+	.product-type-simple & {
+		padding-bottom: var(--spacing--10);
+	}
+
 	form.cart & {
 		grid-column: 1 / span 3;
 	}
