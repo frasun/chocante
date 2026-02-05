@@ -191,6 +191,17 @@
 
 						@include color(body);
 					}
+
+					.backorder_notification {
+
+						@include color(grey-2);
+						@include font-size(x-small);
+						font-weight: var(--font-weight--semibold);
+						letter-spacing: 0.065em;
+						--line-height: 1.15;
+						margin: 0.2em 0 0;
+						text-transform: uppercase;
+					}
 				}
 
 				.product-price {
