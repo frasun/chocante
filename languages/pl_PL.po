@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Bricks Child Theme 1.1\n"
+"Project-Id-Version: Chocante 0.28.13\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/chocante\n"
-"POT-Creation-Date: 2026-01-12T18:01:17+00:00\n"
-"PO-Revision-Date: 2026-01-12 19:27+0100\n"
+"POT-Creation-Date: 2026-02-06T20:03:43+00:00\n"
+"PO-Revision-Date: 2026-02-07 09:39+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pl_PL\n"
@@ -59,202 +59,226 @@ msgctxt "blog"
 msgid "Other articles"
 msgstr "Pozostałe artykuły"
 
-#: includes/class-chocante-woocommerce.php:393
+#: includes/class-chocante-woocommerce.php:417
 #: template-parts/slide-product.php:25
 msgctxt "product loop"
 msgid "Buy now"
 msgstr "Kup teraz"
 
-#: includes/class-chocante.php:128
+#: includes/class-chocante.php:173
 msgctxt "menu"
 msgid "Main menu"
 msgstr "Główne menu strony"
 
-#: includes/class-chocante.php:129
+#: includes/class-chocante.php:174
 msgctxt "menu"
 msgid "Footer - Chocante"
 msgstr "Stopka - Chocante"
 
-#: includes/class-chocante.php:130
+#: includes/class-chocante.php:175
 msgctxt "menu"
 msgid "Footer - Products"
 msgstr "Stopka - Produkty"
 
-#: includes/class-chocante.php:131
+#: includes/class-chocante.php:176
 msgctxt "menu"
 msgid "Footer - Shop"
 msgstr "Stopka - Sklep"
 
-#: includes/class-chocante.php:132
+#: includes/class-chocante.php:177
 msgctxt "menu"
 msgid "Footer - Social media"
 msgstr "Stopka - Social media"
 
-#: includes/class-chocante.php:133
+#: includes/class-chocante.php:178
 msgctxt "menu"
 msgid "Footer - Terms"
 msgstr "Stopka - Regulaminy"
 
-#: includes/class-chocante.php:239
+#: includes/class-chocante.php:278
 msgctxt "admin"
 msgid "Header - affix"
 msgstr "Nagłówek - przyklejone do góry"
 
-#: includes/class-chocante.php:241
+#: includes/class-chocante.php:280
 msgctxt "admin"
 msgid "Widgets in this area will be sticky to the top of the page."
 msgstr ""
 
-#: includes/class-chocante.php:252
+#: includes/class-chocante.php:291
 msgctxt "admin"
 msgid "Header - top"
 msgstr "Nagłówek - w górnej części"
 
-#: includes/class-chocante.php:254
+#: includes/class-chocante.php:293
 msgctxt "admin"
 msgid "Widgets in this area will be shown in the top part of header."
 msgstr ""
 
-#: includes/class-chocante.php:264
+#: includes/class-chocante.php:303
 msgctxt "admin"
 msgid "Mobile menu - after main menu"
 msgstr "Menu mobilne - za głównym menu"
 
-#: includes/class-chocante.php:266
+#: includes/class-chocante.php:305
 msgctxt "admin"
 msgid ""
 "Widgets in this area will be shown in mobile menu after main navigation menu."
 msgstr ""
 
-#: includes/class-chocante.php:276
+#: includes/class-chocante.php:315
 msgctxt "admin"
 msgid "Mobile menu - top"
 msgstr "Menu mobilne - w górnej części"
 
-#: includes/class-chocante.php:278
+#: includes/class-chocante.php:317
 msgctxt "admin"
 msgid "Widgets in this area will be shown in the top part of mobile menu."
 msgstr ""
 
-#: includes/class-chocante.php:288
+#: includes/class-chocante.php:327
 msgctxt "admin"
 msgid "Footer - bottom left"
 msgstr "Stopka - na dole po lewo"
 
-#: includes/class-chocante.php:290
+#: includes/class-chocante.php:329
 msgctxt "admin"
 msgid "Widgets in this area will be shown in the bottom left part of footer."
 msgstr ""
 
-#: includes/class-chocante.php:300
+#: includes/class-chocante.php:339
 msgctxt "admin"
 msgid "Footer - bottom mobile"
 msgstr "Stopka - mobile"
 
-#: includes/class-chocante.php:302
+#: includes/class-chocante.php:341
 msgctxt "admin"
 msgid "Widgets in this area will be shown in the bottom right part of footer."
 msgstr ""
 
-#: includes/class-chocante.php:328
+#: includes/class-chocante.php:367
 msgctxt "product slider"
 msgid "Loading"
 msgstr "Wczytuję"
 
-#: includes/class-chocante.php:450
-#: includes/woocommerce/class-chocante-cart.php:92
+#: includes/class-chocante.php:471
+#: includes/woocommerce/class-chocante-cart.php:103
 #: template-parts/content/content-post.php:19
 msgctxt "product slider"
 msgid "Featured products"
 msgstr "Polecane produkty"
 
-#: includes/class-chocante.php:451 template-parts/content/content-post.php:18
+#: includes/class-chocante.php:472 template-parts/content/content-post.php:18
 #: template-parts/content/content-post.php:37
 msgctxt "product slider"
 msgid "Learn more about our offer"
 msgstr "Poznaj naszą ofertę"
 
-#: includes/woocommerce/class-chocante-account.php:231
+#: includes/woocommerce/class-chocante-account.php:241
 msgctxt "login page"
 msgid "Already have an account?"
 msgstr "Masz już konto?"
 
-#: includes/woocommerce/class-chocante-checkout.php:140
+#: includes/woocommerce/class-chocante-checkout.php:152
 msgctxt "checkout"
 msgid "Edit previous step"
 msgstr "Edytuj poprzedni krok"
 
-#: includes/woocommerce/class-chocante-checkout.php:163
+#: includes/woocommerce/class-chocante-checkout.php:175
 msgctxt "checkout postcode validation"
 msgid "Eircode is not valid."
 msgstr "Eircode ma nieprawidłowy format."
 
-#: includes/woocommerce/class-chocante-checkout.php:166
+#: includes/woocommerce/class-chocante-checkout.php:178
 msgctxt "checkout postcode validation"
 msgid "Postcode / ZIP is not valid."
 msgstr "Kod pocztowy ma nieprawidłowy format."
 
-#: includes/woocommerce/class-chocante-product-page.php:144
+#: includes/woocommerce/class-chocante-product-page.php:174
 msgctxt "product slider"
 msgid "Products from category"
 msgstr "Produkty z kategorii"
 
-#: includes/woocommerce/class-chocante-product-section.php:169
+#. translators: Number of pieces.
+#: includes/woocommerce/class-chocante-product-page.php:275
+#, php-format
+msgid "%s pcs"
+msgstr "%s szt."
+
+#: includes/woocommerce/class-chocante-product-page.php:303
+msgid "Last items in stock!"
+msgstr "Końcówka zapasów!"
+
+#: includes/woocommerce/class-chocante-product-section.php:196
 msgctxt "product slider"
 msgid "Previous"
 msgstr "Poprzedni"
 
-#: includes/woocommerce/class-chocante-product-section.php:170
+#: includes/woocommerce/class-chocante-product-section.php:197
 msgctxt "product slider"
 msgid "Next"
 msgstr "Nastęony"
 
-#: includes/woocommerce/class-chocante-product-section.php:171
+#: includes/woocommerce/class-chocante-product-section.php:198
 msgctxt "product slider"
 msgid "Go to first"
 msgstr "Idź do pierwszego"
 
-#: includes/woocommerce/class-chocante-product-section.php:172
+#: includes/woocommerce/class-chocante-product-section.php:199
 msgctxt "product slider"
 msgid "Go to last"
 msgstr "Idź do ostatniego"
 
 #. translators: Go to product number.
-#: includes/woocommerce/class-chocante-product-section.php:174
+#: includes/woocommerce/class-chocante-product-section.php:201
+#, php-format
 msgctxt "product slider"
 msgid "Go to %s"
 msgstr "Idź do %s"
 
 #. translators: Go to page number.
-#: includes/woocommerce/class-chocante-product-section.php:176
+#: includes/woocommerce/class-chocante-product-section.php:203
+#, php-format
 msgctxt "product slider"
 msgid "Go to page %s"
 msgstr "Strona %s"
 
-#: includes/woocommerce/class-chocante-product-section.php:177
+#: includes/woocommerce/class-chocante-product-section.php:204
 msgctxt "product slider"
 msgid "Start autoplay"
 msgstr "Start"
 
-#: includes/woocommerce/class-chocante-product-section.php:178
+#: includes/woocommerce/class-chocante-product-section.php:205
 msgctxt "product slider"
 msgid "Pause autoplay"
 msgstr "Wstrzymaj"
 
-#: includes/woocommerce/class-chocante-product-section.php:179
+#: includes/woocommerce/class-chocante-product-section.php:206
 msgctxt "product slider"
 msgid "carousel"
 msgstr "karuzela"
 
-#: includes/woocommerce/class-chocante-product-section.php:180
+#: includes/woocommerce/class-chocante-product-section.php:207
 msgctxt "product slider"
 msgid "Select product to show"
 msgstr "Wybierz produkt"
 
-#: includes/woocommerce/class-chocante-product-section.php:181
+#: includes/woocommerce/class-chocante-product-section.php:208
 msgctxt "product slider"
 msgid "product"
 msgstr "produkt"
+
+#: includes/woocommerce/class-globkurier-shipping.php:128
+msgid ""
+"GlobKurier: Missing credentials. Please define GLOBKURIER_EMAIL and "
+"GLOBKURIER_PASSWORD constants."
+msgstr ""
+
+#: includes/woocommerce/class-globkurier-shipping.php:176
+#: includes/woocommerce/settings-globkurier.php:26
+msgctxt "globkurier"
+msgid "Air"
+msgstr "Lotniczy"
 
 #: includes/woocommerce/settings-globkurier.php:14
 msgid "This name will be shown when in case of Globurier API error."
@@ -270,11 +294,6 @@ msgstr "Transport"
 msgctxt "globkurier"
 msgid "Road"
 msgstr "Drogowy"
-
-#: includes/woocommerce/settings-globkurier.php:26
-msgctxt "globkurier"
-msgid "Air"
-msgstr "Lotniczy"
 
 #: includes/woocommerce/settings-globkurier.php:30
 msgctxt "globkurier"
@@ -356,7 +375,7 @@ msgctxt "infobox"
 msgid "Order before 11 a.m. and we will ship it the same day."
 msgstr "Zamów do godziny 11, a wyślemy jeszcze dzisiaj."
 
-#: template-parts/info-stock.php:16
+#: template-parts/info-stock.php:18
 msgctxt "infobox"
 msgid "In stock"
 msgstr "W magazynie"
@@ -391,6 +410,7 @@ msgstr "Dołącz do grupy"
 
 #. translators: reading time in minutes.
 #: template-parts/post-header.php:19
+#, php-format
 msgctxt "reading time"
 msgid "%d minute(s)"
 msgstr "%d minut(y)"
@@ -441,6 +461,7 @@ msgstr "Dziękujemy za zakupy"
 
 #. translators: thank you text.
 #: woocommerce/checkout/thankyou.php:26
+#, php-format
 msgctxt "thankyou"
 msgid ""
 "You will be informed about further steps by separate emails. You can also "
@@ -451,11 +472,12 @@ msgstr ""
 
 #. translators: processing order.
 #: woocommerce/checkout/thankyou.php:54
+#, php-format
 msgctxt "thankyou"
 msgid "Your order no. %s has been accepted for processing."
 msgstr "Twoje zamówienie nr %s zostało przyjęte do realizacji."
 
-#: woocommerce/loop/no-products-found.php:25
+#: woocommerce/loop/no-products-found.php:27
 msgctxt "no products found"
 msgid "or"
 msgstr "lub"
@@ -467,6 +489,7 @@ msgstr "1 produkt"
 
 #. translators: %d: total results
 #: woocommerce/loop/result-count.php:32
+#, php-format
 msgctxt "product listing"
 msgid "%d product"
 msgid_plural "%d products"
@@ -476,6 +499,7 @@ msgstr[2] "%d produktów"
 
 #. translators: 1: first result 2: last result 3: total results
 #: woocommerce/loop/result-count.php:38
+#, php-format
 msgctxt "product listing"
 msgid "%1$d&ndash;%2$d of %3$d product"
 msgid_plural "%1$d&ndash;%2$d of %3$d products"

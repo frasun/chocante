@@ -328,6 +328,10 @@
 			font-weight: var(--font-weight--normal);
 		}
 
+		.stock .low-amount {
+			color: var(--wp--custom--color--contrast);
+		}
+
 		@include min-width($breakpoint--mobile-lg) {
 
 			&__stock {

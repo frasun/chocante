@@ -54,7 +54,12 @@ class Chocante_Product_Page {
 		add_filter( 'woocommerce_display_product_attributes', array( __CLASS__, 'filter_product_attributes' ), 10, 2 );
 		add_filter( 'woocommerce_format_weight', array( __CLASS__, 'format_weight_dimension' ), 10, 2 );
 
+		// Product gallery.
 		add_filter( 'woocommerce_gallery_image_html_attachment_image_params', array( __CLASS__, 'add_atts_to_main_image' ), 10, 4 );
+
+		// Product stock.
+		add_filter( 'woocommerce_get_availability_text', array( __CLASS__, 'get_stock_text' ), 10, 2 );
+		add_filter( 'woocommerce_get_availability_text', array( __CLASS__, 'display_low_amount_info' ), 20, 2 );
 	}
 
 	/**
@@ -247,5 +252,58 @@ class Chocante_Product_Page {
 		}
 
 		return $image_attributes;
+	}
+
+	/**
+	 * Modify quantity text by adding weight info and suffix
+	 *
+	 * @param string     $availability Availability text.
+	 * @param WC_Product $product Product object.
+	 */
+	public static function get_stock_text( $availability, $product ) {
+		/**
+		 * Return any content so that the .stock element gets printed and can be used in JS for replacing with selected variation data.
+		 *
+		 * @see: wc_get_stock_html()
+		 */
+		if ( $product instanceof WC_Product_Variable && empty( $availability ) ) {
+			return ' ';
+		}
+
+		if ( $product->managing_stock() && $product->is_in_stock() && ! $product->is_on_backorder( 1 ) ) {
+			// translators: Number of pieces.
+			$stock_amount = sprintf( __( '%s pcs', 'chocante' ), $product->get_stock_quantity() );
+
+			if ( $product instanceof WC_Product_Variation && function_exists( 'chocante_get_attribute' ) ) {
+				// @todo: move this function to theme.
+				$weight = chocante_get_attribute( 'pa_waga', $product );
+
+				if ( isset( $weight ) && '' !== $weight ) {
+					return "{$weight} x {$stock_amount}";
+				}
+			}
+
+			return $stock_amount;
+		}
+
+		return $availability;
+	}
+
+	/**
+	 * Display message about low amount left in stock
+	 *
+	 * @param string     $availability Availability text.
+	 * @param WC_Product $product Product object.
+	 */
+	public static function display_low_amount_info( $availability, $product ) {
+		if ( ! empty( trim( $availability ) ) && $product->managing_stock() && $product->is_in_stock() && ! $product->is_on_backorder( 1 ) ) {
+			$stock_amount = $product->get_stock_quantity();
+
+			if ( $stock_amount <= wc_get_low_stock_amount( $product ) ) {
+				$availability .= '<br /><strong class="low-amount">' . __( 'Last items in stock!', 'chocante' ) . '</strong>';
+			}
+		}
+
+		return $availability;
 	}
 }
