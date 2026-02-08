@@ -13,3 +13,8 @@ main,
 article {
 	background-color: var(--content--background-color);
 }
+
+main {
+	container-type: inline-size;
+	container-name: blocks;
+}

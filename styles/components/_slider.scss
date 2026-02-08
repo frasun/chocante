@@ -1,21 +1,32 @@
 .splide {
+	--pagination--size: 5px;
+	--pagination--size--active: 25px;
 
 	&__pagination {
 		display: flex !important;
 		justify-content: center;
-		padding: var(--spacing--30) 70px 0;
+		align-items: center;
+		padding: var(--spacing--10) 70px;
 		gap: var(--spacing--10);
-		min-height: calc(16px + var(--spacing--30));
+		min-height: var(--spacing--70);
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: 0;
 
 		&:is(ul) {
 			list-style: none;
 		}
 
+		li {
+			display: flex;
+		}
+
 		&__page {
 			--wp--custom--transition--property: background-color, width;
 
-			width: 5px;
-			height: 5px;
+			width: var(--pagination--size);
+			height: var(--pagination--size);
 			border-radius: 2px;
 
 			@include transition;
@@ -25,7 +36,7 @@
 			&.is-active {
 
 				@include bg(grey-3);
-				width: 25px;
+				width: var(--pagination--size--active);
 			}
 		}
 	}

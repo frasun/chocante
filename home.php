@@ -21,7 +21,7 @@ get_header();
 		?>
 
 	<?php if ( $sticky_posts->have_posts() ) : ?>
-		<header class="post-slider-container">
+		<header class="post-slider-container featured-posts wp-site-blocks is-layout-constrained has-global-padding">
 			<?php
 			get_template_part(
 				'template-parts/slider',

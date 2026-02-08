@@ -265,12 +265,26 @@ h6 {
 
 	&[style*="underline"] {
 		text-underline-offset: 0.25em;
-		text-decoration-thickness: 3px !important;
+		text-decoration-thickness: 2px !important;
 		line-height: 1.4;
 	}
 
 	a {
 		color: currentcolor;
+	}
+}
+
+:is(h1, h2, h3, h4) {
+
+	&[style*="underline"] {
+		margin-bottom: 0.5em;
+	}
+}
+
+:is(h5, h6) {
+
+	&[style*="underline"] {
+		margin-bottom: 0.65em;
 	}
 }
 

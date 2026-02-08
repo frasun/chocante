@@ -8,17 +8,53 @@ $breakpoint--desktop: 1280px;
 $breakpoint--desktop-lg: 1440px;
 $breakpoint--desktop--height: 750px;
 
-@mixin max-width($breakpoint) {
+@mixin max-width($breakpoint, $container: null) {
 
-	@media (max-width: calc($breakpoint - 1px)) {
-		@content;
+	@if $container {
+
+		@supports (container-type: inline-size) {
+
+			@container #{$container} (max-width: #{$breakpoint - 1px}) {
+				@content;
+			}
+		}
+
+		@supports not (container-type: inline-size) {
+
+			@media (max-width: calc($breakpoint - 1px)) {
+				@content;
+			}
+		}
+	} @else {
+
+		@media (max-width: calc($breakpoint - 1px)) {
+			@content;
+		}
 	}
 }
 
-@mixin min-width($breakpoint) {
+@mixin min-width($breakpoint, $container: null) {
 
-	@media (min-width: $breakpoint) {
-		@content;
+	@if $container {
+
+		@supports (container-type: inline-size) {
+
+			@container #{$container} (min-width: #{$breakpoint}) {
+				@content;
+			}
+		}
+
+		@supports not (container-type: inline-size) {
+
+			@media (min-width: $breakpoint) {
+				@content;
+			}
+		}
+	} @else {
+
+		@media (min-width: $breakpoint) {
+			@content;
+		}
 	}
 }
 

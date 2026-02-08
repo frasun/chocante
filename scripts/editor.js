@@ -26,12 +26,4 @@ wp.domReady( function () {
 			label: 'Rounded corners',
 		},
 	] );
-
-	// core/media-text.
-	wp.blocks.registerBlockStyle( 'core/media-text', [
-		{
-			name: 'splash',
-			label: 'Splash section',
-		},
-	] );
 } );

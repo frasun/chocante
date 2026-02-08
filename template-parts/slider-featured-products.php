@@ -13,15 +13,15 @@ defined( 'ABSPATH' ) || exit;
 ?>
 
 <?php if ( ! empty( $fetured_products ) ) : ?>
-	<header class="post-slider-container featured-products alignfull">
-		<section class="splide post-slider">
+	<header class="post-slider-container featured-products alignfull wp-site-blocks is-layout-constrained has-global-padding">
+		<section class="splide post-slider alignwide">
 			<div class="splide__track">
 				<ul class="splide__list">
 					<?php foreach ( $fetured_products as $key => $product ) : ?>
 						<?php
 						$post = get_post( $product->get_id() ); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited, Squiz.PHP.DisallowMultipleAssignments.Found
 						setup_postdata( $post );
-						echo '<li class="splide__slide">';
+						echo '<li class="splide__slide splash">';
 						get_template_part(
 							'template-parts/slide',
 							'product',

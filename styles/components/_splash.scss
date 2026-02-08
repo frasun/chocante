@@ -1,0 +1,212 @@
+@import "../utils";
+
+:root {
+	--splash--thumbnail--height: 330px;
+	--splash--thumbnail--width: 100%;
+	--splash--thumbnail--height--lg: min(calc(70vh), 680px);
+	--splash--thumbnail--width--lg: 570px;
+	--splash--content--margin: calc(var(--splash--thumbnail--width--lg) + var(--spacing--30));
+	--splash--heading--margin: 30%;
+
+	.wp-site-blocks {
+
+		@include min-width($breakpoint--desktop-sm) {
+			--splash--thumbnail--height: var(--splash--thumbnail--height--lg);
+			--splash--thumbnail--width: var(--splash--thumbnail--width--lg);
+		}
+	}
+
+	.wp-block-post-content {
+
+		@include min-width($breakpoint--desktop-sm, "blocks") {
+			--splash--thumbnail--height: var(--splash--thumbnail--height--lg);
+			--splash--thumbnail--width: var(--splash--thumbnail--width--lg);
+		}
+	}
+
+
+	.splash {
+		padding-top: var(--spacing--20);
+		padding-bottom: var(--spacing--70);
+
+		@include min-width($breakpoint--desktop, "blocks") {
+
+			@media (min-height: $breakpoint--desktop--height) {
+				padding-top: var(--spacing--50);
+			}
+		}
+
+		&__title {
+
+			@include font-size(xx-large);
+
+			&--large {
+
+				@include min-width($breakpoint--desktop, "blocks") {
+
+					@include font-size(huge);
+				}
+
+				@media (max-height: $breakpoint--desktop--height) {
+
+					@include font-size(xx-large);
+				}
+			}
+
+			a {
+				text-decoration: none;
+				font-weight: inherit;
+				display: inline-block;
+
+				&,
+				&:hover {
+					color: inherit;
+				}
+			}
+
+			&[style*="text-decoration: underline;"]:has(a) {
+				text-decoration: none !important;
+
+				a {
+					text-decoration: underline;
+					text-underline-offset: 0.25em;
+					text-decoration-thickness: 2px !important;
+					line-height: 1.4;
+				}
+			}
+		}
+
+		&__subtitle {
+			margin: 0;
+		}
+
+		&__grow {
+
+			@include min-width($breakpoint--desktop-sm, "blocks") {
+				flex-grow: 1;
+			}
+		}
+
+		&__thumbnail {
+			position: relative;
+
+			&::after {
+				content: "";
+				position: absolute;
+				left: 0;
+				right: 0;
+				top: 0;
+				bottom: 0;
+				z-index: 1;
+				background-color: rgba(0, 0, 0, 0.2);
+			}
+		}
+
+		.wp-block-media-text {
+			// margin-bottom: var(--spacing--20);
+
+			@include max-width($breakpoint--desktop-sm, "blocks") {
+				display: flex;
+				flex-direction: column;
+				gap: 0;
+			}
+
+			.wp-block-media-text {
+
+				&__content {
+					gap: var(--wp--style--block-gap);
+					padding: 0;
+					z-index: 2;
+					display: flex;
+					flex-direction: column;
+					width: 100%;
+					pointer-events: none;
+
+					* {
+						pointer-events: auto;
+					}
+
+					@include min-width($breakpoint--desktop-sm, "blocks") {
+						min-height: 100%;
+
+						.splash__title {
+							margin-left: calc(-1 * var(--splash--heading--margin));
+						}
+					}
+
+					@include max-width($breakpoint--desktop-sm, "blocks") {
+						flex-grow: 1;
+					}
+				}
+
+				&__media {
+					border-radius: var(--border-radius);
+					overflow: hidden;
+					height: var(--splash--thumbnail--height) !important; // editor quirk.
+					width: var(--splash--thumbnail--width) !important; // editor quirk.
+					margin-bottom: var(--spacing--30);
+
+					@include min-width($breakpoint--desktop-sm, "blocks") {
+						margin-bottom: 0;
+						align-self: start;
+					}
+				}
+			}
+
+			&.has-media-on-the-right {
+
+				.wp-block-media-text {
+
+					&__content {
+						padding: 0;
+
+						@include min-width($breakpoint--desktop-sm, "blocks") {
+							grid-column: 1 / span 2;
+
+							> *:not(.splash__title) {
+								margin-right: var(--splash--content--margin);
+							}
+
+							.splash__title {
+								margin-right: var(--splash--heading--margin);
+								margin-left: 0;
+							}
+						}
+					}
+
+					&__media {
+						margin-top: var(--spacing--30);
+						margin-bottom: 0;
+
+						@include min-width($breakpoint--desktop-sm, "blocks") {
+							justify-self: end;
+							margin-top: 0;
+						}
+					}
+				}
+			}
+
+			.wp-block-buttons {
+				padding-top: var(--spacing--10);
+				align-items: flex-start;
+
+				@include min-width($breakpoint--desktop-sm, "blocks") {
+
+					@include max-width($breakpoint--desktop-md, "blocks") {
+						flex-direction: column;
+					}
+				}
+
+				> .wp-block-button {
+
+					&.wp-block-button__width-100 {
+
+						@include min-width($breakpoint--desktop-md, "blocks") {
+							max-width: calc(50% - var(--wp--style--block-gap, 0.5em) * 0.5);
+						}
+					}
+				}
+			}
+		}
+	}
+}

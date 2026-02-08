@@ -199,6 +199,11 @@
 					"slug": "50"
 				},
 				{
+					"name": "70",
+					"size": "70px",
+					"slug": "70"
+				},
+				{
 					"name": "100",
 					"size": "100px",
 					"slug": "100"
@@ -488,6 +493,14 @@
 			}
 		},
 		"blocks": {
+			"core/paragraph": {
+				"spacing": {
+					"margin": {
+						"top": 0,
+						"bottom": "0.625em"
+					}
+				}
+			},
 			"core/list": {
 				"spacing": {
 					"margin": {

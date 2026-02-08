@@ -226,45 +226,6 @@ class Chocante_ACF {
 	}
 
 	/**
-	 * Get diet information icons
-	 */
-	private static function get_diet_icons() {
-		global $product;
-
-		$data_field = get_field( 'ikonki', $product->get_id() );
-
-		if ( ! $data_field ) {
-			return;
-		}
-
-		$icons = array();
-
-		foreach ( $data_field as $field ) {
-			array_push(
-				$icons,
-				$field['ikonka']
-			);
-		}
-
-		return $icons;
-	}
-
-	/**
-	 * Display diet information icons
-	 */
-	public static function display_diet_icons() {
-		$icons = self::get_diet_icons();
-
-		get_template_part(
-			'template-parts/product',
-			'diet-info',
-			array(
-				'data' => $icons,
-			)
-		);
-	}
-
-	/**
 	 * Display diet information
 	 */
 	public static function display_category_description() {
@@ -356,16 +317,5 @@ class Chocante_ACF {
 		}
 
 		return $image;
-	}
-
-	/**
-	 * Get featured product diet icons
-	 *
-	 * @param array $icons Empty icons array.
-	 * @param int   $product_id Product ID.
-	 * @return array
-	 */
-	public static function get_featured_diet_icons( $icons, $product_id ) {
-		return self::get_diet_icons();
 	}
 }

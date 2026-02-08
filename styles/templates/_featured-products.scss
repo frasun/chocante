@@ -1,189 +1,47 @@
 .featured-products.post-slider-container {
-	--post-slider--secondary-background-color: var(--wp--preset--color--accent);
 	--post-slider--color-secondary: var(--wp--custom--color--base-7);
 	--splide--pagination-page--background-color: rgba(255, 255, 255, 0.3);
+	--bg-gradient--second-color: var(--wp--preset--color--accent);
 
-	.post {
-		background: none !important;
-
-		&::before {
-			content: none !important;
-		}
-
-		&-slider {
-			--bg-gradient--second-color: var(--post-slider--secondary-background-color);
-			--bg-gradient--bottom: 50%;
-
-			visibility: visible;
-
-			@include bg-gradient;
-			@include bg-pattern;
-		}
-
-		&__title {
-
-			@include font-size(xx-large);
-			line-height: 1.4;
-
-			@include min-width($breakpoint--desktop + 1px) {
-
-				@include font-size(huge);
-				line-height: 1.4;
-			}
-
-			a {
-				border-bottom: 2px solid var(--wp--preset--color--white);
-				font-weight: unset;
-				color: unset;
-				text-decoration: none;
-			}
-		}
-
-		&__thumbnail {
-
-			figure {
-				position: absolute;
-				left: 0;
-				top: 0;
-				right: 0;
-				bottom: 0;
-			}
-
-			.badge__container {
-				position: absolute;
-				right: 15px;
-				top: 15px;
-				z-index: 2;
-				align-items: end;
-			}
-		}
-
-		&__cta {
-
-			a {
-				flex-grow: 1;
-			}
-
-			.shop-link {
-
-				@include button;
-				@include button-size-lg;
-				@include button-style-outline-inverted;
-			}
-		}
-
-		&__info {
-			--icon-size: 56px;
-			grid-area: 4 / 1 / 4 / 4;
-			column-gap: var(--spacing--10);
-			display: grid;
-			grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
-			padding-bottom: var(--spacing--30);
-			padding-top: var(--spacing--10);
-			row-gap: var(--spacing--20);
-
-			@include max-width($breakpoint--desktop) {
-				height: calc(var(--icon-size) + var(--spacing--30));
-				overflow: hidden;
-				margin-bottom: var(--spacing--10);
-			}
-
-			img {
-				filter: brightness(0) invert(1);
-				margin: auto;
-				height: var(--icon-size);
-			}
-		}
+	.badge__container {
+		position: absolute;
+		right: 15px;
+		top: 15px;
+		z-index: 2;
+		align-items: end;
 	}
 
-	@include min-width($breakpoint--desktop-sm) {
+	.product__diet-info {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+		row-gap: var(--spacing--20);
+		column-gap: var(--spacing--10);
 
-		.splide__list,
-		.post {
-			align-items: start;
+		@include max-width($breakpoint--desktop) {
+			height: calc(var(--icon-size) + var(--spacing--30));
+			overflow: hidden;
+			margin-bottom: var(--spacing--10);
 		}
 
-		.splide__pagination {
-			position: relative;
+		@include min-width($breakpoint--desktop) {
+			margin-top: var(--spacing--10);
 		}
 
-		.post {
-			padding-top: 3em;
-			padding-bottom: 2em;
-			grid-template-rows: minmax(48px, auto) repeat(3, auto);
-
-			&__heading {
-				grid-row-start: 1;
-			}
-
-			&__title {
-				grid-area: 2 / 1 / 3 / 5;
-				margin: 0;
-
-				@include min-width($breakpoint--desktop-sm) {
-
-					@include max-width($breakpoint--desktop + 1px) {
-						grid-area: 2 / 1 / 3 / 4;
-					}
-				}
-			}
-
-			&__cta {
-				grid-row-start: 3;
-				padding-top: var(--spacing--30);
-			}
-
-			&__thumbnail {
-				grid-area: 1 / 4 / 5 / 6;
-				height: min(calc(70vh), 680px);
-				width: var(--size--form);
-				justify-self: end;
-			}
-
-			&__info {
-				padding-top: var(--spacing--30);
-				padding-bottom: 0;
-				align-self: end;
-			}
+		img {
+			filter: brightness(0) invert(1);
+			margin: auto;
+			height: var(--icon-size);
 		}
 	}
 
 	@include max-width($breakpoint--desktop-sm) {
 
-		.post {
-			padding-top: 2em;
+		.product__diet-info {
+			order: 3;
 		}
 
-		.post:has(.post__info) {
-			display: flex;
-			flex-direction: column;
-
-			.post {
-
-				&__heading {
-					order: 1;
-				}
-
-				&__title {
-					order: 2;
-				}
-
-				&__info {
-					order: 3;
-
-					&:empty {
-						display: none;
-					}
-				}
-
-				&__cta {
-					order: 4;
-				}
-
-				&__thumbnail {
-					order: 5;
-				}
-			}
+		.wp-block-buttons {
+			order: 4;
 		}
 	}
 }

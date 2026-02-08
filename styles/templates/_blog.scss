@@ -92,3 +92,15 @@ body {
 		}
 	}
 }
+
+:root .featured-posts.post-slider-container {
+	--bg-gradient--y: calc(var(--splash--thumbnail--height) / 2 + var(--spacing--50));
+
+	@include min-width($breakpoint--desktop-sm) {
+		--splash--thumbnail--height: min(calc(65vh), var(--splash--thumbnail--width--lg));
+	}
+
+	.splash .wp-block-media-text {
+		height: 100%;
+	}
+}

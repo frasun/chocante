@@ -1,14 +1,15 @@
-@use "sass:meta";
 @import "utils";
 @import "variables";
 @import "@splidejs/splide/css/core";
+@import "templates/blocks";
+@import "components/splash";
 
 .editor-styles-wrapper {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	overflow: hidden;
-
-	@include meta.load-css("templates/blocks");
+	container-type: inline-size;
+	container-name: blocks;
 
 	.wp-block {
 
@@ -75,6 +76,13 @@
 	b,
 	strong {
 		font-weight: 700;
+	}
+
+	:where(p) {
+
+		&:last-child {
+			margin-bottom: 0;
+		}
 	}
 
 	/*

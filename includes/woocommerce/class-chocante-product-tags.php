@@ -267,7 +267,7 @@ class Chocante_Product_Tags {
 	 * Helper function :: wc_get_tag_thumbnail_url function.
 	 *
 	 * @param  int    $tag_id Tag ID.
-	 * @param  string $size     Thumbnail image size.
+	 * @param  string $size Thumbnail image size.
 	 * @return string
 	 */
 	public static function get_tag_thumbnail_url( $tag_id, $size = array( 56, 56 ) ) {
@@ -283,37 +283,46 @@ class Chocante_Product_Tags {
 	/**
 	 * Display product diet icons
 	 *
-	 * @param array $tags Product tags taxonomy terms.
+	 * @param int $product_id Product tags taxonomy terms.
 	 */
-	public static function display_diet_icons( $tags = array() ) {
-		global $product;
+	public static function display_diet_icons( $product_id ) {
+		$icons = array();
+		$tags  = self::get_product_tags( $product_id );
 
-		if ( empty( $tags ) ) {
-			$tags = self::get_product_tags( array(), $product->get_id() );
+		foreach ( $tags as $tag ) {
+			$thumbnail = self::get_tag_thumbnail_url( $tag->term_id );
+
+			if ( ! $thumbnail ) {
+				continue;
+			}
+
+			$icons[] = array(
+				'thumbnail' => $thumbnail,
+				'name'      => $tag->name,
+			);
 		}
 
-		get_template_part( 'template-parts/product', 'diet-tags', array( 'product_tags' => $tags ) );
+		if ( ! empty( $icons ) ) {
+			get_template_part( 'template-parts/product', 'diet-tags', array( 'product_tags' => $icons ) );
+		}
 	}
 
 	/**
 	 * Display product diet icons on product page
 	 */
 	public static function display_diet_icons_product_page() {
-		ob_start();
-		echo '<aside class="product__diet-info">';
-		self::display_diet_icons();
-		echo '</aside>';
-		echo wp_kses_post( ob_get_clean() );
+		global $product;
+
+		self::display_diet_icons( $product->get_id() );
 	}
 
 	/**
 	 * Get featured product diet icons
 	 *
-	 * @param array $icons Empty icons array.
-	 * @param int   $product_id Product ID.
+	 * @param int $product_id Product ID.
 	 * @return array
 	 */
-	public static function get_product_tags( $icons, $product_id ) {
+	public static function get_product_tags( $product_id ) {
 		$icons = wc_get_product_terms( $product_id, 'product_tag' );
 
 		return $icons;

@@ -1,25 +1,14 @@
 .post-slider {
+	visibility: visible;
 
 	&-container {
-		--post-slider--secondary-background-color: var(--header--background-color);
-		--mobile-thumbnail-height: 330px;
+
+		@include bg-pattern;
+		@include bg-gradient;
 
 		@include min-width($breakpoint--desktop-sm) {
-			--padding-bottom: 5em;
-			--bg-gradient--second-color: var(--post-slider--secondary-background-color);
-
-			@include bg-pattern;
-			@include bg-gradient;
+			--bg-gradient--second-color: var(--header--background-color);
 		}
-
-		@include max-width($breakpoint--desktop-sm) {
-			--post-slider--secondary-background-color: var(--wp--preset--color--white);
-		}
-	}
-
-	> * {
-		z-index: 1;
-		position: relative;
 	}
 
 	.splide {
@@ -34,158 +23,18 @@
 		&__list {
 
 			@include list-reset;
-			align-items: start;
-
-			@include min-width($breakpoint--desktop-sm) {
-				align-items: center;
-			}
+			align-items: stretch;
 
 			li {
 				flex: 0 0 100%;
 			}
 		}
-
-		&__pagination {
-			position: absolute;
-			left: 0;
-			right: 0;
-			bottom: var(--spacing--40);
-		}
 	}
 
-	.post {
+	.splash {
 
-		@include container;
-		color: var(--wp--preset--color--white);
-		padding-top: 3em;
-		padding-bottom: 5em;
-		min-height: 500px;
-
-		@include max-width($breakpoint--desktop-sm) {
-			--padding-bottom: 5em;
-
-			background: var(--header--background-color);
-
-			@include bg-pattern;
-
-			&:has(.post__thumbnail) {
-				--bg-gradient--second-color: var(--post-slider--secondary-background-color);
-				--bg-gradient--bottom: calc((var(--mobile-thumbnail-height) / 2) + 5em);
-
-				@include bg-gradient;
-			}
-
-			> * {
-				position: relative;
-				z-index: 1;
-			}
-		}
-
-		@include min-width($breakpoint--desktop-sm) {
-			display: grid;
-			column-gap: var(--spacing--30);
-			grid-template-rows: 1fr repeat(4, auto) 1fr;
-			align-items: center;
-		}
-
-		&__heading {
-
-			@include font-style(subheading);
+		&__subtitle {
 			color: var(--post-slider--color-secondary, var(--header--text-color-secondary));
-			margin: 0;
-		}
-
-		&__title {
-			color: var(--wp--preset--color--white);
-			margin-top: 0.25em;
-			margin-bottom: 0.5em;
-
-			@include font(headings);
-			@include font-size(xx-large);
-		}
-
-		&__excerpt {
-			padding-bottom: 1.5em;
-		}
-
-		&__cta {
-			margin-bottom: var(--spacing--20);
-			display: flex;
-			gap: var(--spacing--20);
-			flex-wrap: wrap;
-
-			a {
-
-				@include button;
-				@include button-size-lg;
-				@include button-style-inverted;
-
-				@include max-width($breakpoint--desktop-sm) {
-					width: 100%;
-				}
-			}
-		}
-
-		&__thumbnail {
-			border-radius: var(--border-radius);
-			overflow: hidden;
-			height: var(--mobile-thumbnail-height);
-			width: 100%;
-			position: relative;
-			display: block;
-
-			@include max-width($breakpoint--desktop-sm) {
-				margin-top: var(--spacing--20);
-			}
-
-			img {
-				object-fit: cover;
-				position: relative;
-				z-index: 0;
-				width: 100%;
-				height: 100%;
-			}
-
-			&::after {
-				content: "";
-				position: absolute;
-				left: 0;
-				right: 0;
-				top: 0;
-				bottom: 0;
-				z-index: 1;
-				background-color: rgba(0, 0, 0, 0.2);
-			}
-		}
-
-		@include min-width($breakpoint--desktop-sm) {
-
-			&__heading {
-				grid-column: 1 / 4;
-				grid-row-start: 2;
-			}
-
-			&__title {
-				grid-area: 3 / 1 / 3 / 5;
-				z-index: 2;
-			}
-
-			&__excerpt {
-				grid-column: 1 / 3;
-				grid-row-start: 4;
-			}
-
-			&__cta {
-				grid-column: 1 / 4;
-				grid-row-start: 5;
-			}
-
-			&__thumbnail {
-				grid-area: 1 / 4 / 7 / 6;
-				height: 100%;
-				width: auto;
-				min-width: var(--size--form);
-			}
 		}
 	}
 }

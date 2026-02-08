@@ -49,11 +49,6 @@
 			display: none !important;
 		}
 
-		@include max-width($breakpoint--desktop-md) {
-			padding-right: var(--spacing--10);
-			padding-left: var(--spacing--10);
-		}
-
 		.menu {
 			display: flex;
 			flex-direction: row;
@@ -118,7 +113,7 @@
 			padding-bottom: var(--spacing--15);
 		}
 
-		@include min-width($breakpoint--desktop-md + 40px) {
+		@include min-width($breakpoint--desktop-sm) {
 			padding-left: 0;
 			padding-right: 0;
 		}

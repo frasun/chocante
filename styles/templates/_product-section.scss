@@ -3,13 +3,12 @@ $slider-navigation-size: 50px;
 .product-section {
 	background-color: var(--product-section--background-color, var(--wp--preset--color--white));
 	padding-top: var(--spacing--30);
-	padding-bottom: var(--spacing--40);
 	overflow: hidden;
 	min-height: 600px;
 	max-width: none;
 
-	@include min-width($breakpoint--desktop) {
-		padding: var(--spacing--40) 0;
+	@include min-width($breakpoint--desktop + $slider-navigation-size) {
+		padding-top: var(--spacing--40);
 	}
 
 	&__header {
@@ -55,7 +54,7 @@ $slider-navigation-size: 50px;
 	&__description {
 
 		@include container();
-		margin-bottom: var(--spacing--10);
+		margin-bottom: var(--spacing--15);
 
 		> * {
 			max-width: var(--size--content);
@@ -101,7 +100,10 @@ $slider-navigation-size: 50px;
 
 			@include min-width($breakpoint--desktop) {
 				padding-top: var(--spacing--20);
-				padding-bottom: var(--spacing--20);
+
+				@include max-width($breakpoint--desktop + $slider-navigation-size) {
+					padding-bottom: var(--spacing--20);
+				}
 			}
 		}
 
@@ -114,9 +116,12 @@ $slider-navigation-size: 50px;
 			z-index: 10;
 			margin-top: var(--spacing--15);
 
+			@include min-width($breakpoint--desktop) {
+				margin-top: 0;
+			}
+
 			@include min-width($breakpoint--desktop + $slider-navigation-size) {
 				top: 50%;
-				margin-top: 0;
 			}
 
 			&:disabled {
@@ -139,6 +144,15 @@ $slider-navigation-size: 50px;
 					transform: translate3d(100%, -50%, 0);
 					right: -15px;
 				}
+			}
+		}
+
+		&__pagination {
+			position: relative;
+			min-height: var(--spacing--50);
+
+			@include max-width($breakpoint--desktop) {
+				margin-top: var(--spacing--15);
 			}
 		}
 	}
