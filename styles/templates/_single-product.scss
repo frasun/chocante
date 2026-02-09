@@ -218,6 +218,12 @@
 
 			&__image {
 				max-width: 100%;
+
+				/* stylelint-disable-next-line no-descending-specificity */
+				a {
+					display: block;
+					text-align: center;
+				}
 			}
 
 			> .woocommerce-product-gallery__wrapper,

@@ -12,13 +12,14 @@
 	}
 
 	.product__diet-info {
+		--icon-size: 56px;
 		display: grid;
 		grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
 		row-gap: var(--spacing--20);
 		column-gap: var(--spacing--10);
 
 		@include max-width($breakpoint--desktop) {
-			height: calc(var(--icon-size) + var(--spacing--30));
+			height: calc(var(--icon-size));
 			overflow: hidden;
 			margin-bottom: var(--spacing--10);
 		}

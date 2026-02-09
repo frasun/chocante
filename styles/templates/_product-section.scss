@@ -31,7 +31,7 @@ $slider-navigation-size: 50px;
 		}
 	}
 
-	&__heading {
+	.product-section__heading {
 
 		@include font-style(page-title);
 
