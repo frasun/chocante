@@ -49,6 +49,8 @@ class Chocante_Product_Page {
 		add_action( 'woocommerce_after_variations_table', 'woocommerce_single_variation', 10 );
 		add_action( 'woocommerce_after_variations_table', 'woocommerce_single_variation_add_to_cart_button', 20 );
 		add_filter( 'woocommerce_show_variation_price', '__return_true' );
+		add_filter( 'woocommerce_reset_variations_link', '__return_false' );
+		add_filter( 'woocommerce_dropdown_variation_attribute_options_args', array( __CLASS__, 'select_variation' ) );
 
 		// Product attributes.
 		add_filter( 'woocommerce_display_product_attributes', array( __CLASS__, 'filter_product_attributes' ), 10, 2 );
@@ -305,5 +307,54 @@ class Chocante_Product_Page {
 		}
 
 		return $availability;
+	}
+
+	/**
+	 * Select product variation on page load
+	 *
+	 * Disable variation dropdown placeholder
+	 * Preselect variation:
+	 * 1. Variation param set in the url and available
+	 * 2. Default variation is defined and available
+	 * 3. Take first available variation
+	 *
+	 * @param array $args Variation attribute options.
+	 * @return array
+	 */
+	public static function select_variation( $args ) {
+		$args['show_option_none'] = false;
+		$args['attribute']        = 'pa_waga';
+
+		$product = $args['product'];
+
+		if ( $product instanceof WC_Product_Variable ) {
+			$variations = $product->get_available_variations();
+
+			if ( empty( $variations ) ) {
+				return $args;
+			}
+
+			$available_variations = array_column( array_column( $variations, 'attributes' ), "attribute_{$args['attribute']}" );
+			// Skip fetching and filtering options later.
+			$args['options'] = $available_variations;
+
+			// 1. Variation param set in the url and available.
+			$selected_key = 'attribute_' . sanitize_title( $args['attribute'] );
+		  // phpcs:disable WordPress.Security.NonceVerification.Recommended
+			if ( isset( $_REQUEST[ $selected_key ] ) && in_array( wc_clean( wp_unslash( $_REQUEST[ $selected_key ] ) ), $available_variations, true ) ) {
+				return $args;
+			}
+
+			// 2. Default variation is defined and available
+			$default_attribute = $product->get_variation_default_attribute( $args['attribute'] );
+			if ( in_array( $default_attribute, $available_variations, true ) ) {
+				return $args;
+			}
+
+			// 3. Take first available variation.
+			$args['selected'] = $available_variations[0];
+		}
+
+		return $args;
 	}
 }
