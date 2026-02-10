@@ -11,13 +11,11 @@ export default class QuantityInput {
 			throw new Error( QuantityInput.ERROR_MISSING_INPUT );
 		}
 
-		this.value = parseInt( this.input.value );
-		this.min = parseInt( this.input.min ) || null;
-		this.max = parseInt( this.input.max ) || null;
-		this.step = parseInt( this.input.step ) || 1;
-		this.readOnly = this.input.readOnly;
+		this.addQuantity = this.setQuantityPlus.bind( this );
+		this.subtractQuantity = this.setQuantityMinus.bind( this );
 
 		this.setupQuantityControls();
+
 		this.input.addEventListener( 'blur', this.setInputValue.bind( this ) );
 	}
 
@@ -65,13 +63,10 @@ export default class QuantityInput {
 	}
 
 	setupQuantityControls() {
-		const quantityPlus = this.quantityEl.querySelector(
-			QuantityInput.QUANTITY_PLUS
-		);
-		const quantityMinus = this.quantityEl.querySelector(
-			QuantityInput.QUANTITY_MINUS
-		);
-
+		this.value = parseInt( this.input.value );
+		this.min = parseInt( this.input.min ) || null;
+		this.max = parseInt( this.input.max ) || null;
+		this.step = parseInt( this.input.step ) || 1;
 		this.readOnly =
 			this.max &&
 			this.min &&
@@ -80,21 +75,30 @@ export default class QuantityInput {
 
 		this.input.readOnly = this.readOnly;
 
+		if ( this.max && this.value > this.max ) {
+			this.value = this.max;
+			this.input.value = this.value;
+		}
+
+		const quantityPlus = this.quantityEl.querySelector(
+			QuantityInput.QUANTITY_PLUS
+		);
+		const quantityMinus = this.quantityEl.querySelector(
+			QuantityInput.QUANTITY_MINUS
+		);
+
 		if ( ! quantityPlus || ! quantityMinus ) {
 			return;
 		}
 
 		if ( ! this.readOnly ) {
-			quantityPlus.addEventListener(
-				'click',
-				this.setQuantityPlus.bind( this )
-			);
-
-			quantityMinus.addEventListener(
-				'click',
-				this.setQuantityMinus.bind( this )
-			);
+			quantityPlus.addEventListener( 'click', this.addQuantity );
+			quantityMinus.addEventListener( 'click', this.subtractQuantity );
+			quantityPlus.disabled = false;
+			quantityMinus.disabled = false;
 		} else {
+			quantityPlus.removeEventListener( 'click', this.addQuantity );
+			quantityMinus.removeEventListener( 'click', this.subtractQuantity );
 			quantityPlus.disabled = true;
 			quantityMinus.disabled = true;
 		}
