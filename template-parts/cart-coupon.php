@@ -9,7 +9,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-if ( ! wc_coupons_enabled() ) { // @codingStandardsIgnoreLine.
+if ( ! wc_coupons_enabled() ) {
 	return;
 }
 ?>

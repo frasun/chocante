@@ -115,7 +115,7 @@ class Chocante_Account {
 
 		ob_start();
 		Chocante::icon( $icon );
-		echo ob_get_clean(); // @codingStandardsIgnoreLine.
+		echo wp_kses_post( ob_get_clean() );
 	}
 
 	/**
