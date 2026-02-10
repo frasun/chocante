@@ -124,15 +124,6 @@
 			margin-bottom: var(--spacing--20);
 		}
 
-		&-info,
-		&-error {
-
-			a:not(.button) {
-				display: inline-block;
-				vertical-align: text-top;
-			}
-		}
-
 		&-order {
 			--empty-screen--width: 850px;
 

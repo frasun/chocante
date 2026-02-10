@@ -489,7 +489,8 @@
 					"color": {
 						"text": "var:custom|color|contrast"
 					}
-				}
+				},
+				"css": "text-underline-offset: 0.2em"
 			}
 		},
 		"blocks": {
