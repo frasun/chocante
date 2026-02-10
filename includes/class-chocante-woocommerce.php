@@ -23,6 +23,11 @@ require_once __DIR__ . '/woocommerce/class-globkurier-shipping.php';
  */
 class Chocante_WooCommerce {
 	/**
+	 * Default product attribute used to create variations.
+	 */
+	const PRODUCT_WEIGHT_ATT = 'pa_waga';
+
+	/**
 	 * Bank account order needed to display account currency
 	 *
 	 * @todo: Remove with WCML.
@@ -59,7 +64,7 @@ class Chocante_WooCommerce {
 		// Cart & mini-cart.
 		add_filter( 'woocommerce_cart_item_remove_link', array( __CLASS__, 'use_remove_icon' ) );
 		add_filter( 'woocommerce_cart_item_name', array( __CLASS__, 'get_custom_product_name' ), 10, 2 );
-		add_filter( 'woocommerce_cart_item_price', array( __CLASS__, 'add_weight_to_price_in_cart' ), 10, 2 );
+		add_filter( 'woocommerce_cart_item_price', array( __CLASS__, 'modify_price_in_cart' ), 10, 2 );
 
 		// Cart & product page.
 		add_action( 'woocommerce_before_quantity_input_field', array( __CLASS__, 'display_remove_quantity_button' ) );
@@ -320,13 +325,15 @@ class Chocante_WooCommerce {
 	 * @param arrat  $cart_item Product item in cart.
 	 * @return string
 	 */
-	public static function add_weight_to_price_in_cart( $price, $cart_item ) {
+	public static function modify_price_in_cart( $price, $cart_item ) {
 		$product = $cart_item['data'];
 
 		if ( $product instanceof WC_Product_Variation ) {
-			$weight = $product->get_attribute( 'pa_waga' );
+			$weight = $product->get_attribute( self::PRODUCT_WEIGHT_ATT );
 
-			return "<div>{$price} <span class='woocommerce-price-suffix'>/ {$weight}</span></div>";
+			if ( isset( $weight ) ) {
+				return "<div>{$price} <span class='woocommerce-price-suffix'>/ {$weight}</span></div>";
+			}
 		}
 
 		return $price;
@@ -681,75 +688,24 @@ class Chocante_WooCommerce {
 			return $suffix;
 		}
 
-		$weight_att = 'pa_waga';
-		$weight     = self::get_product_attribute( $weight_att, $product );
-
-		if ( isset( $weight ) && '' !== $weight ) {
-			return "{$suffix} <small class='woocommerce-price-suffix'>/ {$weight}</small>";
-		}
-
-		return $suffix;
-	}
-
-	/**
-	 * Get attribute value of simple product or first visible variation
-	 *
-	 * @param string     $attribute_name Attribute name.
-	 * @param WC_Product $product Product object.
-	 */
-	public static function get_product_attribute( $attribute_name, $product ) {
-		// If product variable get first visible variation.
 		if ( $product instanceof WC_Product_Variable ) {
 			$visible_variations = $product->get_visible_children();
 
 			if ( empty( $visible_variations ) ) {
-				return null;
+				return $suffix;
 			}
 
 			$variation_id = $visible_variations[0];
 			$product      = wc_get_product( $variation_id );
 		}
 
-		$product_attributes = $product->get_attributes();
+		$weight = $product->get_attribute( self::PRODUCT_WEIGHT_ATT );
 
-		// If product variation get attribute slug.
-		$attribute = $product_attributes[ $attribute_name ];
-
-		// If simple product variation get attribute id.
-		if ( $attribute instanceof WC_Product_Attribute ) {
-			$attribute_options = $attribute->get_options();
-
-			if ( ! count( $attribute_options ) ) {
-				return null;
-			}
-
-			$attribute = $attribute_options[0];
+		if ( isset( $weight ) ) {
+			return "{$suffix} <small class='woocommerce-price-suffix'>/ {$weight}</small>";
 		}
 
-		$current_language    = has_filter( 'wpml_current_language' ) ? apply_filters( 'wpml_current_language', null ) : 'pl';
-		$chocante_attributes = wp_cache_get( "chocante_attributes_{$attribute_name}_{$current_language}", 'chocante', false, $found );
-
-		if ( false === $found ) {
-			$chocante_attributes = get_terms(
-				array(
-					'taxonomy' => $attribute_name,
-				)
-			);
-
-			wp_cache_set( "chocante_attributes_{$attribute_name}_{$current_language}", $chocante_attributes, 'chocante' );
-		}
-
-		foreach ( $chocante_attributes as $option ) {
-			if ( $product instanceof WC_Product_Variation ) {
-				if ( $option->slug === $attribute ) {
-						return $option->name;
-				}
-			} elseif ( $option->term_id === $attribute ) {
-				return $option->name;
-			}
-		}
-
-		return null;
+		return $suffix;
 	}
 
 	/**

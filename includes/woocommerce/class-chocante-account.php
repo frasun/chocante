@@ -249,7 +249,7 @@ class Chocante_Account {
 	 * @return string
 	 */
 	public static function modify_order_item_quantity( $quantity_html, $item ) {
-		$attribute   = 'pa_waga';
+		$attribute   = Chocante_WooCommerce::PRODUCT_WEIGHT_ATT;
 		$weight      = '';
 		$weight_slug = $item->get_meta( $attribute );
 

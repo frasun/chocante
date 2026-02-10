@@ -276,11 +276,10 @@ class Chocante_Product_Page {
 			// translators: Number of pieces.
 			$stock_amount = sprintf( __( '%s pcs', 'chocante' ), $product->get_stock_quantity() );
 
-			if ( $product instanceof WC_Product_Variation && function_exists( 'chocante_get_attribute' ) ) {
-				// @todo: move this function to theme.
-				$weight = chocante_get_attribute( 'pa_waga', $product );
+			if ( $product instanceof WC_Product_Variation ) {
+				$weight = $product->get_attribute( Chocante_WooCommerce::PRODUCT_WEIGHT_ATT );
 
-				if ( isset( $weight ) && '' !== $weight ) {
+				if ( isset( $weight ) ) {
 					return "{$weight} x {$stock_amount}";
 				}
 			}
@@ -323,7 +322,7 @@ class Chocante_Product_Page {
 	 */
 	public static function select_variation( $args ) {
 		$args['show_option_none'] = false;
-		$args['attribute']        = 'pa_waga';
+		$args['attribute']        = Chocante_WooCommerce::PRODUCT_WEIGHT_ATT;
 
 		$product = $args['product'];
 

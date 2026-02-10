@@ -103,7 +103,7 @@ class Chocante_Checkout {
 		$product = $cart_item['data'];
 
 		if ( $product instanceof WC_Product_Variation ) {
-			$weight = $product->get_attribute( 'pa_waga' );
+			$weight = $product->get_attribute( Chocante_WooCommerce::PRODUCT_WEIGHT_ATT );
 
 			return "<span class='product-variation-quantity'>{$weight}{$quantity_html}</div>";
 		}
@@ -119,7 +119,7 @@ class Chocante_Checkout {
 	 * @return string
 	 */
 	public static function modify_order_item_quantity( $quantity_html, $item ) {
-		$attribute   = 'pa_waga';
+		$attribute   = Chocante_WooCommerce::PRODUCT_WEIGHT_ATT;
 		$weight      = '';
 		$weight_slug = $item->get_meta( $attribute );
 
