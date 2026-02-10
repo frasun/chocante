@@ -9,7 +9,10 @@ export default class Modal {
 		this.open = false;
 
 		if ( this.toggle ) {
-			this.toggle.addEventListener( 'click', this.showMenu.bind( this ) );
+			this.toggle.addEventListener(
+				'click',
+				this.showModal.bind( this )
+			);
 		}
 
 		if ( this.breakpoint > 0 ) {
@@ -21,11 +24,11 @@ export default class Modal {
 		);
 
 		if ( this.close ) {
-			this.close.addEventListener( 'click', this.hideMenu.bind( this ) );
+			this.close.addEventListener( 'click', this.hideModal.bind( this ) );
 		}
 	}
 
-	showMenu() {
+	showModal() {
 		if ( ! this.checkBreakpoint() ) {
 			return;
 		}
@@ -38,7 +41,7 @@ export default class Modal {
 		window.addEventListener( 'resize', this.onResizeHandler );
 	}
 
-	hideMenu( event, resize = false ) {
+	hideModal( event, resize = false ) {
 		if ( event ) {
 			event.preventDefault();
 		}
@@ -52,6 +55,10 @@ export default class Modal {
 	}
 
 	checkBreakpoint() {
+		if ( 0 === this.breakpoint && 0 === this.breakpointHeight ) {
+			return true;
+		}
+
 		return (
 			( 0 === this.breakpoint
 				? false
@@ -64,7 +71,7 @@ export default class Modal {
 
 	onResize() {
 		if ( this.open && ! this.checkBreakpoint() ) {
-			this.hideMenu( null, true );
+			this.hideModal( null, true );
 		}
 	}
 }
