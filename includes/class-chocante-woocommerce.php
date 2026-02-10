@@ -25,6 +25,8 @@ class Chocante_WooCommerce {
 	/**
 	 * Bank account order needed to display account currency
 	 *
+	 * @todo: Remove with WCML.
+	 *
 	 * @var int $backs_order Order of queried bank account.
 	 */
 	private static $bacs_order = 0;
@@ -128,7 +130,7 @@ class Chocante_WooCommerce {
 		remove_filter( 'admin_head', 'wp_check_widget_editor_deps' );
 
 		// Thankyou / order emails - add currency from WCML.
-		if ( class_exists( 'WCML_Multi_Currency' ) ) {
+		if ( function_exists( 'wcml_is_multi_currency_on' ) && wcml_is_multi_currency_on() ) {
 			add_filter( 'woocommerce_bacs_account_fields', array( __CLASS__, 'add_currency_to_bank_details' ) );
 		}
 
