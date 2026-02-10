@@ -1,7 +1,3 @@
-// import Splide from '@splidejs/splide';
-
-const Splide = window.Splide || {};
-
 export default class Slider {
 	static TYPE_LOOP = 'loop';
 	static TYPE_SLIDE = 'slide';
@@ -36,7 +32,12 @@ export default class Slider {
 		return slidesCount > 1 ? Slider.TYPE_LOOP : Slider.TYPE_SLIDE;
 	}
 
-	initSlider() {
+	async initSlider() {
+		if ( ! window.Splide ) {
+			const splideJS = await import( '@splidejs/splide' );
+			window.Splide = splideJS.Splide;
+		}
+
 		const sliderType = this.getSliderType();
 		const wrapper = document.querySelector( this.sliderClass );
 		const labels =
@@ -49,7 +50,7 @@ export default class Slider {
 			this.slider.destroy( true );
 		}
 
-		this.slider = new Splide( this.sliderClass, {
+		this.slider = new window.Splide( this.sliderClass, {
 			type: sliderType,
 			perPage: 1,
 			gap: 20,

@@ -3,12 +3,9 @@ import Modal from './modal';
 import ChocanteWooCommerce from './woocommerce';
 import MenuScroll from './menu-scroll';
 import { MOBILE_BREAKPOINT, MOBILE_BREAKPOINT_HEIGHT } from './constants';
-// import Splide from '@splidejs/splide';
 import Accordion from './details';
 import PostSlider from './post-slider';
 import ContentSlider from './content-slider';
-
-const Splide = window.Splide || {};
 
 class Chocante {
 	constructor() {
@@ -57,76 +54,61 @@ class Chocante {
 		} );
 	}
 
-	initSliders() {
-		// @todo: Chocante - Bricks Change class to '.splide'.
-		const postSliders = document.querySelectorAll( '.post-slider' );
+	async initSliders() {
+		// Sliders in page header.
+		this.initPostSliders();
+		// Sliders with recent posts.
+		this.initBlogSliders();
+		// Sliders added in the editor.
+		this.initContentSliders();
+	}
 
-		Array.from( postSliders ).forEach( ( slider ) => {
-			new Splide( slider, {
-				type: 'fade',
-				arrows: false,
-				speed: 700,
-				rewind: true,
-				autoplay: true,
-			} ).mount();
-		} );
+	async importSlide() {
+		if ( ! window.Splide ) {
+			const splideJS = await import( '@splidejs/splide' );
+			window.Splide = splideJS.Splide;
+		}
+	}
 
-		const blogSliders = document.querySelectorAll( '.blog__slider' );
+	// Individual slider initializers
+	async initPostSliders() {
+		const sliders = document.querySelectorAll( '.post-slider' );
+		if ( sliders.length === 0 ) {
+			return;
+		}
 
-		Array.from( blogSliders ).forEach( ( slider ) => {
-			new PostSlider( slider );
-		} );
+		await this.importSlide();
 
-		// Sliders in the editor content
-		const contentSliders = document.querySelectorAll(
-			'.wp-block-group.splide'
-		);
-
-		Array.from( contentSliders ).forEach( ( slider ) => {
-			new ContentSlider( slider );
+		sliders.forEach( ( slider ) => {
+			window.requestAnimationFrame( () => {
+				new window.Splide( slider, {
+					type: 'fade',
+					arrows: false,
+					speed: 700,
+					rewind: true,
+					autoplay: true,
+				} ).mount();
+			} );
 		} );
 	}
 
-	// Sliders added by adding classes in the editor.
-	setEditorSliders() {
-		const contentSliders = document.querySelectorAll(
-			'.wp-block-group.splide'
-		);
-		const screenWidth = window.innerWidth;
+	async initBlogSliders() {
+		const sliders = document.querySelectorAll( '.blog__slider' );
 
-		if ( Array.from( contentSliders ).length ) {
-			for ( const sliderElement of Array.from( contentSliders ) ) {
-				const slider = new Splide( sliderElement, {
-					type: 'slide',
-					perPage: 1,
-					gap: 20,
-					drag: 'free',
-					snap: true,
-					speed: 350,
-					mediaQuery: 'min',
-					breakpoints: {
-						600: {
-							perPage: 2,
-						},
-						900: {
-							perPage: 3,
-						},
-						1180: {
-							gap: 30,
-							perPage: 4,
-						},
-					},
-					live: false,
-					slideFocus: false,
-				} );
+		sliders.forEach( ( slider ) => {
+			new PostSlider( slider );
+		} );
+	}
 
-				slider.mount();
-
-				if ( screenWidth >= 1024 ) {
-					slider.remove( '.splide--mobile' );
-				}
-			}
+	async initContentSliders() {
+		const sliders = document.querySelectorAll( '.wp-block-group.splide' );
+		if ( sliders.length === 0 ) {
+			return;
 		}
+
+		sliders.forEach( ( slider ) => {
+			new ContentSlider( slider );
+		} );
 	}
 }
 

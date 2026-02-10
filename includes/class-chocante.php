@@ -194,20 +194,8 @@ class Chocante {
 		wp_enqueue_script(
 			'chocante-js',
 			get_theme_file_uri( 'build/chocante-scripts.js' ),
-			array_merge( $scripts['dependencies'], array( 'wc-cart-fragments', 'splide-js' ) ),
+			array_merge( $scripts['dependencies'], array( 'wc-cart-fragments' ) ),
 			$scripts['version'],
-			array(
-				'in_footer' => true,
-				'strategy'  => 'defer',
-			)
-		);
-
-		// Splide.
-		wp_enqueue_script(
-			'splide-js',
-			'https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js',
-			array(),
-			'1.4',
 			array(
 				'in_footer' => true,
 				'strategy'  => 'defer',

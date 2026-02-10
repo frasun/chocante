@@ -1,7 +1,3 @@
-// import Splide from '@splidejs/splide';
-
-const Splide = window.Splide || {};
-
 export default class Slider {
 	static TYPE_LOOP = 'loop';
 	static TYPE_SLIDE = 'slide';
@@ -9,9 +5,6 @@ export default class Slider {
 	static SLIDE_CLASS = '.splide__slide:not(.splide__slide--clone)';
 
 	constructor( sliderEl ) {
-		// this.wrapperClass = `.${containerClass.replaceAll(' ', '.')}`;
-		// this.sliderClass = `${this.wrapperClass} ${Slider.SLIDER_CLASS}`;
-
 		this.sliderEl = sliderEl;
 
 		this.initSlider();
@@ -34,10 +27,13 @@ export default class Slider {
 		return slidesCount > 1 ? Slider.TYPE_LOOP : Slider.TYPE_SLIDE;
 	}
 
-	initSlider() {
+	async initSlider() {
+		if ( ! window.Splide ) {
+			const splideJS = await import( '@splidejs/splide' );
+			window.Splide = splideJS.Splide;
+		}
+
 		const sliderType = this.getSliderType();
-		// const wrapper = document.querySelector(this.sliderClass);
-		// const labels = 'aria' in wrapper.dataset ? wrapper.dataset.aria : undefined;
 
 		if ( this.slider ) {
 			if ( this.slider.is( sliderType ) ) {
@@ -46,31 +42,33 @@ export default class Slider {
 			this.slider.destroy( true );
 		}
 
-		this.slider = new Splide( this.sliderEl, {
-			type: sliderType,
-			perPage: 1,
-			gap: 20,
-			drag: 'free',
-			snap: true,
-			speed: 350,
-			mediaQuery: 'min',
-			breakpoints: {
-				600: {
-					perPage: 2,
+		window.requestAnimationFrame( () => {
+			this.slider = new window.Splide( this.sliderEl, {
+				type: sliderType,
+				perPage: 1,
+				gap: 20,
+				drag: 'free',
+				snap: true,
+				speed: 350,
+				mediaQuery: 'min',
+				breakpoints: {
+					600: {
+						perPage: 2,
+					},
+					900: {
+						perPage: 3,
+					},
+					1180: {
+						gap: 30,
+						perPage: 4,
+					},
 				},
-				900: {
-					perPage: 3,
-				},
-				1180: {
-					gap: 30,
-					perPage: 4,
-				},
-			},
-			// i18n: labels ? JSON.parse(labels) : {},
-			live: false,
-			slideFocus: false,
-		} );
+				// i18n: labels ? JSON.parse(labels) : {},
+				live: false,
+				slideFocus: false,
+			} );
 
-		this.slider.mount();
+			this.slider.mount();
+		} );
 	}
 }

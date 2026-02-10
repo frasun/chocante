@@ -128,8 +128,15 @@
 			&.splide {
 				visibility: visible;
 
-				.splide__arrows {
-					display: none;
+				.splide {
+
+					&__arrows {
+						display: none;
+					}
+
+					&__pagination {
+						position: relative;
+					}
 				}
 
 				@include min-width($breakpoint--desktop-md, "blocks") {

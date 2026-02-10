@@ -1,13 +1,15 @@
-// import Splide from '@splidejs/splide';
-const Splide = window.Splide || {};
-
 export default class Slider {
 	constructor( element ) {
 		this.sliderElement = element;
 		this.initSlider();
 	}
 
-	initSlider() {
+	async initSlider() {
+		if ( ! window.Splide ) {
+			const splideJS = await import( '@splidejs/splide' );
+			window.Splide = splideJS.Splide;
+		}
+
 		const sliderOptions = {
 			type: 'slide',
 			perPage: 1,
@@ -30,6 +32,11 @@ export default class Slider {
 			slideFocus: false,
 		};
 
-		this.slider = new Splide( this.sliderElement, sliderOptions ).mount();
+		window.requestAnimationFrame( () => {
+			this.slider = new window.Splide(
+				this.sliderElement,
+				sliderOptions
+			).mount();
+		} );
 	}
 }
