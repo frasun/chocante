@@ -162,9 +162,10 @@ class Chocante_WooCommerce {
 		// Globkurier.
 		add_filter( 'woocommerce_shipping_methods', array( __CLASS__, 'add_globkurier_shipping_method' ) );
 
-		// Performance.
-		add_filter( 'woocommerce_enqueue_styles', '__return_false' );
-		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'manage_woo_scripts' ), 1000 );
+		// EU VAT.
+		if ( class_exists( 'Chocante_VAT_EU' ) ) {
+			add_filter( 'wp_vat_eu_validator_PL', array( Chocante_Checkout::class, 'validate_nip' ), 10, 2 );
+		}
 	}
 
 	/**
@@ -584,80 +585,6 @@ class Chocante_WooCommerce {
 			'height' => 150,
 			'crop'   => 1,
 		);
-	}
-
-	/**
-	 * Load Woo non-critical scripts in footer
-	 */
-	public static function manage_woo_scripts() {
-		global $wp_scripts;
-
-		$footer_scripts = array(
-			'js-cookie',
-			'woocommerce',
-			'wc-single-product',
-		);
-
-		if ( is_product() ) {
-			$footer_scripts[] = 'flexslider';
-			$footer_scripts[] = 'photoswipe';
-			$footer_scripts[] = 'photoswipe-ui-default';
-		}
-
-		foreach ( $footer_scripts as $handle ) {
-			if ( isset( $wp_scripts->registered[ $handle ] ) ) {
-				$script = $wp_scripts->registered[ $handle ];
-
-				wp_dequeue_script( $handle );
-				wp_enqueue_script(
-					$handle,
-					$script->src,
-					$script->deps,
-					$script->ver,
-					array(
-						'in_footer' => true,
-						'strategy'  => 'defer',
-					)
-				);
-			}
-		}
-
-		global $wp_styles;
-
-		$async_styles = array(
-			'photoswipe',
-			'photoswipe-default-skin',
-		);
-
-		foreach ( $async_styles as $handle ) {
-			if ( isset( $wp_styles->registered[ $handle ] ) ) {
-				$style = $wp_styles->registered[ $handle ];
-
-				wp_deregister_style( $handle );
-
-				if ( is_product() ) {
-					wp_enqueue_style(
-						$handle,
-						$style->src,
-						$style->deps,
-						$style->ver,
-						'print'
-					);
-
-					add_filter(
-						'style_loader_tag',
-						function ( $html, $h ) use ( $handle ) {
-							if ( $h === $handle ) {
-								$html = str_replace( "media='print'", "media='print' onload=\"this.media='all'\"", $html );
-							}
-							return $html;
-						},
-						10,
-						2
-					);
-				}
-			}
-		}
 	}
 
 	/**

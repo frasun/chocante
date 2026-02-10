@@ -181,4 +181,26 @@ class Chocante_Checkout {
 			wp_send_json_success( $response_error );
 		}
 	}
+
+	/**
+	 * Non-EU VAT validation for PL
+	 *
+	 * @param null   $validator External VAT validator.
+	 * @param string $tax_id VAT number.
+	 * @return bool
+	 */
+	public static function validate_nip( $validator, $tax_id ) {
+		$weights = array( 6, 5, 7, 2, 3, 4, 5, 6, 7 );
+		$sum     = 0;
+
+		for ( $i = 0; $i < 9; $i++ ) {
+			$sum += $tax_id[ $i ] * $weights[ $i ];
+		}
+
+		if ( ( $sum % 11 ) % 10 === intval( $tax_id[9] ) ) {
+			return true;
+		}
+
+		return false;
+	}
 }

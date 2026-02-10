@@ -8,6 +8,8 @@
 
 defined( 'ABSPATH' ) || exit;
 
+require_once __DIR__ . '/performance.php';
+
 /**
  * Chocante class.
  */
@@ -100,22 +102,9 @@ class Chocante {
 		// Shortcodes.
 		add_action( 'init', array( __CLASS__, 'add_shortcodes' ) );
 
-		// Performance.
-		add_action( 'wp_head', array( __CLASS__, 'preload_assets' ), 1 );
-		if ( ! is_admin() ) {
-			add_action( 'wp_default_scripts', array( __CLASS__, 'disable_jquery_migrate' ) );
-		}
-		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'disable_block_styles' ), 1000 );
-		// WPML.
-		if ( class_exists( 'SitePress' ) ) {
-			add_action( 'wp_enqueue_scripts', array( __CLASS__, 'manage_wpml_scripts' ), 1000 );
-		}
-		// Curcy.
-		if ( class_exists( 'WOOMULTI_CURRENCY' ) || class_exists( 'WOOMULTI_CURRENCY_F' ) ) {
-			add_action( 'wp_enqueue_scripts', array( __CLASS__, 'manage_wmc_assets' ), 9999999 );
-			// Bufix with premium?
-			add_action( 'admin_enqueue_scripts', array( __CLASS__, 'admin_enqueue_scripts' ), 99 );
-		}
+		// Auto-updates.
+		add_filter( 'allow_minor_auto_core_updates', '__return_true' );
+		add_filter( 'allow_major_auto_core_updates', '__return_false' );
 	}
 
 	/**
@@ -143,25 +132,6 @@ class Chocante {
 		add_theme_support( 'block-template-parts' );
 		add_theme_support( 'custom-line-height' );
 		remove_theme_support( 'core-block-patterns' );
-	}
-
-	/**
-	 * Log values to wp-content/debug.log
-	 *
-	 * @param mixed $data Value to log.
-	 */
-	public static function debug_log( $data ) {
-		/* phpcs:disable */
-		if ( true === WP_DEBUG ) {
-			if(!isset($data)) {
-				error_log('null');
-				} elseif ( is_array( $data ) || is_object( $data ) ) {
-			error_log( print_r( $data, true ) );
-				} else {
-			error_log( $data );
-			}
-		}
-		/* phpcs:enable */
 	}
 
 	/**
@@ -604,197 +574,6 @@ class Chocante {
 	 */
 	public static function use_gd() {
 		return array( 'WP_Image_Editor_GD' );
-	}
-
-	/**
-	 * Preload critical assets
-	 */
-	public static function preload_assets() {
-		$links = array();
-
-		// Theme styles.
-		$styles  = self::asset( 'chocante' );
-		$links[] = array(
-			'path' => get_theme_file_uri( 'build/chocante.css' ) . '?ver=' . $styles['version'],
-			'as'   => 'style',
-		);
-
-		if ( is_singular( 'post' ) ) {
-			$post_styles = self::asset( 'single-post' );
-			$links[]     = array(
-				'path' => get_theme_file_uri( 'build/single-post.css' ) . '?ver=' . $post_styles['version'],
-				'as'   => 'style',
-			);
-		}
-
-		if ( is_home() ) {
-			$blog_styles = self::asset( 'blog' );
-			$links[]     = array(
-				'path' => get_theme_file_uri( 'build/blog.css' ) . '?ver=' . $blog_styles['version'],
-				'as'   => 'style',
-			);
-		}
-
-		// Fonts.
-		$fonts = array( 'fonts/montserrat-medium.woff2', 'fonts/montserrat-semibold.woff2', 'fonts/montserrat-bold.woff2', 'fonts/playfair_display-medium.woff2', 'build/fonts/glyphter.woff' );
-		foreach ( $fonts as $font ) {
-			$name    = explode( '.', $font );
-			$ext     = end( $name );
-			$links[] = array(
-				'path'  => get_theme_file_uri( $font ),
-				'as'    => 'font',
-				'extra' => array(
-					"type=\"font/{$ext}\"",
-					'crossorigin',
-				),
-			);
-		}
-
-		// jQuery preload hack.
-		global $wp_scripts;
-		if ( isset( $wp_scripts->registered['jquery'] ) ) {
-			$suffix  = wp_scripts_get_suffix();
-			$version = $wp_scripts->registered['jquery']->ver;
-			$links[] = array(
-				'path' => "/wp-includes/js/jquery/jquery{$suffix}.js?ver={$version}",
-				'as'   => 'script',
-			);
-		}
-
-		foreach ( $links as $link ) {
-			$extra = isset( $link['extra'] ) ? implode( ' ', $link['extra'] ) : '';
-			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-			echo "<link rel=\"preload\" href=\"{$link['path']}\" as=\"{$link['as']}\" {$extra} />";
-		}
-	}
-
-	/**
-	 * Disable jQuery migrate on frontend
-	 *
-	 * @param WP_Scripts $scripts WP Scripts object.
-	 */
-	public static function disable_jquery_migrate( $scripts ) {
-		if ( isset( $scripts->registered['jquery'] ) ) {
-			$scripts->registered['jquery']->deps = array_diff( $scripts->registered['jquery']->deps, array( 'jquery-migrate' ) );
-		}
-	}
-
-	/**
-	 * Disable WP blocks styles on pages without blocks.
-	 */
-	public static function disable_block_styles() {
-		global $post;
-
-		$has_blocks = false;
-		if ( isset( $post->post_content ) ) {
-			$has_blocks = has_blocks( $post->post_content );
-		}
-
-		if ( ! $has_blocks ) {
-			wp_dequeue_style( 'wp-block-library' );
-			wp_dequeue_style( 'wp-block-library-theme' );
-			wp_dequeue_style( 'global-styles' );
-			wp_dequeue_style( 'classic-theme-styles' );
-
-			if ( class_exists( 'WooCommerce' ) && function_exists( 'WC' ) ) {
-				wp_dequeue_style( 'wc-blocks-style' );
-				wp_deregister_style( 'wc-blocks-style' );
-			}
-		}
-	}
-
-	/**
-	 * Move WPML language switcher scripts to footer and disable styles (moved to main theme)
-	 */
-	public static function manage_wpml_scripts() {
-		global $wp_scripts;
-		global $wp_styles;
-
-		$wpml_dropdown  = 'wpml-legacy-dropdown';
-		$wpml_menu_item = 'wpml-menu-item';
-
-		foreach ( $wp_styles->queue as $handle ) {
-			if ( str_contains( $handle, $wpml_dropdown ) || str_contains( $handle, $wpml_menu_item ) ) {
-				wp_dequeue_style( $handle );
-				wp_deregister_style( $handle );
-			}
-		}
-
-		foreach ( $wp_scripts->queue as $handle ) {
-			$script = $wp_scripts->registered[ $handle ];
-
-			if ( str_contains( $handle, $wpml_dropdown ) ) {
-				wp_dequeue_script( $handle );
-				wp_enqueue_script(
-					$handle,
-					$script->src,
-					$script->deps,
-					$script->ver,
-					array(
-						'in_footer' => true,
-						'strategy'  => 'defer',
-					)
-				);
-			}
-		}
-	}
-
-	/**
-	 * Move Curcy scripts to footer and disable styles (moved to main theme)
-	 *
-	 * `woo` is a prefix for a free version
-	 * `woocommerce` for premium
-	 */
-	public static function manage_wmc_assets() {
-		global $wp_scripts;
-		$footer_scripts = array(
-			'woo-multi-currency',
-			'woo-multi-currency-cart',
-			'woocommerce-multi-currency',
-			'woocommerce-multi-currency-cart',
-		);
-
-		foreach ( $footer_scripts as $handle ) {
-			if ( isset( $wp_scripts->registered[ $handle ] ) ) {
-				$script = $wp_scripts->registered[ $handle ];
-
-				wp_dequeue_script( $handle );
-				wp_enqueue_script(
-					$handle,
-					$script->src,
-					$script->deps,
-					$script->ver,
-					array(
-						'in_footer' => true,
-						'strategy'  => 'defer',
-					)
-				);
-			}
-		}
-
-		wp_deregister_script( 'woocommerce-multi-currency-switcher' );
-		wp_dequeue_script( 'woocommerce-multi-currency-switcher' );
-		wp_deregister_script( 'woocommerce-multi-currency-convertor' );
-		wp_dequeue_script( 'woocommerce-multi-currency-convertor' );
-
-		wp_dequeue_style( 'woo-multi-currency' );
-		wp_dequeue_style( 'woocommerce-multi-currency' );
-		wp_dequeue_style( 'wmc-flags' );
-	}
-
-	/**
-	 * Fix Curcy admin scripts
-	 *
-	 * @todo check on update
-	 *
-	 * @param string $hook The current admin page.
-	 */
-	public static function admin_enqueue_scripts( $hook ) {
-		if ( 'toplevel_page_woocommerce-multi-currency' !== $hook ) {
-			return;
-		}
-
-		wp_enqueue_script( 'select2' );
 	}
 
 	/**
