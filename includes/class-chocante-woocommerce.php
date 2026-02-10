@@ -645,4 +645,11 @@ class Chocante_WooCommerce {
 			}
 		}
 	}
+
+	/**
+	 * Display product badges.
+	 */
+	public static function show_product_badge() {
+		get_template_part( 'template-parts/product', 'badge' );
+	}
 }
