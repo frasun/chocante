@@ -12,8 +12,19 @@ defined( 'ABSPATH' ) || exit;
  * Chocante_ACF class.
  */
 class Chocante_ACF {
-	const ACF_PRODUCT_TITLE = 'tekst_przed_tytulem';
-	const ACF_PRODUCT_TYPE  = 'tekst_po_tytule';
+	/**
+	 * ACF fields.
+	 */
+	const ACF_PRODUCT_TITLE                = 'tekst_przed_tytulem';
+	const ACF_PRODUCT_TYPE                 = 'tekst_po_tytule';
+	const ACF_PRODUCT_DETAILS              = 'szczegoly_produktu';
+	const ACF_PRODUCT_DETAILS_LABEL        = 'nazwa_parametru';
+	const ACF_PRODUCT_DETAILS_VALUE        = 'wartosc_parametru';
+	const ACF_PRODUCT_NUTRITION_DATA       = 'tabela_odzywcza';
+	const ACF_PRODUCT_NUTRITION_DATA_LABEL = 'parametry_';
+	const ACF_PRODUCT_NUTRITION_DATA_VALUE = 'wartosc_parametru';
+	const ACF_PRODUCT_FEATURED_THUMBNAIL   = 'zdjecie_do_slidera';
+	const ACF_CATEGORY_DESCRIPTION         = 'dlugi_opis_kategorii';
 
 	/**
 	 * Init hooks.
@@ -171,15 +182,15 @@ class Chocante_ACF {
 	 * @return array
 	 */
 	public static function add_product_attributes( $product_attributes, $product ) {
-		$field_name = 'szczegoly_produktu';
+		$field_name = self::ACF_PRODUCT_DETAILS;
 		$attributes = get_field( $field_name, $product->get_id() );
 
 		if ( $attributes ) {
 			$index = 0;
 			foreach ( $attributes as $attribute ) {
 				$product_attributes[ $field_name . '_' . $index ] = array(
-					'label' => $attribute['nazwa_parametru'],
-					'value' => $attribute['wartosc_parametru'],
+					'label' => $attribute[ self::ACF_PRODUCT_DETAILS_LABEL ],
+					'value' => $attribute[ self::ACF_PRODUCT_DETAILS_VALUE ],
 				);
 				++$index;
 			}
@@ -194,9 +205,9 @@ class Chocante_ACF {
 	public static function display_nutritional_data() {
 		global $product;
 
-		$data_field = get_field( 'tabela_odzywcza', $product->get_id() );
+		$data_field = get_field( self::ACF_PRODUCT_NUTRITION_DATA, $product->get_id() );
 
-		if ( ! $data_field ) {
+		if ( ! $data_field || ! is_array( $data_field ) ) {
 			return;
 		}
 
@@ -210,8 +221,8 @@ class Chocante_ACF {
 			array_push(
 				$data,
 				array(
-					'label' => $field['parametry_'],
-					'value' => $field['wartosc_parametru'],
+					'label' => $field[ self::ACF_PRODUCT_NUTRITION_DATA_LABEL ],
+					'value' => $field[ self::ACF_PRODUCT_NUTRITION_DATA_VALUE ],
 				)
 			);
 		}
@@ -236,7 +247,7 @@ class Chocante_ACF {
 		$queried_object       = get_queried_object();
 		$taxonomy             = $queried_object->taxonomy;
 		$term_id              = $queried_object->term_id;
-		$category_description = get_field( 'dlugi_opis_kategorii', $taxonomy . '_' . $term_id );
+		$category_description = get_field( self::ACF_CATEGORY_DESCRIPTION, $taxonomy . '_' . $term_id );
 
 		if ( $category_description ) {
 			echo '<div class="page-description">' . wp_kses_post( $category_description ) . '</div>';
@@ -306,7 +317,7 @@ class Chocante_ACF {
 	 * @return string|null
 	 */
 	public static function get_featured_thumbnail( $image, $product_id ) {
-		$thumbnail = get_field( 'zdjecie_do_slidera', $product_id );
+		$thumbnail = get_field( self::ACF_PRODUCT_FEATURED_THUMBNAIL, $product_id );
 
 		if ( $thumbnail ) {
 			if ( is_array( $thumbnail ) ) {
