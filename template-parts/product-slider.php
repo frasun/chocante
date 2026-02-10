@@ -12,6 +12,7 @@ if ( $args['products'] ) : ?>
 	<section class="splide product__slider" data-aria='<?php echo wp_json_encode( $args['labels'] ); ?>'>
 		<div class="splide__track">
 			<ul class="splide__list products">
+				<?php do_action( 'chocante_product_section_loop' ); ?>
 				<?php foreach ( $args['products'] as $product ) : ?>
 						<?php
 						$post_object = get_post( $product->get_id() );

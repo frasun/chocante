@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the Chocante theme.
 msgid ""
 msgstr ""
-"Project-Id-Version: Chocante 0.28.13\n"
+"Project-Id-Version: Chocante 0.29.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/chocante\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-02-06T20:03:43+00:00\n"
+"POT-Creation-Date: 2026-02-10T14:12:29+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: chocante\n"
@@ -59,10 +59,16 @@ msgctxt "blog"
 msgid "Other articles"
 msgstr ""
 
-#: includes/class-chocante-woocommerce.php:417
-#: template-parts/slide-product.php:25
+#: includes/class-chocante-woocommerce.php:424
+#: template-parts/slide-product.php:27
 msgctxt "product loop"
 msgid "Buy now"
+msgstr ""
+
+#. translators: Price range from value.
+#: includes/class-chocante-woocommerce.php:769
+#, php-format
+msgid "From %1$s"
 msgstr ""
 
 #: includes/class-chocante.php:173
@@ -194,18 +200,18 @@ msgctxt "checkout postcode validation"
 msgid "Postcode / ZIP is not valid."
 msgstr ""
 
-#: includes/woocommerce/class-chocante-product-page.php:174
+#: includes/woocommerce/class-chocante-product-page.php:176
 msgctxt "product slider"
 msgid "Products from category"
 msgstr ""
 
 #. translators: Number of pieces.
-#: includes/woocommerce/class-chocante-product-page.php:275
+#: includes/woocommerce/class-chocante-product-page.php:277
 #, php-format
 msgid "%s pcs"
 msgstr ""
 
-#: includes/woocommerce/class-chocante-product-page.php:303
+#: includes/woocommerce/class-chocante-product-page.php:305
 msgid "Last items in stock!"
 msgstr ""
 
@@ -335,7 +341,7 @@ msgid "Page with header"
 msgstr ""
 
 #: template-parts/breadcrumbs-post.php:13
-#: template-parts/slide-post.php:12
+#: template-parts/slide-post.php:13
 msgctxt "blog"
 msgid "Cacao Blog"
 msgstr ""
@@ -420,7 +426,7 @@ msgctxt "reading time"
 msgid "Reading time"
 msgstr ""
 
-#: template-parts/slide-post.php:16
+#: template-parts/slide-post.php:20
 msgctxt "blog"
 msgid "Read more"
 msgstr ""

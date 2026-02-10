@@ -108,7 +108,7 @@ class Chocante_Product_Page {
 			$image_size = 'woocommerce_single';
 			$image_url  = wp_get_attachment_image_url( $post_thumbnail_id, $image_size );
 
-		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			echo "<link rel=\"preload\" href=\"{$image_url}\" as=\"image\" />";
 		}
 	}

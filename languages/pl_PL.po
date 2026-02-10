@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Chocante 0.28.13\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/chocante\n"
-"POT-Creation-Date: 2026-02-06T20:03:43+00:00\n"
-"PO-Revision-Date: 2026-02-07 09:39+0100\n"
+"POT-Creation-Date: 2026-02-10T14:12:29+00:00\n"
+"PO-Revision-Date: 2026-02-10 15:12+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pl_PL\n"
@@ -59,11 +59,17 @@ msgctxt "blog"
 msgid "Other articles"
 msgstr "Pozostałe artykuły"
 
-#: includes/class-chocante-woocommerce.php:417
-#: template-parts/slide-product.php:25
+#: includes/class-chocante-woocommerce.php:424
+#: template-parts/slide-product.php:27
 msgctxt "product loop"
 msgid "Buy now"
 msgstr "Kup teraz"
+
+#. translators: Price range from value.
+#: includes/class-chocante-woocommerce.php:769
+#, php-format
+msgid "From %1$s"
+msgstr "Od %1$s"
 
 #: includes/class-chocante.php:173
 msgctxt "menu"
@@ -194,18 +200,18 @@ msgctxt "checkout postcode validation"
 msgid "Postcode / ZIP is not valid."
 msgstr "Kod pocztowy ma nieprawidłowy format."
 
-#: includes/woocommerce/class-chocante-product-page.php:174
+#: includes/woocommerce/class-chocante-product-page.php:176
 msgctxt "product slider"
 msgid "Products from category"
 msgstr "Produkty z kategorii"
 
 #. translators: Number of pieces.
-#: includes/woocommerce/class-chocante-product-page.php:275
+#: includes/woocommerce/class-chocante-product-page.php:277
 #, php-format
 msgid "%s pcs"
 msgstr "%s szt."
 
-#: includes/woocommerce/class-chocante-product-page.php:303
+#: includes/woocommerce/class-chocante-product-page.php:305
 msgid "Last items in stock!"
 msgstr "Końcówka zapasów!"
 
@@ -342,7 +348,7 @@ msgstr ""
 msgid "Page with header"
 msgstr ""
 
-#: template-parts/breadcrumbs-post.php:13 template-parts/slide-post.php:12
+#: template-parts/breadcrumbs-post.php:13 template-parts/slide-post.php:13
 msgctxt "blog"
 msgid "Cacao Blog"
 msgstr "Blog o kakao"
@@ -435,7 +441,7 @@ msgctxt "reading time"
 msgid "Reading time"
 msgstr "Czas czytania"
 
-#: template-parts/slide-post.php:16
+#: template-parts/slide-post.php:20
 msgctxt "blog"
 msgid "Read more"
 msgstr "Czytaj dalej"

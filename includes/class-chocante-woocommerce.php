@@ -93,9 +93,14 @@ class Chocante_WooCommerce {
 		remove_action( 'woocommerce_before_main_content', 'woocommerce_output_content_wrapper' );
 		add_action( 'woocommerce_before_main_content', array( __CLASS__, 'open_main_element' ) );
 		remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20 );
-
 		remove_action( 'woocommerce_after_main_content', 'woocommerce_output_content_wrapper_end' );
 		add_action( 'woocommerce_after_main_content', array( __CLASS__, 'close_main_element' ), 60 );
+
+		// Modify price display.
+		add_action( 'woocommerce_before_shop_loop', array( __CLASS__, 'set_price_display_modify' ) );
+		add_action( 'chocante_product_section_loop', array( __CLASS__, 'set_price_display_modify' ) );
+		add_filter( 'woocommerce_get_price_suffix', array( __CLASS__, 'add_price_suffix' ), 10, 4 );
+		add_filter( 'woocommerce_format_price_range', array( __CLASS__, 'modify_price_range' ), 10, 3 );
 
 		// Breadcrumbs.
 		add_filter( 'woocommerce_breadcrumb_defaults', array( __CLASS__, 'modify_breadcrumbs' ) );
@@ -653,5 +658,114 @@ class Chocante_WooCommerce {
 	 */
 	public static function show_product_badge() {
 		get_template_part( 'template-parts/product', 'badge' );
+	}
+
+	/**
+	 * Set global variable to modify price display
+	 */
+	public static function set_price_display_modify() {
+		global $chocante_display_price_modify;
+		$chocante_display_price_modify = true;
+	}
+
+	/**
+	 * Add product weight suffix to product listing
+	 *
+	 * @param html       $suffix System price suffix.
+	 * @param WC_Product $product Product object.
+	 */
+	public static function add_price_suffix( $suffix, $product ) {
+		global $chocante_display_price_modify;
+
+		if ( ! $chocante_display_price_modify || $product instanceof WC_Product_Simple ) {
+			return $suffix;
+		}
+
+		$weight_att = 'pa_waga';
+		$weight     = self::get_product_attribute( $weight_att, $product );
+
+		if ( isset( $weight ) && '' !== $weight ) {
+			return "{$suffix} <small class='woocommerce-price-suffix'>/ {$weight}</small>";
+		}
+
+		return $suffix;
+	}
+
+	/**
+	 * Get attribute value of simple product or first visible variation
+	 *
+	 * @param string     $attribute_name Attribute name.
+	 * @param WC_Product $product Product object.
+	 */
+	public static function get_product_attribute( $attribute_name, $product ) {
+		// If product variable get first visible variation.
+		if ( $product instanceof WC_Product_Variable ) {
+			$visible_variations = $product->get_visible_children();
+
+			if ( empty( $visible_variations ) ) {
+				return null;
+			}
+
+			$variation_id = $visible_variations[0];
+			$product      = wc_get_product( $variation_id );
+		}
+
+		$product_attributes = $product->get_attributes();
+
+		// If product variation get attribute slug.
+		$attribute = $product_attributes[ $attribute_name ];
+
+		// If simple product variation get attribute id.
+		if ( $attribute instanceof WC_Product_Attribute ) {
+			$attribute_options = $attribute->get_options();
+
+			if ( ! count( $attribute_options ) ) {
+				return null;
+			}
+
+			$attribute = $attribute_options[0];
+		}
+
+		$current_language    = has_filter( 'wpml_current_language' ) ? apply_filters( 'wpml_current_language', null ) : 'pl';
+		$chocante_attributes = wp_cache_get( "chocante_attributes_{$attribute_name}_{$current_language}", 'chocante', false, $found );
+
+		if ( false === $found ) {
+			$chocante_attributes = get_terms(
+				array(
+					'taxonomy' => $attribute_name,
+				)
+			);
+
+			wp_cache_set( "chocante_attributes_{$attribute_name}_{$current_language}", $chocante_attributes, 'chocante' );
+		}
+
+		foreach ( $chocante_attributes as $option ) {
+			if ( $product instanceof WC_Product_Variation ) {
+				if ( $option->slug === $attribute ) {
+						return $option->name;
+				}
+			} elseif ( $option->term_id === $attribute ) {
+				return $option->name;
+			}
+		}
+
+		return null;
+	}
+
+	/**
+	 * Format price range display on product listing
+	 *
+	 * @param html   $price Product price html.
+	 * @param string $from Price range from value.
+	 */
+	public static function modify_price_range( $price, $from ) {
+		global $chocante_display_price_modify;
+
+		if ( ! $chocante_display_price_modify ) {
+			return $price;
+		}
+
+		// translators: Price range from value.
+		return sprintf( esc_html__( 'From %1$s', 'chocante' ), is_numeric( $from ) ? wc_price( $from ) : $from );
 	}
 }
