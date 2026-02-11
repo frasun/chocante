@@ -166,6 +166,11 @@ class Chocante_WooCommerce {
 		if ( class_exists( 'Chocante_VAT_EU' ) ) {
 			add_filter( 'wp_vat_eu_validator_PL', array( Chocante_Checkout::class, 'validate_nip' ), 10, 2 );
 		}
+
+		// AJAX add to cart.
+		add_action( 'woocommerce_ajax_added_to_cart', array( __CLASS__, 'make_success_notice_on_add_to_cart' ) );
+		add_filter( 'woocommerce_cart_redirect_after_error', array( __CLASS__, 'make_error_notice_on_add_to_cart' ) );
+		add_filter( 'woocommerce_add_to_cart_fragments', array( __CLASS__, 'add_fragments_with_add_to_cart_notices' ) );
 	}
 
 	/**
@@ -650,5 +655,44 @@ class Chocante_WooCommerce {
 
 		// translators: Price range from value.
 		return sprintf( esc_html__( 'From %1$s', 'chocante' ), is_numeric( $from ) ? wc_price( $from ) : $from );
+	}
+
+	/**
+	 * Add notice on successful add to cart.
+	 *
+	 * @param int $product_id ID of added product.
+	 */
+	public static function make_success_notice_on_add_to_cart( $product_id ) {
+    // phpcs:disable WordPress.Security.NonceVerification.Missing, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		$quantity = empty( $_POST['quantity'] ) ? 1 : wc_stock_amount( wp_unslash( $_POST['quantity'] ) );
+
+		wc_add_to_cart_message( array( $product_id => $quantity ), true );
+	}
+
+	/**
+	 * Add notice on error add to cart.
+	 */
+	public static function make_error_notice_on_add_to_cart() {
+		WC_AJAX::get_refreshed_fragments();
+
+		return false;
+	}
+
+	/**
+	 * Include add to cart notices in cart fragments
+	 *
+	 * @param array $fragments WC fragments.
+	 * @return array
+	 */
+	public static function add_fragments_with_add_to_cart_notices( $fragments ) {
+		if ( wc_notice_count() > 0 ) {
+			$notices_html = wc_print_notices( true );
+
+			if ( ! empty( $notices_html ) ) {
+				$fragments['add-to-cart'] = $notices_html;
+			}
+		}
+
+		return $fragments;
 	}
 }

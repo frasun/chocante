@@ -304,6 +304,12 @@
 			font-weight: var(--font-weight--bold);
 			grid-column: 1 / span 3;
 		}
+
+		.ajax_add_to_cart.loading {
+			pointer-events: none;
+			cursor: wait;
+			animation: pulse 0.5s var(--wp--custom--transition--easing) infinite;
+		}
 	}
 
 	.variations {
@@ -355,5 +361,26 @@
 			padding-top: 80px;
 			padding-bottom: var(--spacing--100);
 		}
+	}
+
+	.added-to-cart-notice {
+		margin-top: var(--spacing--10);
+
+		.woocommerce-error:is(ul) li::before {
+			margin-right: var(--spacing--5);
+		}
+	}
+}
+
+
+@keyframes pulse {
+
+	0%,
+	100% {
+		color: rgba(255, 255, 255, 1);
+	}
+
+	50% {
+		color: rgba(255, 255, 255, 0.5);
 	}
 }

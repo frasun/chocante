@@ -33,19 +33,28 @@ if ( $product->is_in_stock() ) : ?>
 		<?php
 		do_action( 'woocommerce_before_add_to_cart_quantity' );
 
+		// phpcs:ignore WordPress.Security.NonceVerification.Missing, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		$quantity = isset( $_POST['quantity'] ) ? wc_stock_amount( wp_unslash( $_POST['quantity'] ) ) : $product->get_min_purchase_quantity();
+
 		woocommerce_quantity_input(
 			array(
 				'min_value'   => $product->get_min_purchase_quantity(),
 				'max_value'   => $product->get_max_purchase_quantity(),
-				// phpcs:ignore WordPress.Security.NonceVerification.Missing, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-				'input_value' => isset( $_POST['quantity'] ) ? wc_stock_amount( wp_unslash( $_POST['quantity'] ) ) : $product->get_min_purchase_quantity(),
+				'input_value' => $quantity,
 			)
 		);
 
 		do_action( 'woocommerce_after_add_to_cart_quantity' );
-		?>
 
-		<button type="submit" name="add-to-cart" value="<?php echo esc_attr( $product->get_id() ); ?>" class="single_add_to_cart_button button alt<?php echo esc_attr( wc_wp_theme_get_element_class_name( 'button' ) ? ' ' . wc_wp_theme_get_element_class_name( 'button' ) : '' ); ?>"><?php echo esc_html( $product->single_add_to_cart_text() ); ?></button>
+		printf(
+			'<button type="submit" name="add-to-cart" data-product_id="%s" data-quantity="%s" value="%s" class="%s">%s</button>',
+			esc_attr( $product->get_id() ),
+			esc_attr( $quantity ),
+			esc_attr( $product->get_id() ),
+			'single_add_to_cart_button add_to_cart_button ajax_add_to_cart button alt added_to_cart' . esc_attr( wc_wp_theme_get_element_class_name( 'button' ) ? ' ' . wc_wp_theme_get_element_class_name( 'button' ) : '' ),
+			esc_html( $product->single_add_to_cart_text() )
+		);
+		?>
 
 		<?php do_action( 'woocommerce_after_add_to_cart_button' ); ?>
 	</form>

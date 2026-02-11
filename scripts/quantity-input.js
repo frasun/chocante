@@ -58,7 +58,12 @@ export default class QuantityInput {
 
 	quantityChanged() {
 		this.input.dispatchEvent(
-			new Event( 'quantityInputChanged', { bubbles: true } )
+			new CustomEvent( 'quantityInputChanged', {
+				bubbles: true,
+				detail: {
+					quantity: this.value,
+				},
+			} )
 		);
 	}
 
