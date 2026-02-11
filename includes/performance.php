@@ -10,11 +10,15 @@ namespace Chocante\Performance;
 
 use Chocante;
 
+// Common.
 add_action( 'wp_head', __NAMESPACE__ . '\preload_assets', 1 );
+remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
+remove_action( 'wp_print_styles', 'print_emoji_styles' );
+add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\disable_block_styles', 1000 );
+
 if ( ! is_admin() ) {
 	add_action( 'wp_default_scripts', __NAMESPACE__ . '\disable_jquery_migrate' );
 }
-add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\disable_block_styles', 1000 );
 
 // WooCommerce.
 if ( class_exists( 'WooCommerce' ) ) {
@@ -32,9 +36,6 @@ if ( class_exists( 'WOOMULTI_CURRENCY' ) || class_exists( 'WOOMULTI_CURRENCY_F' 
 	// Bufix with premium?
 	add_action( 'admin_enqueue_scripts', __NAMESPACE__ . '\admin_enqueue_scripts', 99 );
 }
-
-remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
-remove_action( 'wp_print_styles', 'print_emoji_styles' );
 
 if ( 'production' === wp_get_environment_type() ) {
 	add_action( 'wp_head', __NAMESPACE__ . '\preconnect_to_sources', 1 );

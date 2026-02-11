@@ -8,8 +8,6 @@
 
 defined( 'ABSPATH' ) || exit;
 
-require_once __DIR__ . '/performance.php';
-
 /**
  * Chocante class.
  */

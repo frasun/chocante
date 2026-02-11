@@ -33,3 +33,5 @@ if ( class_exists( 'ACF' ) ) {
 	require_once get_theme_file_path( 'includes/class-chocante-acf.php' );
 	Chocante_ACF::init();
 }
+
+require_once get_theme_file_path( 'includes/performance.php' );
