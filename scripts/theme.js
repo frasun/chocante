@@ -28,7 +28,6 @@ class Chocante {
 		window.addEventListener( 'resize', this.setDropdownSize );
 
 		// Sliders.
-		// window.Splide = Splide;
 		document.addEventListener( 'DOMContentLoaded', () => {
 			this.initSliders();
 		} );

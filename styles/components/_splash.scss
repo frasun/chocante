@@ -187,8 +187,10 @@
 			}
 
 			.wp-block-buttons {
+				--wp--style--block-gap: var(--spacing--20);
+
+				gap: var(--wp--style--block-gap);
 				padding-top: var(--spacing--10);
-				align-items: flex-start;
 
 				@include min-width($breakpoint--desktop-sm, "blocks") {
 
@@ -202,7 +204,7 @@
 					&.wp-block-button__width-100 {
 
 						@include min-width($breakpoint--desktop-md, "blocks") {
-							max-width: calc(50% - var(--wp--style--block-gap, 0.5em) * 0.5);
+							flex-basis: calc(50% - var(--wp--style--block-gap, 0.5em) * 0.5);
 						}
 					}
 				}
