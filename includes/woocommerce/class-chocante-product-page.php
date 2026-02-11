@@ -204,7 +204,7 @@ class Chocante_Product_Page {
 				$weight = $product_attributes['weight'];
 				unset( $product_attributes['weight'] );
 				$keys  = array_keys( $product_attributes );
-				$index = array_search( 'attribute_pa_waga', $keys, true );
+				$index = array_search( 'attribute_' . Chocante_WooCommerce::PRODUCT_WEIGHT_ATT, $keys, true );
 
 				if ( false !== $index ) {
 					$before             = array_slice( $product_attributes, 0, $index + 1, true );
@@ -213,7 +213,7 @@ class Chocante_Product_Page {
 				}
 			}
 
-			unset( $product_attributes['attribute_pa_waga'] );
+			unset( $product_attributes[ 'attribute_' . Chocante_WooCommerce::PRODUCT_WEIGHT_ATT ] );
 		}
 
 		return $product_attributes;
