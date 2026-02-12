@@ -8,12 +8,18 @@
 
 defined( 'ABSPATH' ) || exit;
 
+if ( ! class_exists( 'WooCommerce' ) ) {
+	return;
+}
+
+use function Chocante\Assets\icon;
+
 $cart_count = WC()->cart->get_cart_contents_count();
 ?>
 
 <div class="mini-cart">
 	<a href="<?php echo esc_url( wc_get_cart_url() ); ?>" class="mini-cart__button" title="<?php esc_attr_e( 'Cart', 'woocommerce' ); ?>" aria-label="<?php esc_attr_e( 'Cart', 'woocommerce' ); ?>">
-		<?php Chocante::icon( 'cart' ); ?>
+		<?php icon( 'cart' ); ?>
 		<span class="mini-cart__count" data-count="<?php echo esc_attr( $cart_count ); ?>"></span>
 	</a>
 	<aside class="mini-cart__content">

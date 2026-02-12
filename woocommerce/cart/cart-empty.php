@@ -17,12 +17,14 @@
 
 defined( 'ABSPATH' ) || exit;
 
+use function Chocante\Assets\icon;
+
 do_action( 'woocommerce_cart_is_empty' );
 ?>
 
 <div class="wc-empty-cart-message empty-screen">
 	<figure>
-		<?php Chocante::icon( 'shopping-cart' ); ?>
+		<?php icon( 'shopping-cart' ); ?>
 	</figure>
 	<h1 class="page-title">
 		<?php echo esc_html_x( 'Cart is empty', 'cart', 'chocante' ); ?>

@@ -8,6 +8,8 @@
 
 defined( 'ABSPATH' ) || exit;
 
+use function Chocante\Assets\icon;
+
 if ( $args['products'] ) : ?>
 	<section class="splide posts-slider" data-aria='<?php echo wp_json_encode( $args['labels'] ); ?>'>
 		<div class="splide__track">
@@ -24,10 +26,10 @@ if ( $args['products'] ) : ?>
 			<?php wp_reset_postdata(); ?>
 			<nav class="splide__arrows">
 				<button class="splide__arrow splide__arrow--prev">
-					<?php Chocante::icon( 'prev' ); ?>
+					<?php icon( 'prev' ); ?>
 				</button>
 				<button class="splide__arrow splide__arrow--next">
-					<?php Chocante::icon( 'next' ); ?>
+					<?php icon( 'next' ); ?>
 				</button>
 			</nav>
 		</div>

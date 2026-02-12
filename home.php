@@ -8,6 +8,8 @@
 
 defined( 'ABSPATH' ) || exit;
 
+use function Chocante\Assets\icon;
+
 get_header();
 ?>
 <main role="main">
@@ -54,11 +56,11 @@ get_header();
 			</div>
 			<?php
 			ob_start();
-			Chocante::icon( 'prev' );
+			icon( 'prev' );
 			$prev_icon = ob_get_clean();
 
 			ob_start();
-			Chocante::icon( 'next' );
+			icon( 'next' );
 			$next_icon = ob_get_clean();
 
 			the_posts_pagination(

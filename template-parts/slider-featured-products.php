@@ -7,9 +7,12 @@
  */
 
 defined( 'ABSPATH' ) || exit;
+
+use function Chocante\Layout\ProductSection\get_products;
+
 ?>
 <?php
-	$fetured_products = Chocante_Product_Section::get_products( featured: true );
+	$fetured_products = get_products( featured: true );
 ?>
 
 <?php if ( ! empty( $fetured_products ) ) : ?>

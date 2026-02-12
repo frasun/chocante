@@ -7,6 +7,9 @@
  */
 
 defined( 'ABSPATH' ) || exit;
+
+use function Chocante\Assets\icon;
+
 ?>
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
@@ -29,7 +32,7 @@ defined( 'ABSPATH' ) || exit;
 
 				<div class="site-header__menu">
 					<button class="site-header__toggle" aria-label="<?php esc_html_e( 'Toggle menu', 'chocante' ); ?>" aria-expanded="false" aria-controls="mobileMenu">
-						<?php Chocante::icon( 'menu-toggle' ); ?>
+						<?php icon( 'menu-toggle' ); ?>
 					</button>
 
 					<?php

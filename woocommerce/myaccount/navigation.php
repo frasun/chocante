@@ -15,6 +15,8 @@
  * @version 9.3.0
  */
 
+use function Chocante\Layout\Account\get_menu_icon;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -27,7 +29,7 @@ do_action( 'woocommerce_before_account_navigation' );
 	<ul>
 		<?php foreach ( wc_get_account_menu_items() as $endpoint => $label ) : ?>
 			<li class="<?php echo esc_attr( wc_get_account_menu_item_classes( $endpoint ) ); ?>">
-				<a href="<?php echo esc_url( wc_get_account_endpoint_url( $endpoint ) ); ?>" <?php echo wc_is_current_account_menu_item( $endpoint ) ? 'aria-current="page"' : ''; ?>><?php Chocante_Account::get_menu_icon( $endpoint ); ?><?php echo esc_html( $label ); ?></a>
+				<a href="<?php echo esc_url( wc_get_account_endpoint_url( $endpoint ) ); ?>" <?php echo wc_is_current_account_menu_item( $endpoint ) ? 'aria-current="page"' : ''; ?>><?php get_menu_icon( $endpoint ); ?><?php echo esc_html( $label ); ?></a>
 			</li>
 		<?php endforeach; ?>
 	</ul>

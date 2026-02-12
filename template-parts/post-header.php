@@ -7,6 +7,8 @@
  */
 
 defined( 'ABSPATH' ) || exit;
+
+use function Chocante\Layout\Blog\get_reading_time;
 ?>
 
 <header class="single-post__header">
@@ -16,7 +18,7 @@ defined( 'ABSPATH' ) || exit;
 		'',
 		array(
 			// translators: reading time in minutes.
-			'reading_time' => sprintf( esc_html_x( '%d minute(s)', 'reading time', 'chocante' ), esc_html( Chocante::get_reading_time( $args['content'] ) ) ),
+			'reading_time' => sprintf( esc_html_x( '%d minute(s)', 'reading time', 'chocante' ), esc_html( get_reading_time( $args['content'] ) ) ),
 		)
 	);
 

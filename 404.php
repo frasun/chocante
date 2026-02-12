@@ -8,11 +8,13 @@
 
 defined( 'ABSPATH' ) || exit;
 
+use function Chocante\Assets\icon;
+
 get_header(); ?>
 
 <div class="empty-screen">
 	<figure>
-		<?php Chocante::icon( 'error' ); ?>
+		<?php icon( 'error' ); ?>
 	</figure>
 	<h1 class="page-title">
 		<?php echo esc_html_x( 'Page not found', '404', 'chocante' ); ?>

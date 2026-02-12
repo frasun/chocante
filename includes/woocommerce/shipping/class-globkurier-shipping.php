@@ -7,6 +7,10 @@
 
 defined( 'ABSPATH' ) || exit;
 
+if ( ! class_exists( 'WC_Shipping_Method' ) ) {
+	return;
+}
+
 /**
  * Globkurier_Shipping class.
  */

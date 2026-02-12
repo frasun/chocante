@@ -7,8 +7,10 @@
  */
 
 defined( 'ABSPATH' ) || exit;
+
+use function Chocante\Assets\icon;
 ?>
 
 <button class="search-products__display" title="<?php esc_attr_e( 'Search products', 'woocommerce' ); ?>" aria-label="<?php esc_attr_e( 'Search products', 'woocommerce' ); ?>">
-	<?php Chocante::icon( 'search' ); ?>
+	<?php icon( 'search' ); ?>
 </button>

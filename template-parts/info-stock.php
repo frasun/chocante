@@ -8,11 +8,13 @@
 
 defined( 'ABSPATH' ) || exit;
 
+use function Chocante\Assets\icon;
+
 global $product;
 ?>
 
 <div class="infobox__stock">
-	<?php Chocante::icon( 'box' ); ?>
+	<?php icon( 'box' ); ?>
 
 	<div>
 		<h6><?php echo esc_html_x( 'In stock', 'infobox', 'chocante' ); ?></h6>

@@ -8,6 +8,8 @@
 
 defined( 'ABSPATH' ) || exit;
 
+use function Chocante\Assets\icon;
+
 $icon    = isset( $args['icon'] ) ? $args['icon'] : null;
 $heading = isset( $args['heading'] ) ? $args['heading'] : null;
 $content = isset( $args['content'] ) ? $args['content'] : null;
@@ -16,7 +18,7 @@ $content = isset( $args['content'] ) ? $args['content'] : null;
 <div>
 	<?php
 	if ( isset( $icon ) ) {
-		Chocante::icon( $icon );
+		icon( $icon );
 	}
 	?>
 

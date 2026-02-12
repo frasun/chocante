@@ -7,6 +7,8 @@
  */
 
 defined( 'ABSPATH' ) || exit;
+
+use function Chocante\Layout\Common\spinner;
 ?>
 <section <?php echo esc_attr( isset( $args['section_id'] ) ? 'id="' . $args['section_id'] . '"' : '' ); ?> class="product-section product-section--<?php echo esc_attr( wp_rand() ); ?><?php echo esc_attr( $args['section_class'] ); ?>"<?php echo esc_attr( $args['filters'] ); ?>>
 	<header class="product-section__header">
@@ -24,6 +26,6 @@ defined( 'ABSPATH' ) || exit;
 	</div>
 	<?php endif; ?>
 	<div class="product-section__spinner">
-		<?php echo wp_kses_post( Chocante::spinner() ); ?>
+		<?php echo wp_kses_post( spinner() ); ?>
 	</div>
 </section>

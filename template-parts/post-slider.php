@@ -8,6 +8,8 @@
 
 defined( 'ABSPATH' ) || exit;
 
+use function Chocante\Assets\icon;
+
 $blog_posts = get_posts(
 	array(
 		'numberposts'      => 12,
@@ -38,10 +40,10 @@ if ( ! empty( $blog_posts ) ) : ?>
 			</ul>
 			<nav class="splide__arrows">
 				<button class="splide__arrow splide__arrow--prev">
-					<?php Chocante::icon( 'prev' ); ?>
+					<?php icon( 'prev' ); ?>
 				</button>
 				<button class="splide__arrow splide__arrow--next">
-					<?php Chocante::icon( 'next' ); ?>
+					<?php icon( 'next' ); ?>
 				</button>
 			</nav>
 		</div>

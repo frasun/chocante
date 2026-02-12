@@ -7,8 +7,10 @@
  */
 
 defined( 'ABSPATH' ) || exit;
+
+use function Chocante\Assets\icon;
 ?>
 
 <button data-close-modal aria-label="<?php esc_attr_e( 'Close' ); ?>" aria-controls="mobileMenu">
-	<?php Chocante::icon( 'close' ); ?>
+	<?php icon( 'close' ); ?>
 </button>
