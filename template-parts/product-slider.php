@@ -9,7 +9,7 @@
 defined( 'ABSPATH' ) || exit;
 
 if ( $args['products'] ) : ?>
-	<section class="splide product__slider" data-aria='<?php echo wp_json_encode( $args['labels'] ); ?>'>
+	<section class="splide posts-slider" data-aria='<?php echo wp_json_encode( $args['labels'] ); ?>'>
 		<div class="splide__track">
 			<ul class="splide__list products">
 				<?php do_action( 'chocante_product_section_loop' ); ?>

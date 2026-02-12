@@ -1,3 +1,4 @@
+// Splash slider with single post or product.
 .post-slider {
 	visibility: visible;
 
@@ -39,12 +40,97 @@
 	}
 }
 
-.blog__slider {
-	--post-thumbnail-size: 330px;
-
+// Common styles for sliders with products or posts.
+.posts-slider {
 	padding-left: var(--spacing--20);
 	padding-right: var(--spacing--20);
-	padding-bottom: var(--spacing--40);
+
+	.splide {
+		padding-left: var(--spacing--20);
+		padding-right: var(--spacing--20);
+
+		&.is-initialized {
+
+			.product {
+				opacity: 0.3;
+
+				&.is-visible {
+					opacity: 1;
+				}
+			}
+		}
+
+		&__track {
+			padding-left: 0;
+			padding-right: 0;
+			padding-top: var(--spacing--10);
+			overflow: visible;
+			max-width: calc(var(--size--container) - var(--wp--style--root--padding-right, var(--spacing--20)) - var(--wp--style--root--padding-left, var(--spacing--20)));
+			margin: auto;
+
+			@include min-width($breakpoint--desktop) {
+				padding-top: var(--spacing--20);
+
+				@include max-width($breakpoint--desktop + $slider-navigation-size) {
+					padding-bottom: var(--spacing--20);
+				}
+			}
+		}
+
+		&__arrow {
+
+			@include nav-button;
+
+			position: absolute;
+			top: 100%;
+			z-index: 10;
+			margin-top: var(--spacing--15);
+
+			@include min-width($breakpoint--desktop) {
+				margin-top: 0;
+			}
+
+			@include min-width($breakpoint--desktop + $slider-navigation-size) {
+				top: 50%;
+			}
+
+			&:disabled {
+				display: none;
+			}
+
+			&--prev {
+				left: 0;
+
+				@include min-width($breakpoint--desktop + $slider-navigation-size) {
+					transform: translate3d(-100%, -50%, 0);
+					left: -15px;
+				}
+			}
+
+			&--next {
+				right: 0;
+
+				@include min-width($breakpoint--desktop + $slider-navigation-size) {
+					transform: translate3d(100%, -50%, 0);
+					right: -15px;
+				}
+			}
+		}
+
+		&__pagination {
+			position: relative;
+			min-height: var(--spacing--50);
+
+			@include max-width($breakpoint--desktop) {
+				margin-top: var(--spacing--15);
+			}
+		}
+	}
+}
+
+// Slider with posts.
+.blog__slider {
+	--post-thumbnail-size: 330px;
 	max-width: none;
 	overflow: hidden;
 
@@ -108,67 +194,6 @@
 
 			@include min-width($breakpoint--desktop-md) {
 				min-width: var(--loop-item-width);
-			}
-		}
-
-		&__track {
-			padding-left: 0;
-			padding-right: 0;
-			padding-top: var(--spacing--10);
-			overflow: visible;
-			max-width: calc(var(--size--container) - var(--wp--style--root--padding-right, var(--spacing--20)) - var(--wp--style--root--padding-left, var(--spacing--20)));
-			margin: auto;
-
-			@include min-width($breakpoint--desktop) {
-				padding-top: var(--spacing--20);
-				padding-bottom: var(--spacing--20);
-			}
-		}
-
-		&__arrow {
-
-			@include nav-button;
-			position: absolute;
-			top: 100%;
-			z-index: 10;
-			margin-top: var(--spacing--15);
-
-			@include min-width($breakpoint--desktop + $slider-navigation-size) {
-				top: 50%;
-				margin-top: 0;
-			}
-
-			&:disabled {
-				display: none;
-			}
-
-			&--prev {
-				left: 0;
-
-				@include min-width($breakpoint--desktop + $slider-navigation-size) {
-					transform: translate3d(-100%, -50%, 0);
-					left: -15px;
-				}
-			}
-
-			&--next {
-				right: 0;
-
-				@include min-width($breakpoint--desktop + $slider-navigation-size) {
-					transform: translate3d(100%, -50%, 0);
-					right: -15px;
-				}
-			}
-		}
-	}
-
-	&.is-initialized {
-
-		.splide__slide {
-			opacity: 0.3;
-
-			&.is-visible {
-				opacity: 1;
 			}
 		}
 	}

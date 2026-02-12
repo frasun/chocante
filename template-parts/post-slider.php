@@ -18,7 +18,7 @@ $blog_posts = get_posts(
 );
 
 if ( ! empty( $blog_posts ) ) : ?>
-	<section class="splide product__slider blog__slider">
+	<section class="splide posts-slider blog__slider">
 		<div class="splide__track">
 			<ul class="splide__list products">
 				<?php foreach ( $blog_posts as $post ) : // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited ?>
