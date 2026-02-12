@@ -374,4 +374,8 @@
 			margin-bottom: 0.75em;
 		}
 	}
+
+	#terms {
+		scroll-margin-top: calc(var(--site-header--height, 0) + 20px);
+	}
 }

@@ -36,7 +36,10 @@
 	&-error {
 		--notice--background-color: var(--wp--custom--color--error-bg);
 		--notice--color: var(--wp--custom--color--error);
-		--notice--icon: url(../icons//icon-error.svg);
-		--notice--icon-color: var(--wp--custom--color--contrast);
+
+		&:is(:not(div)) {
+			--notice--icon: url(../icons//icon-error.svg);
+			--notice--icon-color: var(--wp--custom--color--contrast);
+		}
 	}
 }

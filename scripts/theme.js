@@ -7,6 +7,8 @@ import Accordion from './details';
 import PostSlider from './post-slider';
 import ContentSlider from './content-slider';
 
+const SITE_HEADER_HEIGHT = '--site-header--height';
+
 class Chocante {
 	constructor() {
 		// Modals.
@@ -23,7 +25,7 @@ class Chocante {
 		// Menu on scroll.
 		new MenuScroll( '#siteHeader' );
 
-		// Dropdowns - mini-cart, currency/language switcher etc.
+		// Dropdowns max-height - currency/language switcher etc.
 		this.setDropdownSize();
 		window.addEventListener( 'resize', this.setDropdownSize );
 
@@ -38,6 +40,10 @@ class Chocante {
 			.forEach( ( el ) => {
 				new Accordion( el );
 			} );
+
+		// Set global CSS variable so that scrolling to # can account for site header;
+		this.setSiteHeaderHeightProp();
+		window.addEventListener( 'resize', this.setSiteHeaderHeightProp );
 	}
 
 	setDropdownSize() {
@@ -109,26 +115,33 @@ class Chocante {
 			new ContentSlider( slider );
 		} );
 	}
+
+	setSiteHeaderHeightProp() {
+		const siteHeader = document.getElementById( 'siteHeader' );
+
+		if ( ! siteHeader ) {
+			return;
+		}
+
+		window.requestAnimationFrame( () => {
+			document.documentElement.style.setProperty(
+				SITE_HEADER_HEIGHT,
+				`${ siteHeader.offsetHeight }px`
+			);
+		} );
+	}
 }
 
 new Chocante();
 new ChocanteWooCommerce();
 
 jQuery( function ( $ ) {
-	// Include header when scrolling to notices.
-	// @see: /plugins/woocommerce/assets/js/frontend/woocommerce.js:87
-	// const SCROLL_OFFSET = 15;
 	const SCROLL_DURATION = 350;
 
 	$.scroll_to_notices = function ( scrollElement ) {
 		if ( scrollElement.length ) {
-			// const adminBarHeight = $( '#wpadminbar' ).length
-			// 	? $( '#wpadminbar' ).height()
-			// 	: 0;
-
 			$( 'html, body' ).animate(
 				{
-					// scrollTop: scrollElement.offset().top - $('.site-header').height() - SCROLL_OFFSET - adminBarHeight,
 					scrollTop: 0,
 				},
 				SCROLL_DURATION

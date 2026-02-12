@@ -111,4 +111,8 @@
 			margin-top: var(--spacing--10);
 		}
 	}
+
+	*[id] {
+		scroll-margin-top: calc(var(--site-header--height, 0) + 50px);
+	}
 }

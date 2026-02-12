@@ -15,38 +15,43 @@
 		padding-left: 20px !important;
 	}
 
-	&:is(ul) li::before,
-	&:is(:not(ul))::before {
-		content: var(--notice--icon);
-		margin-right: var(--spacing--5);
-		width: var(--notice-icon-size, 24px);
-		height: var(--notice-icon-size, 24px);
-		display: inline-block;
-		vertical-align: middle;
-	}
-
 	&:is(ul) {
 		display: flex;
 		flex-direction: column;
 		gap: var(--spacing--5);
 		list-style: none;
 		margin: 0;
+	}
 
-		li {
+	&:is(ul) li,
+	&:is(:not(ul)) {
 
-			&::before {
-				margin-right: var(--spacing--10);
-			}
+		&:has(span:only-child) {
+			display: flex;
+			gap: var(--spacing--5);
 		}
 	}
 
+	&:is(ul) li::before,
+	&:is(:not(ul))::before {
+		content: var(--notice--icon);
+		width: var(--notice-icon-size, 24px);
+		height: var(--notice-icon-size, 24px);
+		display: inline-block;
+		vertical-align: middle;
+		flex-shrink: 0;
+		margin-right: var(--spacing--5);
+	}
+
 	a:has(strong) {
-		--font-weight--bold: var(--font-weight--normal);
+		font-weight: var(--font-weight--normal);
+	}
+
+	a:not(:hover) {
+		color: inherit;
 	}
 
 	.button {
-		display: inline-block;
-		vertical-align: text-top;
 
 		&,
 		&:hover {

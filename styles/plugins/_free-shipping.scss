@@ -9,7 +9,7 @@
 .woocommerce-info[data-type="chocante-free-shipping"] {
 	--notice--icon: url(../icons/icon-shipping.svg);
 
-	span {
+	.woocommerce-Price-amount {
 		font-weight: var(--font-weight--bold);
 	}
 }
