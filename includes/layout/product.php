@@ -9,9 +9,11 @@
 namespace Chocante\Layout\Product;
 
 use function Chocante\Layout\ProductSection\display_product_section;
-use const Chocante\Woo\PRODUCT_WEIGHT_ATT;
+use function Chocante\Woo\get_variation_name;
 
 defined( 'ABSPATH' ) || exit;
+
+const PRODUCT_WEIGHT_ATT = 'pa_waga';
 
 remove_action( 'woocommerce_before_single_product', 'woocommerce_output_all_notices' );
 remove_action( 'woocommerce_before_single_product_summary', 'woocommerce_show_product_sale_flash', 10 );
@@ -44,7 +46,8 @@ add_action( 'woocommerce_after_variations_table', 'woocommerce_single_variation'
 add_action( 'woocommerce_after_variations_table', 'woocommerce_single_variation_add_to_cart_button', 20 );
 add_filter( 'woocommerce_show_variation_price', '__return_true' );
 add_filter( 'woocommerce_reset_variations_link', '__return_false' );
-add_filter( 'woocommerce_dropdown_variation_attribute_options_args', __NAMESPACE__ . '\select_variation' );
+add_filter( 'woocommerce_dropdown_variation_attribute_options_args', __NAMESPACE__ . '\hide_dropdown_placeholder' );
+add_filter( 'woocommerce_dropdown_variation_attribute_options_args', __NAMESPACE__ . '\select_variation_from_url' );
 
 // Product attributes.
 add_filter( 'woocommerce_display_product_attributes', __NAMESPACE__ . '\filter_product_attributes', 10, 2 );
@@ -136,6 +139,8 @@ function output_product_description() {
  * Show weight dimension for variable products in order to switch to chosen variation
  * Show weight attribute for simple attribute
  *
+ * @todo Revisit when sorting product attributes and use variation attribute only if weight not available.
+ *
  * @param array      $product_attributes Product attributes.
  * @param WC_Product $product Product object.
  * @return array
@@ -201,7 +206,7 @@ function add_atts_to_main_image( $image_attributes, $attachment_id, $image_size,
 }
 
 /**
- * Modify quantity text by adding weight info and suffix
+ * Modify quantity text by adding variation info
  *
  * @param string     $availability Availability text.
  * @param WC_Product $product Product object.
@@ -218,17 +223,14 @@ function get_stock_text( $availability, $product ) {
 
 	if ( $product->managing_stock() && $product->is_in_stock() && ! $product->is_on_backorder( 1 ) ) {
 		// translators: Number of pieces.
-		$stock_amount = sprintf( __( '%s pcs', 'chocante' ), $product->get_stock_quantity() );
+		$stock_amount   = sprintf( __( '%s pcs', 'chocante' ), $product->get_stock_quantity() );
+		$variation_name = get_variation_name( $product );
 
-		if ( $product instanceof \WC_Product_Variation ) {
-			$weight = $product->get_attribute( PRODUCT_WEIGHT_ATT );
-
-			if ( isset( $weight ) ) {
-				return "{$weight} x {$stock_amount}";
-			}
+		if ( ! $variation_name ) {
+			return $stock_amount;
 		}
 
-		return $stock_amount;
+		return "{$variation_name} &times; {$stock_amount}";
 	}
 
 	return $availability;
@@ -253,9 +255,20 @@ function display_low_amount_info( $availability, $product ) {
 }
 
 /**
+ * Hide variations dropdown placeholder
+ *
+ * @param array $args Variation attribute options.
+ * @return array
+ */
+function hide_dropdown_placeholder( $args ) {
+	$args['show_option_none'] = false;
+
+	return $args;
+}
+
+/**
  * Select product variation on page load
  *
- * Disable variation dropdown placeholder
  * Preselect variation:
  * 1. Variation param set in the url and available
  * 2. Default variation is defined and available
@@ -264,39 +277,39 @@ function display_low_amount_info( $availability, $product ) {
  * @param array $args Variation attribute options.
  * @return array
  */
-function select_variation( $args ) {
-	$args['show_option_none'] = false;
-	$args['attribute']        = PRODUCT_WEIGHT_ATT;
+function select_variation_from_url( $args ) {
+	$product       = $args['product'];
+	$attribute_key = 'attribute_' . $args['attribute'];
+	$children      = $product->get_visible_children();
 
-	$product = $args['product'];
-
-	if ( $product instanceof \WC_Product_Variable ) {
-		$variations = $product->get_available_variations();
-
-		if ( empty( $variations ) ) {
-			return $args;
-		}
-
-		$available_variations = array_column( array_column( $variations, 'attributes' ), "attribute_{$args['attribute']}" );
-		// Skip fetching and filtering options later.
-		$args['options'] = $available_variations;
-
-		// 1. Variation param set in the url and available.
-		$selected_key = 'attribute_' . sanitize_title( $args['attribute'] );
-	// phpcs:disable WordPress.Security.NonceVerification.Recommended
-		if ( isset( $_REQUEST[ $selected_key ] ) && in_array( wc_clean( wp_unslash( $_REQUEST[ $selected_key ] ) ), $available_variations, true ) ) {
-			return $args;
-		}
-
-		// 2. Default variation is defined and available
-		$default_attribute = $product->get_variation_default_attribute( $args['attribute'] );
-		if ( in_array( $default_attribute, $available_variations, true ) ) {
-			return $args;
-		}
-
-		// 3. Take first available variation.
-		$args['selected'] = $available_variations[0];
+	if ( empty( $children ) ) {
+		return $args;
 	}
+
+	$args['options'] = array();
+
+	foreach ( $children as $variation_id ) {
+		$variation_option = get_post_meta( $variation_id, $attribute_key, true );
+
+		if ( $variation_option ) {
+			$args['options'][] = $variation_option;
+		}
+	}
+
+	// 1. Variation param set in the url and available.
+	// phpcs:disable WordPress.Security.NonceVerification.Recommended
+	if ( isset( $_REQUEST[ $attribute_key ] ) && in_array( wc_clean( wp_unslash( $_REQUEST[ $attribute_key ] ) ), $args['options'], true ) ) {
+		return $args;
+	}
+
+	// 2. Default variation is defined and available
+	$default_attribute = $product->get_variation_default_attribute( $args['attribute'] );
+	if ( in_array( $default_attribute, $args['options'], true ) ) {
+		return $args;
+	}
+
+	// 3. Take first available variation.
+	$args['selected'] = $args['options'][0];
 
 	return $args;
 }

@@ -10,11 +10,6 @@ namespace Chocante\Woo;
 
 defined( 'ABSPATH' ) || exit;
 
-/**
- * Default product attribute used to create variations.
- */
-const PRODUCT_WEIGHT_ATT = 'pa_waga';
-
 // Mini-cart count.
 add_filter( 'woocommerce_add_to_cart_fragments', __NAMESPACE__ . '\update_mini_cart_count' );
 
@@ -115,7 +110,7 @@ function set_price_display_modify() {
 }
 
 /**
- * Add product weight suffix to product listing
+ * Add variation suffix to product price
  *
  * @param html       $suffix System price suffix.
  * @param WC_Product $product Product object.
@@ -123,7 +118,7 @@ function set_price_display_modify() {
 function add_price_suffix( $suffix, $product ) {
 	global $chocante_display_price_modify;
 
-	if ( ! $chocante_display_price_modify || $product instanceof \WC_Product_Simple ) {
+	if ( ! $chocante_display_price_modify ) {
 		return $suffix;
 	}
 
@@ -134,14 +129,12 @@ function add_price_suffix( $suffix, $product ) {
 			return $suffix;
 		}
 
-		$variation_id = $visible_variations[0];
-		$product      = wc_get_product( $variation_id );
-	}
+		$variation_id   = reset( $visible_variations );
+		$variation_name = get_variation_name( wc_get_product( $variation_id ) );
 
-	$weight = $product->get_attribute( PRODUCT_WEIGHT_ATT );
-
-	if ( isset( $weight ) ) {
-		return "{$suffix} <small class='woocommerce-price-suffix'>/ {$weight}</small>";
+		if ( $variation_name ) {
+			$suffix .= " <small class='woocommerce-price-suffix'>/ {$variation_name}</small>";
+		}
 	}
 
 	return $suffix;
@@ -246,4 +239,25 @@ function validate_postcode() {
 
 		wp_send_json_success( $response_error );
 	}
+}
+
+/**
+ * Gets display label of the first variation term
+ *
+ * @param WC_Product_Variation $product Variation product object.
+ * @return string|false
+ */
+function get_variation_name( $product ) {
+	if ( ! $product instanceof \WC_Product_Variation ) {
+		return false;
+	}
+
+	$variation_attributes = $product->get_variation_attributes( false );
+	$variation_term       = get_term_by( 'slug', reset( $variation_attributes ), array_key_first( $variation_attributes ) );
+
+	if ( ! $variation_term ) {
+		return false;
+	}
+
+	return $variation_term->name;
 }

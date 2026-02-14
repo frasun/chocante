@@ -10,7 +10,7 @@ namespace Chocante\Layout\Cart;
 
 use function Chocante\Layout\ProductSection\display_product_section;
 use function Chocante\Assets\icon;
-use const Chocante\Woo\PRODUCT_WEIGHT_ATT;
+use function Chocante\Woo\get_variation_name;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -28,7 +28,7 @@ remove_action( 'woocommerce_cart_is_empty', 'wc_empty_cart_message', 10 );
 
 // Cart & mini-cart.
 add_filter( 'woocommerce_cart_item_remove_link', __NAMESPACE__ . '\use_remove_icon' );
-add_filter( 'woocommerce_cart_item_name', __NAMESPACE__ . '\get_custom_product_name', 10, 2 );
+add_filter( 'woocommerce_cart_item_name', __NAMESPACE__ . '\display_product_name_with_link', 10, 2 );
 add_filter( 'woocommerce_cart_item_price', __NAMESPACE__ . '\modify_price_in_cart', 10, 2 );
 
 // Mini-cart.
@@ -130,41 +130,36 @@ function use_remove_icon( $remove_link ) {
 }
 
 /**
- * Display product name without variation data in cart
+ * Display product name without variation data
  *
  * @param string $product_name Product title.
  * @param array  $cart_item Product in the cart.
  * @return string
  */
-function get_custom_product_name( $product_name, $cart_item ) {
-	$product = $cart_item['data'];
+function display_product_name_with_link( $product_name, $cart_item ) {
+	$product              = $cart_item['data'];
+	$product_display_name = $product->get_title();
 
-	if ( $product instanceof \WC_Product_Variation ) {
-		$parent_id = $product->get_parent_id();
-		$parent    = wc_get_product( $parent_id );
-
-		return sprintf( '<a href="%s">%s</a>', esc_url( $product->get_permalink() ), $parent->get_name() );
+	if ( $product->is_visible() ) {
+		return sprintf( '<a href="%s">%s</a>', esc_url( $product->get_permalink() ), $product_display_name );
 	}
 
-	return $product_name;
+	return $product_display_name;
 }
 
 /**
- * Display weight suffix for product variations next to price in cart & mini-cart.
+ * Display variation suffix next to price in cart & mini-cart.
  *
  * @param string $price Search form HTML.
  * @param arrat  $cart_item Product item in cart.
  * @return string
  */
 function modify_price_in_cart( $price, $cart_item ) {
-	$product = $cart_item['data'];
+	$product        = $cart_item['data'];
+	$variation_name = get_variation_name( $product );
 
-	if ( $product instanceof \WC_Product_Variation ) {
-		$weight = $product->get_attribute( PRODUCT_WEIGHT_ATT );
-
-		if ( isset( $weight ) ) {
-			return "<div>{$price} <span class='woocommerce-price-suffix'>/ {$weight}</span></div>";
-		}
+	if ( $variation_name ) {
+		$price .= " <span class='woocommerce-price-suffix'>/ {$variation_name}</span>";
 	}
 
 	return $price;

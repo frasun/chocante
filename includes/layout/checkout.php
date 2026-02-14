@@ -8,8 +8,6 @@
 
 namespace Chocante\Layout\Checkout;
 
-use const Chocante\Woo\PRODUCT_WEIGHT_ATT;
-
 defined( 'ABSPATH' ) || exit;
 
 add_action( 'woocommerce_before_checkout_form', __NAMESPACE__ . '\display_page_title', 1 );
@@ -27,9 +25,6 @@ add_action( 'woocommerce_checkout_after_customer_details', __NAMESPACE__ . '\sho
 // Thank you.
 remove_action( 'woocommerce_thankyou', 'woocommerce_order_details_table', 10 );
 
-// Order pay.
-add_filter( 'woocommerce_order_item_quantity_html', __NAMESPACE__ . '\modify_order_item_quantity', 10, 2 );
-
 /**
  * Display page title
  */
@@ -45,42 +40,20 @@ function display_page_title() {
  * @return string
  */
 function modify_item_quantity( $quantity_html, $cart_item ) {
-	$product = $cart_item['data'];
+	$product        = $cart_item['data'];
+	$quantity       = $cart_item['quantity'];
+	$quantity_label = sprintf( '&times; %s', $quantity );
+	$variation      = $cart_item['variation'];
 
-	if ( $product instanceof \WC_Product_Variation ) {
-		$weight = $product->get_attribute( PRODUCT_WEIGHT_ATT );
+	if ( ! empty( $variation ) ) {
+		$variation_term = get_term_by( 'slug', reset( $variation ), str_replace( 'attribute_', '', array_key_first( $variation ) ) );
 
-		return "<span class='product-variation-quantity'>{$weight}{$quantity_html}</div>";
-	}
-
-	return $quantity_html;
-}
-
-/**
- * Modify order item quantity in order details
- *
- * @param string        $quantity_html Order line item quantity HTML.
- * @param WC_Order_Item $item Order line item.
- * @return string
- */
-function modify_order_item_quantity( $quantity_html, $item ) {
-	$attribute   = PRODUCT_WEIGHT_ATT;
-	$weight      = '';
-	$weight_slug = $item->get_meta( $attribute );
-
-	if ( $weight_slug ) {
-		$term = get_term_by( 'slug', $item->get_meta( $attribute ), $attribute );
-
-		if ( ! is_wp_error( $term ) ) {
-			$weight = $term->name;
-		}
-
-		if ( ! empty( $weight ) ) {
-			return "<span class='product-variation-quantity'>{$weight}{$quantity_html}</div>";
+		if ( $variation_term ) {
+			$quantity_label = sprintf( '%s &times; %s', $quantity, $variation_term->name );
 		}
 	}
 
-	return $quantity_html;
+	return '<span class="product-quantity">' . $quantity_label . '</span>';
 }
 
 /**
