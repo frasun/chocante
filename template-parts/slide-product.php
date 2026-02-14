@@ -45,8 +45,8 @@ $product_thumbnail = apply_filters( 'chocante_featured_products_thumbnail', $pro
 					'medium_large',
 					false,
 					array(
-						'fetchpriority' => true === $args['first'] ? 'high' : 'low',
-						'loading'       => true === $args['first'] ? 'eager' : 'lazy',
+						'fetchpriority' => isset( $args['first'] ) ? 'high' : 'low',
+						'loading'       => isset( $args['first'] ) ? 'eager' : 'lazy',
 					)
 				);
 				?>

@@ -8,12 +8,11 @@
 
 namespace Chocante\Assets;
 
-use Chocante\Assets_Handler;
-
 defined( 'ABSPATH' ) || exit;
 
+use Chocante\Assets_Handler;
+
 add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\enqueue_scripts', 20 );
-add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\disable_block_styles', 1000 );
 add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\manage_external_scripts', 1100 );
 add_action( 'wp_head', __NAMESPACE__ . '\preload_assets', 0 );
 add_action( 'wp_head', __NAMESPACE__ . '\preconnect_to_sources', 1 );
@@ -29,6 +28,7 @@ add_action( 'enqueue_block_editor_assets', __NAMESPACE__ . '\enqueue_editor_asse
  * Enqueue scripts & styles
  */
 function enqueue_scripts() {
+	// Theme assets.
 	$styles  = array();
 	$scripts = array();
 
@@ -94,8 +94,8 @@ function enqueue_scripts() {
 		}
 	}
 
-	add_styles( $styles );
-	add_scripts( $scripts );
+	add_theme_styles( $styles );
+	add_theme_scripts( $scripts );
 
 	if ( class_exists( 'WooCommerce' ) ) {
 		// WooCommerce cart fragments.
@@ -120,7 +120,7 @@ function enqueue_scripts() {
  *
  * @param array $styles Style assets data.
  */
-function add_styles( $styles ) {
+function add_theme_styles( $styles ) {
 	foreach ( $styles as $handle ) {
 		$asset = Assets_Handler::include( $handle );
 
@@ -138,7 +138,7 @@ function add_styles( $styles ) {
  *
  * @param array $scripts Script assets data.
  */
-function add_scripts( $scripts ) {
+function add_theme_scripts( $scripts ) {
 	foreach ( $scripts as $handle => $asset ) {
 		$script = Assets_Handler::include( $asset['filename'] );
 
@@ -319,28 +319,6 @@ function disable_jquery_migrate( $scripts ) {
 
 	if ( isset( $scripts->registered['jquery'] ) ) {
 		$scripts->registered['jquery']->deps = array_diff( $scripts->registered['jquery']->deps, array( 'jquery-migrate' ) );
-	}
-}
-
-
-/**
- * Disable WP blocks styles on pages without blocks.
- */
-function disable_block_styles() {
-	global $post;
-
-	$has_blocks = false;
-	if ( isset( $post->post_content ) ) {
-		$has_blocks = has_blocks( $post->post_content );
-	}
-
-	if ( ! $has_blocks ) {
-		add_filter(
-			'chocante_assets_styles_remove',
-			function ( $styles ) {
-				return array_merge( $styles, array( 'wp-block-library', 'wp-block-library-theme', 'global-styles', 'classic-theme-styles' ) );
-			}
-		);
 	}
 }
 

@@ -10,19 +10,26 @@ defined( 'ABSPATH' ) || exit;
 
 use function Chocante\Assets\icon;
 
+$sticky_posts = new WP_Query(
+	array(
+		'post_type' => 'post',
+		'post__in'  => get_option( 'sticky_posts' ),
+	)
+);
+
+$has_sticky_posts = $sticky_posts->have_posts();
+
+// Load block styles for the posts slider.
+if ( $has_sticky_posts ) {
+	wp_enqueue_style( 'wp-block-media-text' );
+	wp_enqueue_style( 'wp-block-buttons' );
+}
+
 get_header();
 ?>
 <main role="main">
-	<?php
-		$sticky_posts = new WP_Query(
-			array(
-				'post_type' => 'post',
-				'post__in'  => get_option( 'sticky_posts' ),
-			)
-		);
-		?>
 
-	<?php if ( $sticky_posts->have_posts() ) : ?>
+	<?php if ( $has_sticky_posts ) : ?>
 		<header class="post-slider-container featured-posts wp-site-blocks is-layout-constrained has-global-padding">
 			<?php
 			get_template_part(
