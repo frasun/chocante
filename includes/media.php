@@ -40,7 +40,7 @@ function set_image_format( $formats ) {
 /**
  * Set quality of uploaded images
  */
-function set_images_quality() {
+function set_image_quality() {
 	return IMAGE_QUALITY;
 }
 
