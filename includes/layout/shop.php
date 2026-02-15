@@ -47,7 +47,7 @@ function set_catalog_ordering_options() {
  * Open loop section
  */
 function open_shop_loop_wrapper() {
-	echo '<section class="shop-loop">';
+	echo '<section id="shop" class="shop-loop">';
 	echo '<div class="shop-loop__container">';
 }
 

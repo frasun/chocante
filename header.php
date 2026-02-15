@@ -26,7 +26,7 @@ use function Chocante\Assets\icon;
 			dynamic_sidebar( 'header-affix' );
 		}
 		?>
-		<div class="site-header__main">
+		<div class="site-header__main" data-header-scroll="true">
 			<div class="site-header__container">
 				<?php get_template_part( 'template-parts/menu-top' ); ?>
 

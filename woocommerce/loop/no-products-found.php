@@ -23,7 +23,7 @@ defined( 'ABSPATH' ) || exit;
 	<?php
 	if ( ! is_search() && ( woocommerce_products_will_display() || ( class_exists( 'Chocante_Product_Filters' ) && Chocante_Product_Filters::instance()->has_filters() ) ) ) :
 		?>
-		<a href="<?php echo esc_url( add_query_arg( 'reset', 'true', strtok( get_pagenum_link(), '?' ) ) ); ?>" class="button"><?php esc_html_e( 'Reset filters', 'chocante-product-filters' ); ?></a>
+		<a href="<?php echo esc_url( get_permalink( wc_get_page_id( 'shop' ) ) . '#shop' ); ?>" class="button"><?php esc_html_e( 'Reset filters', 'chocante-product-filters' ); ?></a>
 		<span><?php echo esc_html_x( 'or', 'no products found', 'chocante' ); ?></span>
 	<?php endif; ?>
 	<a href="<?php echo esc_url( get_permalink( wc_get_page_id( 'shop' ) ) ); ?>" class="button button--sm"><?php esc_html_e( 'Go to shop', 'woocommerce' ); ?></a>

@@ -1,13 +1,11 @@
 import ModalService from './modal-service';
 import Modal from './modal';
 import ChocanteWooCommerce from './woocommerce';
-import MenuScroll from './menu-scroll';
+import HeaderScroll from './menu-scroll';
 import { MOBILE_BREAKPOINT, MOBILE_BREAKPOINT_HEIGHT } from './constants';
 import Accordion from './details';
 import PostSlider from './post-slider';
 import ContentSlider from './content-slider';
-
-const SITE_HEADER_HEIGHT = '--site-header--height';
 
 class Chocante {
 	constructor() {
@@ -23,16 +21,14 @@ class Chocante {
 		);
 
 		// Menu on scroll.
-		new MenuScroll( '#siteHeader' );
+		new HeaderScroll( '#siteHeader' );
 
 		// Dropdowns max-height - currency/language switcher etc.
 		this.setDropdownSize();
 		window.addEventListener( 'resize', this.setDropdownSize );
 
 		// Sliders.
-		document.addEventListener( 'DOMContentLoaded', () => {
-			this.initSliders();
-		} );
+		this.initSliders();
 
 		// <details> Accordion.
 		document
@@ -40,10 +36,6 @@ class Chocante {
 			.forEach( ( el ) => {
 				new Accordion( el );
 			} );
-
-		// Set global CSS variable so that scrolling to # can account for site header;
-		this.setSiteHeaderHeightProp();
-		window.addEventListener( 'resize', this.setSiteHeaderHeightProp );
 	}
 
 	setDropdownSize() {
@@ -115,39 +107,14 @@ class Chocante {
 			new ContentSlider( slider );
 		} );
 	}
-
-	setSiteHeaderHeightProp() {
-		const siteHeader = document.getElementById( 'siteHeader' );
-
-		if ( ! siteHeader ) {
-			return;
-		}
-
-		window.requestAnimationFrame( () => {
-			document.documentElement.style.setProperty(
-				SITE_HEADER_HEIGHT,
-				`${ siteHeader.offsetHeight }px`
-			);
-		} );
-	}
 }
 
 new Chocante();
 new ChocanteWooCommerce();
 
 jQuery( function ( $ ) {
-	const SCROLL_DURATION = 350;
-
-	$.scroll_to_notices = function ( scrollElement ) {
-		if ( scrollElement.length ) {
-			$( 'html, body' ).animate(
-				{
-					scrollTop: 0,
-				},
-				SCROLL_DURATION
-			);
-		}
-	};
+	// Override custom scrolling to notice. It scrolls to the top of the page.
+	$.scroll_to_notices = () => {};
 
 	// Footer menu mobile.
 	$( '.site-footer__nav .site-footer__nav-header' ).on(

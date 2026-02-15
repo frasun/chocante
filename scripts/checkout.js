@@ -73,20 +73,7 @@ jQuery( function ( $ ) {
 				duration: 400,
 				complete() {
 					if ( $form.is( ':visible' ) ) {
-						const SCROLL_OFFSET = 20;
-						const adminBarHeight = $( '#wpadminbar' ).length
-							? $( '#wpadminbar' ).height()
-							: 0;
-						$( 'html, body' ).animate(
-							{
-								scrollTop:
-									$form.offset().top -
-									$( '.site-header' ).height() -
-									SCROLL_OFFSET -
-									adminBarHeight,
-							},
-							300
-						);
+						window.location.hash = 'login';
 					}
 				},
 			} );

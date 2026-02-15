@@ -17,8 +17,6 @@
 
 	&__main {
 		background-color: var(--header--background-color, var(--wp--preset--color--base));
-
-		@include transition;
 	}
 
 	&__container {
@@ -287,10 +285,15 @@
 		}
 	}
 
+	[data-header-scroll] {
+
+		@include transition;
+	}
+
 	&.is-scrolled {
 		pointer-events: none;
 
-		.site-header__main {
+		[data-header-scroll] {
 			transform: translate3d(0, calc(-100% - var(--wp-admin--admin-bar--height, 0px)), 0);
 		}
 	}
@@ -302,4 +305,9 @@
 	#wpadminbar {
 		position: fixed;
 	}
+}
+
+/* Account for site-header when scrolling to element */
+[id] {
+	scroll-margin-top: var(--site-header--height, 0);
 }
