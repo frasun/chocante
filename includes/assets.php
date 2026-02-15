@@ -207,10 +207,10 @@ function preload_assets() {
 	}
 
 	// jQuery preload hack.
-	global $wp_scripts;
-	if ( isset( $wp_scripts->registered['jquery'] ) ) {
+	if ( wp_script_is( 'jquery' ) ) {
+		$jquery  = wp_scripts()->registered['jquery'];
 		$suffix  = wp_scripts_get_suffix();
-		$version = $wp_scripts->registered['jquery']->ver;
+		$version = $jquery->ver;
 		$links[] = array(
 			'path' => "/wp-includes/js/jquery/jquery{$suffix}.js?ver={$version}",
 			'as'   => 'script',
@@ -313,12 +313,14 @@ function icon( $filename ) {
  * @param WP_Scripts $scripts WP Scripts object.
  */
 function disable_jquery_migrate( $scripts ) {
-	if ( is_admin() ) {
+	if ( is_admin() || apply_filters( 'chocante_assets_use_jquery_migrate', false ) ) {
 		return;
 	}
 
-	if ( isset( $scripts->registered['jquery'] ) ) {
-		$scripts->registered['jquery']->deps = array_diff( $scripts->registered['jquery']->deps, array( 'jquery-migrate' ) );
+	$jquery = $scripts->registered['jquery'];
+
+	if ( isset( $jquery ) ) {
+		$jquery->deps = array_diff( $jquery->deps, array( 'jquery-migrate' ) );
 	}
 }
 
@@ -327,13 +329,11 @@ function disable_jquery_migrate( $scripts ) {
  */
 function manage_external_scripts() {
 	// Move scripts to footer.
-	global $wp_scripts;
-
 	$footer_scripts = apply_filters( 'chocante_assets_defer_scripts', array() );
 
 	foreach ( $footer_scripts as $handle ) {
-		if ( isset( $wp_scripts->registered[ $handle ] ) ) {
-			$script = $wp_scripts->registered[ $handle ];
+		if ( wp_script_is( $handle ) ) {
+			$script = wp_scripts()->registered[ $handle ];
 
 			wp_dequeue_script( $handle );
 			wp_enqueue_script(
@@ -358,13 +358,11 @@ function manage_external_scripts() {
 	}
 
 	// Load non-critical styles.
-	global $wp_styles;
-
 	$async_styles = apply_filters( 'chocante_assets_async_styles', array() );
 
 	foreach ( $async_styles as $handle ) {
-		if ( isset( $wp_styles->registered[ $handle ] ) ) {
-			$style = $wp_styles->registered[ $handle ];
+		if ( wp_style_is( $handle ) ) {
+			$style = wp_styles()->registered[ $handle ];
 
 			wp_deregister_style( $handle );
 			wp_enqueue_style(

@@ -229,21 +229,18 @@ function disable_rmp_font_preload() {
  * Move WPML language switcher scripts to footer and disable styles (moved to main theme)
  */
 function manage_wpml_scripts() {
-	global $wp_scripts;
-	global $wp_styles;
-
 	$wpml_dropdown  = 'wpml-legacy-dropdown';
 	$wpml_menu_item = 'wpml-menu-item';
 
-	foreach ( $wp_styles->queue as $handle ) {
+	foreach ( wp_styles()->queue as $handle ) {
 		if ( str_contains( $handle, $wpml_dropdown ) || str_contains( $handle, $wpml_menu_item ) ) {
 			wp_dequeue_style( $handle );
 			wp_deregister_style( $handle );
 		}
 	}
 
-	foreach ( $wp_scripts->queue as $handle ) {
-		$script = $wp_scripts->registered[ $handle ];
+	foreach ( wp_scripts()->queue as $handle ) {
+		$script = wp_scripts()->registered[ $handle ];
 
 		if ( str_contains( $handle, $wpml_dropdown ) ) {
 			wp_dequeue_script( $handle );
