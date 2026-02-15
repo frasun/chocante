@@ -191,6 +191,7 @@
 
 				gap: var(--wp--style--block-gap);
 				padding-top: var(--spacing--10);
+				align-items: start;
 
 				@include min-width($breakpoint--desktop-sm, "blocks") {
 
