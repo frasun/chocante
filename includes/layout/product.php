@@ -13,8 +13,6 @@ use function Chocante\Woo\get_variation_name;
 
 defined( 'ABSPATH' ) || exit;
 
-const PRODUCT_WEIGHT_ATT = 'pa_waga';
-
 remove_action( 'woocommerce_before_single_product', 'woocommerce_output_all_notices' );
 remove_action( 'woocommerce_before_single_product_summary', 'woocommerce_show_product_sale_flash', 10 );
 add_action( 'woocommerce_before_single_product_summary', 'woocommerce_output_all_notices', 5 );
@@ -50,7 +48,7 @@ add_filter( 'woocommerce_dropdown_variation_attribute_options_args', __NAMESPACE
 add_filter( 'woocommerce_dropdown_variation_attribute_options_args', __NAMESPACE__ . '\select_variation_from_url' );
 
 // Product attributes.
-add_filter( 'woocommerce_display_product_attributes', __NAMESPACE__ . '\filter_product_attributes', 10, 2 );
+add_filter( 'woocommerce_display_product_attributes', __NAMESPACE__ . '\display_weight_in_attributes', 10 );
 add_filter( 'woocommerce_format_weight', __NAMESPACE__ . '\format_weight_dimension', 10, 2 );
 
 // Product gallery.
@@ -135,35 +133,43 @@ function output_product_description() {
 }
 
 /**
- * Filter product attributes
- * Show weight dimension for variable products in order to switch to chosen variation
- * Show weight attribute for simple attribute
+ * Replace product weight attribute with product weight dimension
+ * Account for missing weight attribute and preserve the ordering - after the pa_brand
  *
  * @todo Revisit when sorting product attributes and use variation attribute only if weight not available.
  *
- * @param array      $product_attributes Product attributes.
- * @param WC_Product $product Product object.
+ * @param array $product_attributes Product attributes.
  * @return array
  */
-function filter_product_attributes( $product_attributes, $product ) {
-	if ( is_a( $product, 'WC_Product_Simple' ) ) {
-		unset( $product_attributes['weight'] );
-	} elseif ( is_a( $product, 'WC_Product_Variable' ) ) {
-		if ( isset( $product_attributes['weight'] ) ) {
-			$weight = $product_attributes['weight'];
-			unset( $product_attributes['weight'] );
-			$keys  = array_keys( $product_attributes );
-			$index = array_search( 'attribute_' . PRODUCT_WEIGHT_ATT, $keys, true );
+function display_weight_in_attributes( $product_attributes ) {
+	$product_weight_att = 'attribute_pa_waga';
+	$product_brand_att  = 'attribute_pa_brand';
+	$weight_att         = 'weight';
 
-			if ( false !== $index ) {
-				$before             = array_slice( $product_attributes, 0, $index + 1, true );
-				$after              = array_slice( $product_attributes, $index + 1, null, true );
-				$product_attributes = $before + array( 'weight' => $weight ) + $after;
-			}
-		}
-
-		unset( $product_attributes[ 'attribute_' . PRODUCT_WEIGHT_ATT ] );
+	if ( ! isset( $product_attributes[ $weight_att ] ) ) {
+		return $product_attributes;
 	}
+
+	$weight                      = $product_attributes[ $weight_att ];
+	$original_product_attributes = $product_attributes;
+
+	unset( $product_attributes[ $weight_att ] );
+
+	$index = array_search( $product_weight_att, array_keys( $product_attributes ), true );
+	if ( false !== $index ) {
+		unset( $product_attributes[ $product_weight_att ] );
+	} else {
+		$index = array_search( $product_brand_att, array_keys( $product_attributes ), true );
+		if ( false === $index ) {
+			return $original_product_attributes;
+		} else {
+			++$index;
+		}
+	}
+
+	$before             = array_slice( $product_attributes, 0, $index, true );
+	$after              = array_slice( $product_attributes, $index, null, true );
+	$product_attributes = $before + array( $weight_att => $weight ) + $after;
 
 	return $product_attributes;
 }
