@@ -177,6 +177,7 @@
 			.post__title {
 				color: var(--wp--preset--color--white);
 				background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.5) 60%, rgba(0, 0, 0, 0));
+				transform: translateZ(0); // Safari fix.
 			}
 		}
 	}
