@@ -16,6 +16,7 @@ add_filter( 'chocante_assets_async_styles', __NAMESPACE__ . '\async_styles' );
 add_filter( 'chocante_assets_remove_styles', __NAMESPACE__ . '\remove_styles' );
 add_filter( 'chocante_assets_preconnect', __NAMESPACE__ . '\preconnect' );
 add_filter( 'chocante_assets_prefetch', __NAMESPACE__ . '\prefetch' );
+add_filter( 'chocante_assets_use_jquery_migrate', __NAMESPACE__ . '\use_jquery_migrate' );
 
 // Rate My Post.
 add_action( 'wp_head', __NAMESPACE__ . '\disable_rmp_font_preload', 0 );
@@ -271,4 +272,20 @@ function admin_enqueue_scripts( $hook ) {
 	}
 
 	wp_enqueue_script( 'select2' );
+}
+
+/**
+ * Use jQuery Migrate
+ *
+ * @param bool $use_jqm Whether to include jQuery Migrate.
+ * @return true
+ */
+function use_jquery_migrate( $use_jqm ) {
+	if ( defined( 'BLPACZKA_PLUGIN_VERSION' ) ) {
+		if ( class_exists( 'WooCommerce' ) && is_checkout() ) {
+			return true;
+		}
+	}
+
+	return $use_jqm;
 }

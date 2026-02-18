@@ -14,11 +14,11 @@ use Chocante\Assets_Handler;
 
 add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\enqueue_scripts', 20 );
 add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\manage_external_scripts', 1100 );
+add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\disable_jquery_migrate' );
 add_action( 'wp_head', __NAMESPACE__ . '\preload_assets', 0 );
 add_action( 'wp_head', __NAMESPACE__ . '\preconnect_to_sources', 1 );
 remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
 remove_action( 'wp_print_styles', 'print_emoji_styles' );
-add_action( 'wp_default_scripts', __NAMESPACE__ . '\disable_jquery_migrate' );
 add_filter( 'woocommerce_enqueue_styles', '__return_false' );
 
 // Editor.
@@ -309,19 +309,23 @@ function icon( $filename ) {
 
 /**
  * Disable jQuery migrate on frontend
- *
- * @param WP_Scripts $scripts WP Scripts object.
  */
-function disable_jquery_migrate( $scripts ) {
+function disable_jquery_migrate() {
 	if ( is_admin() || apply_filters( 'chocante_assets_use_jquery_migrate', false ) ) {
 		return;
 	}
 
-	$jquery = $scripts->registered['jquery'];
+	$jquery = 'jquery';
+	$script = wp_scripts()->registered[ $jquery ];
 
-	if ( isset( $jquery ) ) {
-		$jquery->deps = array_diff( $jquery->deps, array( 'jquery-migrate' ) );
-	}
+	wp_deregister_script( $jquery );
+	wp_register_script(
+		$jquery,
+		$script->src,
+		array_diff( $script->deps, array( 'jquery-migrate' ) ),
+		$script->ver,
+		false
+	);
 }
 
 /**
