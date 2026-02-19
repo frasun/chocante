@@ -13,4 +13,8 @@
 			@include color(contrast);
 		}
 	}
+
+	span:has(a)::after {
+		content: "\00a0\2010\00a0"; /* " - " */
+	}
 }

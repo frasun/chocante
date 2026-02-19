@@ -14,7 +14,8 @@ defined( 'ABSPATH' ) || exit;
 
 // Breadcrumbs.
 add_action( 'chocante_before_content_header', __NAMESPACE__ . '\display_page_breadcrumbs' );
-add_filter( 'woocommerce_breadcrumb_defaults', __NAMESPACE__ . '\modify_woo_breadcrumbs' );
+add_filter( 'woocommerce_breadcrumb_defaults', __NAMESPACE__ . '\modify_breadcrumbs' );
+add_filter( 'rank_math/frontend/breadcrumb/args', __NAMESPACE__ . '\modify_breadcrumbs' );
 
 // Layout.
 add_action( 'chocante_header_aside', __NAMESPACE__ . '\display_header_actions' );
@@ -92,13 +93,19 @@ function display_page_breadcrumbs() {
 }
 
 /**
- * Modify Woo breadcrumbs arguments
+ * Modify breadcrumbs settings
  *
  * @param array $args Breadcrumbs args.
  * @return array
  */
-function modify_woo_breadcrumbs( $args ) {
-	$args['delimiter'] = '&nbsp;&#8208;&nbsp;';
+function modify_breadcrumbs( $args ) {
+	$args['wrap_before'] = '<nav class="woocommerce-breadcrumb" aria-label="' . esc_html__( 'Breadcrumb', 'chocante' ) . '">';
+	$args['wrap_after']  = '</nav>';
+	$args['before']      = '<span>';
+	$args['after']       = '</span>';
+	$args['delimiter']   = ''; // Woo breadcrumbs.
+	$args['separator']   = ''; // RankMath breadcrumbs.
+
 	return $args;
 }
 
