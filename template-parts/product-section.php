@@ -14,9 +14,9 @@ use function Chocante\Layout\Common\spinner;
 	<header class="product-section__header">
 		<h3 class="product-section__heading">
 			<?php if ( isset( $args['subheading'] ) ) : ?>
-				<span><?php echo esc_html( $args['subheading'] ); ?></span>
+				<small><?php echo esc_html( $args['subheading'] ); ?></small>
 			<?php endif; ?>
-			<?php echo esc_html( $args['heading'] ); ?>
+			<strong><?php echo wp_kses_post( $args['heading'] ); ?></strong>
 		</h3>
 		<a href="<?php echo esc_url( $args['cta_link'] ); ?>"><?php echo esc_html( $args['cta_text'] ); ?></a>
 	</header>

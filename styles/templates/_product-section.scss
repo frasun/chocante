@@ -42,12 +42,16 @@ $slider-navigation-size: 50px;
 			margin: 0;
 		}
 
-		span {
+		small {
 
 			@include font-style(section-label);
 			@include color(grey-2);
 			display: block;
 			padding-bottom: 0.75em;
+		}
+
+		strong {
+			font-weight: var(--font-weight--normal);
 		}
 	}
 

@@ -378,5 +378,14 @@
 			margin-top: 0;
 		}
 		// END TODO.
+
+		p.is-style-bold {
+			font-weight: var(--font-weight--bold);
+		}
+
+		// Fix for TranslatePress removing inline styles from translations.
+		mark.has-inline-color {
+			background-color: inherit;
+		}
 	}
 }

@@ -11,6 +11,7 @@ namespace Chocante\Widgets;
 defined( 'ABSPATH' ) || exit;
 
 add_action( 'widgets_init', __NAMESPACE__ . '\register_sidebars' );
+add_filter( 'widget_block_content', 'shortcode_unautop', 9 );
 
 /**
  * Register widget areas

@@ -17,6 +17,7 @@
 @import "components/pagination";
 @import "components/slider";
 @import "components/splash";
+@import "components/switcher";
 
 // Templates.
 @import "templates/common";
@@ -42,10 +43,6 @@
 
 // 3rd party plugins.
 @import "plugins/omnibus";
-@import "plugins/wpml/legacy-dropdown";
-@import "plugins/wpml/legacy-dropdown-click";
-@import "plugins/wpml/menu-item";
-@import "plugins/currency-language-switcher";
 @import "plugins/wpcf7";
 @import "plugins/safe-svg";
 @import "plugins/curcy";

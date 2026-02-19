@@ -20,11 +20,8 @@
 defined( 'ABSPATH' ) || exit;
 
 $page_title = _x( 'Thank you for shopping', 'thankyou', 'chocante' );
-$message    = apply_filters(
-	'chocante_thankyou_order_received_text',
-	// translators: thank you text.
-	sprintf( esc_html_x( 'You will be informed about further steps by separate emails. You can also keep up to date with the current status at %1$sthis address%2$s.', 'thankyou', 'chocante' ), '<a href="' . esc_url( wc_get_account_endpoint_url( 'orders' ) ) . '">', '</a>' )
-);
+// translators: thank you text.
+$message = _x( 'You will be informed about further steps by separate emails. You can also keep up to date with the current status at this address:', 'thankyou', 'chocante' );
 
 // @todo: Chocante - temp fix.
 $parts = parse_url( $_SERVER['REQUEST_URI'] ); // @codingStandardsIgnoreLine.
@@ -55,10 +52,9 @@ if ( $order && isset( $query['error'] ) ) {
 			echo '</p>';
 		}
 		?>
-		<p><?php echo wp_kses_post( $message ); ?></p>
+		<div><span><?php echo wp_kses_post( $message ); ?></span> <a href="<?php echo esc_url( wc_get_account_endpoint_url( 'orders/' . $order->get_order_number() ) ); ?>" data-no-translation><?php echo esc_url( wc_get_account_endpoint_url( 'orders/' . $order->get_order_number() ) ); ?></a></span></div>
 	<?php elseif ( $order ) : ?>
 		<p><?php esc_html_e( 'Unfortunately your order cannot be processed as the originating bank/merchant has declined your transaction. Please attempt your purchase again.', 'woocommerce' ); ?></p>
-		<a href="<?php echo esc_url( $order->get_checkout_payment_url() ); ?>" class="button pay"><?php esc_html_e( 'Pay', 'woocommerce' ); ?></a>
 	<?php endif; ?>
 
 	<?php

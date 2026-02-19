@@ -29,7 +29,7 @@ do_action( 'chocante_before_footer' );
 			<?php endif; ?>
 			<?php if ( has_nav_menu( 'chocante_footer_chocante' ) ) : ?>
 				<nav class="site-footer__nav-menu site-footer__nav-menu--chocante">
-					<h4 class="site-footer__nav-header"><?php echo esc_html( get_bloginfo( 'name' ) ); ?></h4>
+					<h4 class="site-footer__nav-header shop-name"><?php echo esc_html( get_bloginfo( 'name' ) ); ?></h4>
 					<?php
 						wp_nav_menu(
 							array(

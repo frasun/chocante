@@ -11,8 +11,9 @@ namespace Chocante\Cache;
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Admin updates.
+ * Product section
  */
+add_action( 'chocante_product_section_ajax_get', __NAMESPACE__ . '\set_public_get_product_section', 1 );
 add_action( 'woocommerce_ajax_save_product_variations', __NAMESPACE__ . '\purge_product' );
 /**
  * Purge frontpage when admin marks product as featured
@@ -21,11 +22,6 @@ add_action( 'woocommerce_ajax_save_product_variations', __NAMESPACE__ . '\purge_
  * @todo: add cache tag to featured product section.
  */
 add_action( 'woocommerce_before_product_object_save', __NAMESPACE__ . '\purge_featured_products' );
-
-/**
- * Product section.
- */
-add_action( 'chocante_product_section_ajax_get', __NAMESPACE__ . '\set_public_get_product_section', 1 );
 /**
  * Purge all product sections
  *
@@ -34,10 +30,25 @@ add_action( 'chocante_product_section_ajax_get', __NAMESPACE__ . '\set_public_ge
 add_action( 'chocante_product_section_cache_flush', __NAMESPACE__ . '\purge_get_product_section' );
 
 /**
+ * TranslatePress
+ */
+add_action( 'litespeed_control_finalize', __NAMESPACE__ . '\set_no_cache_translatepress' );
+
+/**
  * Set public cache for AJAX get product section
  */
 function set_public_get_product_section() {
 	do_action( 'litespeed_control_force_public', 'AJAX product section' );
+}
+
+/**
+ * Do not cache TranslatePress editor
+ */
+function set_no_cache_translatepress() {
+	// phpcs:disable WordPress.Security.NonceVerification.Recommended
+	if ( class_exists( 'TRP_Translate_Press' ) && isset( $_REQUEST['trp-edit-translation'] ) ) {
+		do_action( 'litespeed_control_set_nocache', 'TranslatePress editor' );
+	}
 }
 
 /**

@@ -21,6 +21,7 @@ require_once __DIR__ . '/includes/media.php';
 require_once __DIR__ . '/includes/currency.php';
 require_once __DIR__ . '/includes/translations.php';
 require_once __DIR__ . '/includes/cache.php';
+require_once __DIR__ . '/includes/feed.php';
 require_once __DIR__ . '/includes/plugins.php';
 
 /**

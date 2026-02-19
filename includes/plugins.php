@@ -20,12 +20,19 @@ add_filter( 'chocante_assets_use_jquery_migrate', __NAMESPACE__ . '\use_jquery_m
 
 // Rate My Post.
 add_action( 'wp_head', __NAMESPACE__ . '\disable_rmp_font_preload', 0 );
+
 // WPML.
 if ( class_exists( 'SitePress' ) ) {
 	add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\manage_wpml_scripts', 1000 );
 }
+
 // Curcy - Bug with select (premium version).
 add_action( 'admin_enqueue_scripts', __NAMESPACE__ . '\admin_enqueue_scripts', 99 );
+
+// Contact Form 7.
+add_action( 'wp', __NAMESPACE__ . '\cf7_unload_scripts' );
+add_action( 'wpcf7_shortcode_callback', __NAMESPACE__ . '\cf7_load_scripts' );
+add_filter( 'wpcf7_autop_or_not', '__return_false' );
 
 /**
  * Defer plugin scripts
@@ -109,6 +116,12 @@ function remove_scripts( $scripts ) {
 		$scripts[] = 'woocommerce-multi-currency-convertor';
 	}
 
+	// TranslatePress.
+	if ( class_exists( 'TRP_Translate_Press' ) ) {
+		$scripts[] = 'trp-frontend-compatibility';
+		$scripts[] = 'trp-language-switcher-js-v2';
+	}
+
 	return $scripts;
 }
 
@@ -180,6 +193,15 @@ function remove_styles( $styles ) {
 			$styles[] = 'photoswipe';
 			$styles[] = 'photoswipe-default-skin';
 		}
+
+		if ( ! is_checkout() ) {
+			$styles[] = 'p24-styles';
+		}
+	}
+
+	// TranslatePress.
+	if ( class_exists( 'TRP_Translate_Press' ) ) {
+		$styles[] = 'trp-language-switcher-v2';
 	}
 
 	return $styles;
@@ -288,4 +310,49 @@ function use_jquery_migrate( $use_jqm ) {
 	}
 
 	return $use_jqm;
+}
+
+/**
+ * Disable loading Contact From 7 CSS/JS on every page.
+ */
+function cf7_unload_scripts() {
+	add_filter( 'wpcf7_load_js', '__return_false' );
+	add_filter( 'wpcf7_load_css', '__return_false' );
+	remove_action( 'wpcf7_init', 'wpcf7_recaptcha_register_service', 40, 0 );
+	remove_action( 'wpcf7_init', 'wpcf7_recaptcha_add_form_tag_recaptcha', 10, 0 );
+	remove_action( 'wp_enqueue_scripts', 'wpcf7_recaptcha_enqueue_scripts', 20, 0 );
+}
+
+/**
+ * Load Contact Form 7 asssets on pages with forms
+ */
+function cf7_load_scripts() {
+	if ( function_exists( 'wpcf7_enqueue_scripts' ) ) {
+		wp_enqueue_script( 'contact-form-7' );
+
+		$wpcf7 = array(
+			'api' => array(
+				'root'      => get_rest_url(),
+				'namespace' => 'contact-form-7/v1',
+			),
+		);
+
+		if ( defined( 'WP_CACHE' ) && WP_CACHE ) {
+			$wpcf7['cached'] = 1;
+		}
+
+		wp_localize_script( 'contact-form-7', 'wpcf7', $wpcf7 );
+	}
+
+	if ( function_exists( 'wpcf7_recaptcha_register_service' ) ) {
+		\wpcf7_recaptcha_register_service();
+	}
+
+	if ( function_exists( 'wpcf7_recaptcha_add_form_tag_recaptcha' ) ) {
+		\wpcf7_recaptcha_add_form_tag_recaptcha();
+	}
+
+	if ( function_exists( 'wpcf7_recaptcha_enqueue_scripts' ) ) {
+		\wpcf7_recaptcha_enqueue_scripts();
+	}
 }

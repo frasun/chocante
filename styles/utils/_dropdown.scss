@@ -1,4 +1,6 @@
 @mixin dropdown($list: false) {
+	--wp--custom--transition--property: transform, opacity, visibility;
+
 	position: absolute;
 	background-color: rgba(255, 255, 255, 0.95);
 
@@ -10,6 +12,7 @@
 	@include transition;
 	transform: translateY(-5px);
 	opacity: 0;
+	visibility: hidden;
 	pointer-events: none;
 
 	@if $list {
@@ -21,6 +24,7 @@
 @mixin dropdown-active() {
 	pointer-events: all;
 	opacity: 1;
+	visibility: visible;
 	transform: translateY(0);
 }
 
@@ -64,5 +68,47 @@
 				transform: scale(1, 1);
 			}
 		}
+	}
+}
+
+@keyframes show-dropdown {
+
+	0% {
+		opacity: 0;
+	}
+
+	1% {
+		opacity: 0;
+		visibility: visible;
+	}
+
+	99% {
+		opacity: 1;
+	}
+
+	100% {
+		opacity: 1;
+		visibility: hidden;
+	}
+}
+
+@keyframes hide-dropdown {
+
+	0% {
+		opacity: 1;
+		visibility: hidden;
+	}
+
+	1% {
+		opacity: 1;
+	}
+
+	99% {
+		opacity: 0;
+		visibility: visible;
+	}
+
+	100% {
+		opacity: 0;
 	}
 }

@@ -63,4 +63,10 @@ export default class MiniCart {
 			20;
 		this.miniCartContent.style.maxHeight = `${ maxHeight }px`;
 	}
+
+	clearMiniCartFragments() {
+		window.sessionStorage.removeItem(
+			window.wc_cart_fragments_params.fragment_name
+		);
+	}
 }

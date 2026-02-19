@@ -20,7 +20,7 @@ $product_thumbnail = apply_filters( 'chocante_featured_products_thumbnail', $pro
 			<h5 class="wp-block-heading splash__subtitle"><?php echo esc_html( $product_category ); ?></h5>
 		<?php endif; ?>
 		<h2 class="wp-block-heading has-white-color splash__title splash__title--large" style="text-decoration: underline;">
-			<a href="<?php echo esc_url( $product_link ); ?>"><?php echo esc_html( $product_name ); ?></a>
+			<a href="<?php echo esc_url( $product_link ); ?>"><?php echo wp_kses_post( $product_name ); ?></a>
 		</h2>
 		<div class="wp-block-buttons alignfull is-content-justification-left is-layout-flex wp-block-buttons-is-layout-flex splash__grow">
 			<div class="wp-block-button has-custom-width wp-block-button__width-100 is-style-inverted">

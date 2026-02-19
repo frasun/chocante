@@ -23,6 +23,7 @@ add_action( 'woocommerce_before_shop_loop', __NAMESPACE__ . '\set_price_display_
 add_action( 'chocante_product_section_loop', __NAMESPACE__ . '\set_price_display_modify' );
 add_filter( 'woocommerce_get_price_suffix', __NAMESPACE__ . '\add_price_suffix', 10, 4 );
 add_filter( 'woocommerce_format_price_range', __NAMESPACE__ . '\modify_price_range', 10, 3 );
+add_filter( 'woocommerce_variable_price_html', __NAMESPACE__ . '\add_price_range_prefix', 10, 2 );
 
 // Post-code validation.
 add_action( 'wp_ajax_validate_postcode', __NAMESPACE__ . '\validate_postcode' );
@@ -133,7 +134,8 @@ function add_price_suffix( $suffix, $product ) {
 		$variation_name = get_variation_name( wc_get_product( $variation_id ) );
 
 		if ( $variation_name ) {
-			$suffix .= " <small class='woocommerce-price-suffix'>/ {$variation_name}</small>";
+			$variation_display_name = apply_filters( 'chocante_product_variation_name', $variation_name );
+			$suffix                .= " <small class='woocommerce-price-suffix'>/ {$variation_display_name}</small>";
 		}
 	}
 
@@ -153,8 +155,37 @@ function modify_price_range( $price, $from ) {
 		return $price;
 	}
 
-	// translators: Price range from value.
-	return sprintf( esc_html__( 'From %1$s', 'chocante' ), is_numeric( $from ) ? wc_price( $from ) : $from );
+	return wc_price( $from );
+}
+
+/**
+ * Add prefix to price range
+ *
+ * @param string               $price_html Privce element.
+ * @param \WC_Product_Variable $product Product object.
+ * @return string
+ */
+function add_price_range_prefix( $price_html, $product ) {
+	global $chocante_display_price_modify;
+
+	if ( ! $chocante_display_price_modify ) {
+		return $price_html;
+	}
+
+	$prices = $product->get_variation_prices( true );
+
+	if ( empty( $prices['price'] ) ) {
+		return $price_html;
+	}
+
+	$min_price = current( $prices['price'] );
+	$max_price = end( $prices['price'] );
+
+	if ( $min_price === $max_price ) {
+		return $price_html;
+	}
+
+	return _x( 'From', 'price range prefix', 'chocante' ) . ' ' . $price_html;
 }
 
 /**
@@ -259,5 +290,19 @@ function get_variation_name( $product ) {
 		return false;
 	}
 
-	return $variation_term->name;
+	$variation_name = apply_filters( 'chocante_product_variation_name', $variation_term->name );
+
+	return $variation_name;
+}
+
+/**
+ * Additional hook in WooCommerce breadcrumbs
+ */
+function display_shop_breadcrumbs() {
+	ob_start();
+
+	woocommerce_breadcrumb();
+	$breadcrumbs = apply_filters( 'chocante_shop_breadcrumbs', ob_get_clean() );
+
+	echo wp_kses_post( $breadcrumbs );
 }

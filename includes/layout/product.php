@@ -16,7 +16,7 @@ defined( 'ABSPATH' ) || exit;
 remove_action( 'woocommerce_before_single_product', 'woocommerce_output_all_notices' );
 remove_action( 'woocommerce_before_single_product_summary', 'woocommerce_show_product_sale_flash', 10 );
 add_action( 'woocommerce_before_single_product_summary', 'woocommerce_output_all_notices', 5 );
-add_action( 'woocommerce_before_single_product_summary', 'woocommerce_breadcrumb', 7 );
+add_action( 'woocommerce_before_single_product_summary', 'Chocante\Woo\display_shop_breadcrumbs', 7 );
 add_action( 'woocommerce_before_single_product_summary', __NAMESPACE__ . '\open_product_info_section', 9 );
 add_action( 'woocommerce_before_single_product_summary', __NAMESPACE__ . '\open_product_header', 13 );
 add_action( 'woocommerce_before_single_product_summary', 'woocommerce_show_product_sale_flash', 14 );
@@ -112,7 +112,15 @@ function display_related_products() {
 		return;
 	}
 
-	$heading  = join( ', ', wp_list_pluck( $product_categories, 'name' ) );
+	$heading  = join(
+		', ',
+		array_map(
+			function ( $cat ) {
+				return sprintf( '<span>%s</span>', $cat->name );
+			},
+			$product_categories
+		)
+	);
 	$cta_link = esc_url( get_permalink( wc_get_page_id( 'shop' ) ) . '?filter_product_cat=' . join( ',', wp_list_pluck( $product_categories, 'slug' ) ) );
 
 	display_product_section(
@@ -236,7 +244,7 @@ function get_stock_text( $availability, $product ) {
 			return $stock_amount;
 		}
 
-		return "{$variation_name} &times; {$stock_amount}";
+		return apply_filters( 'chocante_get_stock_text', "{$variation_name} &times; {$stock_amount}" );
 	}
 
 	return $availability;

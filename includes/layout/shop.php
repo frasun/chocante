@@ -13,7 +13,7 @@ use function Chocante\Assets\icon;
 defined( 'ABSPATH' ) || exit;
 
 // Breadcrumbs.
-add_action( 'chocante_product_archive_header', 'woocommerce_breadcrumb', 20 );
+add_action( 'chocante_product_archive_header', 'Chocante\Woo\display_shop_breadcrumbs', 20 );
 
 // Notices.
 remove_action( 'woocommerce_before_shop_loop', 'woocommerce_output_all_notices' );
@@ -25,7 +25,7 @@ add_action( 'woocommerce_shop_loop_header', __NAMESPACE__ . '\open_shop_loop_wra
 add_action( 'woocommerce_before_shop_loop', __NAMESPACE__ . '\open_shop_loop_section', 12 );
 add_action( 'woocommerce_before_shop_loop', __NAMESPACE__ . '\open_shop_loop_header', 15 );
 add_action( 'woocommerce_before_shop_loop', __NAMESPACE__ . '\close_shop_loop_header', 35 );
-add_action( 'woocommerce_after_main_content', __NAMESPACE__ . '\close_shop_loop_wrapper' );
+add_action( 'woocommerce_after_main_content', __NAMESPACE__ . '\close_shop_loop_wrapper', 11 );
 add_action( 'woocommerce_after_main_content', __NAMESPACE__ . '\close_shop_loop_section' );
 add_action( 'woocommerce_after_main_content', __NAMESPACE__ . '\display_shop_description', 20 );
 remove_action( 'woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', 30 );
@@ -55,8 +55,10 @@ function open_shop_loop_wrapper() {
  * Close loop section
  */
 function close_shop_loop_wrapper() {
-	echo '</div>';
-	echo '</section>';
+	if ( is_shop() || is_search() || is_product_taxonomy() ) {
+		echo '</div>';
+		echo '</section>';
+	}
 }
 
 /**
@@ -88,7 +90,9 @@ function open_shop_loop_section() {
  * Close shop loop section
  */
 function close_shop_loop_section() {
-	echo '</section>';
+	if ( is_shop() || is_search() || is_product_taxonomy() ) {
+		echo '</section>';
+	}
 }
 
 /**
@@ -139,11 +143,17 @@ function display_shop_short_description() {
  * Display shop page description
  */
 function display_shop_description() {
-	if ( ! is_shop() ) {
-		return;
+	if ( is_shop() ) {
+		woocommerce_product_archive_description();
 	}
 
-	woocommerce_product_archive_description();
+	if ( is_product_category() ) {
+		$product_category_description = apply_filters( 'chocante_shop_product_category_description', '' );
+
+		if ( ! empty( $product_category_description ) ) {
+			printf( '<div class="page-description">%s</div>', wp_kses_post( $product_category_description ) );
+		}
+	}
 }
 
 /**

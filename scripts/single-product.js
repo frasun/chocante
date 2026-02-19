@@ -35,19 +35,6 @@ function selectVariationToAdd( event, variationData ) {
 	}
 }
 
-// Reset stock information.
-function resetVariationStockData() {
-	const stock = document.querySelector( STOCK_ELEMENT );
-
-	if ( ! stock ) {
-		return;
-	}
-
-	stock.innerHTML =
-		// eslint-disable-next-line no-undef,camelcase
-		wc_add_to_cart_variation_params.i18n_make_a_selection_text;
-}
-
 // Reset add to cart button data.
 function resetVariationToAdd() {
 	const addToCart = document.querySelector( ADD_TO_CART );
@@ -108,7 +95,6 @@ function clearAddToCartNotice() {
 
 	form.on( 'found_variation', selectVariationStockData );
 	form.on( 'found_variation', selectVariationToAdd );
-	form.on( 'reset_data', resetVariationStockData );
 	form.on( 'reset_data', resetVariationToAdd );
 
 	$( document.body ).on(

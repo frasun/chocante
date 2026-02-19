@@ -26,4 +26,12 @@ wp.domReady( function () {
 			label: 'Rounded corners',
 		},
 	] );
+
+	// core/paragraph.
+	wp.blocks.registerBlockStyle( 'core/paragraph', [
+		{
+			name: 'bold',
+			label: 'Bold',
+		},
+	] );
 } );

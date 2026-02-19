@@ -54,7 +54,16 @@ export default class ChocanteWooCommerce {
 			return;
 		}
 
-		new MiniCart( miniCart );
+		const mc = new MiniCart( miniCart );
+
+		// Handle language change using switcher links.
+		const switcherLinks = document.querySelectorAll(
+			'.switcher--language a'
+		);
+
+		Array.from( switcherLinks ).forEach( ( link ) =>
+			link.addEventListener( 'click', mc.clearMiniCartFragments )
+		);
 	}
 
 	initProductSearch() {

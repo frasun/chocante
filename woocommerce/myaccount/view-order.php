@@ -23,7 +23,7 @@ $notes = $order->get_customer_order_notes();
 ?>
 <div class="order-details">
 	<header class="order-details__header">
-		<p><?php esc_html_e( 'Order', 'woocommerce' ); ?>: <strong><?php echo esc_html( _x( '#', 'hash before order number', 'woocommerce' ) . $order->get_order_number() ); ?></strong></p>
+		<p><?php esc_html_e( 'Order', 'woocommerce' ); ?>: <strong class="order-number"><?php echo esc_html( _x( '#', 'hash before order number', 'woocommerce' ) . $order->get_order_number() ); ?></strong></p>
 		<p><?php esc_html_e( 'Date', 'woocommerce' ); ?>: <strong><?php echo esc_html( wc_format_datetime( $order->get_date_created() ) ); ?></strong></p>
 		<p><span class="order-status order-status--<?php echo esc_attr( $order->get_status() ); ?>"><?php echo esc_html( wc_get_order_status_name( $order->get_status() ) ); ?></span></p>
 	</header>

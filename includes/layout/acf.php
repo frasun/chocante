@@ -40,7 +40,7 @@ add_filter( 'woocommerce_display_product_attributes', __NAMESPACE__ . '\add_prod
 add_action( 'woocommerce_single_product_summary', __NAMESPACE__ . '\display_nutritional_data', 36 );
 
 // Product category page.
-add_action( 'woocommerce_after_main_content', __NAMESPACE__ . '\display_category_description', 20 );
+add_action( 'chocante_shop_product_category_description', __NAMESPACE__ . '\display_product_category_description' );
 
 // View order.
 add_filter( 'woocommerce_order_item_name', __NAMESPACE__ . '\modify_order_item_name', 10, 2 );
@@ -62,7 +62,7 @@ function get_custom_product_title( $product_name, $cart_item ) {
 	$product    = $cart_item['data'];
 
 	if ( 'product' === get_post_type( $product_id ) ) {
-		$product_short_name = get_field( ACF_PRODUCT_TITLE, $product_id );
+		$product_short_name = apply_filters( 'chocante_acf_product_title', get_field( ACF_PRODUCT_TITLE, $product_id ) );
 		$product_type       = get_field( ACF_PRODUCT_TYPE, $product_id );
 
 		if ( $product_short_name ) {
@@ -106,7 +106,7 @@ function modify_loop_item_title() {
 		return;
 	}
 
-	$product_name  = get_field( ACF_PRODUCT_TITLE, $product->get_id() );
+	$product_name  = apply_filters( 'chocante_acf_product_title', get_field( ACF_PRODUCT_TITLE, $product->get_id() ) );
 	$product_title = $product_name ? $product_name : get_the_title();
 
 	echo '<h2 class="' . esc_attr( apply_filters( 'woocommerce_product_loop_title_classes', 'woocommerce-loop-product__title' ) ) . '">' . $product_title . '</h2>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -153,13 +153,13 @@ function modify_product_page_title() {
  */
 function get_product_page_title( $title, $id ) {
 	$product_short_name = get_field( ACF_PRODUCT_TITLE, $id );
+	$product_title      = apply_filters( 'chocante_acf_product_title', sprintf( '<span>%s</span>', $product_short_name ), $product_short_name );
 	$product_type       = get_field( ACF_PRODUCT_TYPE, $id );
 
 	if ( $product_short_name ) {
-		$product_title = $product_short_name;
-
 		if ( $product_type ) {
-			$product_title .= " {$product_type}";
+			$product_title .= ' ';
+			$product_title .= sprintf( '<span>%s</span>', $product_type );
 		}
 
 		return $product_title;
@@ -184,7 +184,7 @@ function add_product_attributes( $product_attributes, $product ) {
 		foreach ( $attributes as $attribute ) {
 			$product_attributes[ $field_name . '_' . $index ] = array(
 				'label' => $attribute[ ACF_PRODUCT_DETAILS_LABEL ],
-				'value' => $attribute[ ACF_PRODUCT_DETAILS_VALUE ],
+				'value' => apply_filters( 'chocante_acf_product_data_value', $attribute[ ACF_PRODUCT_DETAILS_VALUE ] ),
 			);
 			++$index;
 		}
@@ -216,7 +216,7 @@ function display_nutritional_data() {
 			$data,
 			array(
 				'label' => $field[ ACF_PRODUCT_NUTRITION_DATA_LABEL ],
-				'value' => $field[ ACF_PRODUCT_NUTRITION_DATA_VALUE ],
+				'value' => apply_filters( 'chocante_acf_product_data_value', $field[ ACF_PRODUCT_NUTRITION_DATA_VALUE ] ),
 			)
 		);
 	}
@@ -231,21 +231,21 @@ function display_nutritional_data() {
 }
 
 /**
- * Display diet information
+ * Display product category long description
+ *
+ * @param string $description Product category description.
+ * @return string
  */
-function display_category_description() {
-	if ( ! is_product_category() ) {
-		return;
+function display_product_category_description( $description ) {
+	$queried_object = get_queried_object();
+	$taxonomy       = $queried_object->taxonomy;
+	$term_id        = $queried_object->term_id;
+
+	if ( isset( $taxonomy ) && isset( $term_id ) ) {
+		$description = get_field( ACF_CATEGORY_DESCRIPTION, $taxonomy . '_' . $term_id );
 	}
 
-	$queried_object       = get_queried_object();
-	$taxonomy             = $queried_object->taxonomy;
-	$term_id              = $queried_object->term_id;
-	$category_description = get_field( ACF_CATEGORY_DESCRIPTION, $taxonomy . '_' . $term_id );
-
-	if ( $category_description ) {
-		echo '<div class="page-description">' . wp_kses_post( $category_description ) . '</div>';
-	}
+	return $description;
 }
 
 /**
@@ -257,7 +257,7 @@ function display_category_description() {
  */
 function modify_order_item_name( $item_name, $item ) {
 	$product_id         = $item->get_data()['product_id'];
-	$product_short_name = get_field( ACF_PRODUCT_TITLE, $product_id );
+	$product_short_name = apply_filters( 'chocante_acf_product_title', get_field( ACF_PRODUCT_TITLE, $product_id ) );
 	$product_type       = get_field( ACF_PRODUCT_TYPE, $product_id );
 
 	if ( $product_short_name ) {
@@ -294,7 +294,7 @@ function get_featured_category( $category, $product_id ) {
  * @return string
  */
 function get_featured_title( $title, $product_id ) {
-	$product_name = get_field( ACF_PRODUCT_TITLE, $product_id );
+	$product_name = apply_filters( 'chocante_acf_product_title', get_field( ACF_PRODUCT_TITLE, $product_id ) );
 
 	if ( $product_name ) {
 		return $product_name;
