@@ -20,13 +20,14 @@ const CACHE_GROUP = 'chocante_products';
 
 add_action( 'wp_ajax_get_product_section', __NAMESPACE__ . '\ajax_get_product_section' );
 add_action( 'wp_ajax_nopriv_get_product_section', __NAMESPACE__ . '\ajax_get_product_section' );
+add_action( 'init', __NAMESPACE__ . '\add_shortcodes' );
+add_action( 'chocante_featured_products_content', '\Chocante\ProductTags\display_diet_icons', 10 );
+
+// Cache flush.
 add_action( 'woocommerce_product_object_updated_props', __NAMESPACE__ . '\clear_cached_products_on_props_change', 10, 2 );
 add_action( 'before_delete_post', __NAMESPACE__ . '\clear_cached_products_on_delete' );
 add_action( 'wc_after_products_starting_sales', __NAMESPACE__ . '\clear_cached_products' );
 add_action( 'wc_after_products_ending_sales', __NAMESPACE__ . '\clear_cached_products' );
-add_action( 'init', __NAMESPACE__ . '\add_shortcodes' );
-
-add_action( 'chocante_featured_products_content', '\Chocante\ProductTags\display_diet_icons', 10 );
 
 /**
  * Display product section
@@ -226,7 +227,7 @@ function ajax_get_product_section() {
  * Clear cached products used in sliders
  */
 function clear_cached_products() {
-	if ( ! wp_cache_supports( 'flush_group' ) ) {
+	if ( wp_cache_supports( 'flush_group' ) ) {
 		wp_cache_flush_group( CACHE_GROUP );
 	} else {
 		wp_cache_flush();
@@ -245,15 +246,15 @@ function clear_cached_products() {
  * @param array      $props Updated props.
  */
 function clear_cached_products_on_props_change( $product, $props ) {
-	static $already_be_done = false;
+	static $purged = false;
 
-	if ( $already_be_done ) {
+	if ( $purged ) {
 		return;
 	}
 
 	if ( is_admin() || ( in_array( 'stock_status', $props, true ) ) ) {
 		clear_cached_products();
-		$already_be_done = true;
+		$purged = true;
 	}
 }
 
