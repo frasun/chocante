@@ -46,6 +46,7 @@ add_filter( 'trp_no_auto_translate_selectors', __NAMESPACE__ . '\no_auto_transla
 add_action( 'init', __NAMESPACE__ . '\add_language_switcher_shortcode' );
 
 // Plugin i18n.
+add_filter( 'woocommerce_available_variation', __NAMESPACE__ . '\i18n_woo_variation' );
 add_filter( 'cwginstock_default_values', __NAMESPACE__ . '\i18n_cwg' );
 add_filter( 'cwginstock_localization_array', __NAMESPACE__ . '\i18n_cwg_script' );
 add_filter( 'rmp_custom_strings', __NAMESPACE__ . '\i18n_rmp' );
@@ -448,4 +449,19 @@ function i18n_paczkomaty() {
 		'Object.assign(window.paczkomaty, ' . wp_json_encode( $i18n_data ) . ');',
 		'after'
 	);
+}
+
+/**
+ * Expose variation description used in JS variations form
+ *
+ * @param array $variation_data Variation data.
+ * @return array
+ */
+function i18n_woo_variation( $variation_data ) {
+	if ( function_exists( 'trp_translate' ) ) {
+		$variation_description                   = $variation_data['variation_description'];
+		$variation_data['variation_description'] = trp_translate( $variation_description, null, false );
+	}
+
+	return $variation_data;
 }
