@@ -5,7 +5,6 @@
 	@include select2-sm;
 
 	#paczkomat_id_wrapper {
-		margin-top: var(--spacing--30);
 		display: block;
 	}
 
@@ -14,7 +13,7 @@
 	}
 
 	.button {
-		margin-top: var(--spacing--20);
+		margin-bottom: var(--spacing--20);
 
 		@include button;
 		@include button-style-outline;

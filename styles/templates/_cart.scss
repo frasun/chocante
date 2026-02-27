@@ -291,6 +291,7 @@
 			flex: 1 1 33%;
 			float: none;
 			width: auto;
+			overflow: hidden;
 
 			@include min-width($breakpoint--desktop-sm) {
 				margin-top: var(--spacing--10);
@@ -358,6 +359,7 @@
 									&.form-row {
 										display: flex;
 										flex-direction: column;
+										overflow-x: hidden;
 									}
 
 									&.form-row-wide {
@@ -366,7 +368,7 @@
 								}
 
 								// Fix for select2.
-								#calc_shipping_country_field {
+								#calc_shipping_country_field .select2-container {
 									margin-bottom: 4px;
 								}
 

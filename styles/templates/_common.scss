@@ -264,6 +264,8 @@
 
 				/* stylelint-disable-next-line no-descending-specificity */
 				+ label {
+					--line-height: 1.1;
+					padding-top: 0.25em;
 					margin: 0;
 				}
 			}
