@@ -256,21 +256,27 @@ function display_product_category_description( $description ) {
  * @return string
  */
 function modify_order_item_name( $item_name, $item ) {
-	$product_id         = $item->get_data()['product_id'];
-	$product_short_name = apply_filters( 'chocante_acf_product_title', get_field( ACF_PRODUCT_TITLE, $product_id ) );
-	$product_type       = get_field( ACF_PRODUCT_TYPE, $product_id );
+	$modify_name = is_checkout() || is_account_page();
 
-	if ( $product_short_name ) {
-		$product_title = '<strong>' . $product_short_name . '</strong>';
-
-		if ( $product_type ) {
-			$product_title .= '<small>' . $product_type . '</small>';
-		}
-
-		return $product_title;
+	if ( ! $modify_name ) {
+		return $item_name;
 	}
 
-	return '<strong>' . $item->get_name() . '</strong>';
+	$display_name = $item_name;
+	$product_id   = $item->get_data()['product_id'];
+	$product_name = get_field( ACF_PRODUCT_TITLE, $product_id );
+	$product_type = get_field( ACF_PRODUCT_TYPE, $product_id );
+
+	if ( $product_name ) {
+		$display_name = apply_filters( 'chocante_acf_product_title', $product_name );
+		$display_name = '<strong>' . $display_name . '</strong>';
+	}
+
+	if ( $product_type ) {
+		$display_name .= '<small>' . $product_type . '</small>';
+	}
+
+	return $display_name;
 }
 
 /**

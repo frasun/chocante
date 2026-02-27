@@ -31,8 +31,6 @@ add_filter( 'woocommerce_account_orders_columns', __NAMESPACE__ . '\manage_order
 add_action( 'woocommerce_my_account_my_orders_column_order-status-number', __NAMESPACE__ . '\display_order_status_number' );
 add_action( 'woocommerce_my_account_my_orders_column_order-total-value', __NAMESPACE__ . '\display_order_total' );
 add_filter( 'woocommerce_order_item_quantity_html', __NAMESPACE__ . '\add_variation_to_item_quantity', 10, 2 );
-add_filter( 'woocommerce_display_item_meta', '__return_false' );
-add_filter( 'woocommerce_order_item_name', __NAMESPACE__ . '\display_product_name', 10, 3 );
 
 // Login.
 add_action( 'woocommerce_before_customer_login_form', __NAMESPACE__ . '\display_login_page_title', 5 );
@@ -217,23 +215,4 @@ function add_variation_to_item_quantity( $quantity_html, $item ) {
 	}
 
 	return '<span class="product-quantity">' . $quantity_label . '</span>';
-}
-
-/**
- * Display parent product name in order line item
- *
- * @param string        $item_name_html Display name of line item.
- * @param WC_Order_Item $item Order line item.
- * @param bool          $is_visible Is product visibile.
- * @return string
- */
-function display_product_name( $item_name_html, $item, $is_visible ) {
-	$product      = $item->get_product();
-	$display_name = $product->get_title();
-
-	if ( $is_visible ) {
-		return sprintf( '<a href="%s">%s</a>', $product->get_permalink( $item ), $display_name );
-	}
-
-	return $display_name;
 }
