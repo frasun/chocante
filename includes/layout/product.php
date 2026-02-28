@@ -319,6 +319,7 @@ function select_variation_from_url( $args ) {
 	// 2. Default variation is defined and available
 	$default_attribute = $product->get_variation_default_attribute( $args['attribute'] );
 	if ( in_array( $default_attribute, $args['options'], true ) ) {
+		$args['selected'] = $default_attribute;
 		return $args;
 	}
 
