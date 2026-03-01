@@ -54,7 +54,7 @@ get_header();
 					<a class="post" href="<?php echo esc_url( get_permalink() ); ?>" rel="bookmark">
 						<?php
 						if ( has_post_thumbnail() ) {
-							the_post_thumbnail( array( 350, 350 ), array( 'class' => 'post__thumbnail' ) );
+							the_post_thumbnail( 'medium', array( 'class' => 'post__thumbnail' ) );
 						}
 						the_title( '<h3 class="post__title">', '</h3>' );
 						?>

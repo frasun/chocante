@@ -10,7 +10,7 @@ namespace Chocante\Media;
 
 defined( 'ABSPATH' ) || exit;
 
-const IMAGE_QUALITY = 70;
+const IMAGE_QUALITY = 55;
 
 add_filter( 'image_editor_output_format', __NAMESPACE__ . '\set_image_format' );
 add_filter( 'wp_editor_set_quality', __NAMESPACE__ . '\set_image_quality' );
@@ -18,6 +18,7 @@ add_filter( 'wp_image_editors', __NAMESPACE__ . '\set_image_editor' );
 add_filter( 'wp_kses_allowed_html', __NAMESPACE__ . '\escpae_svg', 10, 2 );
 add_filter( 'get_custom_logo_image_attributes', __NAMESPACE__ . '\set_custom_logo_size', 10, 2 );
 add_filter( 'woocommerce_get_image_size_gallery_thumbnail', __NAMESPACE__ . '\set_product_gallery_thumbnail_size' );
+add_action( 'after_setup_theme', __NAMESPACE__ . '\set_medium_size' );
 
 /**
  * Use web format for uploaded images.
@@ -26,13 +27,12 @@ add_filter( 'woocommerce_get_image_size_gallery_thumbnail', __NAMESPACE__ . '\se
  * @return string[]
  */
 function set_image_format( $formats ) {
-	$formats['image/jpg']           = 'image/webp';
-	$formats['image/jpeg']          = 'image/webp';
-	$formats['image/png']           = 'image/webp';
-	$formats['image/heic']          = 'image/webp';
-	$formats['image/heif']          = 'image/webp';
-	$formats['image/heic-sequence'] = 'image/webp';
-	$formats['image/heif-sequence'] = 'image/webp';
+	$formats['image/jpg']  = 'image/avif';
+	$formats['image/jpeg'] = 'image/avif';
+	$formats['image/png']  = 'image/avif';
+	$formats['image/heic'] = 'image/avif';
+	$formats['image/heif'] = 'image/avif';
+	$formats['image/webp'] = 'image/avif';
 
 	return $formats;
 }
@@ -118,7 +118,7 @@ function set_custom_logo_size( $logo_atts, $image_id ) {
 }
 
 /**
- * Set woocommerce_gallery_thumbnail image size.
+ * Set woocommerce_gallery_thumbnail image size
  */
 function set_product_gallery_thumbnail_size() {
 	return array(
@@ -126,4 +126,13 @@ function set_product_gallery_thumbnail_size() {
 		'height' => 150,
 		'crop'   => 1,
 	);
+}
+
+/**
+ * Set 'medium' thumbnail size
+ */
+function set_medium_size() {
+	update_option( 'medium_size_w', 350 );
+	update_option( 'medium_size_h', 350 );
+	update_option( 'medium_crop', 1 );
 }

@@ -35,6 +35,18 @@ add_filter( 'woocommerce_cart_item_price', __NAMESPACE__ . '\modify_price_in_car
 add_action( 'woocommerce_before_mini_cart', __NAMESPACE__ . '\display_mini_cart_title' );
 remove_action( 'woocommerce_widget_shopping_cart_buttons', 'woocommerce_widget_shopping_cart_button_view_cart', 10 );
 add_filter( 'woocommerce_widget_cart_item_quantity', __NAMESPACE__ . '\display_mini_cart_item_total', 10, 3 );
+add_action(
+	'woocommerce_before_mini_cart_contents',
+	function () {
+		add_filter( 'woocommerce_cart_item_thumbnail', __NAMESPACE__ . '\get_mini_cart_thumbnail', 10, 2 );
+	}
+);
+add_action(
+	'woocommerce_after_mini_cart_contents',
+	function () {
+		remove_filter( 'woocommerce_cart_item_thumbnail', __NAMESPACE__ . '\get_mini_cart_thumbnail', 10 );
+	}
+);
 
 
 /**
@@ -163,4 +175,16 @@ function modify_price_in_cart( $price, $cart_item ) {
 	}
 
 	return $price;
+}
+
+/**
+ * Use smaller image in mini-cart
+ *
+ * @param string $product_image Image url.
+ * @param array  $cart_item Product in the cart.
+ */
+function get_mini_cart_thumbnail( $product_image, $cart_item ) {
+	$product = $cart_item['data'];
+
+	return $product->get_image( 'woocommerce_gallery_thumbnail' );
 }
