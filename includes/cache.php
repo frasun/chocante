@@ -11,6 +11,12 @@ namespace Chocante\Cache;
 defined( 'ABSPATH' ) || exit;
 
 /**
+ * Global rules
+ */
+add_filter( 'litespeed_vary', __NAMESPACE__ . '\unset_customer_private_vary' );
+add_action( 'litespeed_control_finalize', __NAMESPACE__ . '\set_public_cache' );
+
+/**
  * Product section
  */
 add_action( 'chocante_product_section_ajax_get', __NAMESPACE__ . '\set_public_get_product_section', 1 );
@@ -77,5 +83,42 @@ function purge_featured_products( $product ) {
 
 	if ( isset( $changes['featured'] ) ) {
 		do_action( 'litespeed_purge_post', get_option( 'page_on_front' ) );
+	}
+}
+
+/**
+ * Skip vary for logged-in customers
+ *
+ * @param array $vary Array or vary cookies.
+ * @return array
+ */
+function unset_customer_private_vary( $vary ) {
+	if ( is_user_logged_in() ) {
+		$user = wp_get_current_user();
+
+		if ( in_array( 'customer', (array) $user->roles, true ) ) {
+			unset( $vary['logged-in'] );
+			unset( $vary['admin_bar'] );
+		}
+	}
+
+	return $vary;
+}
+
+/**
+ * Set public page cache for logged-in users
+ * Customers will use the same cache as anonymous users
+ */
+function set_public_cache() {
+	if ( is_woocommerce() ||
+			is_product_category() ||
+			is_product_tag() ||
+			is_front_page() ||
+			is_page() ||
+			is_single() ||
+			is_archive() ||
+			is_tax()
+		) {
+		do_action( 'litespeed_control_force_public', 'chocante public' );
 	}
 }
