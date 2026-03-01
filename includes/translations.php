@@ -29,6 +29,8 @@ const NO_TRANSLATE_ATTR = 'data-no-translation';
 
 add_filter( 'chocante_product_variation_name', __NAMESPACE__ . '\no_translate_units' );
 add_filter( 'chocante_acf_product_data_value', __NAMESPACE__ . '\no_translate_units' );
+add_filter( 'chocante_product_variation_name', __NAMESPACE__ . '\no_translate_percentages' );
+add_filter( 'chocante_acf_product_data_value', __NAMESPACE__ . '\no_translate_percentages' );
 add_filter( 'chocante_common_breadcrumbs_wrap_before', __NAMESPACE__ . '\no_translate_breadcrums_aria' );
 add_filter( 'chocante_shop_breadcrumbs', __NAMESPACE__ . '\no_translate_breadcrums' );
 add_filter( 'trp_no_translate_selectors', __NAMESPACE__ . '\no_translate_selectors' );
@@ -99,30 +101,63 @@ function set_translation_blocks( $content ) {
 }
 
 /**
- * Wrap numerical values with units in no translate elements
+ * Wrap percentage values in no translate elements
+ *
+ * @param string $text Original string.
+ * @return string
+ */
+function no_translate_percentages( $text ) {
+	$pattern = '/(\d+[.,]?\d*)(?:\/(\d+[.,]?\d*))?%/i';
+
+	return preg_replace_callback(
+		$pattern,
+		function ( $matches ) {
+			$result = format_localized_decimal( $matches[1] );
+
+			if ( ! empty( $matches[2] ) ) {
+				$result .= '/' . format_localized_decimal( $matches[2] );
+			}
+
+			return no_translate_wrap( $result . '%' );
+		},
+		$text
+	);
+}
+
+/**
+ * Wrap unit values in no translate elements, ensuring space between value and unit
  *
  * @param string $text Original string.
  * @return string
  */
 function no_translate_units( $text ) {
-	$units   = array( 'g', 'kg', 'mg', 'kcal', 'kJ', 'l', 'ml', '%' );
-	$pattern = '/(\d+[.,]?\d*)(?:\/(\d+[.,]?\d*))?(\s?)(' . implode( '|', $units ) . ')(?![a-zA-Z0-9])/i';
+	$units   = array( 'g', 'kg', 'mg', 'kcal', 'kJ', 'l', 'ml' );
+	$pattern = '/(\d+[.,]?\d*)(\s?)(' . implode( '|', $units ) . ')(?![a-zA-Z0-9])/i';
 
 	return preg_replace_callback(
 		$pattern,
 		function ( $matches ) {
-			$num1   = wc_format_localized_decimal( str_replace( ',', '.', $matches[1] ) );
-			$result = $num1;
-
-			if ( ! empty( $matches[2] ) ) {
-				$num2    = wc_format_localized_decimal( str_replace( ',', '.', $matches[2] ) );
-				$result .= '/' . $num2;
-			}
-
-			return no_translate_wrap( $result . $matches[3] . $matches[4] );
+			$formatted = format_localized_decimal( $matches[1] );
+			return no_translate_wrap( $formatted . ' ' . $matches[3] );
 		},
 		$text
 	);
+}
+
+/**
+ * Format decimal value using current locale
+ *
+ * @param string $value Value to format.
+ * @return string
+ */
+function format_localized_decimal( $value ) {
+	$locale = get_locale();
+	setlocale( LC_NUMERIC, $locale . '.UTF-8', $locale );
+	$locale_info = localeconv();
+	$decimal_sep = $locale_info['decimal_point'] ?? '.';
+
+	$normalized = str_replace( ',', '.', $value );
+	return str_replace( '.', $decimal_sep, $normalized );
 }
 
 /**
