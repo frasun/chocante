@@ -139,7 +139,7 @@ function manage_orders_table_cols() {
  */
 function display_order_status_number( $order ) {
 	echo '<span class="order-status order-status--' . esc_attr( $order->get_status() ) . '">' . esc_html( wc_get_order_status_name( $order->get_status() ) ) . '</span>';
-	echo '<span class="order-number">' . esc_html( _x( '#', 'hash before order number', 'woocommerce' ) . $order->get_order_number() ) . '</span>';
+	echo '<span class="order-number">' . esc_html( '#' . $order->get_order_number() ) . '</span>';
 }
 
 /**
