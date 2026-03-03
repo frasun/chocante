@@ -10,6 +10,10 @@ namespace Chocante\Translations;
 
 defined( 'ABSPATH' ) || exit;
 
+use const Chocante\Layout\ACF\ACF_PRODUCT_TITLE;
+use const Chocante\Layout\ACF\ACF_PRODUCT_TYPE;
+use function Chocante\Woo\get_variation_name;
+
 add_filter( 'chocante_product_section_script_data', __NAMESPACE__ . '\add_language_to_product_section_script' );
 
 // Translation blocks.
@@ -49,10 +53,15 @@ add_action( 'init', __NAMESPACE__ . '\add_language_switcher_shortcode' );
 
 // Plugin i18n.
 add_filter( 'woocommerce_available_variation', __NAMESPACE__ . '\i18n_woo_variation' );
+add_filter( 'woocommerce_cart_shipping_method_full_label', __NAMESPACE__ . '\i18n_shipping_method', 10, 2 );
 add_filter( 'cwginstock_default_values', __NAMESPACE__ . '\i18n_cwg' );
 add_filter( 'cwginstock_localization_array', __NAMESPACE__ . '\i18n_cwg_script' );
 add_filter( 'rmp_custom_strings', __NAMESPACE__ . '\i18n_rmp' );
 add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\i18n_paczkomaty', 20 );
+
+// Woo e-mails.
+add_filter( 'woocommerce_order_item_name', __NAMESPACE__ . '\translate_email_order_item_name', 40, 2 );
+add_filter( 'woocommerce_get_order_item_totals', __NAMESPACE__ . '\translate_email_order_totals', 10, 2 );
 
 /**
  * Add current language information to product section script
@@ -499,4 +508,103 @@ function i18n_woo_variation( $variation_data ) {
 	}
 
 	return $variation_data;
+}
+
+/**
+ * Expose shipping method name to TrasnlatePress
+ *
+ * @param string           $label Shipping method label.
+ * @param  WC_Shipping_Rate $method Shipping method rate data.
+ * @return string
+ */
+function i18n_shipping_method( $label, $method ) {
+	$raw_label = $method->get_label();
+
+	return str_replace( $raw_label, '<span>' . $raw_label . '</span>', $label );
+}
+
+/**
+ * Translate product names in email
+ *
+ * @param string         $item_name_html Display name of line item.
+ * @param \WC_Order_Item $item Order line item.
+ * @return string
+ */
+function translate_email_order_item_name( $item_name_html, $item ) {
+	if ( ! function_exists( 'trp_translate' ) ) {
+		return $item_name_html;
+	}
+
+	global $TRP_EMAIL_ORDER;
+
+	if ( ! $TRP_EMAIL_ORDER ) {
+		return $item_name_html;
+	}
+
+	$order_id = $item->get_order_id();
+	$language = trp_woo_hpos_get_post_meta( $order_id, 'trp_language', true );
+
+	if ( ! $language ) {
+		return $item_name_html;
+	}
+
+	if ( class_exists( 'ACF' ) ) {
+		$id                 = $item->get_product_id();
+		$product_short_name = get_field( ACF_PRODUCT_TITLE, $id );
+		$product_type       = get_field( ACF_PRODUCT_TYPE, $id );
+
+		if ( $product_short_name ) {
+			$item_name_acf = trp_translate( $product_short_name, $language, false );
+
+			if ( $product_type ) {
+				$item_name_acf .= ' ' . trp_translate( $product_type, $language, false );
+			}
+
+			$variation_name = get_variation_name( $item->get_product() );
+
+			if ( $variation_name ) {
+				$item_name_acf .= ' - ' . $variation_name;
+			}
+
+			return $item_name_acf;
+		}
+	}
+
+	return trp_translate( wp_strip_all_tags( $item_name_html ), $language, false );
+}
+
+/**
+ * Translate order totals in email
+ *
+ * @param array     $totals Order totals rows.
+ * @param \WC_Order $order Order object.
+ * @return array
+ */
+function translate_email_order_totals( $totals, $order ) {
+	global $TRP_EMAIL_ORDER;
+
+	if ( ! $TRP_EMAIL_ORDER ) {
+		return $totals;
+	}
+
+	$language = trp_woo_hpos_get_post_meta( $order->get_id(), 'trp_language', true );
+
+	error_log( print_r( $language, true ) );
+
+	if ( ! $language ) {
+		return $totals;
+	}
+
+	foreach ( $totals as $key => &$row ) {
+		if ( 'shipping' === $key ) {
+			$row['value'] = trp_translate( $row['value'], $language, false );
+			$row['meta']  = trp_translate( $row['meta'], $language, false );
+		}
+
+		if ( 'payment_method' === $key ) {
+			$row['value'] = trp_translate( $row['value'], $language, false );
+		}
+	}
+
+	return $totals;
 }
