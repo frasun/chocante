@@ -10,6 +10,8 @@ namespace Chocante\Layout\Checkout;
 
 defined( 'ABSPATH' ) || exit;
 
+use function Chocante\Woo\get_order_item_quantity;
+
 add_action( 'woocommerce_before_checkout_form', __NAMESPACE__ . '\display_page_title', 1 );
 
 // Fix for free shipping notice order.
@@ -40,20 +42,10 @@ function display_page_title() {
  * @return string
  */
 function modify_item_quantity( $quantity_html, $cart_item ) {
-	$product        = $cart_item['data'];
-	$quantity       = $cart_item['quantity'];
-	$quantity_label = sprintf( '&times; %s', $quantity );
-	$variation      = $cart_item['variation'];
+	$product  = $cart_item['data'];
+	$quantity = $cart_item['quantity'];
 
-	if ( ! empty( $variation ) ) {
-		$variation_term = get_term_by( 'slug', reset( $variation ), str_replace( 'attribute_', '', array_key_first( $variation ) ) );
-
-		if ( $variation_term ) {
-			$quantity_label = sprintf( '%s &times; %s', $quantity, $variation_term->name );
-		}
-	}
-
-	return '<span class="product-quantity">' . $quantity_label . '</span>';
+	return get_order_item_quantity( $product, $quantity );
 }
 
 /**

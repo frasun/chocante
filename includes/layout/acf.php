@@ -43,7 +43,7 @@ add_action( 'woocommerce_single_product_summary', __NAMESPACE__ . '\display_nutr
 add_action( 'chocante_shop_product_category_description', __NAMESPACE__ . '\display_product_category_description' );
 
 // View order.
-add_filter( 'woocommerce_order_item_name', __NAMESPACE__ . '\modify_order_item_name', 10, 2 );
+add_filter( 'woocommerce_order_item_name', __NAMESPACE__ . '\modify_order_item_name', 30, 3 );
 
 // Featured products slider.
 add_filter( 'chocante_featured_products_category', __NAMESPACE__ . '\get_featured_category', 10, 2 );
@@ -251,29 +251,37 @@ function display_product_category_description( $description ) {
 /**
  * Replace default order item name with ACF fields
  *
- * @param string        $item_name Order line item name HTML.
- * @param WC_Order_Item $item Order line item.
+ * @param string                 $item_name Order line item name HTML.
+ * @param \WC_Order_Item_Product $item Order line item.
+ * @param bool                   $is_visible Is product visible.
  * @return string
  */
-function modify_order_item_name( $item_name, $item ) {
-	$modify_name = is_checkout() || is_account_page();
-
-	if ( ! $modify_name ) {
-		return $item_name;
-	}
-
+function modify_order_item_name( $item_name, $item, $is_visible ) {
 	$display_name = $item_name;
-	$product_id   = $item->get_data()['product_id'];
+	$product_id   = $item->get_product_id();
 	$product_name = get_field( ACF_PRODUCT_TITLE, $product_id );
 	$product_type = get_field( ACF_PRODUCT_TYPE, $product_id );
+	$wrap         = is_account_page() || is_checkout();
 
 	if ( $product_name ) {
 		$display_name = apply_filters( 'chocante_acf_product_title', $product_name );
-		$display_name = '<strong>' . $display_name . '</strong>';
+
+		if ( $wrap ) {
+			$display_name = '<strong>' . $display_name . '</strong>';
+		}
+
+		if ( $product_type ) {
+			if ( $wrap ) {
+				$display_name .= '<small>' . $product_type . '</small>';
+			} else {
+				$display_name .= ' ' . $product_type;
+			}
+		}
 	}
 
-	if ( $product_type ) {
-		$display_name .= '<small>' . $product_type . '</small>';
+	if ( $wrap && $is_visible ) {
+		$product = $item->get_product();
+		return sprintf( '<a href="%s">%s</a>', $product->get_permalink( $item ), $display_name );
 	}
 
 	return $display_name;

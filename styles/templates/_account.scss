@@ -619,6 +619,12 @@
 			.product {
 
 				&-name {
+					line-height: 1.15;
+
+					a {
+						font-weight: inherit;
+						text-decoration: none;
+					}
 
 					@include min-width($breakpoint--mobile-sm) {
 						padding-right: var(--spacing--30);
@@ -635,6 +641,7 @@
 				&-variation-quantity {
 					display: block;
 					font-weight: var(--font-weight--normal);
+					line-height: var(--line-height);
 				}
 
 				&-variation-quantity .product-quantity {

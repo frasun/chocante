@@ -25,10 +25,6 @@ add_filter( 'woocommerce_get_price_suffix', __NAMESPACE__ . '\add_price_suffix',
 add_filter( 'woocommerce_format_price_range', __NAMESPACE__ . '\modify_price_range', 10, 3 );
 add_filter( 'woocommerce_variable_price_html', __NAMESPACE__ . '\add_price_range_prefix', 10, 2 );
 
-// Modify order items.
-add_filter( 'woocommerce_order_item_name', __NAMESPACE__ . '\display_item_link', 10, 2 );
-add_filter( 'woocommerce_display_item_meta', '__return_false' );
-
 // Post-code validation.
 add_action( 'wp_ajax_validate_postcode', __NAMESPACE__ . '\validate_postcode' );
 add_action( 'wp_ajax_nopriv_validate_postcode', __NAMESPACE__ . '\validate_postcode' );
@@ -312,19 +308,19 @@ function display_shop_breadcrumbs() {
 }
 
 /**
- * Display parent product name in order line item
+ * Display order line item quantity
  *
- * @param string        $item_name_html Display name of line item.
- * @param WC_Order_Item $item Order line item.
+ * @param \WC_Product $product Product object.
+ * @param int         $quantity Quantity.
  * @return string
  */
-function display_item_link( $item_name_html, $item ) {
-	$product      = $item->get_product();
-	$product_name = $product->get_title();
+function get_order_item_quantity( $product, $quantity ) {
+	$quantity_label = sprintf( '&times; %s', $quantity );
+	$variation_name = get_variation_name( $product );
 
-	if ( is_checkout() ) {
-		return sprintf( '<a href="%s">%s</a>', $product->get_permalink( $item ), $product_name );
+	if ( $variation_name ) {
+		$quantity_label = sprintf( '%s &times; %s', $quantity, $variation_name );
 	}
 
-	return $product_name;
+	return '<span class="product-quantity">' . $quantity_label . '</span>';
 }

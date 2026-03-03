@@ -8,10 +8,10 @@
 
 namespace Chocante\Layout\Account;
 
-use function Chocante\Assets\icon;
-use function Chocante\Woo\get_variation_name;
-
 defined( 'ABSPATH' ) || exit;
+
+use function Chocante\Assets\icon;
+use function Chocante\Woo\get_order_item_quantity;
 
 // Page header.
 add_action( 'woocommerce_account_navigation', __NAMESPACE__ . '\display_page_header', 5 );
@@ -31,6 +31,9 @@ add_filter( 'woocommerce_account_orders_columns', __NAMESPACE__ . '\manage_order
 add_action( 'woocommerce_my_account_my_orders_column_order-status-number', __NAMESPACE__ . '\display_order_status_number' );
 add_action( 'woocommerce_my_account_my_orders_column_order-total-value', __NAMESPACE__ . '\display_order_total' );
 add_filter( 'woocommerce_order_item_quantity_html', __NAMESPACE__ . '\add_variation_to_item_quantity', 10, 2 );
+add_filter( 'woocommerce_order_item_name', __NAMESPACE__ . '\display_parent_item_name', 10, 2 );
+add_filter( 'woocommerce_order_item_name', __NAMESPACE__ . '\display_item_link', 20, 3 );
+add_filter( 'woocommerce_display_item_meta', '__return_false' );
 
 // Login.
 add_action( 'woocommerce_before_customer_login_form', __NAMESPACE__ . '\display_login_page_title', 5 );
@@ -205,14 +208,44 @@ function display_login_page_title() {
  * @return string
  */
 function add_variation_to_item_quantity( $quantity_html, $item ) {
-	$product        = $item->get_product();
-	$qty            = $item->get_quantity();
-	$quantity_label = sprintf( '&times; %s', $qty );
-	$variation_name = get_variation_name( $product );
+	$product = $item->get_product();
+	$qty     = $item->get_quantity();
 
-	if ( $variation_name ) {
-		$quantity_label = sprintf( '%s &times; %s', $qty, $variation_name );
+	return get_order_item_quantity( $product, $qty );
+}
+
+/**
+ * Display parent product name in order line item
+ *
+ * @param string                 $item_name_html Display name of line item.
+ * @param \WC_Order_Item_Product $item Order line item.
+ * @return string
+ */
+function display_parent_item_name( $item_name_html, $item ) {
+	$product      = $item->get_product();
+	$product_name = $product->get_title();
+
+	return $product_name;
+}
+
+/**
+ * Display link to visible product in order line item
+ *
+ * @param string                 $item_name_html Display name of line item.
+ * @param \WC_Order_Item_Product $item Order line item.
+ * @param bool                   $is_visible Is product visible.
+ * @return string
+ */
+function display_item_link( $item_name_html, $item, $is_visible ) {
+	if ( is_admin() ) {
+		return $item_name_html;
 	}
 
-	return '<span class="product-quantity">' . $quantity_label . '</span>';
+	$product = $item->get_product();
+
+	if ( $is_visible ) {
+		return sprintf( '<a href="%s">%s</a>', $product->get_permalink( $item ), $item_name_html );
+	} else {
+		return '<strong>' . $item_name_html . '</strong>';
+	}
 }
