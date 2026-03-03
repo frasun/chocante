@@ -63,6 +63,9 @@ add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\i18n_paczkomaty', 20 );
 add_filter( 'woocommerce_order_item_name', __NAMESPACE__ . '\translate_email_order_item_name', 40, 2 );
 add_filter( 'woocommerce_get_order_item_totals', __NAMESPACE__ . '\translate_email_order_totals', 10, 2 );
 
+// Woo order API.
+add_filter( 'woocommerce_rest_prepare_shop_order_object', __NAMESPACE__ . '\add_translations_to_order_api', 10, 3 );
+
 /**
  * Add current language information to product section script
  *
@@ -566,7 +569,7 @@ function translate_email_order_item_name( $item_name_html, $item ) {
 				$item_name_acf .= ' - ' . $variation_name;
 			}
 
-			return $item_name_acf;
+			return wp_strip_all_tags( $item_name_acf );
 		}
 	}
 
@@ -589,8 +592,6 @@ function translate_email_order_totals( $totals, $order ) {
 
 	$language = trp_woo_hpos_get_post_meta( $order->get_id(), 'trp_language', true );
 
-	error_log( print_r( $language, true ) );
-
 	if ( ! $language ) {
 		return $totals;
 	}
@@ -607,4 +608,63 @@ function translate_email_order_totals( $totals, $order ) {
 	}
 
 	return $totals;
+}
+
+
+/**
+ * Extend order API schema with translations
+ *
+ * @param \WP_REST_Response $response REST response object.
+ * @param \WC_Order         $order Order object.
+ * @return \WP_REST_Response
+ */
+function add_translations_to_order_api( $response, $order ) {
+	$language = trp_woo_hpos_get_post_meta( $order->get_id(), 'trp_language', true );
+
+	if ( ! $language ) {
+		return $response;
+	}
+
+	// Translate line items.
+	$translated_items = array();
+	foreach ( $order->get_items() as $item_id => $item ) {
+		$product = $item->get_product();
+
+		if ( class_exists( 'ACF' ) ) {
+			$id                 = $item->get_product_id();
+			$product_short_name = get_field( ACF_PRODUCT_TITLE, $id );
+			$product_type       = get_field( ACF_PRODUCT_TYPE, $id );
+
+			if ( $product_short_name ) {
+				$item_name_acf = trp_translate( $product_short_name, $language, false );
+
+				if ( $product_type ) {
+					$item_name_acf .= ' ' . trp_translate( $product_type, $language, false );
+				}
+
+				$variation_name = get_variation_name( $product );
+
+				if ( $variation_name ) {
+					$item_name_acf .= ' - ' . $variation_name;
+				}
+
+				$translated_items[ $item_id ] = wp_strip_all_tags( $item_name_acf );
+			}
+		} else {
+			$translated_items[ $item_id ] = trp_translate( wp_strip_all_tags( $product->get_title() ), $language, false );
+		}
+	}
+
+	// Translate shipping/payment.
+	$shipping_methods = $order->get_shipping_methods();
+	$shipping_method  = reset( $shipping_methods );
+
+	$response->data['translations'] = array(
+		'language'        => $language,
+		'line_items'      => $translated_items,
+		'shipping_method' => $shipping_method ? trp_translate( $shipping_method->get_name(), $language, false ) : '',
+		'payment_method'  => trp_translate( $order->get_payment_method_title(), $language, false ),
+	);
+
+	return $response;
 }
