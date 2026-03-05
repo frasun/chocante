@@ -55,6 +55,9 @@ add_action( 'woocommerce_after_main_content', __NAMESPACE__ . '\close_main_eleme
 // Page footer.
 add_action( 'wp_footer', __NAMESPACE__ . '\output_product_search', 30 );
 
+// Admin.
+add_filter( 'show_admin_bar', __NAMESPACE__ . '\hide_admin_bar' );
+
 /**
  * Display account link, mini-cart & product search actions in header
  *
@@ -240,4 +243,18 @@ function close_main_element() {
  */
 function show_product_badge() {
 	get_template_part( 'template-parts/product', 'badge' );
+}
+
+/**
+ * Hide admin bar for users who cannot edit posts
+ *
+ * @param bool $show_admin_bar Whether the admin bar should be shown. Default false.
+ * @return bool
+ */
+function hide_admin_bar( $show_admin_bar ) {
+	if ( ! current_user_can( 'edit_posts' ) ) {
+		return false;
+	}
+
+	return $show_admin_bar;
 }
