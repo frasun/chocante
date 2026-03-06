@@ -15,7 +15,19 @@ export default class ProductSlider {
 			throw new Error( ProductSlider.ERROR_MISSING_PRODUCT_SECTION );
 		}
 
+		const spinner = this.productSection.querySelector(
+			ProductSlider.SPINNER_CLASS
+		);
+
+		if ( spinner ) {
+			this.spinner = spinner.cloneNode( true );
+		}
+
 		this.fetchProducts();
+
+		window
+			.jQuery( document.body )
+			.on( 'updated_wc_div', this.refetchProducts.bind( this ) );
 	}
 
 	getFetchUrl( element ) {
@@ -28,13 +40,6 @@ export default class ProductSlider {
 
 		if ( window.chocante.lang ) {
 			fetchUrl.searchParams.append( 'lang', window.chocante.lang );
-		}
-
-		if ( window.chocante.currency ) {
-			fetchUrl.searchParams.append(
-				'currency',
-				window.chocante.currency
-			);
 		}
 
 		return fetchUrl;
@@ -61,7 +66,10 @@ export default class ProductSlider {
 				}
 
 				this.productSection.insertAdjacentHTML( 'beforeend', products );
-				new Slider( this.productSection.className );
+
+				window.requestAnimationFrame( () => {
+					new Slider( this.productSection.className );
+				} );
 			}
 		} catch ( error ) {
 			throw new Error( error );
@@ -101,6 +109,20 @@ export default class ProductSlider {
 		} );
 
 		return doc.body.innerHTML;
+	}
+
+	refetchProducts() {
+		const slider = this.productSection.querySelector( '.splide' );
+
+		if ( slider ) {
+			slider.remove();
+		}
+
+		if ( this.spinner ) {
+			this.productSection.appendChild( this.spinner );
+		}
+
+		this.fetchProducts();
 	}
 }
 

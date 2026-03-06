@@ -19,10 +19,12 @@ require_once __DIR__ . '/includes/menu.php';
 require_once __DIR__ . '/includes/blocks.php';
 require_once __DIR__ . '/includes/media.php';
 require_once __DIR__ . '/includes/currency.php';
+require_once __DIR__ . '/includes/location.php';
 require_once __DIR__ . '/includes/translations.php';
 require_once __DIR__ . '/includes/cache.php';
 require_once __DIR__ . '/includes/feed.php';
 require_once __DIR__ . '/includes/plugins.php';
+require_once __DIR__ . '/includes/crawler.php';
 
 /**
  * WooCommerce settings.

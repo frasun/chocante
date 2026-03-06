@@ -15,6 +15,6 @@
 	}
 
 	span:not(:last-child)::after {
-		content: "\00a0\2010\00a0"; /* " - " */
+		content: " - ";
 	}
 }

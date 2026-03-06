@@ -47,6 +47,7 @@ function defer_scripts( $scripts ) {
 		$scripts[] = 'woo-multi-currency-cart';
 		$scripts[] = 'woocommerce-multi-currency';
 		$scripts[] = 'woocommerce-multi-currency-cart';
+		$scripts[] = 'woocommerce-multi-currency-switcher';
 	}
 
 	// WooCommerce.
@@ -54,12 +55,29 @@ function defer_scripts( $scripts ) {
 		$scripts[] = 'js-cookie';
 		$scripts[] = 'woocommerce';
 		$scripts[] = 'wc-single-product';
+		$scripts[] = 'sourcebuster-js';
+		$scripts[] = 'wc-order-attribution';
 
 		if ( is_product() ) {
 			$scripts[] = 'flexslider';
 			$scripts[] = 'photoswipe';
 			$scripts[] = 'photoswipe-ui-default';
 		}
+	}
+
+	// Rate My Post.
+	if ( class_exists( 'Rate_My_Post' ) && ( is_singular( 'post' ) ) ) {
+		$scripts[] = 'rate-my-post';
+	}
+
+	// Stape.
+	if ( defined( 'GTM_SERVER_SIDE_PATH' ) ) {
+		$scripts[] = 'gtm-server-side';
+	}
+
+	// Mailerlite.
+	if ( class_exists( 'WooMailerLite' ) ) {
+		$scripts[] = 'mailerlite-rewrite-universal';
 	}
 
 	return $scripts;
@@ -112,8 +130,8 @@ function remove_scripts( $scripts ) {
 
 	// Curcy.
 	if ( class_exists( 'WOOMULTI_CURRENCY' ) || class_exists( 'WOOMULTI_CURRENCY_F' ) ) {
-		$scripts[] = 'woocommerce-multi-currency-switcher';
 		$scripts[] = 'woocommerce-multi-currency-convertor';
+		$scripts[] = 'woocommerce-multi-currency-filter-price';
 	}
 
 	// TranslatePress.
@@ -150,6 +168,8 @@ function async_styles( $styles ) {
  * @return array
  */
 function remove_styles( $styles ) {
+	$styles[] = 'wp-block-library';
+
 	// Rate My Post.
 	if ( class_exists( 'Rate_My_Post' ) && ( ! is_singular( 'post' ) ) ) {
 		$styles[] = 'rate-my-post';

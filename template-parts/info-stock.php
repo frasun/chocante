@@ -9,8 +9,6 @@
 defined( 'ABSPATH' ) || exit;
 
 use function Chocante\Assets\icon;
-
-global $product;
 ?>
 
 <div class="infobox__stock">
@@ -18,6 +16,6 @@ global $product;
 
 	<div>
 		<h6><?php echo esc_html_x( 'In stock', 'infobox', 'chocante' ); ?></h6>
-		<?php echo wp_kses_post( wc_get_stock_html( $product ) ); ?>
+		<?php do_action( 'chocante_product_stock' ); ?>
 	</div>
 </div>

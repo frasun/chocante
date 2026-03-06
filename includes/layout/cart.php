@@ -60,6 +60,12 @@ add_action(
 		remove_filter( 'woocommerce_cart_item_thumbnail', __NAMESPACE__ . '\get_mini_cart_thumbnail', 10 );
 	}
 );
+add_filter( 'woocommerce_add_to_cart_fragments', __NAMESPACE__ . '\update_mini_cart_count' );
+
+// Modify shipping calculator.
+add_filter( 'woocommerce_shipping_calculator_enable_city', '__return_false' );
+add_filter( 'woocommerce_shipping_calculator_enable_postcode', '__return_false' );
+add_filter( 'woocommerce_shipping_calculator_enable_state', '__return_false' );
 
 
 /**
@@ -223,4 +229,20 @@ function display_tax_in_totals() {
 	$company         = $customer->get_billing_company();
 
 	return ! ( ! empty( $company ) && $is_vat_country );
+}
+
+/**
+ * Add cart count to wc-fragments
+ *
+ * @param array $fragments WC fragments.
+ * @return array
+ */
+function update_mini_cart_count( $fragments ) {
+	if ( ! is_object( WC()->cart ) ) {
+		return;
+	}
+
+	$fragments['cart-count'] = WC()->cart->get_cart_contents_count();
+
+	return $fragments;
 }

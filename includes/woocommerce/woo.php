@@ -10,14 +10,6 @@ namespace Chocante\Woo;
 
 defined( 'ABSPATH' ) || exit;
 
-// Mini-cart count.
-add_filter( 'woocommerce_add_to_cart_fragments', __NAMESPACE__ . '\update_mini_cart_count' );
-
-// AJAX add to cart.
-add_action( 'woocommerce_ajax_added_to_cart', __NAMESPACE__ . '\make_success_notice_on_add_to_cart' );
-add_filter( 'woocommerce_cart_redirect_after_error', __NAMESPACE__ . '\make_error_notice_on_add_to_cart' );
-add_filter( 'woocommerce_add_to_cart_fragments', __NAMESPACE__ . '\add_fragments_with_add_to_cart_notices' );
-
 // Modify price display.
 add_action( 'woocommerce_before_shop_loop', __NAMESPACE__ . '\set_price_display_modify' );
 add_action( 'chocante_product_section_loop', __NAMESPACE__ . '\set_price_display_modify' );
@@ -45,62 +37,6 @@ add_filter( 'tgpc_wc_gift_wrapper_checkout_label', __NAMESPACE__ . '\display_gif
  * @link https://github.com/WordPress/gutenberg/issues/33576#issuecomment-883690807
  */
 remove_filter( 'admin_head', 'wp_check_widget_editor_deps' );
-
-/**
- * Add cart count to wc-fragments
- *
- * @param array $fragments WC fragments.
- * @return array
- */
-function update_mini_cart_count( $fragments ) {
-	if ( ! is_object( WC()->cart ) ) {
-		return;
-	}
-
-	$fragments['cart-count'] = WC()->cart->get_cart_contents_count();
-
-	return $fragments;
-}
-
-
-/**
- * Add notice on successful add to cart.
- *
- * @param int $product_id ID of added product.
- */
-function make_success_notice_on_add_to_cart( $product_id ) {
-  // phpcs:disable WordPress.Security.NonceVerification.Missing, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-	$quantity = empty( $_POST['quantity'] ) ? 1 : wc_stock_amount( wp_unslash( $_POST['quantity'] ) );
-
-	wc_add_to_cart_message( array( $product_id => $quantity ), true );
-}
-
-/**
- * Add notice on error add to cart.
- */
-function make_error_notice_on_add_to_cart() {
-	\WC_AJAX::get_refreshed_fragments();
-
-	return false;
-}
-
-/**
- * Include add to cart notices in cart fragments
- *
- * @param array $fragments WC fragments.
- * @return array
- */
-function add_fragments_with_add_to_cart_notices( $fragments ) {
-	if ( wc_notice_count() > 0 ) {
-		$notices_html = wc_print_notices( true );
-
-		if ( ! empty( $notices_html ) ) {
-			$fragments['add-to-cart'] = $notices_html;
-		}
-	}
-
-	return $fragments;
-}
 
 /**
  * Set global variable to modify price display

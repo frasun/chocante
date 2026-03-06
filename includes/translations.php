@@ -53,8 +53,10 @@ add_filter( 'trp_no_auto_translate_selectors', __NAMESPACE__ . '\no_auto_transla
 
 // Language switcher.
 add_action( 'init', __NAMESPACE__ . '\add_language_switcher_shortcode' );
+add_action( 'chocante_language_switcher', __NAMESPACE__ . '\display_language_switcher' );
 
 // Plugin i18n.
+add_filter( 'chocante_product_section_script_data', __NAMESPACE__ . '\add_language_to_product_section_script' );
 add_filter( 'woocommerce_available_variation', __NAMESPACE__ . '\i18n_woo_variation' );
 add_filter( 'woocommerce_cart_shipping_method_full_label', __NAMESPACE__ . '\i18n_shipping_method', 10, 2 );
 add_filter( 'cwginstock_default_values', __NAMESPACE__ . '\i18n_cwg' );
@@ -373,42 +375,46 @@ function no_auto_translate_product_name( $title, $name = null ) {
 }
 
 /**
- * Display langauge swticher
+ * Add langauge swticher shortcode
  */
 function add_language_switcher_shortcode() {
 	// [chocante_language_switcher] shortcode.
 	add_shortcode(
 		'chocante_language_switcher',
 		function () {
-			if ( ! apply_filters( 'trp_allow_tp_to_run', true ) ) {
-				return;
-			}
-
-			// phpcs:disable WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase
-			global $TRP_LANGUAGE;
-
-			$languages = trp_custom_language_switcher();
-
-			if ( count( $languages ) < 2 || ! isset( $languages[ $TRP_LANGUAGE ] ) ) {
-				return;
-			}
-
-			$current = $languages[ $TRP_LANGUAGE ];
-			unset( $languages[ $TRP_LANGUAGE ] );
-
-			ob_start();
-			get_template_part(
-				'template-parts/language',
-				'switcher',
-				array(
-					'current'   => $current,
-					'languages' => $languages,
-				)
-			);
-
-			return ob_get_clean();
+			do_action( 'chocante_language_switcher' );
 		}
 	);
+}
+
+/**
+ * Display language switcher
+ */
+function display_language_switcher() {
+	if ( ! apply_filters( 'trp_allow_tp_to_run', true ) ) {
+		return;
+	}
+
+	// phpcs:disable WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase
+	global $TRP_LANGUAGE;
+
+	$languages = trp_custom_language_switcher();
+
+	if ( count( $languages ) < 2 || ! isset( $languages[ $TRP_LANGUAGE ] ) ) {
+		return;
+	}
+
+	ob_start();
+	get_template_part(
+		'template-parts/switcher',
+		'language',
+		array(
+			'languages' => $languages,
+		)
+	);
+
+	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+	echo ob_get_clean();
 }
 
 /**
@@ -677,4 +683,35 @@ function add_translations_to_order_api( $response, $order ) {
  */
 function allow_translating() {
 	return 'edit_others_posts';
+}
+
+/**
+ * Add translations to the url list
+ *
+ * @param array $urls A set of urls.
+ * @param bool  $skip_default Skip default language.
+ */
+function add_translated_urls( &$urls, $skip_default = true ) {
+	if ( ! class_exists( 'TRP_Translate_Press' ) ) {
+		return $urls;
+	}
+
+	$trp           = \TRP_Translate_Press::get_trp_instance();
+	$trp_settings  = $trp->get_component( 'settings' );
+	$settings      = $trp_settings->get_settings();
+	$url_converter = $trp->get_component( 'url_converter' );
+
+	$translated_urls = array();
+
+	foreach ( $urls as $url ) {
+		foreach ( $settings['publish-languages'] as $language ) {
+			if ( $skip_default && $settings['default-language'] === $language ) {
+				continue;
+			}
+
+			$translated_urls[] = $url_converter->get_url_for_language( $language, $url, '' );
+		}
+	}
+
+	$urls = array_unique( array_merge( $urls, $translated_urls ) );
 }

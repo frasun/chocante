@@ -1,5 +1,9 @@
 $slider-navigation-size: 50px;
 
+@mixin product-section-height {
+	min-height: 455px;
+}
+
 .product-section {
 	background-color: var(--product-section--background-color, var(--wp--preset--color--white));
 	padding-top: var(--spacing--30);
@@ -68,14 +72,18 @@ $slider-navigation-size: 50px;
 	&__empty {
 
 		@include empty-screen;
-
-		min-height: 300px;
+		@include product-section-height;
 		position: relative;
 	}
 
 	&__spinner {
 
 		@include flex(center);
-		min-height: 300px;
+		@include product-section-height;
+	}
+
+	.splide {
+
+		@include product-section-height;
 	}
 }

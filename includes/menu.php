@@ -15,7 +15,6 @@ defined( 'ABSPATH' ) || exit;
 add_action( 'after_setup_theme', __NAMESPACE__ . '\register_menus' );
 
 if ( ! is_admin() ) {
-	add_action( 'wp_footer', __NAMESPACE__ . '\output_mobile_menu', 20 );
 	add_filter( 'nav_menu_item_title', __NAMESPACE__ . '\social_media_icons', 10, 3 );
 	add_filter( 'nav_menu_link_attributes', __NAMESPACE__ . '\social_media_aria', 10, 3 );
 }
@@ -34,13 +33,6 @@ function register_menus() {
 			'chocante_footer_terms'    => _x( 'Footer - Terms', 'menu', 'chocante' ),
 		)
 	);
-}
-
-/**
- * Output mobile menu
- */
-function output_mobile_menu() {
-	get_template_part( 'template-parts/mobile-menu' );
 }
 
 /**

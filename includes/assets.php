@@ -13,7 +13,7 @@ defined( 'ABSPATH' ) || exit;
 use Chocante\Assets_Handler;
 
 add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\enqueue_scripts', 20 );
-add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\manage_external_scripts', 1100 );
+add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\manage_external_scripts', 9999999 );
 add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\disable_jquery_migrate' );
 add_action( 'wp_head', __NAMESPACE__ . '\preload_assets', 0 );
 add_action( 'wp_head', __NAMESPACE__ . '\preconnect_to_sources', 1 );
@@ -192,7 +192,7 @@ function preload_assets() {
 	$styles = array();
 
 	// Fonts.
-	$fonts = array( 'fonts/montserrat-medium.woff2', 'fonts/montserrat-semibold.woff2', 'fonts/montserrat-bold.woff2', 'fonts/playfair_display-medium.woff2', 'build/fonts/glyphter.woff' );
+	$fonts = array( 'fonts/Montserrat-VariableFont_wght.woff2', 'fonts/playfair_display-medium.woff2', 'build/fonts/glyphter.woff2' );
 	foreach ( $fonts as $font ) {
 		$name    = explode( '.', $font );
 		$ext     = end( $name );

@@ -18,8 +18,12 @@ add_filter( 'woocommerce_breadcrumb_defaults', __NAMESPACE__ . '\modify_breadcru
 add_filter( 'rank_math/frontend/breadcrumb/args', __NAMESPACE__ . '\modify_breadcrumbs' );
 
 // Layout.
+add_action( 'chocante_header', __NAMESPACE__ . '\display_header' );
 add_action( 'chocante_header_aside', __NAMESPACE__ . '\display_header_actions' );
 add_action( 'chocante_before_footer', __NAMESPACE__ . '\display_join_group' );
+add_action( 'chocante_footer', __NAMESPACE__ . '\display_footer' );
+add_action( 'chocante_footer', __NAMESPACE__ . '\output_mobile_menu', 20 );
+add_action( 'chocante_footer', __NAMESPACE__ . '\output_product_search', 30 );
 
 // Cart & product page.
 add_action( 'woocommerce_before_quantity_input_field', __NAMESPACE__ . '\display_remove_quantity_button' );
@@ -27,9 +31,7 @@ add_action( 'woocommerce_after_quantity_input_field', __NAMESPACE__ . '\display_
 add_filter( 'woocommerce_quantity_input_type', __NAMESPACE__ . '\set_quantity_input_type' );
 
 // Free shipping.
-if ( class_exists( 'Chocante_Free_Shipping' ) ) {
-	add_action( 'chocante_delivery_info', __NAMESPACE__ . '\display_free_delivery_info' );
-}
+add_action( 'chocante_delivery_info', __NAMESPACE__ . '\display_free_delivery_info' );
 
 // Product search.
 add_action( 'pre_get_product_search_form', __NAMESPACE__ . '\display_product_search_title' );
@@ -51,9 +53,6 @@ add_action( 'woocommerce_before_main_content', __NAMESPACE__ . '\open_main_eleme
 remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20 );
 remove_action( 'woocommerce_after_main_content', 'woocommerce_output_content_wrapper_end' );
 add_action( 'woocommerce_after_main_content', __NAMESPACE__ . '\close_main_element', 60 );
-
-// Page footer.
-add_action( 'wp_footer', __NAMESPACE__ . '\output_product_search', 30 );
 
 // Admin.
 add_filter( 'show_admin_bar', __NAMESPACE__ . '\hide_admin_bar' );
@@ -123,11 +122,14 @@ function spinner() {
  * Output product search form
  */
 function output_product_search() {
-	if ( is_admin() ) {
-		return;
-	}
-
 	get_template_part( 'template-parts/product-search', 'form' );
+}
+
+/**
+ * Output mobile menu
+ */
+function output_mobile_menu() {
+	get_template_part( 'template-parts/mobile-menu' );
 }
 
 /**
@@ -177,6 +179,10 @@ function set_quantity_input_type() {
  * Display free delivery infor
  */
 function display_free_delivery_info() {
+	if ( ! class_exists( 'Chocante_Free_Shipping' ) ) {
+		return;
+	}
+
 	get_template_part(
 		'template-parts/info',
 		'section',
@@ -239,7 +245,7 @@ function close_main_element() {
 }
 
 /**
- * Display product badges.
+ * Display product badges
  */
 function show_product_badge() {
 	get_template_part( 'template-parts/product', 'badge' );
@@ -257,4 +263,18 @@ function hide_admin_bar( $show_admin_bar ) {
 	}
 
 	return $show_admin_bar;
+}
+
+/**
+ * Display site header
+ */
+function display_header() {
+	get_template_part( 'template-parts/header' );
+}
+
+/**
+ * Display site footer
+ */
+function display_footer() {
+	get_template_part( 'template-parts/footer' );
 }

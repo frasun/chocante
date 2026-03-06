@@ -29,10 +29,20 @@
 		flex-wrap: wrap;
 		gap: var(--spacing--10);
 		padding-bottom: var(--spacing--30);
+		position: relative;
 
 		@include max-width($breakpoint--mobile-lg) {
 			padding-bottom: var(--spacing--15);
 		}
+	}
+
+	.reading-time {
+		max-width: 50%;
+	}
+
+	.rmp-results-widget {
+		position: absolute;
+		right: 0;
 	}
 
 	.rmp-widgets-container.rmp-wp-plugin.rmp-main-container {

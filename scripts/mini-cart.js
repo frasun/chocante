@@ -39,8 +39,6 @@ export default class MiniCart {
 			return;
 		}
 
-		let count = this.miniCartCount.dataset.count;
-
 		const storeFragments = JSON.parse(
 			window.sessionStorage.getItem(
 				window.wc_cart_fragments_params.fragment_name
@@ -50,10 +48,9 @@ export default class MiniCart {
 			storeFragments &&
 			MiniCart.FRAGMENT_CART_COUNT in storeFragments
 		) {
-			count = storeFragments[ MiniCart.FRAGMENT_CART_COUNT ];
+			this.miniCartCount.innerHTML =
+				storeFragments[ MiniCart.FRAGMENT_CART_COUNT ];
 		}
-
-		this.miniCartCount.innerHTML = count;
 	}
 
 	setContentHeight() {

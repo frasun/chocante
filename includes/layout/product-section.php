@@ -8,13 +8,14 @@
 
 namespace Chocante\Layout\ProductSection;
 
-use Chocante\Assets_Handler;
-
 defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( 'WooCommerce' ) ) {
 	return;
 }
+
+use Chocante\Assets_Handler;
+use WC_Product_Variation;
 
 const CACHE_GROUP = 'chocante_products';
 
@@ -103,11 +104,6 @@ function display_product_section( $args = array(), $content = '' ) {
  * @return string
  */
 function get_product_section( $category = array(), $featured = false, $onsale = false, $latest = false, $exclude = array() ) {
-	/**
-	 * Hook before getting products to display.
-	 */
-	do_action( 'chocante_product_section_ajax_get' );
-
 	$products = get_products( $category, $featured, $onsale, $latest, $exclude );
 
 	add_filter( 'woocommerce_post_class', __NAMESPACE__ . '\slider_item_class' );
@@ -138,6 +134,11 @@ function get_product_section( $category = array(), $featured = false, $onsale = 
  * @return array
  */
 function get_products( $category = array(), $featured = false, $onsale = false, $latest = false, $exclude = array() ) {
+	/**
+	 * Hook before getting products to display.
+	 */
+	do_action( 'chocante_product_section_get_products', $category, $featured, $onsale, $latest, $exclude );
+
 	$limit   = 12;
 	$orderby = $latest ? 'id' : 'rand';
 	$order   = 'desc';
@@ -170,10 +171,7 @@ function get_products( $category = array(), $featured = false, $onsale = false, 
 		$args['exclude'] = $exclude;
 	}
 
-	// WPML support.
-	$lang = apply_filters( 'wpml_current_language', null );
-
-	$cache_key = md5( wp_json_encode( array( ...func_get_args(), $lang ) ) );
+	$cache_key = md5( wp_json_encode( func_get_args() ) );
 	$products  = wp_cache_get( $cache_key, CACHE_GROUP );
 
 	if ( false === $products ) {
@@ -212,6 +210,8 @@ function get_slider_labels() {
  * @phpcs:disable WordPress.Security.NonceVerification.Recommended
  */
 function ajax_get_product_section() {
+	do_action( 'chocante_product_section_ajax_get' );
+
 	$category = isset( $_GET['category'] ) ? explode( ',', sanitize_text_field( wp_unslash( $_GET['category'] ) ) ) : array();
 	$featured = isset( $_GET['featured'] ) ? sanitize_text_field( wp_unslash( $_GET['featured'] ) ) : false;
 	$onsale   = isset( $_GET['onsale'] ) ? sanitize_text_field( wp_unslash( $_GET['onsale'] ) ) : false;
@@ -232,11 +232,6 @@ function clear_cached_products() {
 	} else {
 		wp_cache_flush();
 	}
-
-	/**
-		* Hook after clearing product data from cache.
-		*/
-	do_action( 'chocante_product_section_cache_flush' );
 }
 
 /**
@@ -246,15 +241,12 @@ function clear_cached_products() {
  * @param array      $props Updated props.
  */
 function clear_cached_products_on_props_change( $product, $props ) {
-	static $purged = false;
-
-	if ( $purged ) {
+	if ( $product instanceof \WC_Product_Variation ) {
 		return;
 	}
 
 	if ( is_admin() || ( in_array( 'stock_status', $props, true ) ) ) {
 		clear_cached_products();
-		$purged = true;
 	}
 }
 

@@ -27,7 +27,7 @@ add_action( 'woocommerce_before_single_product_summary', '\Chocante\ProductTags\
 remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_title', 5 );
 remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_rating', 10 );
 remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_price', 10 );
-add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_price', 20 );
+add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_price', 25 );
 add_action( 'woocommerce_single_product_summary', __NAMESPACE__ . '\display_product_info', 30 );
 add_action( 'woocommerce_single_product_summary', __NAMESPACE__ . '\display_product_attributes', 35 );
 
@@ -46,6 +46,8 @@ add_filter( 'woocommerce_show_variation_price', '__return_true' );
 add_filter( 'woocommerce_reset_variations_link', '__return_false' );
 add_filter( 'woocommerce_dropdown_variation_attribute_options_args', __NAMESPACE__ . '\hide_dropdown_placeholder' );
 add_filter( 'woocommerce_dropdown_variation_attribute_options_args', __NAMESPACE__ . '\select_variation_from_url' );
+add_filter( 'woocommerce_available_variation', __NAMESPACE__ . '\filter_variation_data' );
+add_action( 'chocante_product_variations_json', __NAMESPACE__ . '\print_product_variations' );
 
 // Product attributes.
 add_filter( 'woocommerce_display_product_attributes', __NAMESPACE__ . '\display_weight_in_attributes', 10 );
@@ -57,6 +59,12 @@ add_filter( 'woocommerce_gallery_image_html_attachment_image_params', __NAMESPAC
 // Product stock.
 add_filter( 'woocommerce_get_availability_text', __NAMESPACE__ . '\get_stock_text', 10, 2 );
 add_filter( 'woocommerce_get_availability_text', __NAMESPACE__ . '\display_low_amount_info', 20, 2 );
+add_action( 'chocante_product_stock', __NAMESPACE__ . '\get_product_stock' );
+
+// AJAX add to cart.
+add_action( 'woocommerce_ajax_added_to_cart', __NAMESPACE__ . '\make_success_notice_on_add_to_cart' );
+add_filter( 'woocommerce_cart_redirect_after_error', __NAMESPACE__ . '\make_error_notice_on_add_to_cart' );
+add_filter( 'woocommerce_add_to_cart_fragments', __NAMESPACE__ . '\add_fragments_with_add_to_cart_notices' );
 
 /**
  * Open product info section
@@ -327,4 +335,89 @@ function select_variation_from_url( $args ) {
 	$args['selected'] = reset( $args['options'] );
 
 	return $args;
+}
+
+/**
+ * Filter variation data used in add to cart on product page.
+ *
+ * @param array $variation_data Array of variation data.
+ * @return array
+ */
+function filter_variation_data( $variation_data ) {
+	unset(
+		$variation_data['dimensions'],
+		$variation_data['dimensions_html'],
+		$variation_data['image'],
+		$variation_data['image_id'],
+		$variation_data['is_downloadable'],
+		$variation_data['is_sold_individually'],
+		$variation_data['is_virtual'],
+	);
+
+	return $variation_data;
+}
+
+/**
+ * Output product variations json
+ */
+function print_product_variations() {
+	global $product;
+
+	if ( ! $product instanceof \WC_Product_Variable ) {
+		return;
+	}
+
+	$get_variations       = count( $product->get_children() ) <= apply_filters( 'woocommerce_ajax_variation_threshold', 30, $product );
+	$available_variations = $get_variations ? $product->get_available_variations() : false;
+	$variations_json      = wp_json_encode( $available_variations );
+
+	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+	echo function_exists( 'wc_esc_json' ) ? wc_esc_json( $variations_json ) : _wp_specialchars( $variations_json, ENT_QUOTES, 'UTF-8', true );
+}
+
+/**
+ * Display simple product stock amount info
+ */
+function get_product_stock() {
+	global $product;
+	echo wp_kses_post( wc_get_stock_html( $product ) );
+}
+
+/**
+ * Add notice on successful add to cart.
+ *
+ * @param int $product_id ID of added product.
+ */
+function make_success_notice_on_add_to_cart( $product_id ) {
+  // phpcs:disable WordPress.Security.NonceVerification.Missing, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+	$quantity = empty( $_POST['quantity'] ) ? 1 : wc_stock_amount( wp_unslash( $_POST['quantity'] ) );
+
+	wc_add_to_cart_message( array( $product_id => $quantity ), true );
+}
+
+/**
+ * Add notice on error add to cart.
+ */
+function make_error_notice_on_add_to_cart() {
+	\WC_AJAX::get_refreshed_fragments();
+
+	return false;
+}
+
+/**
+ * Include add to cart notices in cart fragments
+ *
+ * @param array $fragments WC fragments.
+ * @return array
+ */
+function add_fragments_with_add_to_cart_notices( $fragments ) {
+	if ( wc_notice_count() > 0 ) {
+		$notices_html = wc_print_notices( true );
+
+		if ( ! empty( $notices_html ) ) {
+			$fragments['add-to-cart'] = $notices_html;
+		}
+	}
+
+	return $fragments;
 }

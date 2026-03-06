@@ -57,6 +57,12 @@
 		&:empty {
 			display: none;
 		}
+
+		.woocommerce-result-count {
+			margin: 0;
+
+			@include hide(mobile);
+		}
 	}
 
 	.products {
@@ -156,12 +162,6 @@
 	&-notices-wrapper > * {
 		margin-top: var(--spacing--10);
 		margin-bottom: var(--spacing--10);
-	}
-
-	&-result-count {
-		margin: 0;
-
-		@include hide(mobile);
 	}
 
 	&-ordering {

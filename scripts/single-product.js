@@ -90,9 +90,27 @@ function clearAddToCartNotice() {
 	Array.from( notices ).forEach( ( el ) => el.remove() );
 }
 
+function selectVariationFromUrl() {
+	const currentUrl = new URL( window.location.href );
+
+	currentUrl.searchParams.forEach( ( value, key ) => {
+		const variationSelect = document.querySelector(
+			`select[name="${ key }"]`
+		);
+
+		if (
+			variationSelect &&
+			variationSelect.querySelector( `[value="${ value }"]` )
+		) {
+			variationSelect.value = value;
+		}
+	} );
+}
+
 ( function ( $ ) {
 	const form = $( CART_FORM );
 
+	form.on( 'wc_variation_form', selectVariationFromUrl );
 	form.on( 'found_variation', selectVariationStockData );
 	form.on( 'found_variation', selectVariationToAdd );
 	form.on( 'reset_data', resetVariationToAdd );

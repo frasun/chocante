@@ -17,6 +17,7 @@ add_filter( 'excerpt_more', __NAMESPACE__ . '\set_excerpt_more' );
 add_action( 'chocante_after_main', __NAMESPACE__ . '\display_featured_products_on_blog_page' );
 add_filter( 'the_content', __NAMESPACE__ . '\display_post_header' );
 add_action( 'init', __NAMESPACE__ . '\add_shortcodes' );
+add_action( 'chocante_post_header', __NAMESPACE__ . '\display_post_rating' );
 
 /**
  * Exclude sticky posts from main blog query
@@ -93,4 +94,19 @@ function get_reading_time( $content, $words_per_minute = 200 ) {
 	$total_words = count( preg_split( '~[^\p{L}\p{N}\']+~u', wp_strip_all_tags( $content ) ) );
 
 	return floor( $total_words / $words_per_minute );
+}
+
+/**
+ * Display post rating results
+ *
+ * @param int $post_id Post ID.
+ */
+function display_post_rating( $post_id = false ) {
+	if ( ! $post_id ) {
+		$post_id = get_the_ID();
+	}
+
+	if ( shortcode_exists( 'ratemypost-result' ) ) {
+		echo do_shortcode( '[ratemypost-result id="' . $post_id . '"]' );
+	}
 }

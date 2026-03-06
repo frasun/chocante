@@ -22,8 +22,6 @@ use function Chocante\Layout\Blog\get_reading_time;
 		)
 	);
 
-	if ( shortcode_exists( 'ratemypost-result' ) ) {
-		echo do_shortcode( '[ratemypost-result]' );
-	}
+	do_action( 'chocante_post_header' );
 	?>
 </header>
