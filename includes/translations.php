@@ -14,8 +14,6 @@ use const Chocante\Layout\ACF\ACF_PRODUCT_TITLE;
 use const Chocante\Layout\ACF\ACF_PRODUCT_TYPE;
 use function Chocante\Woo\get_variation_name;
 
-add_filter( 'chocante_product_section_script_data', __NAMESPACE__ . '\add_language_to_product_section_script' );
-
 // Translation blocks.
 const TRANSLATION_BLOCK = 'translation-block';
 
@@ -52,6 +50,7 @@ add_filter( 'trp_no_auto_translate_selectors', __NAMESPACE__ . '\no_auto_transla
 add_action( 'init', __NAMESPACE__ . '\add_language_switcher_shortcode' );
 
 // Plugin i18n.
+add_filter( 'chocante_product_section_script_data', __NAMESPACE__ . '\add_language_to_product_section_script' );
 add_filter( 'woocommerce_available_variation', __NAMESPACE__ . '\i18n_woo_variation' );
 add_filter( 'woocommerce_cart_shipping_method_full_label', __NAMESPACE__ . '\i18n_shipping_method', 10, 2 );
 add_filter( 'cwginstock_default_values', __NAMESPACE__ . '\i18n_cwg' );

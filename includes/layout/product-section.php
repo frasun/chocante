@@ -103,11 +103,6 @@ function display_product_section( $args = array(), $content = '' ) {
  * @return string
  */
 function get_product_section( $category = array(), $featured = false, $onsale = false, $latest = false, $exclude = array() ) {
-	/**
-	 * Hook before getting products to display.
-	 */
-	do_action( 'chocante_product_section_ajax_get' );
-
 	$products = get_products( $category, $featured, $onsale, $latest, $exclude );
 
 	add_filter( 'woocommerce_post_class', __NAMESPACE__ . '\slider_item_class' );
@@ -170,10 +165,7 @@ function get_products( $category = array(), $featured = false, $onsale = false, 
 		$args['exclude'] = $exclude;
 	}
 
-	// WPML support.
-	$lang = apply_filters( 'wpml_current_language', null );
-
-	$cache_key = md5( wp_json_encode( array( ...func_get_args(), $lang ) ) );
+	$cache_key = md5( wp_json_encode( func_get_args() ) );
 	$products  = wp_cache_get( $cache_key, CACHE_GROUP );
 
 	if ( false === $products ) {
@@ -212,6 +204,11 @@ function get_slider_labels() {
  * @phpcs:disable WordPress.Security.NonceVerification.Recommended
  */
 function ajax_get_product_section() {
+	/**
+	 * Hook before getting products to display.
+	 */
+	do_action( 'chocante_product_section_ajax_get' );
+
 	$category = isset( $_GET['category'] ) ? explode( ',', sanitize_text_field( wp_unslash( $_GET['category'] ) ) ) : array();
 	$featured = isset( $_GET['featured'] ) ? sanitize_text_field( wp_unslash( $_GET['featured'] ) ) : false;
 	$onsale   = isset( $_GET['onsale'] ) ? sanitize_text_field( wp_unslash( $_GET['onsale'] ) ) : false;

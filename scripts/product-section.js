@@ -30,13 +30,6 @@ export default class ProductSlider {
 			fetchUrl.searchParams.append( 'lang', window.chocante.lang );
 		}
 
-		if ( window.chocante.currency ) {
-			fetchUrl.searchParams.append(
-				'currency',
-				window.chocante.currency
-			);
-		}
-
 		return fetchUrl;
 	}
 
@@ -61,7 +54,10 @@ export default class ProductSlider {
 				}
 
 				this.productSection.insertAdjacentHTML( 'beforeend', products );
-				new Slider( this.productSection.className );
+
+				window.requestAnimationFrame( () => {
+					new Slider( this.productSection.className );
+				} );
 			}
 		} catch ( error ) {
 			throw new Error( error );

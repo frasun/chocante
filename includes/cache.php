@@ -10,16 +10,37 @@ namespace Chocante\Cache;
 
 defined( 'ABSPATH' ) || exit;
 
-/**
- * Global rules
- */
-add_filter( 'litespeed_vary', __NAMESPACE__ . '\unset_customer_private_vary' );
-add_action( 'litespeed_control_finalize', __NAMESPACE__ . '\set_public_cache' );
+use const Chocante\Currency\CURRENCY_COOKIE;
+use function Chocante\Currency\display_currency_switcher;
 
 /**
- * Product section
+ * Vary
  */
-add_action( 'chocante_product_section_ajax_get', __NAMESPACE__ . '\set_public_get_product_section', 1 );
+add_filter( 'litespeed_vary', __NAMESPACE__ . '\set_default_vary' );
+add_filter( 'litespeed_vary_cookies', __NAMESPACE__ . '\set_global_cookie_vary' );
+add_filter( 'litespeed_vary_curr_cookies', __NAMESPACE__ . '\set_global_currency_cookie_vary' );
+add_action( 'chocante_product_section_ajax_get', __NAMESPACE__ . '\set_vary_currency' );
+
+/**
+ * Control
+ */
+add_action( 'litespeed_control_finalize', __NAMESPACE__ . '\set_public' );
+add_action( 'chocante_product_section_ajax_get', __NAMESPACE__ . '\set_public_get_product_section' );
+add_action( 'litespeed_control_finalize', __NAMESPACE__ . '\set_no_cache_translatepress' );
+
+/**
+ * ESI
+ */
+add_action( 'chocante_currency_switcher', __NAMESPACE__ . '\esi_url_currency_swticher', 5 );
+add_action( 'litespeed_esi_load-currency_switcher', __NAMESPACE__ . '\esi_include_currency_swticher' );
+
+/**
+ * Tag
+ */
+
+/**
+ * Purge
+ */
 add_action( 'woocommerce_ajax_save_product_variations', __NAMESPACE__ . '\purge_product' );
 /**
  * Purge frontpage when admin marks product as featured
@@ -31,14 +52,9 @@ add_action( 'woocommerce_before_product_object_save', __NAMESPACE__ . '\purge_fe
 /**
  * Purge all product sections
  *
- * @todo: switch to tagging.
+ * @todo: switch to tagging.x
  */
 add_action( 'chocante_product_section_cache_flush', __NAMESPACE__ . '\purge_get_product_section' );
-
-/**
- * TranslatePress
- */
-add_action( 'litespeed_control_finalize', __NAMESPACE__ . '\set_no_cache_translatepress' );
 
 /**
  * Set public cache for AJAX get product section
@@ -92,33 +108,105 @@ function purge_featured_products( $product ) {
  * @param array $vary Array or vary cookies.
  * @return array
  */
-function unset_customer_private_vary( $vary ) {
-	if ( is_user_logged_in() ) {
-		$user = wp_get_current_user();
+function set_default_vary( $vary ) {
+	// Vary not used.
+	unset( $vary['logged-in'] );
 
-		if ( in_array( 'customer', (array) $user->roles, true ) ) {
-			unset( $vary['logged-in'] );
-			unset( $vary['admin_bar'] );
-		}
+	/**
+	 * Rework LSC approach. Determine based on global variable instead of just the user setting.
+	 *
+	 * @see LiteSpeed\Vary::finalize_default_vary
+	 * @see Chocante\Layout\Common\hide_admin_bar
+	 */
+	if ( is_admin_bar_showing() ) {
+		$vary['admin_bar'] = 1;
+	} else {
+		unset( $vary['admin_bar'] );
 	}
 
 	return $vary;
 }
 
 /**
- * Set public page cache for logged-in users
- * Customers will use the same cache as anonymous users
+ * Set public page cache for logged-in users regardless of ESI setting
+ * Default LSC setting with ESI off is either private or no-cache
  */
-function set_public_cache() {
-	if ( is_woocommerce() ||
-			is_product_category() ||
-			is_product_tag() ||
-			is_front_page() ||
-			is_page() ||
-			is_single() ||
-			is_archive() ||
-			is_tax()
-		) {
-		do_action( 'litespeed_control_force_public', 'chocante public' );
+function set_public() {
+	if ( class_exists( 'WooCommerce' ) && ( is_cart() || is_checkout() || is_account_page() || is_wc_endpoint_url() ) ) {
+		return;
 	}
+
+	do_action( 'litespeed_control_force_public', 'chocante public' );
+}
+
+/**
+ * Set LSCACHE_VARY_COOKIE
+ *
+ * @see WOOMULTI_CURRENCY_Plugin_Litespeed_Cache::__construct
+ *
+ * @param array $cookies List of site-wide cookie varies.
+ * @return array
+ */
+function set_global_cookie_vary( $cookies ) {
+	$excluded = array( 'wmc_current_currency', 'wmc_current_currency_old', 'wmc_ip_info' );
+	$cookies  = array_filter( $cookies, fn( $cookie ) => ! in_array( $cookie, $excluded, true ) );
+
+	return $cookies;
+}
+
+/**
+ * Set currency vary cookies - leave only single cookie 'wmc_current_currency'
+ *
+ * @see WOOMULTI_CURRENCY_Plugin_Litespeed_Cache::__construct
+ *
+ * @param array $cookies List of site-wide cookie varies.
+ * @return array
+ */
+function set_global_currency_cookie_vary( $cookies ) {
+	$excluded = array( 'wmc_current_currency_old', 'wmc_ip_info' );
+	$cookies  = array_filter( $cookies, fn( $cookie ) => ! in_array( $cookie, $excluded, true ) );
+
+	return $cookies;
+}
+
+/**
+ * Set currency vary cookie
+ */
+function set_vary_currency() {
+	add_filter(
+		'litespeed_vary_curr_cookies',
+		/**
+		* Add currency to vary cookies
+		*
+		* @param array $cookies List of current vary cookies.
+		* @return array
+		*/
+		function ( $cookies ) {
+			$cookies[] = CURRENCY_COOKIE;
+
+			return $cookies;
+		}
+	);
+}
+
+/**
+ * Display currency switcher ESI block
+ */
+function esi_url_currency_swticher() {
+	if ( ! apply_filters( 'litespeed_esi_status', false ) ) {
+		return;
+	}
+
+	remove_action( 'chocante_currency_switcher', 'Chocante\Currency\display_currency_switcher' );
+
+	// phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
+	echo apply_filters( 'litespeed_esi_url', 'currency_switcher', 'currency switcher', array(), 'public' );
+}
+
+/**
+ * Include currency switcher ESI block
+ */
+function esi_include_currency_swticher() {
+	set_vary_currency();
+	display_currency_switcher();
 }

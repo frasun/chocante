@@ -8,13 +8,7 @@
 
 		@include transition;
 
-		@include max-width($breakpoint--desktop-md) {
-			max-width: var(--loop-item-width);
-		}
-
-		@include min-width($breakpoint--desktop-md) {
-			min-width: var(--loop-item-width);
-		}
+		max-width: var(--loop-item-width);
 
 		.woocommerce {
 
