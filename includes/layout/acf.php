@@ -216,7 +216,7 @@ function display_nutritional_data() {
 			$data,
 			array(
 				'label' => $field[ ACF_PRODUCT_NUTRITION_DATA_LABEL ],
-				'value' => apply_filters( 'chocante_acf_product_data_value', $field[ ACF_PRODUCT_NUTRITION_DATA_VALUE ] ),
+				'value' => apply_filters( 'chocante_acf_product_nutri_data_value', $field[ ACF_PRODUCT_NUTRITION_DATA_VALUE ] ),
 			)
 		);
 	}

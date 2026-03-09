@@ -32,9 +32,10 @@ add_filter( 'woocommerce_attribute', __NAMESPACE__ . '\split_product_attributes'
 const NO_TRANSLATE_ATTR = 'data-no-translation';
 
 add_filter( 'chocante_product_variation_name', __NAMESPACE__ . '\no_translate_units' );
-add_filter( 'chocante_acf_product_data_value', __NAMESPACE__ . '\no_translate_units' );
+add_filter( 'chocante_acf_product_nutri_data_value', __NAMESPACE__ . '\no_translate_units' );
 add_filter( 'chocante_product_variation_name', __NAMESPACE__ . '\no_translate_percentages' );
 add_filter( 'chocante_acf_product_data_value', __NAMESPACE__ . '\no_translate_percentages' );
+add_filter( 'chocante_acf_product_nutri_data_value', __NAMESPACE__ . '\no_translate_percentages' );
 add_filter( 'chocante_common_breadcrumbs_wrap_before', __NAMESPACE__ . '\no_translate_breadcrums_aria' );
 add_filter( 'chocante_shop_breadcrumbs', __NAMESPACE__ . '\no_translate_breadcrums' );
 add_filter( 'trp_no_translate_selectors', __NAMESPACE__ . '\no_translate_selectors' );
