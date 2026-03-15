@@ -71,16 +71,6 @@ defined( 'ABSPATH' ) || exit;
 			</tr>
 		<?php endforeach; ?>
 
-		<?php if ( WC()->cart->needs_shipping() && WC()->cart->show_shipping() ) : ?>
-
-			<?php do_action( 'woocommerce_review_order_before_shipping' ); ?>
-
-			<?php wc_cart_totals_shipping_html(); ?>
-
-			<?php do_action( 'woocommerce_review_order_after_shipping' ); ?>
-
-		<?php endif; ?>
-
 		<?php if ( wc_tax_enabled() && ! WC()->cart->display_prices_including_tax() ) : ?>
 			<?php if ( 'itemized' === get_option( 'woocommerce_tax_total_display' ) ) : ?>
 				<?php foreach ( WC()->cart->get_tax_totals() as $code => $tax ) : // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited ?>
@@ -95,6 +85,16 @@ defined( 'ABSPATH' ) || exit;
 					<td><?php wc_cart_totals_taxes_total_html(); ?></td>
 				</tr>
 			<?php endif; ?>
+		<?php endif; ?>
+
+		<?php if ( WC()->cart->needs_shipping() && WC()->cart->show_shipping() ) : ?>
+
+			<?php do_action( 'woocommerce_review_order_before_shipping' ); ?>
+
+			<?php wc_cart_totals_shipping_html(); ?>
+
+			<?php do_action( 'woocommerce_review_order_after_shipping' ); ?>
+
 		<?php endif; ?>
 
 		<?php do_action( 'woocommerce_review_order_before_order_total' ); ?>

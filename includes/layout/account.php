@@ -8,6 +8,8 @@
 
 namespace Chocante\Layout\Account;
 
+use WC_Countries;
+
 defined( 'ABSPATH' ) || exit;
 
 use function Chocante\Assets\icon;
@@ -34,10 +36,10 @@ add_filter( 'woocommerce_order_item_quantity_html', __NAMESPACE__ . '\add_variat
 add_filter( 'woocommerce_order_item_name', __NAMESPACE__ . '\display_parent_item_name', 10, 2 );
 add_filter( 'woocommerce_order_item_name', __NAMESPACE__ . '\display_item_link', 20, 3 );
 add_filter( 'woocommerce_display_item_meta', '__return_false' );
+add_filter( 'woocommerce_get_order_item_totals', __NAMESPACE__ . '\display_tax', 10, 2 );
 
 // Login.
 add_action( 'woocommerce_before_customer_login_form', __NAMESPACE__ . '\display_login_page_title', 5 );
-
 
 /**
  * Hide unused account pages
@@ -248,4 +250,49 @@ function display_item_link( $item_name_html, $item, $is_visible ) {
 	} else {
 		return '<strong>' . $item_name_html . '</strong>';
 	}
+}
+
+/**
+ * Conditionally display tax information in order details
+ *
+ * @param array     $total_rows Order summary rows.
+ * @param \WC_Order $order Order object.
+ * @return array
+ */
+function display_tax( $total_rows, $order ) {
+	$billing_company = $order->get_billing_company();
+	$billing_country = $order->get_billing_country();
+	$countries       = new WC_Countries();
+	$vat_countries   = $countries->get_european_union_countries( 'eu_vat' );
+	$is_vat_country  = in_array( $billing_country, $vat_countries, true );
+	$tax_display     = ! empty( $billing_company ) && $is_vat_country ? 'excl' : 'incl';
+
+	$total_rows['cart_subtotal'] = array(
+		'type'  => 'subtotal',
+		'label' => __( 'Subtotal:', 'woocommerce' ),
+		'value' => $order->get_subtotal_to_display( false, $tax_display ),
+	);
+	$total_rows['order_total']   = array(
+		'type'  => 'total',
+		'label' => __( 'Total:', 'woocommerce' ),
+		'value' => $order->get_formatted_order_total( 'excl' ),
+	);
+
+	unset( $total_rows['tax'] );
+
+	if ( $billing_company && $is_vat_country ) {
+		$pos = array_search( 'cart_subtotal', array_keys( $total_rows ), true );
+		return array_merge(
+			array_slice( $total_rows, 0, $pos + 1, true ),
+			array(
+				'tax' => array(
+					'type'  => 'tax',
+					'label' => WC()->countries->tax_or_vat() . ':',
+					'value' => wc_price( $order->get_total_tax(), array( 'currency' => $order->get_currency() ) ),
+				),
+			),
+			array_slice( $total_rows, $pos + 1, null, true ),
+		);
+	}
+	return $total_rows;
 }

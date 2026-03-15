@@ -25,6 +25,19 @@ add_filter( 'woocommerce_cart_item_permalink', __NAMESPACE__ . '\return_empty_pe
 add_action( 'chocante_after_main', __NAMESPACE__ . '\display_featured_products_in_cart' );
 add_filter( 'body_class', __NAMESPACE__ . '\modify_empty_cart_body_class' );
 remove_action( 'woocommerce_cart_is_empty', 'wc_empty_cart_message', 10 );
+add_filter( 'woocommerce_cart_totals_order_total_html', __NAMESPACE__ . '\display_including_tax_sup' );
+add_action(
+	'woocommerce_review_order_after_cart_contents',
+	function () {
+		add_filter( 'woocommerce_cart_display_prices_including_tax', __NAMESPACE__ . '\display_tax_in_totals' );
+	}
+);
+add_action(
+	'woocommerce_review_order_before_order_total',
+	function () {
+		remove_filter( 'woocommerce_cart_display_prices_including_tax', __NAMESPACE__ . '\display_tax_in_totals', 10 );
+	}
+);
 
 // Cart & mini-cart.
 add_filter( 'woocommerce_cart_item_remove_link', __NAMESPACE__ . '\use_remove_icon' );
@@ -187,4 +200,27 @@ function get_mini_cart_thumbnail( $product_image, $cart_item ) {
 	$product = $cart_item['data'];
 
 	return $product->get_image( 'woocommerce_gallery_thumbnail' );
+}
+
+/**
+ * Conditionally display including tax supersciption in cart total value
+ *
+ * // @param string $value Cart total HTML>
+ *
+ * @return string
+ */
+function display_including_tax_sup() {
+	return '<strong>' . WC()->cart->get_total() . '</strong>';
+}
+
+/**
+ * Conditionally display tax line item in cart totals
+ */
+function display_tax_in_totals() {
+	$customer        = WC()->customer;
+	$billing_country = $customer->get_billing_country();
+	$is_vat_country  = in_array( $billing_country, WC()->countries->get_european_union_countries( 'eu_vat' ), true );
+	$company         = $customer->get_billing_company();
+
+	return ! ( ! empty( $company ) && $is_vat_country );
 }
