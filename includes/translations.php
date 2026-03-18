@@ -14,6 +14,8 @@ use const Chocante\Layout\ACF\ACF_PRODUCT_TITLE;
 use const Chocante\Layout\ACF\ACF_PRODUCT_TYPE;
 use function Chocante\Woo\get_variation_name;
 
+add_filter( 'trp_translating_capability', __NAMESPACE__ . '\allow_translating' );
+
 add_filter( 'chocante_product_section_script_data', __NAMESPACE__ . '\add_language_to_product_section_script' );
 
 // Translation blocks.
@@ -668,4 +670,11 @@ function add_translations_to_order_api( $response, $order ) {
 	);
 
 	return $response;
+}
+
+/**
+ * Grant translating capability
+ */
+function allow_translating() {
+	return 'edit_others_posts';
 }
