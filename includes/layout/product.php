@@ -324,7 +324,7 @@ function select_variation_from_url( $args ) {
 	}
 
 	// 3. Take first available variation.
-	$args['selected'] = $args['options'][0];
+	$args['selected'] = reset( $args['options'] );
 
 	return $args;
 }

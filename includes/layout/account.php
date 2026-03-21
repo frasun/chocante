@@ -224,7 +224,12 @@ function add_variation_to_item_quantity( $quantity_html, $item ) {
  * @return string
  */
 function display_parent_item_name( $item_name_html, $item ) {
-	$product      = $item->get_product();
+	$product = $item->get_product();
+
+	if ( ! $product ) {
+		return $item_name_html;
+	}
+
 	$product_name = $product->get_title();
 
 	return $product_name;
