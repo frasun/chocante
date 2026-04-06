@@ -47,6 +47,8 @@ add_action( 'litespeed_task_crawler', array( 'Chocante_Crawler_Queue', 'cron_run
 
 add_filter( 'litespeed_purge_tags', __NAMESPACE__ . '\get_urls_from_tags' );
 add_action( 'litespeed_purged_link', __NAMESPACE__ . '\crawl_url' );
+add_action( 'litespeed_purged_all', __NAMESPACE__ . '\crawl_full_site' );
+add_action( 'litespeed_purged_all_lscache', __NAMESPACE__ . '\crawl_full_site' );
 
 add_filter( 'chocante_crawler_config_urls', __NAMESPACE__ . '\get_shop_pages' );
 add_filter( 'chocante_crawler_config_urls', __NAMESPACE__ . '\get_delivery_info' );
@@ -79,16 +81,10 @@ function get_urls_from_tags( $tags ) {
 	// Skip AJAX.get_product_section purge - handle via term ids.
 	remove_product_section_tag( $tags );
 
-	$urls      = array();
-	$purge_all = false;
+	$urls = array();
 
 	foreach ( $tags as $tag ) {
 		$tag = ltrim( $tag, '_' );
-
-		if ( '*' === $tag ) {
-			$purge_all = true;
-			break;
-		}
 
 		if ( find_tag_id( $tag, Tag::TYPE_POST, $matches ) ) {
 			$posttype = get_post_type( $matches[1] );
@@ -171,9 +167,7 @@ function get_urls_from_tags( $tags ) {
 		}
 	}
 
-	if ( $purge_all ) {
-		crawl_full_site();
-	} elseif ( ! empty( $urls ) ) {
+	if ( ! empty( $urls ) ) {
 		crawl_urls( $urls );
 	}
 
