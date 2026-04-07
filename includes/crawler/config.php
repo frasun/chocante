@@ -2,18 +2,18 @@
 /**
  * Crawler config: wp-content/crawler/config.php
  *
- * @package Claude crawler (hey Claude)
+ * @package WordPress
+ * @subpackage Chocante
  */
 
 namespace Chocante\Crawler\Config;
 
 use function Chocante\Currency\get_currencies;
 use function Chocante\Crawler\get_shop_urls;
-use function Chocante\Location\get_delivery_countries;
 use function Chocante\Translations\add_translated_urls;
+use function Chocante\Location\get_delivery_cookies;
 
 use const Chocante\Currency\CURRENCY_COOKIE;
-use const Chocante\Location\COUNTRY_COOKIE;
 use const Chocante\Location\VAT_EXEMPT_COOKIE;
 use const Chocante\Location\VAT_EXEMPT_COOKIES;
 
@@ -36,9 +36,6 @@ foreach ( $shop_slugs as &$slug ) {
 }
 
 $shop_pattern = '/\/(' . implode( '|', array_map( 'preg_quote', $shop_slugs ) ) . ')\//';
-
-// Country / currency.
-$countries = get_delivery_countries();
 
 return array(
 
@@ -99,59 +96,8 @@ return array(
 
 		// Delivery info.
 		array(
-			'match'   => 'lsesi=delivery_info',
-			'cookies' => array(
-				COUNTRY_COOKIE  => $countries,
-				CURRENCY_COOKIE => array( 'PLN', 'EUR' ), // @todo: use curcy settings.
-			),
-			// 'combos'  => array(
-			// array(
-			// COUNTRY_COOKIE  => 'PL',
-			// CURRENCY_COOKIE => 'PLN',
-			// ),
-			// array(
-			// COUNTRY_COOKIE  => 'DE',
-			// CURRENCY_COOKIE => 'EUR',
-			// ),
-			// array(
-			// COUNTRY_COOKIE  => 'FR',
-			// CURRENCY_COOKIE => 'EUR',
-			// ),
-			// array(
-			// COUNTRY_COOKIE  => 'ES',
-			// CURRENCY_COOKIE => 'EUR',
-			// ),
-			// array(
-			// COUNTRY_COOKIE  => 'GB',
-			// CURRENCY_COOKIE => 'GBP',
-			// ),
-			// array(
-			// COUNTRY_COOKIE  => 'GB',
-			// CURRENCY_COOKIE => 'GBP',
-			// ),
-			// array(
-			// COUNTRY_COOKIE  => 'US',
-			// CURRENCY_COOKIE => 'USD',
-			// ),
-			// array(
-			// COUNTRY_COOKIE  => 'NO',
-			// CURRENCY_COOKIE => 'NOK',
-			// ),
-			// array(
-			// COUNTRY_COOKIE  => 'SE',
-			// CURRENCY_COOKIE => 'SEK',
-			// ),
-			// array(
-			// COUNTRY_COOKIE  => 'DK',
-			// CURRENCY_COOKIE => 'DKK',
-			// ),
-			// array(
-			// COUNTRY_COOKIE  => 'CH',
-			// CURRENCY_COOKIE => 'CHF',
-			// ),
-			// ),
+			'match'  => 'lsesi=delivery_info',
+			'combos' => get_delivery_cookies(),
 		),
-
 	),
-
 );

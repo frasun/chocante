@@ -42,7 +42,7 @@ if ( defined( 'WP_CLI' ) && \WP_CLI ) {
 add_action( 'chocante_crawler_enqueue', array( 'Chocante_Crawler_Queue', 'enqueue' ) );
 add_action( 'litespeed_task_crawler', array( 'Chocante_Crawler_Queue', 'cron_run' ) );
 
-add_filter( 'litespeed_purge_tags', __NAMESPACE__ . '\get_urls_from_tags' );
+add_filter( 'litespeed_purge_tags', __NAMESPACE__ . '\get_urls_from_tags', 20 );
 add_action( 'litespeed_purged_link', __NAMESPACE__ . '\crawl_url' );
 add_action( 'litespeed_purged_all', __NAMESPACE__ . '\crawl_full_site' );
 add_action( 'litespeed_purged_all_lscache', __NAMESPACE__ . '\crawl_full_site' );
@@ -51,7 +51,6 @@ add_action( 'woocommerce_product_set_stock_status', __NAMESPACE__ . '\crawl_prod
 add_filter( 'chocante_crawler_config_urls', __NAMESPACE__ . '\get_shop_pages' );
 add_filter( 'chocante_crawler_config_urls', __NAMESPACE__ . '\get_delivery_info' );
 
-// Full site crawl.
 // phpcs:ignore WordPress.WP.CronInterval.ChangeDetected
 add_filter( 'cron_schedules', __NAMESPACE__ . '\add_crawler_schedule' );
 add_action( 'init', __NAMESPACE__ . '\schedule_full_crawl' );
@@ -69,15 +68,6 @@ function get_urls_from_tags( $tags ) {
 	if ( ! $final_tags ) {
 		return $tags;
 	}
-
-	// Skip purge all on menu updates.
-	$esi_header = '_' . Tag::TYPE_ESI . 'header';
-	if ( in_array( $esi_header, $tags, true ) ) {
-		$tags = array( $esi_header );
-	}
-
-	// Skip AJAX.get_product_section purge - handle via term ids.
-	remove_product_section_tag( $tags );
 
 	$urls = array();
 
@@ -98,37 +88,6 @@ function get_urls_from_tags( $tags ) {
 
 			if ( 'post' === $posttype ) {
 				$urls[] = get_permalink( get_option( 'page_for_posts' ) );
-			}
-
-			if ( 'product' === $posttype ) {
-				$product = wc_get_product( $matches[1] );
-
-				// Product attributes.
-				$attributes         = $product->get_attributes();
-				$product_taxonomies = array();
-
-				foreach ( $attributes as $attribute ) {
-					if ( $attribute->is_taxonomy() && $attribute->get_visible() ) {
-						$taxonomy = $attribute->get_taxonomy_object();
-						if ( $taxonomy->attribute_public ) {
-							foreach ( $attribute->get_options() as $term_id ) {
-								$product_taxonomies[] = $term_id;
-							}
-						}
-					}
-				}
-
-				foreach ( $product_taxonomies as $pa ) {
-					$tags[]  = '_' . WooCommerce::CACHETAG_TERM . $pa;
-					$pa_term = get_term( $pa );
-					$urls[]  = get_term_link( $pa_term );
-				}
-
-				// Featured.
-				if ( $product->is_featured() ) {
-					$tags[] = '_' . TAG_PRODUCT_FEATURED;
-					$urls[] = get_permalink( get_option( 'page_on_front' ) );
-				}
 			}
 
 			$urls[] = get_permalink( $matches[1] );
@@ -191,6 +150,11 @@ function get_urls_from_tags( $tags ) {
 
 		if ( find_tag_id( $tag, TAG_CURRENCY, $matches ) ) {
 			crawl_currency( $matches[1] );
+			continue;
+		}
+
+		if ( find_tag_id( $tag, TAG_PRODUCT_FEATURED, $matches ) ) {
+			$urls[] = get_permalink( get_option( 'page_on_front' ) );
 			continue;
 		}
 	}
@@ -327,6 +291,7 @@ function get_esi_url( $block_id, $control, $params = array() ) {
 	}
 
 	if ( ! empty( $params ) ) {
+		// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode
 		$appended_params['esi'] = base64_encode( wp_json_encode( $params ) );
 	}
 
@@ -338,15 +303,6 @@ function get_esi_url( $block_id, $control, $params = array() ) {
 	$appended_params['_hash'] = md5( $hash );
 
 	return add_query_arg( array_map( 'urlencode', $appended_params ), trailingslashit( home_url() ) );
-}
-
-/**
- * Remove AJAX product setion from purge tags and use category tags for purging
- *
- * @param array $tags Array of purge tags.
- */
-function remove_product_section_tag( &$tags ) {
-	$tags = array_values( array_diff( $tags, array( '_' . Tag::TYPE_AJAX . 'get_product_section' ) ) );
 }
 
 /**

@@ -285,7 +285,9 @@ class Chocante_Crawler_Engine {
 		}
 		$ua      = isset( $rule['ua'] ) && $rule['ua'] !== null ? $rule['ua'] : self::DEFAULT_UA;
 		$cookies = $rule['cookies'] ?? array();
-		if ( empty( $cookies ) ) {
+		$combos  = $rule['combos'] ?? array();
+
+		if ( empty( $cookies ) && empty( $combos ) ) {
 			return array(
 				array(
 					'url'     => $url,
@@ -304,14 +306,12 @@ class Chocante_Crawler_Engine {
 			);
 		}
 
-		if ( ! empty( $rule['combos'] ) ) {
-			foreach ( $rule['combos'] as $combo ) {
-				$entries[] = array(
-					'url'     => $url,
-					'cookies' => $combo,
-					'ua'      => $ua,
-				);
-			}
+		foreach ( $combos as $combo ) {
+			$entries[] = array(
+				'url'     => $url,
+				'cookies' => $combo,
+				'ua'      => $ua,
+			);
 		}
 
 		return $entries;

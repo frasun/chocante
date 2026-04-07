@@ -10,8 +10,9 @@ namespace Chocante\Currency;
 
 defined( 'ABSPATH' ) || exit;
 
-const CURRENCY_COOKIE        = 'wmc_current_currency';
-const SERVER_CURRENCY_COOKIE = '_sc';
+use const Chocante\Location\SERVER_COOKIE;
+
+const CURRENCY_COOKIE = 'wmc_current_currency';
 
 add_filter( 'tgpc_wc_gift_wrapper_cost', __NAMESPACE__ . '\convert_gift_wrapper_fee' );
 
@@ -21,6 +22,8 @@ add_action( 'chocante_currency_switcher', __NAMESPACE__ . '\display_currency_swi
 
 add_action( 'woocommerce_checkout_init', __NAMESPACE__ . '\reset_server_currency' );
 add_filter( 'wmc_update_exchange_rate_new_rates', __NAMESPACE__ . '\manage_exchange_rates', 10, 2 );
+
+add_action( 'admin_init', __NAMESPACE__ . '\update_settings', 20 );
 
 /**
  * Get Curcy instance.
@@ -114,11 +117,11 @@ function display_currency_switcher() {
  * Reset currency cookie added by server
  */
 function reset_server_currency() {
-	if ( ! empty( $_COOKIE[ SERVER_CURRENCY_COOKIE ] ) ) {
+	if ( ! empty( $_COOKIE[ SERVER_COOKIE ] ) ) {
 		// phpcs:ignore
-		setcookie( SERVER_CURRENCY_COOKIE, 0, time() - DAY_IN_SECONDS, '/', $_SERVER['HTTP_HOST'], true, false );
+		setcookie( SERVER_COOKIE, 0, time() - DAY_IN_SECONDS, '/', COOKIE_DOMAIN, true, false );
 		// phpcs:ignore
-		setcookie( CURRENCY_COOKIE, 0, time() - DAY_IN_SECONDS, '/', $_SERVER['HTTP_HOST'], true, false );
+		setcookie( CURRENCY_COOKIE, 0, time() - DAY_IN_SECONDS, '/', COOKIE_DOMAIN, true, false );
 	}
 }
 
@@ -163,4 +166,58 @@ function get_currencies() {
 	}
 
 	return $currencies;
+}
+
+/**
+ * Trigger action on currency settings update
+ *
+ * @see: WOOMULTI_CURRENCY_Admin_Settings::save_settings
+ */
+function update_settings() {
+	if ( ! isset( $_POST['_woo_multi_currency_nonce'], $_POST['woo_multi_currency_params'] ) ) {
+		return;
+	}
+	// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+	if ( ! wp_verify_nonce( $_POST['_woo_multi_currency_nonce'], 'woo_multi_currency_settings' ) ) {
+		return;
+	}
+	// phpcs:ignore WordPress.WP.Capabilities.Unknown
+	if ( ! current_user_can( 'manage_woocommerce' ) ) {
+		return;
+	}
+
+	// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+	do_action( 'chocante_currency_settings_saved', $_POST['woo_multi_currency_params'] );
+}
+
+/**
+ * Get country-currency map
+ *
+ * @param array $settings Curcy settings.
+ */
+function get_currency_by_country( $settings = array() ) {
+	if ( empty( $settings ) ) {
+		$curcy = get_curcy();
+		if ( ! $curcy ) {
+			return array();
+		}
+
+		$settings = $curcy->get_params();
+	}
+
+	$country_currency = array();
+
+	foreach ( $settings['currency'] as $key => $currency ) {
+		if ( false !== (bool) $settings['currency_hidden'][ $key ] ) {
+			continue;
+		}
+
+		if ( ! empty( $settings[ $currency . '_by_country' ] ) ) {
+			foreach ( $settings[ $currency . '_by_country' ] as $country ) {
+				$country_currency[ $country ] = $currency;
+			}
+		}
+	}
+
+	return $country_currency;
 }

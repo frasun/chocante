@@ -10,10 +10,18 @@ namespace Chocante\Location;
 
 defined( 'ABSPATH' ) || exit;
 
+use const Chocante\Currency\CURRENCY_COOKIE;
+
+use function Chocante\Currency\get_currency_by_country;
+
 const COUNTRY_COOKIE     = 'chocante_country';
 const SHIPPING_COOKIE    = 'chocante_shipping_country';
 const VAT_EXEMPT_COOKIE  = 'chocante_vat_exempt';
 const VAT_EXEMPT_COOKIES = array( '_null', 1 );
+const SERVER_COOKIE      = '_sc';
+
+// Handle server cookie.
+add_action( 'init', __NAMESPACE__ . '\set_cookie_domain' );
 
 // Get location from cookie.
 add_filter( 'woocommerce_customer_default_location_array', __NAMESPACE__ . '\get_default_location_from_cookie' );
@@ -189,7 +197,7 @@ function set_country_cookie( $cookie_name, $country_code ) {
 
 	$default_expiration_seconds = intval( apply_filters( 'wc_session_expiration', is_user_logged_in() ? WEEK_IN_SECONDS : 2 * DAY_IN_SECONDS ) );
   // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated, WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-	setcookie( $cookie_name, $country_code, time() + $default_expiration_seconds, '/', $_SERVER['HTTP_HOST'], true, false );
+	setcookie( $cookie_name, $country_code, time() + $default_expiration_seconds, '/', COOKIE_DOMAIN, true, false );
 }
 
 /**
@@ -201,7 +209,7 @@ function unset_shipping_country_cookie() {
 	}
 
   // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated, WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-	setcookie( SHIPPING_COOKIE, 0, time() - DAY_IN_SECONDS, '/', $_SERVER['HTTP_HOST'], true, false );
+	setcookie( SHIPPING_COOKIE, 0, time() - DAY_IN_SECONDS, '/', COOKIE_DOMAIN, true, false );
 }
 
 /**
@@ -276,4 +284,32 @@ function set_variations_price_hash( $price_hash, $product, $for_display ) {
 	}
 
 	return $price_hash;
+}
+
+/**
+ * Set cookie domain if origin server sets default location cookies
+ */
+function set_cookie_domain() {
+	if ( ! empty( $_COOKIE[ SERVER_COOKIE ] ) ) {
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotValidated
+		define( 'COOKIE_DOMAIN', $_SERVER['HTTP_HOST'] );
+	}
+}
+
+/**
+ * Get a list of cookies and currencies for delivery info.
+ */
+function get_delivery_cookies() {
+	$countries        = get_delivery_countries();
+	$country_currency = get_currency_by_country();
+	$delivery_cookies = array();
+
+	foreach ( $countries as $country ) {
+		$delivery_cookies[] = array(
+			COUNTRY_COOKIE  => $country,
+			CURRENCY_COOKIE => isset( $country_currency[ $country ] ) ? $country_currency[ $country ] : 'USD',
+		);
+	}
+
+	return $delivery_cookies;
 }

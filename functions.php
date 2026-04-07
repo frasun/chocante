@@ -28,6 +28,7 @@ require_once __DIR__ . '/includes/feed.php';
 require_once __DIR__ . '/includes/plugins.php';
 require_once __DIR__ . '/includes/crawler.php';
 require_once __DIR__ . '/includes/shipping/class-globkurier-shipping.php';
+require_once __DIR__ . '/includes/cloudflare.php';
 
 /**
  * Layout.

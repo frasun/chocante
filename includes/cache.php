@@ -73,7 +73,7 @@ add_action( 'rest_after_save_widget', __NAMESPACE__ . '\purge_layout' );
 /**
  * Currency
  */
-add_action( 'admin_init', __NAMESPACE__ . '\purge_currency_switcher', 20 );
+add_action( 'chocante_currency_settings_saved', __NAMESPACE__ . '\purge_layout' );
 add_action( 'chocante_currency_changed', __NAMESPACE__ . '\purge_currency' );
 
 /**
@@ -270,27 +270,6 @@ function set_control_global( $esi_block ) {
 	} elseif ( ! $not_public ) {
 		do_action( 'litespeed_control_force_public', 'chocante - public' );
 	}
-}
-
-/**
- * Purge currency tags on Curcy settings change
- *
- * @see: WOOMULTI_CURRENCY_Admin_Settings::save_settings
- */
-function purge_currency_switcher() {
-	if ( ! isset( $_POST['_woo_multi_currency_nonce'], $_POST['woo_multi_currency_params'] ) ) {
-		return;
-	}
-	// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-	if ( ! wp_verify_nonce( $_POST['_woo_multi_currency_nonce'], 'woo_multi_currency_settings' ) ) {
-		return;
-	}
-	// phpcs:ignore WordPress.WP.Capabilities.Unknown
-	if ( ! current_user_can( 'manage_woocommerce' ) ) {
-		return;
-	}
-
-	purge_layout();
 }
 
 /**
@@ -679,52 +658,6 @@ function find_tag_id( $tag, $prefix, &$matches ) {
 }
 
 /**
- * Add archive pages when purging posts
- *
- * @param array $tags Final purge tags.
- */
-function finalize_purge_tags( $tags ) {
-	foreach ( $tags as $key => $tag ) {
-		if ( find_tag_id( $tag, Tag::TYPE_URL, $matches ) ) {
-			unset( $tags[ $key ] );
-		}
-	}
-
-	global $final_tags;
-
-	if ( ! $final_tags ) {
-		return $tags;
-	}
-
-	$final_tags = $tags;
-
-	foreach ( $tags as $tag ) {
-		$tag = ltrim( $tag, '_' );
-
-		if ( find_tag_id( $tag, Tag::TYPE_POST, $matches ) ) {
-			$posttype = get_post_type( $matches[1] );
-
-			if ( 'adt_product_feed' === $posttype ) {
-				return array( '_nothing' );
-			}
-
-			if ( 'post' === $posttype ) {
-				$final_tags[] = '_' . Tag::TYPE_HOME;
-				$final_tags[] = '_' . Tag::TYPE_FRONTPAGE;
-				break;
-			}
-
-			if ( 'product' === $posttype ) {
-				$final_tags[] = '_' . WooCommerce::CACHETAG_SHOP;
-				break;
-			}
-		}
-	}
-
-	return $final_tags;
-}
-
-/**
  * Purge layout elements
  */
 function purge_layout() {
@@ -744,4 +677,76 @@ function tag_product_taxonomy() {
 			do_action( 'litespeed_tag_add', WooCommerce::CACHETAG_TERM . $term->term_id );
 		}
 	}
+}
+
+/**
+ * Finalize purge tags
+ *
+ * @param array $tags Tags to purge.
+ * @return array
+ */
+function finalize_purge_tags( $tags ) {
+	global $final_tags;
+
+	if ( ! $final_tags ) {
+		return $tags;
+	}
+
+	// Skip purge all on menu updates.
+	$esi_header = '_' . Tag::TYPE_ESI . 'header';
+	if ( in_array( $esi_header, $tags, true ) ) {
+		$tags = array( $esi_header );
+	}
+
+	// Skip AJAX.get_product_section purge - handle via term ids.
+	$tags = array_values( array_diff( $tags, array( '_' . Tag::TYPE_AJAX . 'get_product_section' ) ) );
+
+	foreach ( $tags as $tag ) {
+		$tag = ltrim( $tag, '_' );
+
+		if ( find_tag_id( $tag, Tag::TYPE_POST, $matches ) ) {
+			$posttype = get_post_type( $matches[1] );
+
+			if ( 'adt_product_feed' === $posttype ) {
+				return array( '_nothing' );
+			}
+
+			if ( 'post' === $posttype ) {
+				$tags[] = '_' . Tag::TYPE_HOME;
+				$tags[] = '_' . Tag::TYPE_FRONTPAGE;
+			}
+
+			if ( 'product' === $posttype ) {
+				$tags[] = '_' . WooCommerce::CACHETAG_SHOP;
+
+				$product = wc_get_product( $matches[1] );
+
+				// Product attributes.
+				$attributes         = $product->get_attributes();
+				$product_taxonomies = array();
+
+				foreach ( $attributes as $attribute ) {
+					if ( $attribute->is_taxonomy() && $attribute->get_visible() ) {
+						$taxonomy = $attribute->get_taxonomy_object();
+						if ( $taxonomy->attribute_public ) {
+							foreach ( $attribute->get_options() as $term_id ) {
+								$product_taxonomies[] = $term_id;
+							}
+						}
+					}
+				}
+
+				foreach ( $product_taxonomies as $pa ) {
+					$tags[] = '_' . WooCommerce::CACHETAG_TERM . $pa;
+				}
+
+				// Featured.
+				if ( $product->is_featured() ) {
+					$tags[] = '_' . TAG_PRODUCT_FEATURED;
+				}
+			}
+		}
+	}
+
+	return $tags;
 }
