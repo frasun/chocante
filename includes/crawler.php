@@ -361,6 +361,14 @@ function add_crawler_schedule( $schedules ) {
  * Crawl the full site
  */
 function crawl_full_site() {
+	global $crawl_full_site;
+
+	if ( $crawl_full_site ) {
+		return;
+	}
+
+	$crawl_full_site = true;
+
 	do_action( 'chocante_crawler_enqueue' );
 }
 
