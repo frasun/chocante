@@ -15,4 +15,4 @@ if ( ! is_a( $product, WC_Product::class ) || ! $product->is_visible() ) {
 }
 
 // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-echo apply_filters( 'litespeed_esi_url', 'product_tile', 'chocante - product tile', array( 'id' => $product->get_id() ), 'public' );
+echo apply_filters( 'litespeed_esi_url', 'product_tile', 'chocante - product tile', array( 'id' => $product->get_id() ), 'public', ESI_COMMENTS );

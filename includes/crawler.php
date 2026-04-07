@@ -103,7 +103,12 @@ function get_urls_from_tags( $tags ) {
 			}
 
 			if ( 'product' === $posttype ) {
-				$urls[] = get_esi_url( 'product_tile', 'public', array( 'id' => (int) $matches[1] ) );
+				$product    = wc_get_product( $matches[1] );
+				$is_visible = $product->is_visible();
+
+				if ( $is_visible ) {
+					$urls[] = get_esi_url( 'product_tile', 'public', array( 'id' => (int) $matches[1] ) );
+				}
 			}
 
 			$urls[] = get_permalink( $matches[1] );
