@@ -63,7 +63,10 @@
 
 	&:hover &__content {
 
-		@include dropdown-active;
+		body:not(.woocommerce-cart, .woocommerce-checkout) & {
+
+			@include dropdown-active;
+		}
 	}
 
 	&__content-title {

@@ -20,11 +20,9 @@ use function Chocante\Assets\icon;
 		<?php icon( 'cart' ); ?>
 		<span class="mini-cart__count"></span>
 	</a>
-	<?php if ( ! is_checkout() ) : ?>
 	<aside class="mini-cart__content">
 		<div class="widget_shopping_cart_content">
 			<?php woocommerce_mini_cart(); ?>
 		</div>
 	</aside>
-	<?php endif; ?>
 </div>
