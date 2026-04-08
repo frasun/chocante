@@ -200,9 +200,12 @@ function tag_get_product_section( $categories, $featured ) {
 		do_action( 'litespeed_tag_add', TAG_PRODUCT_FEATURED );
 	}
 
-	$currency = get_currency();
-	if ( $currency ) {
-		do_action( 'litespeed_tag_add', TAG_CURRENCY . $currency );
+	// Skip currency tags for pages.
+	if ( wp_doing_ajax() ) {
+		$currency = get_currency();
+		if ( $currency ) {
+			do_action( 'litespeed_tag_add', TAG_CURRENCY . $currency );
+		}
 	}
 }
 
