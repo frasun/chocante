@@ -29,6 +29,7 @@ use function Chocante\Cache\find_tag_id;
 use const Chocante\Cache\TAG_CURRENCY;
 use const Chocante\Cache\TAG_POST_RATING;
 use const Chocante\Cache\TAG_PRODUCT_STOCK;
+use const Chocante\Cache\TAG_PRODUCT_FEATURED;
 use const Chocante\Currency\CURRENCY_COOKIE;
 use const Chocante\Location\VAT_EXEMPT_COOKIE;
 use const Chocante\Location\VAT_EXEMPT_COOKIES;
@@ -103,11 +104,40 @@ function get_urls_from_tags( $tags ) {
 			}
 
 			if ( 'product' === $posttype ) {
-				$product    = wc_get_product( $matches[1] );
+				$product = wc_get_product( $matches[1] );
+
+				// Product tile.
 				$is_visible = $product->is_visible();
 
 				if ( $is_visible ) {
 					$urls[] = get_esi_url( 'product_tile', 'public', array( 'id' => (int) $matches[1] ) );
+				}
+
+				// Product attributes.
+				$attributes         = $product->get_attributes();
+				$product_taxonomies = array();
+
+				foreach ( $attributes as $attribute ) {
+					if ( $attribute->is_taxonomy() && $attribute->get_visible() ) {
+						$taxonomy = $attribute->get_taxonomy_object();
+						if ( $taxonomy->attribute_public ) {
+							foreach ( $attribute->get_options() as $term_id ) {
+								$product_taxonomies[] = $term_id;
+							}
+						}
+					}
+				}
+
+				foreach ( $product_taxonomies as $pa ) {
+					$tags[]  = '_' . Tag::TYPE_ARCHIVE_TERM . $pa;
+					$pa_term = get_term( $pa );
+					$urls[]  = get_term_link( $pa_term );
+				}
+
+				// Featured.
+				if ( $product->is_featured() ) {
+					$tags[] = '_' . TAG_PRODUCT_FEATURED;
+					$urls[] = get_permalink( get_option( 'page_on_front' ) );
 				}
 			}
 
@@ -246,8 +276,6 @@ function crawl_urls( $urls ) {
  * @param string $currency Currency code.
  */
 function crawl_currency( $currency ) {
-	error_log( print_r( 'crawl currency: ' . $currency, true ) );
-
 	$cookies = array(
 		CURRENCY_COOKIE   => array( $currency ),
 		VAT_EXEMPT_COOKIE => VAT_EXEMPT_COOKIES,
@@ -395,7 +423,7 @@ function schedule_full_crawl() {
  */
 function crawl_url( $url ) {
 	$urls = array( $url );
-	add_translated_urls( $urls );
+	add_translated_urls( $urls, false );
 
 	do_action( 'chocante_crawler_enqueue', array( 'urls' => $urls ) );
 }
