@@ -259,7 +259,7 @@ function set_control_global( $esi_block ) {
 
 	if ( is_admin_bar_showing() ) {
 		do_action( 'litespeed_control_set_nocache', 'chocante - admin' );
-	} else {
+	} elseif ( ! is_search() ) {
 		do_action( 'litespeed_control_force_public', 'chocante - public' );
 	}
 }

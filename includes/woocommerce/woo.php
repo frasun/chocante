@@ -17,6 +17,13 @@ add_filter( 'woocommerce_get_price_suffix', __NAMESPACE__ . '\add_price_suffix',
 add_filter( 'woocommerce_format_price_range', __NAMESPACE__ . '\modify_price_range', 10, 3 );
 add_filter( 'woocommerce_variable_price_html', __NAMESPACE__ . '\add_price_range_prefix', 10, 2 );
 
+// Product search.
+add_filter( 'get_product_search_form', __NAMESPACE__ . '\change_product_search_action' );
+add_action( 'template_redirect', __NAMESPACE__ . '\redirect_product_search' );
+add_filter( 'query_vars', __NAMESPACE__ . '\register_product_search_var' );
+add_action( 'parse_query', __NAMESPACE__ . '\use_product_search_var' );
+add_filter( 'get_search_query', __NAMESPACE__ . '\use_product_search_in_query' );
+
 // Post-code validation.
 add_action( 'wp_ajax_validate_postcode', __NAMESPACE__ . '\validate_postcode' );
 add_action( 'wp_ajax_nopriv_validate_postcode', __NAMESPACE__ . '\validate_postcode' );
@@ -259,4 +266,92 @@ function get_order_item_quantity( $product, $quantity ) {
 	}
 
 	return '<span class="product-quantity">' . $quantity_label . '</span>';
+}
+
+/**
+ * Modify product search form - use shop url and filter_query param
+ *
+ * @param string $form Search form html.
+ * @return string
+ */
+function change_product_search_action( $form ) {
+	$shop_url = wc_get_page_permalink( 'shop' );
+	$form     = str_replace(
+		'action="' . esc_url( home_url( '/' ) ) . '"',
+		'action="' . esc_url( $shop_url ) . '"',
+		$form
+	);
+
+	$form = str_replace(
+		'name="s"',
+		'name="filter_query"',
+		$form
+	);
+
+	return $form;
+}
+
+/**
+ * Redirect product search to shop path
+ */
+function redirect_product_search() {
+	// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+	if ( ! empty( $_GET['s'] ) ) {
+
+		$shop_url = wc_get_page_permalink( 'shop' );
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$search_query = sanitize_text_field( wp_unslash( $_GET['s'] ) );
+
+		$redirect_url = add_query_arg(
+			array(
+				'filter_query' => rawurlencode( $search_query ),
+				'post_type'    => 'product',
+			),
+			$shop_url
+		);
+
+		wp_safe_redirect( $redirect_url, 301 );
+		exit;
+	}
+}
+
+/**
+ * Register new query var for product search
+ *
+ * @param string[] $vars The array of allowed query variable names.
+ * @return string[]
+ */
+function register_product_search_var( $vars ) {
+	$vars[] = 'filter_query';
+	return $vars;
+}
+
+/**
+ * Use product search query var to search
+ *
+ * @param WP_Query $query The WP_Query instance (passed by reference).
+ */
+function use_product_search_var( $query ) {
+	if ( ! is_admin() && $query->is_main_query() ) {
+		if ( isset( $query->query_vars['filter_query'] ) && ! empty( $query->query_vars['filter_query'] ) ) {
+			$query->set( 's', $query->query_vars['filter_query'] );
+			$query->is_search = true;
+		}
+	}
+}
+
+/**
+ * Use product search param in search query
+ *
+ * @param mixed $query Contents of the search query variable.
+ * @return mixed
+ */
+function use_product_search_in_query( $query ) {
+	// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+	if ( ! empty( $_GET['filter_query'] ) ) {
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		return sanitize_text_field( wp_unslash( $_GET['filter_query'] ) );
+	}
+
+	return $query;
 }
