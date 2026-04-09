@@ -392,8 +392,26 @@ class Chocante_Crawler_Engine {
 			return;
 		}
 
+		// Group by URL to avoid parallel same-URL variant collisions
+		$by_url = array();
+		foreach ( $queue as $k => $entry ) {
+			$by_url[ $entry['url'] ][] = $k;
+		}
+
+		// Interleave: variant 0 of all URLs, then variant 1 of all URLs, etc.
+		$ordered      = array();
+		$max_variants = max( array_map( 'count', $by_url ) );
+		$url_keys     = array_keys( $by_url );
+		for ( $v = 0; $v < $max_variants; $v++ ) {
+			foreach ( $url_keys as $url ) {
+				if ( isset( $by_url[ $url ][ $v ] ) ) {
+					$ordered[] = $by_url[ $url ][ $v ];
+				}
+			}
+		}
+
 		$i = 0;
-		while ( $i < count( $queue ) ) {
+		while ( $i < count( $ordered ) ) {
 			if ( ( time() - $this->thread_time ) > 60 ) {
 				$this->_adjust_threads();
 				if ( $this->cur_threads === 0 ) {
@@ -403,10 +421,14 @@ class Chocante_Crawler_Engine {
 				}
 			}
 
-			$chunk   = array_slice( $queue, $i, $this->cur_threads, true );
+			$chunk_keys = array_slice( $ordered, $i, $this->cur_threads );
+			$chunk      = array();
+			foreach ( $chunk_keys as $k ) {
+				$chunk[ $k ] = $queue[ $k ];
+			}
+
 			$results = $this->_multi_curl( $chunk );
 
-			// Remove processed entries from disk queue
 			$processed = array_map( fn( $k ) => $queue[ $k ]['url'] . serialize( $queue[ $k ]['cookies'] ), array_keys( $results ) );
 			$remaining = array_filter( $this->_read_queue(), fn( $e ) => ! in_array( $e['url'] . serialize( $e['cookies'] ), $processed ) );
 			$this->_write_queue( array_values( $remaining ) );
@@ -441,7 +463,7 @@ class Chocante_Crawler_Engine {
 				}
 			}
 
-			$i += count( $chunk );
+			$i += count( $chunk_keys );
 			usleep( $this->usleep );
 		}
 

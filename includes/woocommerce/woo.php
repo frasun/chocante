@@ -296,7 +296,7 @@ function change_product_search_action( $form ) {
  */
 function redirect_product_search() {
 	// phpcs:ignore WordPress.Security.NonceVerification.Recommended
-	if ( ! empty( $_GET['s'] ) ) {
+	if ( isset( $_GET['s'] ) ) {
 
 		$shop_url = wc_get_page_permalink( 'shop' );
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
