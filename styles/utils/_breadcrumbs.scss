@@ -14,7 +14,7 @@
 		}
 	}
 
-	span:not(:last-child)::after {
+	span:not(:last-child):not(.separator)::after {
 		content: " - ";
 	}
 }
