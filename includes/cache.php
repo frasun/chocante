@@ -54,8 +54,7 @@ add_action( 'init', __NAMESPACE__ . '\esi_ref_reset', 4 );
 add_action( 'init', __NAMESPACE__ . '\esi_ref_fix', 6 );
 add_action( 'init', __NAMESPACE__ . '\set_esi_status' );
 add_action( 'init', __NAMESPACE__ . '\set_esi_translate' );
-add_action( 'litespeed_tag_finalize', __NAMESPACE__ . '\reset_esi_wc_tags', 5 );
-add_action( 'litespeed_tag_finalize', __NAMESPACE__ . '\tag_esi' );
+add_action( 'litespeed_tag_finalize', __NAMESPACE__ . '\tag_esi', 5 );
 
 /**
  * Layout
@@ -109,6 +108,7 @@ add_action( 'chocante_product_section_get_products', __NAMESPACE__ . '\tag_get_p
 add_action( 'woocommerce_ajax_save_product_variations', __NAMESPACE__ . '\purge_product' );
 add_action( 'woocommerce_before_product_object_save', __NAMESPACE__ . '\purge_featured_products' );
 add_action( 'wp_ajax_woocommerce_feature_product', __NAMESPACE__ . '\purge_featured_products_ajax', 5 );
+add_action( 'litespeed_tag_finalize', __NAMESPACE__ . '\tag_product_taxonomy' );
 
 /**
  * Free shipping
@@ -306,6 +306,9 @@ function tag_esi() {
 	if ( ! defined( 'LSCACHE_IS_ESI' ) ) {
 		return;
 	}
+
+	// Remove Woo tags.
+	remove_action( 'litespeed_tag_finalize', array( WooCommerce::cls(), 'set_tag' ) );
 
 	// Post tag.
 	$post_id = get_the_ID();
@@ -605,15 +608,6 @@ function esi_include_delivery_info() {
 }
 
 /**
- * Remove Woo tags from ESI blocks
- */
-function reset_esi_wc_tags() {
-	if ( defined( 'LSCACHE_IS_ESI' ) ) {
-		remove_action( 'litespeed_tag_finalize', array( WooCommerce::cls(), 'set_tag' ) );
-	}
-}
-
-/**
  * Purge variable product stock info
  *
  * @param \WC_Product_Variation $variation Product variation object.
@@ -676,7 +670,7 @@ function finalize_purge_tags() {
  * @return int|false
  */
 function find_tag_id( $tag, $prefix, &$matches ) {
-	return preg_match( '/' . preg_quote( $prefix, '/' ) . '(.+)/', $tag, $matches );
+	return preg_match( '/^' . preg_quote( $prefix, '/' ) . '(.+)/', $tag, $matches );
 }
 
 /**
@@ -722,4 +716,17 @@ function purge_layout() {
 	do_action( 'litespeed_purge', Tag::TYPE_ESI . 'header' );
 	do_action( 'litespeed_purge', Tag::TYPE_ESI . 'footer' );
 	do_action( 'litespeed_purge', Tag::TYPE_ESI . 'overlays' );
+}
+
+/**
+ * Add tags to Woo product taxonomies
+ */
+function tag_product_taxonomy() {
+	if ( is_product_taxonomy() ) {
+		$term = get_queried_object();
+
+		if ( $term && ! is_wp_error( $term ) ) {
+			do_action( 'litespeed_tag_add', WooCommerce::CACHETAG_TERM . $term->term_id );
+		}
+	}
 }

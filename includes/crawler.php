@@ -1,11 +1,6 @@
 <?php
 /**
- * Plugin Name: Chocante Crawler
- * Description: Cache crawler with cookie/UA rules, cron integration and purge hook support
- *
- * Constants (define in wp-config.php):
- *   CHOCANTE_CRAWLER_CONFIG    — absolute path to config.php
- *   CHOCANTE_CRAWLER_LOG       — set true to always save logs to disk
+ * Crawler
  *
  * @package WordPress
  * @subpackage Chocante
@@ -15,10 +10,11 @@ namespace Chocante\Crawler;
 
 defined( 'ABSPATH' ) || exit;
 
-if ( ! defined( 'LSCWP_V' ) ) {
+if ( ! defined( 'LSCWP_V' ) || ! class_exists( 'WooCommerce' ) ) {
 	return;
 }
 
+use Automattic\WooCommerce\Enums\ProductStockStatus;
 use LiteSpeed\Tag;
 use LiteSpeed\Base;
 use LiteSpeed\Thirdparty\WooCommerce;
@@ -50,6 +46,7 @@ add_filter( 'litespeed_purge_tags', __NAMESPACE__ . '\get_urls_from_tags' );
 add_action( 'litespeed_purged_link', __NAMESPACE__ . '\crawl_url' );
 add_action( 'litespeed_purged_all', __NAMESPACE__ . '\crawl_full_site' );
 add_action( 'litespeed_purged_all_lscache', __NAMESPACE__ . '\crawl_full_site' );
+add_action( 'woocommerce_product_set_stock_status', __NAMESPACE__ . '\crawl_product_tile', 10, 2 );
 
 add_filter( 'chocante_crawler_config_urls', __NAMESPACE__ . '\get_shop_pages' );
 add_filter( 'chocante_crawler_config_urls', __NAMESPACE__ . '\get_delivery_info' );
@@ -106,13 +103,6 @@ function get_urls_from_tags( $tags ) {
 			if ( 'product' === $posttype ) {
 				$product = wc_get_product( $matches[1] );
 
-				// Product tile.
-				$is_visible = $product->is_visible();
-
-				if ( $is_visible ) {
-					$urls[] = get_esi_url( 'product_tile', 'public', array( 'id' => (int) $matches[1] ) );
-				}
-
 				// Product attributes.
 				$attributes         = $product->get_attributes();
 				$product_taxonomies = array();
@@ -129,7 +119,7 @@ function get_urls_from_tags( $tags ) {
 				}
 
 				foreach ( $product_taxonomies as $pa ) {
-					$tags[]  = '_' . Tag::TYPE_ARCHIVE_TERM . $pa;
+					$tags[]  = '_' . WooCommerce::CACHETAG_TERM . $pa;
 					$pa_term = get_term( $pa );
 					$urls[]  = get_term_link( $pa_term );
 				}
@@ -181,8 +171,11 @@ function get_urls_from_tags( $tags ) {
 		}
 
 		if ( find_tag_id( $tag, WooCommerce::CACHETAG_TERM, $matches ) ) {
-			$term   = get_term( $matches[1] );
-			$urls[] = get_term_link( $term );
+			$term = get_term( $matches[1] );
+
+			if ( 'product_visibility' !== $term->taxonomy ) {
+				$urls[] = get_term_link( $term );
+			}
 			continue;
 		}
 
@@ -426,4 +419,17 @@ function crawl_url( $url ) {
 	add_translated_urls( $urls, false );
 
 	do_action( 'chocante_crawler_enqueue', array( 'urls' => $urls ) );
+}
+
+/**
+ * Crawl product tile
+ *
+ * @param int    $product_id Product ID.
+ * @param string $status Stock status.
+ */
+function crawl_product_tile( $product_id, $status ) {
+	if ( 'yes' === get_option( 'woocommerce_hide_out_of_stock_items' ) && ProductStockStatus::IN_STOCK === $status ) {
+		$tile_url = get_esi_url( 'product_tile', 'public', array( 'id' => $product_id ) );
+		crawl_url( $tile_url );
+	}
 }
