@@ -194,7 +194,7 @@ function preload_assets() {
 	$styles = array();
 
 	// Fonts.
-	$fonts = array( 'fonts/Montserrat-VariableFont_wght.woff2', 'fonts/playfair_display-medium.woff2', 'build/fonts/glyphter.woff2' );
+	$fonts = array( 'fonts/Montserrat-VariableFont_wght.woff2', 'fonts/playfair_display-medium.woff2' );
 	foreach ( $fonts as $font ) {
 		$name    = explode( '.', $font );
 		$ext     = end( $name );

@@ -9,6 +9,7 @@
 		url(../fonts/glyphter.svg#Glyphter) format("svg");
 	font-weight: var(--font-weight--normal);
 	font-style: normal;
+	font-display: fallback;
 }
 
 @mixin icon-font {
