@@ -168,13 +168,6 @@ function async_styles( $styles ) {
  * @return array
  */
 function remove_styles( $styles ) {
-	/**
-	 * Default block library
-	 *
-	 * @todo: Load styles for particular blocks.
-	 * $styles[] = 'wp-block-library';
-	 */
-
 	// Rate My Post.
 	if ( class_exists( 'Rate_My_Post' ) && ( ! is_singular( 'post' ) ) ) {
 		$styles[] = 'rate-my-post';

@@ -20,6 +20,8 @@ add_action( 'wp_head', __NAMESPACE__ . '\preconnect_to_sources', 1 );
 remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
 remove_action( 'wp_print_styles', 'print_emoji_styles' );
 add_filter( 'woocommerce_enqueue_styles', '__return_false' );
+add_filter( 'should_load_separate_core_block_assets', '__return_true', 0 );
+add_filter( 'should_load_block_assets_on_demand', '__return_true', 0 );
 
 // Editor.
 add_action( 'enqueue_block_editor_assets', __NAMESPACE__ . '\enqueue_editor_assets' );
