@@ -262,6 +262,10 @@ function set_control_global( $esi_block ) {
 
 	$donotcache = is_search() || is_cart() || is_checkout() || is_account_page();
 
+	if ( class_exists( 'TRP_Translate_Press' ) && isset( $_REQUEST['trp-edit-translation'] ) ) {
+		$donotcache = true;
+	}
+
 	if ( is_admin_bar_showing() ) {
 		do_action( 'litespeed_control_set_nocache', 'chocante - admin' );
 	} elseif ( ! $donotcache ) {
