@@ -2,12 +2,15 @@
 @import "../plugins/ml";
 
 .woocommerce-checkout {
-	--body--background-color: var(--wp--preset--color--grey);
+	--content--background-color: var(--wp--preset--color--grey);
 	--notice--background-color: var(--wp--preset--color--white);
 
 	main {
 
-		@include container;
+		> .woocommerce {
+
+			@include container;
+		}
 	}
 
 	.woocommerce {

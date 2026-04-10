@@ -1,5 +1,5 @@
 .woocommerce-account {
-	--body--background-color: var(--wp--preset--color--grey);
+	--content--background-color: var(--wp--preset--color--grey);
 	--user-icon-size: 40px;
 
 	@include max-width($breakpoint--desktop-md) {
@@ -18,12 +18,15 @@
 
 	main {
 
-		@include container;
-		padding-top: var(--spacing--20);
-		padding-bottom: var(--spacing--50);
+		> .woocommerce {
 
-		@include min-width($breakpoint--desktop-md) {
-			padding-bottom: var(--spacing--100);
+			@include container;
+			padding-top: var(--spacing--20);
+			padding-bottom: var(--spacing--50);
+
+			@include min-width($breakpoint--desktop-md) {
+				padding-bottom: var(--spacing--100);
+			}
 		}
 	}
 

@@ -1,20 +1,19 @@
+:root:has(body.blog) {
+	--header--background-color: var(--wp--custom--color--base-6);
+	--header--text-color-secondary: var(--wp--custom--color--grey-3);
+	--header--border-color: var(--wp--custom--color--grey-3);
+	--body--background-color: var(--header--background-color);
+	--join-group--background-color: var(--wp--preset--color--white);
+	--product-section--background-color: var(--wp--preset--color--grey);
+}
+
 body {
 
 	&.blog {
-		--header--background-color: var(--wp--custom--color--base-6);
-		--header--text-color-secondary: var(--wp--custom--color--grey-3);
-		--header--border-color: var(--wp--custom--color--grey-3);
-		--body--background-color: var(--header--background-color);
-		--join-group--background-color: var(--wp--preset--color--white);
-		--product-section--background-color: var(--wp--preset--color--grey);
 
 		&:has(.product-section) {
 			--join-group--background-color: var(--wp--preset--color--grey);
 		}
-	}
-
-	main {
-		background-color: var(--wp--preset--color--white);
 	}
 }
 

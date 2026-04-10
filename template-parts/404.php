@@ -11,12 +11,14 @@ defined( 'ABSPATH' ) || exit;
 use function Chocante\Assets\icon;
 ?>
 
-<div class="empty-screen">
-	<figure>
-		<?php icon( 'error' ); ?>
-	</figure>
-	<h1 class="page-title">
-		<?php echo esc_html_x( 'Page not found', '404', 'chocante' ); ?>
-	</h1>
-	<a href="<?php echo esc_url( get_bloginfo( 'url' ) ); ?>" class="button button--sm"><?php echo esc_html_x( 'Go to homepage', 'thankyou', 'chocante' ); ?></a>
-</div>
+<main>
+	<div class="empty-screen">
+		<figure>
+			<?php icon( 'error' ); ?>
+		</figure>
+		<h1 class="page-title">
+			<?php echo esc_html_x( 'Page not found', '404', 'chocante' ); ?>
+		</h1>
+		<a href="<?php echo esc_url( get_bloginfo( 'url' ) ); ?>" class="button button--sm"><?php echo esc_html_x( 'Go to homepage', 'thankyou', 'chocante' ); ?></a>
+	</div>
+</main>
