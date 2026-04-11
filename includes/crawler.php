@@ -87,6 +87,10 @@ function get_urls_from_tags( $tags ) {
 		if ( find_tag_id( $tag, Tag::TYPE_POST, $matches ) ) {
 			$posttype = get_post_type( $matches[1] );
 
+			if ( 'adt_product_feed' === $posttype ) {
+				return array( '_nothing' );
+			}
+
 			if ( ! in_array( $posttype, array( 'post', 'page', 'product' ), true ) ) {
 				continue;
 			}
