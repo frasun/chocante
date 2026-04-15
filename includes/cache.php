@@ -250,8 +250,7 @@ function purge_featured_products_ajax() {
 }
 
 /**
- * Set public page cache for logged-in users regardless of the ESI setting
- * Set no-cache for admin when the admin bar is visible or Woo pages
+ * Define global cache control rules
  *
  * @param string|false $esi_block ESI block id or false if no ESI.
  */
@@ -260,15 +259,15 @@ function set_control_global( $esi_block ) {
 		return;
 	}
 
-	$donotcache = is_search() || is_cart() || is_checkout() || is_account_page();
+	$not_public = is_search() || is_cart() || is_checkout() || is_account_page() || is_404() || wp_is_rest_endpoint();
 
 	if ( class_exists( 'TRP_Translate_Press' ) && isset( $_REQUEST['trp-edit-translation'] ) ) {
-		$donotcache = true;
+		$not_public = true;
 	}
 
 	if ( is_admin_bar_showing() ) {
 		do_action( 'litespeed_control_set_nocache', 'chocante - admin' );
-	} elseif ( ! $donotcache ) {
+	} elseif ( ! $not_public ) {
 		do_action( 'litespeed_control_force_public', 'chocante - public' );
 	}
 }
