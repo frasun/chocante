@@ -25,10 +25,12 @@ export default class MiniCart {
 				'resize',
 				this.setContentHeight.bind( this )
 			);
-			window.jQuery.blockUI.defaults.overlayCSS = {
-				backgroundColor: '#fff',
-				opacity: 0.7,
-			};
+			if ( window.jQuery.blockUI ) {
+				window.jQuery.blockUI.defaults.overlayCSS = {
+					backgroundColor: '#fff',
+					opacity: 0.7,
+				};
+			}
 		}
 	}
 

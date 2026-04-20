@@ -102,7 +102,6 @@ function remove_scripts( $scripts ) {
 
 		if ( class_exists( 'WooCommerce' ) && ( ! is_product() || wc_get_product( get_the_ID() )->is_in_stock() ) ) {
 			$scripts[] = 'cwginstock_js';
-			$scripts[] = 'wc-jquery-blockui';
 		}
 	}
 
