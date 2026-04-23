@@ -44,8 +44,8 @@ add_filter( 'litespeed_vary_curr_cookies', __NAMESPACE__ . '\reset_cookie_vary' 
  */
 add_action( 'litespeed_control_finalize', __NAMESPACE__ . '\set_control_global', );
 add_action( 'litespeed_control_finalize', __NAMESPACE__ . '\set_no_cache_translatepress', 20 );
-add_action( 'litespeed_purge_finalize', __NAMESPACE__ . '\finalize_purge_tags' );
-add_filter( 'litespeed_purge_tags', __NAMESPACE__ . '\purge_archive', 5 );
+add_action( 'litespeed_purge_finalize', __NAMESPACE__ . '\set_final_tags' );
+add_filter( 'litespeed_purge_tags', __NAMESPACE__ . '\finalize_purge_tags', 5 );
 
 /**
  * ESI settings
@@ -661,7 +661,7 @@ function esi_ref_fix() {
 /**
  * Mark end of purge tag collection
  */
-function finalize_purge_tags() {
+function set_final_tags() {
 	global $final_tags;
 	$final_tags = true;
 }
@@ -683,7 +683,13 @@ function find_tag_id( $tag, $prefix, &$matches ) {
  *
  * @param array $tags Final purge tags.
  */
-function purge_archive( $tags ) {
+function finalize_purge_tags( $tags ) {
+	foreach ( $tags as $key => $tag ) {
+		if ( find_tag_id( $tag, Tag::TYPE_URL, $matches ) ) {
+			unset( $tags[ $key ] );
+		}
+	}
+
 	global $final_tags;
 
 	if ( ! $final_tags ) {
@@ -697,6 +703,10 @@ function purge_archive( $tags ) {
 
 		if ( find_tag_id( $tag, Tag::TYPE_POST, $matches ) ) {
 			$posttype = get_post_type( $matches[1] );
+
+			if ( 'adt_product_feed' === $posttype ) {
+				return array( '_nothing' );
+			}
 
 			if ( 'post' === $posttype ) {
 				$final_tags[] = '_' . Tag::TYPE_HOME;
