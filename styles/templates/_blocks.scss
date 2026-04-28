@@ -1,5 +1,13 @@
 @import "../utils";
 
+/**
+Infobar block used inside the site header, which is loaded as an ESI block.
+Regular block style discovery happens during main page request.
+Infobar styles need to be included in the main stylesheet.
+@see: Chocante\Assets
+*/
+@import "../../blocks/infobar/style";
+
 :root {
 	--splash--thumbnail--height: 330px;
 	--splash--thumbnail--width: 100%;
