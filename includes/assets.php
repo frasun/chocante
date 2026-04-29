@@ -26,6 +26,8 @@ add_filter( 'should_load_block_assets_on_demand', '__return_true', 0 );
 // Editor.
 add_action( 'enqueue_block_editor_assets', __NAMESPACE__ . '\enqueue_editor_assets' );
 
+add_filter( 'chocante_assets_async_styles', __NAMESPACE__ . '\async_load_photoswipe' );
+
 /**
  * Enqueue scripts & styles
  */
@@ -64,6 +66,7 @@ function enqueue_scripts() {
 		// Product page.
 		if ( is_product() ) {
 			$styles[]                    = 'single-product';
+			$styles[]                    = 'photoswipe-chocante';
 			$scripts['chocante-product'] = array(
 				'filename' => 'single-product-scripts',
 			);
@@ -418,4 +421,15 @@ function preconnect_to_sources() {
 		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo "<link rel=\"dns-prefetch\" href=\"{$link}\" />";
 	}
+}
+
+/**
+ * Async load Photoswipe css
+ *
+ * @param array $styles Styles.
+ */
+function async_load_photoswipe( $styles ) {
+	$styles[] = 'photoswipe-chocante';
+
+	return $styles;
 }

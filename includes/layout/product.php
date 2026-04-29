@@ -421,3 +421,56 @@ function add_fragments_with_add_to_cart_notices( $fragments ) {
 
 	return $fragments;
 }
+
+/**
+ * Get product images
+ *
+ * @param WC_Product $product Product object.
+ */
+function get_product_image_ids( $product ) {
+	$images            = array();
+	$post_thumbnail_id = $product->get_image_id();
+
+	if ( $post_thumbnail_id ) {
+		$images[] = $post_thumbnail_id;
+	}
+
+	$gallery_image_ids = $product->get_gallery_image_ids();
+
+	if ( ! empty( $gallery_image_ids ) ) {
+		$images = array_merge( $images, $gallery_image_ids );
+	}
+
+	return $images;
+}
+
+/**
+ * Get product gallery image html
+ *
+ * @param int    $attachment_id Product gallery images.
+ * @param string $alt_text Image alt attribute.
+ * @param bool   $is_main Main product image.
+ */
+function display_product_gallery_image( $attachment_id, $alt_text, $is_main ) {
+	$image_size   = apply_filters( 'woocommerce_gallery_image_size', 'woocommerce_single' );
+	$full_size    = apply_filters( 'woocommerce_gallery_full_size', apply_filters( 'woocommerce_product_thumbnails_large_size', 'full' ) );
+	$image_params = apply_filters(
+		'woocommerce_gallery_image_html_attachment_image_params',
+		array(
+			'alt' => esc_attr( $alt_text ),
+		),
+		$attachment_id,
+		$image_size,
+		$is_main
+	);
+	$full_image   = wp_get_attachment_image_src( $attachment_id, $full_size );
+
+	printf( '<a href="%s" data-pswp-width="%s" data-pswp-height="%s">', esc_url( $full_image[0] ), esc_attr( $full_image[1] ), esc_attr( $full_image[2] ) );
+	echo wp_get_attachment_image(
+		$attachment_id,
+		$image_size,
+		false,
+		$image_params
+	);
+	echo '</a>';
+}

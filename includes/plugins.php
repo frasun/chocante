@@ -90,6 +90,11 @@ function defer_scripts( $scripts ) {
  * @return array
  */
 function remove_scripts( $scripts ) {
+	// WooCommerce.
+	if ( class_exists( 'WooCommerce' ) ) {
+		$scripts[] = 'wc-single-product';
+	}
+
 	// Rate My Post.
 	if ( class_exists( 'Rate_My_Post' ) && ( ! is_singular( 'post' ) ) ) {
 		$scripts[] = 'rate-my-post';

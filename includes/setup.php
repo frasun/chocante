@@ -41,8 +41,8 @@ function add_feature_support() {
 	// WooCommerce.
 	add_theme_support( 'woocommerce' );
 	remove_theme_support( 'wc-product-gallery-zoom' );
-	add_theme_support( 'wc-product-gallery-slider' );
-	add_theme_support( 'wc-product-gallery-lightbox' );
+	remove_theme_support( 'wc-product-gallery-slider' );
+	remove_theme_support( 'wc-product-gallery-lightbox' );
 
 	// RankMath SEO.
 	add_theme_support( 'rank-math-breadcrumbs' );

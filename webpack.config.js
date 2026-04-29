@@ -61,6 +61,11 @@ module.exports = {
 			'styles',
 			'single-post.scss'
 		),
+		'photoswipe-chocante': path.resolve(
+			process.cwd(),
+			'node_modules/photoswipe/dist',
+			'photoswipe.css'
+		),
 	},
 	// Do not bundle fonts.
 	module: {

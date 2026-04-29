@@ -1,4 +1,5 @@
 import QuantityInput from './quantity-input';
+import ProductGallery from './product-gallery';
 
 const STOCK_ELEMENT = '.stock';
 const CART_FORM = 'form.cart';
@@ -44,6 +45,24 @@ function resetVariationToAdd() {
 	}
 }
 
+// Select variation based on url param.
+function selectVariationFromUrl() {
+	const currentUrl = new URL( window.location.href );
+
+	currentUrl.searchParams.forEach( ( value, key ) => {
+		const variationSelect = document.querySelector(
+			`select[name="${ key }"]`
+		);
+
+		if (
+			variationSelect &&
+			variationSelect.querySelector( `[value="${ value }"]` )
+		) {
+			variationSelect.value = value;
+		}
+	} );
+}
+
 // Init quantity form.
 const productQuantity = document.querySelector( 'form.cart .quantity' );
 if ( productQuantity ) {
@@ -66,14 +85,8 @@ function displayAddToCartNotice( event, fragments ) {
 	if ( notice ) {
 		const form = document.querySelector( CART_FORM );
 		const noticeEl = document.createElement( 'div' );
-		// const adminBar = document.getElementById( 'wpadminbar' );
-		// const siteHeader = document.getElementById( 'siteHeader' );
 
 		noticeEl.className = ADD_TO_CART_NOTICE;
-		// noticeEl.style.scrollMarginTop = `${
-		// 	( adminBar ? adminBar.offsetHeight : 0 ) +
-		// 	( siteHeader ? siteHeader.offsetHeight : 0 )
-		// }px`;
 		noticeEl.innerHTML = notice;
 
 		if ( form ) {
@@ -88,23 +101,6 @@ function clearAddToCartNotice() {
 	const notices = document.querySelectorAll( `.${ ADD_TO_CART_NOTICE }` );
 
 	Array.from( notices ).forEach( ( el ) => el.remove() );
-}
-
-function selectVariationFromUrl() {
-	const currentUrl = new URL( window.location.href );
-
-	currentUrl.searchParams.forEach( ( value, key ) => {
-		const variationSelect = document.querySelector(
-			`select[name="${ key }"]`
-		);
-
-		if (
-			variationSelect &&
-			variationSelect.querySelector( `[value="${ value }"]` )
-		) {
-			variationSelect.value = value;
-		}
-	} );
 }
 
 ( function ( $ ) {
@@ -124,3 +120,6 @@ function selectVariationFromUrl() {
 	$( document.body ).on( 'adding_to_cart', clearAddToCartNotice );
 	$( document.body ).on( 'added_to_cart', displayAddToCartNotice );
 } )( jQuery );
+
+// Product gallery.
+new ProductGallery();
