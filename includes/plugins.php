@@ -134,6 +134,7 @@ function remove_scripts( $scripts ) {
 
 	// Curcy.
 	if ( class_exists( 'WOOMULTI_CURRENCY' ) || class_exists( 'WOOMULTI_CURRENCY_F' ) ) {
+		$scripts[] = 'woocommerce-multi-currency';
 		$scripts[] = 'woocommerce-multi-currency-convertor';
 		$scripts[] = 'woocommerce-multi-currency-filter-price';
 	}

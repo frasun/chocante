@@ -211,17 +211,6 @@ function preload_assets() {
 		);
 	}
 
-	// jQuery preload hack.
-	if ( wp_script_is( 'jquery' ) ) {
-		$jquery  = wp_scripts()->registered['jquery'];
-		$suffix  = wp_scripts_get_suffix();
-		$version = $jquery->ver;
-		$links[] = array(
-			'path' => "/wp-includes/js/jquery/jquery{$suffix}.js?ver={$version}",
-			'as'   => 'script',
-		);
-	}
-
 	// Theme styles.
 	$styles[] = 'chocante';
 
