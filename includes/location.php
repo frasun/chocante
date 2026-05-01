@@ -20,9 +20,6 @@ const VAT_EXEMPT_COOKIE  = 'chocante_vat_exempt';
 const VAT_EXEMPT_COOKIES = array( '_null', 1 );
 const SERVER_COOKIE      = '_sc';
 
-// Handle server cookie.
-add_action( 'init', __NAMESPACE__ . '\set_cookie_domain' );
-
 // Get location from cookie.
 add_filter( 'woocommerce_customer_default_location_array', __NAMESPACE__ . '\get_default_location_from_cookie' );
 add_filter( 'woocommerce_customer_get_billing_country', __NAMESPACE__ . '\get_customer_country_from_cookie' );
@@ -284,16 +281,6 @@ function set_variations_price_hash( $price_hash, $product, $for_display ) {
 	}
 
 	return $price_hash;
-}
-
-/**
- * Set cookie domain if origin server sets default location cookies
- */
-function set_cookie_domain() {
-	if ( ! empty( $_COOKIE[ SERVER_COOKIE ] ) ) {
-		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotValidated
-		define( 'COOKIE_DOMAIN', $_SERVER['HTTP_HOST'] );
-	}
 }
 
 /**
