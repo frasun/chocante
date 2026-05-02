@@ -116,7 +116,6 @@ const prepareRequest = ( request, defaultCookies ) => {
 		headers,
 		cache: request.cache,
 		method: request.method,
-		body: request.body,
 		redirect: request.redirect,
 		signal: request.signal,
 	} );
