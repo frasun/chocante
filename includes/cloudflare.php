@@ -30,7 +30,7 @@ add_action( 'chocante_currency_settings_saved', __NAMESPACE__ . '\update_worker_
  * Add CF headers
  */
 function send_headers() {
-	if ( defined( 'LSCACHE_IS_ESI' ) ) {
+	if ( defined( 'LSCACHE_IS_ESI' ) || ! class_exists( 'LiteSpeed\Control' ) || ! class_exists( 'LiteSpeed\Tag' ) ) {
 		return;
 	}
 
