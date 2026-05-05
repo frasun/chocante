@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Chocante 0.28.13\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/chocante\n"
-"POT-Creation-Date: 2026-02-23T20:06:49+00:00\n"
-"PO-Revision-Date: 2026-02-24 09:20+0100\n"
+"POT-Creation-Date: 2026-05-16T15:22:46+00:00\n"
+"PO-Revision-Date: 2026-05-16 17:23+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pl_PL\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 "
 "|| n%100>14) ? 1 : 2);\n"
-"X-Generator: Poedit 3.8\n"
+"X-Generator: Poedit 3.9\n"
 "X-Domain: chocante\n"
 
 #. Theme Name of the theme
@@ -25,175 +25,296 @@ msgstr ""
 msgid "Seek the Kingdom"
 msgstr ""
 
-#: 404.php:20
-msgctxt "404"
-msgid "Page not found"
-msgstr "Nic tu nie ma"
-
-#: 404.php:22 woocommerce/checkout/thankyou.php:71
-msgctxt "thankyou"
-msgid "Go to homepage"
-msgstr "Idź do strony głównej"
-
-#: footer.php:19
-msgctxt "footer nav"
-msgid "Products"
-msgstr "Produkty"
-
-#: footer.php:45
-msgctxt "footer nav"
-msgid "Shop"
-msgstr "Sklep"
-
-#: footer.php:82
-msgctxt "footer"
-msgid "All Rights Reserved"
-msgstr "Wszelkie prawa zastrzeżone"
-
-#: header.php:34
-msgid "Toggle menu"
-msgstr ""
-
 #: home.php:49
 msgctxt "blog"
 msgid "Other articles"
 msgstr "Pozostałe artykuły"
 
-#: includes/layout/account.php:199
+#: includes/layout/account.php:202
 msgctxt "login page"
 msgid "Already have an account?"
 msgstr "Masz już konto?"
 
-#: includes/layout/blog.php:46 includes/layout/cart.php:71
+#: includes/layout/blog.php:47 includes/layout/cart.php:102
 #: template-parts/content/content-post.php:23
 msgctxt "product slider"
 msgid "Featured products"
 msgstr "Polecane produkty"
 
-#: includes/layout/blog.php:47 template-parts/content/content-post.php:22
+#: includes/layout/blog.php:48 template-parts/content/content-post.php:22
 #: template-parts/content/content-post.php:42
 msgctxt "product slider"
 msgid "Learn more about our offer"
 msgstr "Poznaj naszą ofertę"
 
-#: includes/layout/checkout.php:70
+#: includes/layout/checkout.php:76
 msgctxt "checkout"
 msgid "Edit previous step"
 msgstr "Edytuj poprzedni krok"
 
-#: includes/layout/common.php:116
+#: includes/layout/checkout.php:163 template-parts/delivery-point.php:44
+msgid "Selected delivery point:"
+msgstr "Wybrany punkt odbioru:"
+
+#: includes/layout/checkout.php:164 template-parts/delivery-point.php:47
+msgid "No delivery point selected"
+msgstr "Brak wybranego punktu odbioru"
+
+#: includes/layout/checkout.php:165 template-parts/delivery-point.php:38
+msgid "Select delivery point"
+msgstr "Wybierz punkt odbioru"
+
+#: includes/layout/checkout.php:166 template-parts/delivery-point.php:38
+#: template-parts/delivery-point.php:40
+msgid "Fetching point data..."
+msgstr "Pobieranie punktów odbioru…"
+
+#: includes/layout/checkout.php:167 template-parts/delivery-point.php:38
+msgid "No points available"
+msgstr "Brak dostępnych punktów odbioru"
+
+#: includes/layout/checkout.php:210
+msgid "Please select delivery point."
+msgstr "Wybierz punkt odbioru."
+
+#. translators: Delivery point info.
+#: includes/layout/checkout.php:247
+msgid "Delivery Point"
+msgstr "Punkt odbioru"
+
+#: includes/layout/common.php:118
 msgctxt "product slider"
 msgid "Loading"
 msgstr "Wczytuję"
 
-#: includes/layout/common.php:221 template-parts/slide-product.php:27
+#: includes/layout/common.php:230 template-parts/slide-product.php:27
 msgctxt "product loop"
 msgid "Buy now"
 msgstr "Kup teraz"
 
-#: includes/layout/product-section.php:192
+#: includes/layout/product-section.php:190
 msgctxt "product slider"
 msgid "Previous"
 msgstr "Poprzedni"
 
-#: includes/layout/product-section.php:193
+#: includes/layout/product-section.php:191
 msgctxt "product slider"
 msgid "Next"
 msgstr "Nastęony"
 
-#: includes/layout/product-section.php:194
+#: includes/layout/product-section.php:192
 msgctxt "product slider"
 msgid "Go to first"
 msgstr "Idź do pierwszego"
 
-#: includes/layout/product-section.php:195
+#: includes/layout/product-section.php:193
 msgctxt "product slider"
 msgid "Go to last"
 msgstr "Idź do ostatniego"
 
 #. translators: Go to product number.
-#: includes/layout/product-section.php:197
+#: includes/layout/product-section.php:195
 #, php-format
 msgctxt "product slider"
 msgid "Go to %s"
 msgstr "Idź do %s"
 
 #. translators: Go to page number.
-#: includes/layout/product-section.php:199
+#: includes/layout/product-section.php:197
 #, php-format
 msgctxt "product slider"
 msgid "Go to page %s"
 msgstr "Strona %s"
 
-#: includes/layout/product-section.php:200
+#: includes/layout/product-section.php:198
 msgctxt "product slider"
 msgid "Start autoplay"
 msgstr "Start"
 
-#: includes/layout/product-section.php:201
+#: includes/layout/product-section.php:199
 msgctxt "product slider"
 msgid "Pause autoplay"
 msgstr "Wstrzymaj"
 
-#: includes/layout/product-section.php:202
+#: includes/layout/product-section.php:200
 msgctxt "product slider"
 msgid "carousel"
 msgstr "karuzela"
 
-#: includes/layout/product-section.php:203
+#: includes/layout/product-section.php:201
 msgctxt "product slider"
 msgid "Select product to show"
 msgstr "Wybierz produkt"
 
-#: includes/layout/product-section.php:204
+#: includes/layout/product-section.php:202
 msgctxt "product slider"
 msgid "product"
 msgstr "produkt"
 
-#: includes/layout/product.php:129
+#: includes/layout/product.php:137
 msgctxt "product slider"
 msgid "Products from category"
 msgstr "Produkty z kategorii"
 
 #. translators: Number of pieces.
-#: includes/layout/product.php:240
+#: includes/layout/product.php:248
 #, php-format
 msgid "%s pcs"
 msgstr "%s szt."
 
-#: includes/layout/product.php:264
+#: includes/layout/product.php:272
 msgid "Last items in stock!"
 msgstr "Końcówka zapasów!"
 
-#: includes/menu.php:29
+#: includes/menu.php:28
 msgctxt "menu"
 msgid "Main menu"
 msgstr "Główne menu strony"
 
-#: includes/menu.php:30
+#: includes/menu.php:29
 msgctxt "menu"
 msgid "Footer - Chocante"
 msgstr "Stopka - Chocante"
 
-#: includes/menu.php:31
+#: includes/menu.php:30
 msgctxt "menu"
 msgid "Footer - Products"
 msgstr "Stopka - Produkty"
 
-#: includes/menu.php:32
+#: includes/menu.php:31
 msgctxt "menu"
 msgid "Footer - Shop"
 msgstr "Stopka - Sklep"
 
-#: includes/menu.php:33
+#: includes/menu.php:32
 msgctxt "menu"
 msgid "Footer - Social media"
 msgstr "Stopka - Social media"
 
-#: includes/menu.php:34
+#: includes/menu.php:33
 msgctxt "menu"
 msgid "Footer - Terms"
 msgstr "Stopka - Regulaminy"
+
+#: includes/shipping/class-blpaczka-shipping.php:123
+msgid "Shipping method with dynamic pricing based on BL Paczka API."
+msgstr "Oblicza koszty wysyłki korzystając z API BL Paczki."
+
+#: includes/shipping/class-blpaczka-shipping.php:133
+#: includes/shipping/class-blpaczka-shipping.php:183
+msgid "Cash on delivery"
+msgstr "Za pobraniem"
+
+#: includes/shipping/class-blpaczka-shipping.php:138
+#: includes/shipping/class-blpaczka-shipping.php:187
+msgid "Point of delivery"
+msgstr "Punkt odbioru"
+
+#: includes/shipping/class-blpaczka-shipping.php:142
+msgid "Time of delivery (days)"
+msgstr "Czas dostawy (dni)"
+
+#: includes/shipping/class-blpaczka-shipping.php:146
+msgid "e.g. 2-3"
+msgstr "np. 2-3"
+
+#: includes/shipping/class-blpaczka-shipping.php:152
+msgid "Packages"
+msgstr "Rodzaje paczek"
+
+#: includes/shipping/class-blpaczka-shipping.php:155
+msgid "Packaging fee"
+msgstr "Koszt opakowania"
+
+#: includes/shipping/class-blpaczka-shipping.php:162
+msgid "COD limits"
+msgstr "Limity pobrania"
+
+#: includes/shipping/class-blpaczka-shipping.php:435
+msgid "Side X"
+msgstr "Wymiar X"
+
+#: includes/shipping/class-blpaczka-shipping.php:436
+msgid "Side Y"
+msgstr "Wymiar Y"
+
+#: includes/shipping/class-blpaczka-shipping.php:437
+msgid "Side Z"
+msgstr "Wymiar Z"
+
+#: includes/shipping/class-blpaczka-shipping.php:438
+msgid "Max. weight"
+msgstr "Maks. waga"
+
+#: includes/shipping/class-blpaczka-shipping.php:454
+msgid "Add package"
+msgstr "Dodaj paczkę"
+
+#: includes/shipping/class-blpaczka-shipping.php:513
+msgid "Country"
+msgstr "Kraj"
+
+#: includes/shipping/class-blpaczka-shipping.php:514
+msgid "COD limit"
+msgstr "Limit pobrania"
+
+#: includes/shipping/class-blpaczka-shipping.php:515
+msgid "Currency"
+msgstr "Waluta"
+
+#: includes/shipping/class-blpaczka-shipping.php:546
+msgid "Add row"
+msgstr "Dodaj kraj"
+
+#: includes/shipping/class-globkurier-shipping.php:134
+msgid ""
+"GlobKurier: Missing credentials. Please define GLOBKURIER_EMAIL and "
+"GLOBKURIER_PASSWORD constants."
+msgstr ""
+
+#: includes/shipping/class-globkurier-shipping.php:182
+#: includes/shipping/settings-globkurier.php:26
+msgctxt "globkurier"
+msgid "Air"
+msgstr "Lotniczy"
+
+#: includes/shipping/settings-globkurier.php:14
+msgid "This name will be shown when in case of Globurier API error."
+msgstr ""
+"Ta nazwa będzie wyświetlona w przypadku błędu połączenia z API Globkurier."
+
+#: includes/shipping/settings-globkurier.php:20
+msgctxt "globkurier"
+msgid "Transport type"
+msgstr "Transport"
+
+#: includes/shipping/settings-globkurier.php:25
+msgctxt "globkurier"
+msgid "Road"
+msgstr "Drogowy"
+
+#: includes/shipping/settings-globkurier.php:30
+msgctxt "globkurier"
+msgid "Default rate"
+msgstr "Domyślna stawka"
+
+#: includes/shipping/settings-globkurier.php:35
+msgid "This rate will be shown when in case of Globurier API error."
+msgstr ""
+"Stawka będzie wyświetlona w przypadku błędu połączenia z API Globkurier."
+
+#: includes/shipping/settings-globkurier.php:39
+msgctxt "globkurier"
+msgid "Default delivery time (days)"
+msgstr "Domyślny czas dostarczenia (dni)"
+
+#: includes/shipping/settings-globkurier.php:42
+msgid ""
+"This delivery time will be shown when in case of Globurier API error or "
+"missing delivery time entry."
+msgstr ""
+"Ten czas dostarczenia będzie wyświetlony w przypadku braku tej informacji w "
+"odpowiedzi API lub błędu połączenia z API Globkurier."
 
 #: includes/widgets.php:22
 msgctxt "admin"
@@ -256,70 +377,10 @@ msgctxt "admin"
 msgid "Widgets in this area will be shown in the bottom right part of footer."
 msgstr ""
 
-#: includes/woocommerce/shipping/class-globkurier-shipping.php:132
-msgid ""
-"GlobKurier: Missing credentials. Please define GLOBKURIER_EMAIL and "
-"GLOBKURIER_PASSWORD constants."
-msgstr ""
-
-#: includes/woocommerce/shipping/class-globkurier-shipping.php:180
-#: includes/woocommerce/shipping/settings-globkurier.php:26
-msgctxt "globkurier"
-msgid "Air"
-msgstr "Lotniczy"
-
-#: includes/woocommerce/shipping/settings-globkurier.php:14
-msgid "This name will be shown when in case of Globurier API error."
-msgstr ""
-"Ta nazwa będzie wyświetlona w przypadku błędu połączenia z API Globkurier."
-
-#: includes/woocommerce/shipping/settings-globkurier.php:20
-msgctxt "globkurier"
-msgid "Transport type"
-msgstr "Transport"
-
-#: includes/woocommerce/shipping/settings-globkurier.php:25
-msgctxt "globkurier"
-msgid "Road"
-msgstr "Drogowy"
-
-#: includes/woocommerce/shipping/settings-globkurier.php:30
-msgctxt "globkurier"
-msgid "Default rate"
-msgstr "Domyślna stawka"
-
-#: includes/woocommerce/shipping/settings-globkurier.php:35
-msgid "This rate will be shown when in case of Globurier API error."
-msgstr ""
-"Stawka będzie wyświetlona w przypadku błędu połączenia z API Globkurier."
-
-#: includes/woocommerce/shipping/settings-globkurier.php:39
-msgctxt "globkurier"
-msgid "Default delivery time (days)"
-msgstr "Domyślny czas dostarczenia (dni)"
-
-#: includes/woocommerce/shipping/settings-globkurier.php:42
-msgid ""
-"This delivery time will be shown when in case of Globurier API error or "
-"missing delivery time entry."
-msgstr ""
-"Ten czas dostarczenia będzie wyświetlony w przypadku braku tej informacji w "
-"odpowiedzi API lub błędu połączenia z API Globkurier."
-
-#: includes/woocommerce/woo.php:188
+#: includes/woo.php:128
 msgctxt "price range prefix"
 msgid "From"
 msgstr "Od"
-
-#: includes/woocommerce/woo.php:265
-msgctxt "checkout postcode validation"
-msgid "Eircode is not valid."
-msgstr "Eircode ma nieprawidłowy format."
-
-#: includes/woocommerce/woo.php:268
-msgctxt "checkout postcode validation"
-msgid "Postcode / ZIP is not valid."
-msgstr "Kod pocztowy ma nieprawidłowy format."
 
 #. Template Name of the theme
 msgid "Page without header (alt header - mushroom)"
@@ -345,6 +406,16 @@ msgstr ""
 msgid "Page with header"
 msgstr ""
 
+#: template-parts/404.php:20
+msgctxt "404"
+msgid "Page not found"
+msgstr "Nic tu nie ma"
+
+#: template-parts/404.php:22 woocommerce/checkout/thankyou.php:57
+msgctxt "thankyou"
+msgid "Go to homepage"
+msgstr "Idź do strony głównej"
+
 #: template-parts/breadcrumbs-post.php:15
 msgid "Breadcrumb"
 msgstr ""
@@ -353,6 +424,33 @@ msgstr ""
 msgctxt "blog"
 msgid "Cacao Blog"
 msgstr "Blog o kakao"
+
+#: template-parts/delivery-point.php:28
+msgid "Showing results for"
+msgstr "Pokazuje wyniki dla"
+
+#: template-parts/delivery-point.php:30
+msgid "Enter postal code to see available delivery points"
+msgstr "Wprowadź kod pocztowy, aby zobaczyć dostępne punkty odbioru"
+
+#: template-parts/footer.php:17
+msgctxt "footer nav"
+msgid "Products"
+msgstr "Produkty"
+
+#: template-parts/footer.php:43
+msgctxt "footer nav"
+msgid "Shop"
+msgstr "Sklep"
+
+#: template-parts/footer.php:80
+msgctxt "footer"
+msgid "All Rights Reserved"
+msgstr "Wszelkie prawa zastrzeżone"
+
+#: template-parts/header.php:25
+msgid "Toggle menu"
+msgstr ""
 
 #. translators: Safe shopping heading.
 #: template-parts/info-cart.php:18
@@ -382,7 +480,7 @@ msgctxt "infobox"
 msgid "Order before 11 a.m. and we will ship it the same day."
 msgstr "Zamów do godziny 11, a wyślemy jeszcze dzisiaj."
 
-#: template-parts/info-stock.php:20
+#: template-parts/info-stock.php:18
 msgctxt "infobox"
 msgid "In stock"
 msgstr "W magazynie"
@@ -461,24 +559,23 @@ msgstr ""
 "Na razie nic nie dodałeś do koszyka. Przejdź do naszego sklepu, aby wybrać "
 "interesujące Cię produkty."
 
-#: woocommerce/checkout/thankyou.php:22
+#: woocommerce/checkout/thankyou.php:31
 msgctxt "thankyou"
 msgid "Thank you for shopping"
 msgstr "Dziękujemy za zakupy"
 
 #. translators: thank you text.
-#: woocommerce/checkout/thankyou.php:26
-#, php-format
+#: woocommerce/checkout/thankyou.php:33
 msgctxt "thankyou"
 msgid ""
 "You will be informed about further steps by separate emails. You can also "
-"keep up to date with the current status at %1$sthis address%2$s."
+"keep up to date with the current status at this address:"
 msgstr ""
 "O dalszych krokach będziesz informowany osobnymi wiadomościami e-mail. Na "
 "bieżąco możesz też śledzić aktualny status pod %1$stym adresem%2$s."
 
 #. translators: processing order.
-#: woocommerce/checkout/thankyou.php:54
+#: woocommerce/checkout/thankyou.php:35
 #, php-format
 msgctxt "thankyou"
 msgid "Your order no. %s has been accepted for processing."
@@ -514,6 +611,10 @@ msgstr[0] "%1$d&ndash;%2$d z %3$d produktów"
 msgstr[1] "%1$d&ndash;%2$d z %3$d produktów"
 msgstr[2] "%1$d&ndash;%2$d z %3$d produktów"
 
+#: woocommerce/single-product/product-image.php:49
+msgid "Product gallery thumbnails"
+msgstr "Miniatury galerii produktu"
+
 #: blocks/infobar/edit.js:16
 msgid "Insert message…"
 msgstr "Wpisz wiadomość…"
@@ -527,6 +628,14 @@ msgstr "Belka info"
 msgctxt "block description"
 msgid "Block with important information sticky to the page top"
 msgstr "Block przyklejony do góry strony zawierający ważne informacje"
+
+#~ msgctxt "checkout postcode validation"
+#~ msgid "Eircode is not valid."
+#~ msgstr "Eircode ma nieprawidłowy format."
+
+#~ msgctxt "checkout postcode validation"
+#~ msgid "Postcode / ZIP is not valid."
+#~ msgstr "Kod pocztowy ma nieprawidłowy format."
 
 #~ msgctxt "sorting option"
 #~ msgid "Default"

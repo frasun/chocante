@@ -322,7 +322,6 @@
 					}
 
 					&-shipping-calculator {
-						padding-bottom: var(--spacing--5);
 
 						.shipping-calculator {
 
@@ -340,7 +339,7 @@
 								display: flex;
 								gap: var(--spacing--15);
 								align-items: end;
-								margin: var(--spacing--15) 0 var(--spacing--10);
+								margin: var(--spacing--30) 0 0;
 
 								@include max-width($breakpoint--mobile-sm) {
 									flex-direction: column;

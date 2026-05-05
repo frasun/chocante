@@ -24,6 +24,10 @@ const SERVER_COOKIE      = '_sc';
 add_filter( 'woocommerce_customer_default_location_array', __NAMESPACE__ . '\get_default_location_from_cookie' );
 add_filter( 'woocommerce_customer_get_billing_country', __NAMESPACE__ . '\get_customer_country_from_cookie' );
 add_filter( 'woocommerce_customer_get_shipping_country', __NAMESPACE__ . '\get_customer_shipping_country_from_cookie' );
+add_filter( 'woocommerce_customer_get_billing_postcode', __NAMESPACE__ . '\get_customer_postcode_from_geoip' );
+add_filter( 'woocommerce_customer_get_shipping_postcode', __NAMESPACE__ . '\get_customer_postcode_from_geoip' );
+add_filter( 'woocommerce_customer_get_billing_city', __NAMESPACE__ . '\get_customer_city_from_geoip' );
+add_filter( 'woocommerce_customer_get_shipping_city', __NAMESPACE__ . '\get_customer_city_from_geoip' );
 
 // Set location cookie value.
 add_action( 'woocommerce_calculated_shipping', __NAMESPACE__ . '\set_cookies_in_cart' );
@@ -293,3 +297,39 @@ function add_zero_rate( $rates ) {
 
 	return $rates;
 }
+
+// phpcs:disable WordPress.Security.ValidatedSanitizedInput.InputNotValidated
+/**
+ * Get customer location info from server GEOIP
+ *
+ * @param string $value Customer data.
+ * @return string
+ */
+function get_customer_postcode_from_geoip( $value ) {
+	if ( empty( $value ) ) {
+		$value = sanitize_text_field(
+			wp_unslash(
+				$_SERVER['HTTP_CF_POSTAL_CODE'] ?? $_SERVER['GEOIP_POSTAL_CODE'] ?? ''
+			)
+		);
+	}
+	return $value;
+}
+
+/**
+ * Get customer location info from server GEOIP
+ *
+ * @param string $value Customer data.
+ * @return string
+ */
+function get_customer_city_from_geoip( $value ) {
+	if ( empty( $value ) ) {
+		$value = sanitize_text_field(
+			wp_unslash(
+				$_SERVER['HTTP_CF_IPCITY'] ?? $_SERVER['GEOIP_CITY'] ?? ''
+			)
+		);
+	}
+	return $value;
+}
+// phpcs:enable

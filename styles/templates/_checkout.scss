@@ -38,6 +38,11 @@
 				margin-top: var(--spacing--10);
 			}
 
+			.woocommerce-NoticeGroup {
+				flex-basis: 100%;
+				flex-shrink: 0;
+			}
+
 			&__form {
 				flex: 1 0 60%;
 				width: 100%;

@@ -52,7 +52,7 @@ function get_currency() {
 		return $curcy->get_current_currency();
 	}
 
-	return null;
+	return get_woocommerce_currency();
 }
 
 /**
@@ -154,7 +154,7 @@ function manage_exchange_rates( $rates, $settings ) {
 }
 
 /**
- * Get the list of used currencies
+ * Get the list of used currencies with codes
  */
 function get_currencies() {
 	$curcy      = get_curcy();
@@ -163,6 +163,20 @@ function get_currencies() {
 	if ( $curcy ) {
 		$curcy_currencies = array_filter( $curcy->get_list_currencies(), fn( $c ) => ! $c['hide'] );
 		$currencies       = array_merge( $currencies, array_keys( $curcy_currencies ) );
+	}
+
+	return $currencies;
+}
+
+/**
+ * Get the list of used currencies with settings
+ */
+function get_shop_currencies() {
+	$curcy      = get_curcy();
+	$currencies = array();
+
+	if ( $curcy ) {
+		return array_filter( $curcy->get_list_currencies(), fn( $c ) => ! $c['hide'] );
 	}
 
 	return $currencies;

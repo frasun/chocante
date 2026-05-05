@@ -63,6 +63,7 @@ add_filter( 'cwginstock_default_values', __NAMESPACE__ . '\i18n_cwg' );
 add_filter( 'cwginstock_localization_array', __NAMESPACE__ . '\i18n_cwg_script' );
 add_filter( 'rmp_custom_strings', __NAMESPACE__ . '\i18n_rmp' );
 add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\i18n_paczkomaty', 20 );
+add_filter( 'chocante_checkout_i18n', __NAMESPACE__ . '\i18n_pod' );
 
 // Woo e-mails.
 add_filter( 'woocommerce_order_item_name', __NAMESPACE__ . '\translate_email_order_item_name', 40, 2 );
@@ -391,7 +392,7 @@ function add_language_switcher_shortcode() {
  * Display language switcher
  */
 function display_language_switcher() {
-	if ( ! apply_filters( 'trp_allow_tp_to_run', true ) ) {
+	if ( ! apply_filters( 'trp_allow_tp_to_run', true ) || ! function_exists( 'trp_custom_language_switcher' ) ) {
 		return;
 	}
 
@@ -508,6 +509,22 @@ function i18n_paczkomaty() {
 }
 
 /**
+ * Translate delivery point strings
+ *
+ * @param array $texts Array of strings.
+ * @return array
+ */
+function i18n_pod( $texts ) {
+	if ( function_exists( 'trp_translate' ) ) {
+		foreach ( $texts as &$text ) {
+			$text = trp_translate( $text, null, false );
+		}
+	}
+
+	return $texts;
+}
+
+/**
  * Expose variation description used in JS variations form
  *
  * @param array $variation_data Variation data.
@@ -525,8 +542,8 @@ function i18n_woo_variation( $variation_data ) {
 /**
  * Expose shipping method name to TrasnlatePress
  *
- * @param string           $label Shipping method label.
- * @param  WC_Shipping_Rate $method Shipping method rate data.
+ * @param string            $label Shipping method label.
+ * @param  \WC_Shipping_Rate $method Shipping method rate data.
  * @return string
  */
 function i18n_shipping_method( $label, $method ) {

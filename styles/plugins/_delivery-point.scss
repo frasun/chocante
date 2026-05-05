@@ -1,30 +1,90 @@
-:root {
-	--chocante-modal-backdrop-z-index: var(--z-index--modal-backdrop);
-	--chocante-modal-z-index: var(--z-index--modal);
+// Inpost Geo-widget
+// :root {
+// 	--chocante-modal-backdrop-z-index: var(--z-index--modal-backdrop);
+// 	--chocante-modal-z-index: var(--z-index--modal);
+// }
+
+// .chocante-delivery-point {
+// 	display: flex;
+// 	flex-direction: column;
+// 	margin-top: var(--spacing--30);
+// 	margin-bottom: var(--spacing--30);
+
+// 	@include select2-sm;
+
+// 	th {
+
+// 		@include font-style(section-label);
+// 	}
+
+// 	td {
+// 		margin-top: var(--spacing--15);
+// 		width: 100%;
+
+// 		button {
+
+// 			@include button;
+// 			@include button-style-outline;
+// 			margin-top: var(--spacing--20);
+// 		}
+// 	}
+// }
+
+// BL Paczka shipping method
+#order_review .woocommerce-shipping-methods li {
+
+	.chocante-delivery-point {
+		grid-row: 3 / 3;
+		grid-column: 1 / span 2;
+		margin: var(--spacing--10) 0 0;
+		display: none;
+	}
+
+	&:has(input:checked) .chocante-delivery-point {
+		display: block;
+	}
 }
 
 .chocante-delivery-point {
-	display: flex;
-	flex-direction: column;
-	margin-top: var(--spacing--30);
-	margin-bottom: var(--spacing--30);
 
-	@include select2-sm;
-
-	th {
-
-		@include font-style(section-label);
+	select,
+	.select2-container {
+		width: 100% !important;
 	}
 
-	td {
+	select {
+
+		@include input;
+	}
+
+	small {
+		display: block;
+	}
+
+	&__info {
 		margin-top: var(--spacing--15);
-		width: 100%;
 
-		button {
+		small {
+			color: var(--wp--preset--color--grey-2);
+			margin-bottom: var(--spacing--5);
 
-			@include button;
-			@include button-style-outline;
-			margin-top: var(--spacing--20);
+			@include font-size(x-small);
+			--line-height: initial;
 		}
+	}
+
+	&__label {
+		margin-bottom: var(--spacing--5);
+
+		@include font-size(small);
+		--line-height: initial;
+	}
+
+	&__empty {
+		color: var(--wp--preset--color--grey-2);
+		text-align: center;
+
+		@include font-size(small);
+		--line-height: initial;
 	}
 }

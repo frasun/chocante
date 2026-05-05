@@ -24,12 +24,9 @@ add_filter( 'query_vars', __NAMESPACE__ . '\register_product_search_var' );
 add_action( 'parse_query', __NAMESPACE__ . '\use_product_search_var' );
 add_filter( 'get_search_query', __NAMESPACE__ . '\use_product_search_in_query' );
 
-// Post-code validation.
-add_action( 'wp_ajax_validate_postcode', __NAMESPACE__ . '\validate_postcode' );
-add_action( 'wp_ajax_nopriv_validate_postcode', __NAMESPACE__ . '\validate_postcode' );
-
-// Globkurier.
-add_filter( 'woocommerce_shipping_methods', __NAMESPACE__ . '\add_globkurier_shipping_method' );
+// Shipping methods.
+add_filter( 'woocommerce_shipping_methods', __NAMESPACE__ . '\add_shipping_methods' );
+add_filter( 'woocommerce_cart_shipping_method_full_label', __NAMESPACE__ . '\display_delivery_time', 20, 2 );
 
 // EU VAT.
 add_filter( 'wp_vat_eu_validator_PL', __NAMESPACE__ . '\validate_nip', 10, 2 );
@@ -56,8 +53,8 @@ function set_price_display_modify() {
 /**
  * Add variation suffix to product price
  *
- * @param html       $suffix System price suffix.
- * @param WC_Product $product Product object.
+ * @param string      $suffix System price suffix.
+ * @param \WC_Product $product Product object.
  */
 function add_price_suffix( $suffix, $product ) {
 	global $chocante_display_price_modify;
@@ -88,7 +85,7 @@ function add_price_suffix( $suffix, $product ) {
 /**
  * Format price range display on product listing
  *
- * @param html   $price Product price html.
+ * @param string $price Product price html.
  * @param string $from Price range from value.
  */
 function modify_price_range( $price, $from ) {
@@ -137,8 +134,10 @@ function add_price_range_prefix( $price_html, $product ) {
  * @param array $shipping_methods Shipping methods.
  * @return array
  */
-function add_globkurier_shipping_method( $shipping_methods ) {
-	$shipping_methods['globkurier'] = 'Globkurier_Shipping';
+function add_shipping_methods( $shipping_methods ) {
+	$shipping_methods['globkurier']        = 'Globkurier_Shipping';
+	$shipping_methods['chocante_blpaczka'] = 'BLPaczka_Shipping';
+
 	return $shipping_methods;
 }
 
@@ -186,39 +185,22 @@ function display_gift_wrapper_label( $label, $label_icon, $label_text ) {
 }
 
 /**
- * Validate postcode format
+ * Has postcode validation
+ *
+ * @see: WC_Validation::is_postcode
+ *
+ * @param string $country Country code.
+ * @return bool
  */
-function validate_postcode() {
-	check_ajax_referer( 'chocante' );
-
-	$postcode = isset( $_POST['postcode'] ) ? sanitize_text_field( wp_unslash( $_POST['postcode'] ) ) : null;
-	$country  = isset( $_POST['country'] ) ? sanitize_text_field( wp_unslash( $_POST['country'] ) ) : null;
-
-	if ( ! isset( $postcode ) || ! isset( $country ) ) {
-		wp_send_json_error();
-	}
-
-	$is_valid_postcode = \WC_Validation::is_postcode( $postcode, $country );
-
-	if ( $is_valid_postcode ) {
-		wp_send_json_success();
-	} else {
-		switch ( $country ) {
-			case 'IE':
-				$response_error = _x( 'Eircode is not valid.', 'checkout postcode validation', 'chocante' );
-				break;
-			default:
-				$response_error = _x( 'Postcode / ZIP is not valid.', 'checkout postcode validation', 'chocante' );
-		}
-
-		wp_send_json_success( $response_error );
-	}
+function has_postcode_validation( $country ) {
+	$can_validate = array( 'AT', 'BE', 'CH', 'HU', 'NO', 'BA', 'BR', 'DE', 'DK', 'ES', 'FI', 'EE', 'FR', 'IT', 'GB', 'IE', 'IN', 'JP', 'PT', 'PR', 'US', 'CA', 'PL', 'CZ', 'SE', 'SK', 'NL', 'SI', 'LI' );
+	return in_array( $country, $can_validate, true );
 }
 
 /**
  * Gets display label of the first variation term
  *
- * @param WC_Product_Variation $product Variation product object.
+ * @param \WC_Product_Variation $product Variation product object.
  * @return string|false
  */
 function get_variation_name( $product ) {
@@ -329,7 +311,7 @@ function register_product_search_var( $vars ) {
 /**
  * Use product search query var to search
  *
- * @param WP_Query $query The WP_Query instance (passed by reference).
+ * @param \WP_Query $query The WP_Query instance (passed by reference).
  */
 function use_product_search_var( $query ) {
 	if ( ! is_admin() && $query->is_main_query() ) {
@@ -354,4 +336,22 @@ function use_product_search_in_query( $query ) {
 	}
 
 	return $query;
+}
+
+/**
+ * Display delivery time for shipping methods
+ *
+ * @param string            $label Shipping method label HTML.
+ * @param \WC_Shipping_Rate $method Shipping method instance.
+ * @return string
+ */
+function display_delivery_time( $label, $method ) {
+	$delivery_time = $method->get_delivery_time();
+
+	if ( ! empty( $delivery_time ) ) {
+		$delivery_time_text = sprintf( '%s %s', $delivery_time, __( 'days', 'woocommerce' ) );
+		return $label . '<small class="chocante-delivery-time">' . esc_html( $delivery_time_text ) . '</small>';
+	}
+
+	return $label;
 }

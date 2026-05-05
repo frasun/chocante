@@ -1,8 +1,18 @@
 // Input.
 @mixin disabled {
-	opacity: 0.25;
+	--input--background-color: none;
 	// cursor: not-allowed;
 	pointer-events: none;
+	transition: none;
+
+	&:hover {
+		box-shadow: none;
+	}
+
+	&:focus {
+		background-color: var(--input--background-color, var(--wp--preset--color--grey));
+		border-color: var(--input--border, var(--wp--custom--color--base-6));
+	}
 }
 
 @mixin input {

@@ -27,9 +27,9 @@ require_once __DIR__ . '/includes/cache.php';
 require_once __DIR__ . '/includes/feed.php';
 require_once __DIR__ . '/includes/plugins.php';
 require_once __DIR__ . '/includes/crawler.php';
-require_once __DIR__ . '/includes/shipping/class-globkurier-shipping.php';
 require_once __DIR__ . '/includes/cloudflare.php';
 require_once __DIR__ . '/includes/abilities.php';
+require_once __DIR__ . '/includes/blpaczka.php';
 
 /**
  * Layout.
@@ -43,6 +43,12 @@ require_once __DIR__ . '/includes/layout/account.php';
 require_once __DIR__ . '/includes/layout/cart.php';
 require_once __DIR__ . '/includes/layout/checkout.php';
 require_once __DIR__ . '/includes/layout/acf.php';
+
+/**
+ * Shipping methods.
+ */
+require_once __DIR__ . '/includes/shipping/class-globkurier-shipping.php';
+require_once __DIR__ . '/includes/shipping/class-blpaczka-shipping.php';
 
 /**
  * WooCommerce function overrides.

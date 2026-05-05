@@ -86,7 +86,7 @@ function enqueue_scripts() {
 			$styles[]                     = 'checkout';
 			$scripts['chocante-checkout'] = array(
 				'filename'     => 'checkout-scripts',
-				'dependencies' => array( 'jquery' ),
+				'dependencies' => array( 'jquery', 'selectWoo' ),
 			);
 		}
 
@@ -105,18 +105,6 @@ function enqueue_scripts() {
 	if ( class_exists( 'WooCommerce' ) ) {
 		// WooCommerce cart fragments.
 		wp_enqueue_script( 'wc-cart-fragments' );
-
-		// Checkout AJAX VAT validation.
-		if ( is_checkout() ) {
-			wp_localize_script(
-				'chocante-checkout',
-				'chocante',
-				array(
-					'ajaxurl' => admin_url( 'admin-ajax.php' ),
-					'nonce'   => wp_create_nonce( 'chocante' ),
-				)
-			);
-		}
 	}
 }
 

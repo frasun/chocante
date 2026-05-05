@@ -54,14 +54,18 @@ function defer_scripts( $scripts ) {
 	if ( class_exists( 'WooCommerce' ) ) {
 		$scripts[] = 'js-cookie';
 		$scripts[] = 'woocommerce';
-		$scripts[] = 'wc-single-product';
 		$scripts[] = 'sourcebuster-js';
 		$scripts[] = 'wc-order-attribution';
 
 		if ( is_product() ) {
+			$scripts[] = 'wc-single-product';
 			$scripts[] = 'flexslider';
 			$scripts[] = 'photoswipe';
 			$scripts[] = 'photoswipe-ui-default';
+		}
+
+		if ( is_checkout() ) {
+			$scripts[] = 'wc-checkout';
 		}
 	}
 

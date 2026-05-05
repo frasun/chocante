@@ -100,10 +100,31 @@
 				}
 			}
 		}
+
+		&--disabled {
+			pointer-events: none;
+
+			.selection .select2-selection {
+
+				@include disabled;
+
+				background-color: var(--input--background-color);
+
+				.select2-selection__rendered {
+					opacity: 0.75;
+					color: var(--input--placeholder, var(--wp--preset--color--body));
+
+					.select2-selection__placeholder {
+						color: inherit;
+					}
+				}
+			}
+		}
 	}
 
 	&-container--open {
 
+		/* stylelint-disable-next-line no-descending-specificity */
 		.select2-selection {
 			background-color: var(--wp--preset--color--white);
 			box-shadow: var(--shadow--2);

@@ -11,6 +11,8 @@ if ( ! class_exists( 'WC_Shipping_Method' ) ) {
 	return;
 }
 
+use function Chocante\Woo\has_postcode_validation;
+
 /**
  * Globkurier_Shipping class.
  */
@@ -315,6 +317,7 @@ class Globkurier_Shipping extends WC_Shipping_Method {
 	 */
 	public function find_product() {
 		$shipping_postcode = WC()->customer->get_shipping_postcode();
+		$shipping_country  = WC()->customer->get_shipping_country();
 		$store_postcode    = WC()->countries->get_base_postcode();
 		$packages          = $this->get_cart_packages();
 		$params            = array(
@@ -324,15 +327,11 @@ class Globkurier_Shipping extends WC_Shipping_Method {
 			'height'            => isset( $packages['height'] ) ? $packages['height'] : 20,
 			'quantity'          => isset( $packages['quantity'] ) ? $packages['quantity'] : 1,
 			'senderCountryId'   => $this->get_country_id_by_iso( WC()->countries->get_base_country() ),
-			'receiverCountryId' => $this->get_country_id_by_iso( WC()->customer->get_shipping_country() ),
+			'receiverCountryId' => $this->get_country_id_by_iso( $shipping_country ),
 		);
 
-		if ( isset( $shipping_postcode ) ) {
-			$trimmed_shipping_post_code = wc_trim_string( $shipping_postcode );
-
-			if ( ! empty( $trimmed_shipping_post_code ) && WC_Validation::is_postcode( $trimmed_shipping_post_code, WC()->customer->get_shipping_country() ) ) {
-				$params['receiverPostCode'] = $trimmed_shipping_post_code;
-			}
+		if ( has_postcode_validation( $shipping_country ) && WC_Validation::is_postcode( $shipping_postcode, $shipping_country ) ) {
+			$params['receiverPostCode'] = $shipping_postcode;
 		}
 
 		if ( isset( $store_postcode ) ) {
@@ -471,7 +470,6 @@ class Globkurier_Shipping extends WC_Shipping_Method {
 	 */
 	private static function generate_request_hash( $params ) {
 		$hash_data = array(
-			'weight'            => $params['weight'] ?? 0,
 			'length'            => $params['length'] ?? 0,
 			'width'             => $params['width'] ?? 0,
 			'height'            => $params['height'] ?? 0,

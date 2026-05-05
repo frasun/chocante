@@ -59,9 +59,13 @@ function purge_tags( $tags ) {
 		return $tags;
 	}
 
-	$cf_tags = $tags;
+	$cf_tags = array();
 
 	foreach ( $tags as $tag ) {
+		if ( in_array( $tag, array( Tag::TYPE_FEED, Tag::TYPE_REST ), true ) || str_starts_with( $tag, Tag::TYPE_WIDGET ) ) {
+			continue;
+		}
+
 		if ( find_tag_id( $tag, '_' . TAG_PRODUCT_STOCK, $matches ) || find_tag_id( $tag, '_' . TAG_POST_RATING, $matches ) ) {
 			$cf_tags[] = '_' . Tag::TYPE_POST . $matches[1];
 			continue;
@@ -76,13 +80,17 @@ function purge_tags( $tags ) {
 			$cf_tags = array( '_' );
 			break;
 		}
+
+		$cf_tags[] = $tag;
 	}
 
 	foreach ( $cf_tags as &$tag ) {
 		$tag = LSWCP_TAG_PREFIX . $tag;
 	}
 
-	purge_cf( $cf_tags );
+	if ( ! empty( $cf_tags ) ) {
+		purge_cf( $cf_tags );
+	}
 
 	return $tags;
 }
