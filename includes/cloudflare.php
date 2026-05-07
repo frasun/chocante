@@ -181,5 +181,9 @@ function update_cf_env( $name, $value ) {
 function update_worker_currencies( $settings ) {
 	$country_currency = get_currency_by_country( $settings );
 
+	if ( empty( $country_currency ) ) {
+		return;
+	}
+
 	update_cf_env( 'COUNTRY_CURRENCY', wp_json_encode( $country_currency ) );
 }
