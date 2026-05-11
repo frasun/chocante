@@ -42,7 +42,7 @@ function send_headers() {
 
 		if ( stripos( $header, Tag::X_HEADER ) !== false ) {
 			$tags = trim( explode( ':', $header, 2 )[1] );
-			header( 'Cache-Tag: ' . $tags );
+			header( 'X-Cache-Tag: ' . $tags );
 		}
 	}
 }
@@ -179,11 +179,5 @@ function update_cf_env( $name, $value ) {
  * @param array $settings Currency settings.
  */
 function update_worker_currencies( $settings ) {
-	$country_currency = get_currency_by_country( $settings );
-
-	if ( empty( $country_currency ) ) {
-		return;
-	}
-
-	update_cf_env( 'COUNTRY_CURRENCY', wp_json_encode( $country_currency ) );
+	update_cf_env( 'COUNTRY_CURRENCY', wp_json_encode( get_currency_by_country( $settings ) ) );
 }

@@ -1,11 +1,12 @@
 // eslint-disable-next-line import/no-unresolved
-import { env } from 'cloudflare:workers';
+import { env as vars } from 'cloudflare:workers';
 
 const CURRENCY_PARAM = 'currency';
 const CURRENCY_PARAM_ALT = 'wmc-currency';
+const CACHE_TAG_HEADER = 'X-Cache-Tag';
 
 export default {
-	async fetch( request ) {
+	async fetch( request, env, ctx ) {
 		if ( ! isEligible( request ) ) {
 			return fetch( request );
 		}
@@ -13,21 +14,18 @@ export default {
 		const defaultCookies = getDefaultCookies( request );
 		const newRequest = prepareRequest( request, defaultCookies );
 		const cacheKey = getCacheKey( newRequest );
+		const cacheApi = caches.default;
 
-		let response = await fetch( newRequest, {
-			cf: {
-				cacheEverything: true,
-				cacheKey,
-				cacheTtlByStatus: {
-					401: 0,
-					403: 0,
-				},
-			},
-		} );
+		let response = await cacheApi.match( cacheKey );
 
-		response = setResponseHeaders( response, defaultCookies );
+		if ( ! response ) {
+			response = await fetch( newRequest );
+			ctx.waitUntil(
+				cacheApi.put( cacheKey, prepareResponse( response ) )
+			);
+		}
 
-		return response;
+		return setResponseHeaders( response, defaultCookies );
 	},
 };
 
@@ -45,7 +43,7 @@ const isEligible = ( request ) => {
 
 	const cookies = request.headers.get( 'cookie' ) || '';
 	const isAdmin =
-		env.COOKIE_ADMIN && cookies.includes( `${ env.COOKIE_ADMIN }=` );
+		vars.COOKIE_ADMIN && cookies.includes( `${ vars.COOKIE_ADMIN }=` );
 	if ( isAdmin ) {
 		return false;
 	}
@@ -55,37 +53,37 @@ const isEligible = ( request ) => {
 
 const getDefaultCookies = ( request ) => {
 	const cookies = request.headers.get( 'cookie' ) || '';
-	const country = request.cf?.country || env.DEFAULT_COUNTRY;
+	const country = request.cf?.country || vars.DEFAULT_COUNTRY;
 	const defaults = {};
 	let currency;
 
 	if (
-		env.COOKIE_COUNTRY &&
-		! cookies.includes( `${ env.COOKIE_COUNTRY }=` )
+		vars.COOKIE_COUNTRY &&
+		! cookies.includes( `${ vars.COOKIE_COUNTRY }=` )
 	) {
-		defaults[ env.COOKIE_COUNTRY ] = country;
+		defaults[ vars.COOKIE_COUNTRY ] = country;
 	}
 
 	if (
-		env.COOKIE_CURRENCY &&
-		env.DEFAULT_CURRENCY &&
-		! cookies.includes( `${ env.COOKIE_CURRENCY }=` )
+		vars.COOKIE_CURRENCY &&
+		vars.DEFAULT_CURRENCY &&
+		! cookies.includes( `${ vars.COOKIE_CURRENCY }=` )
 	) {
 		const paramCurrency = getParamCurrency( request );
 
 		if ( paramCurrency ) {
 			currency = paramCurrency;
 		} else {
-			const countryCurrency = env.COUNTRY_CURRENCY
-				? JSON.parse( env.COUNTRY_CURRENCY )
+			const countryCurrency = vars.COUNTRY_CURRENCY
+				? JSON.parse( vars.COUNTRY_CURRENCY )
 				: null;
 			currency =
 				countryCurrency && countryCurrency[ country ]
 					? countryCurrency[ country ]
-					: env.DEFAULT_CURRENCY;
+					: vars.DEFAULT_CURRENCY;
 		}
 
-		defaults[ env.COOKIE_CURRENCY ] = currency;
+		defaults[ vars.COOKIE_CURRENCY ] = currency;
 	}
 
 	return Object.entries( defaults );
@@ -96,8 +94,8 @@ const prepareRequest = ( request, defaultCookies ) => {
 
 	url.searchParams.sort();
 
-	if ( env.DROP_QS ) {
-		dropQueryParams( url.searchParams, JSON.parse( env.DROP_QS ) );
+	if ( vars.DROP_QS ) {
+		dropQueryParams( url.searchParams, JSON.parse( vars.DROP_QS ) );
 	}
 
 	const headers = new Headers( request.headers );
@@ -124,6 +122,7 @@ const prepareRequest = ( request, defaultCookies ) => {
 const setResponseHeaders = ( response, cookies ) => {
 	const responseWithHeaders = new Response( response.body, response );
 
+	responseWithHeaders.headers.delete( CACHE_TAG_HEADER );
 	responseWithHeaders.headers.set( 'Vary', 'Cookie' );
 
 	if ( cookies.length ) {
@@ -138,16 +137,18 @@ const setResponseHeaders = ( response, cookies ) => {
 	return responseWithHeaders;
 };
 
-const getCacheKey = ( request ) => `${ request.url }${ getVary( request ) }`;
+const getCacheKey = ( request ) => {
+	const url = new URL( request.url );
+	url.searchParams.append( 'vary', getVary( request ) );
+	return url.toString();
+};
 
 const getVary = ( request ) => {
 	const cookies = request.headers.get( 'cookie' ) || '';
 	const requestVary = getVaryByPath( new URL( request.url ).pathname );
-
 	const varyCookies = requestVary.filter(
 		( key ) => typeof key === 'string' && key.length > 0
 	);
-
 	const hasVaryCookie = ( c ) =>
 		varyCookies.some( ( key ) => c.startsWith( `${ key }=` ) );
 
@@ -156,9 +157,9 @@ const getVary = ( request ) => {
 		.map( ( c ) => c.trim() )
 		.filter( hasVaryCookie )
 		.sort()
-		.join( ';' );
+		.join( '-' );
 
-	return cookieVary.length ? `::${ cookieVary }` : '';
+	return cookieVary.length ? `${ cookieVary }` : '';
 };
 
 const dropQueryParams = ( params, blocklist ) => {
@@ -189,9 +190,9 @@ const getParamCurrency = ( request ) => {
 		currency = url.searchParams.get( CURRENCY_PARAM_ALT );
 	}
 
-	if ( currency && env.COUNTRY_CURRENCY ) {
+	if ( currency && vars.COUNTRY_CURRENCY ) {
 		const currencies = [
-			...new Set( Object.values( JSON.parse( env.COUNTRY_CURRENCY ) ) ),
+			...new Set( Object.values( JSON.parse( vars.COUNTRY_CURRENCY ) ) ),
 		];
 		if ( ! currencies.includes( currency ) ) {
 			currency = undefined;
@@ -203,20 +204,36 @@ const getParamCurrency = ( request ) => {
 
 const getVaryByPath = ( path ) => {
 	if (
-		env.PATH_PRODUCT &&
-		new RegExp( `/${ env.PATH_PRODUCT }/` ).test( path )
+		vars.PATH_PRODUCT &&
+		new RegExp( `/${ vars.PATH_PRODUCT }/` ).test( path )
 	) {
 		return [
-			env.COOKIE_CURRENCY,
-			env.COOKIE_COUNTRY,
-			env.COOKIE_VAT_EXEMPT,
-			env.COOKIE_SHIPPING_COUNTRY,
+			vars.COOKIE_CURRENCY,
+			vars.COOKIE_COUNTRY,
+			vars.COOKIE_VAT_EXEMPT,
+			vars.COOKIE_SHIPPING_COUNTRY,
 		];
 	}
 
-	if ( env.PATH_SHOP && new RegExp( `/${ env.PATH_SHOP }/` ).test( path ) ) {
-		return [ env.COOKIE_CURRENCY, env.COOKIE_VAT_EXEMPT ];
+	if (
+		vars.PATH_SHOP &&
+		new RegExp( `/${ vars.PATH_SHOP }/` ).test( path )
+	) {
+		return [
+			vars.COOKIE_CURRENCY,
+			vars.COOKIE_COUNTRY,
+			vars.COOKIE_VAT_EXEMPT,
+		];
 	}
 
-	return [ env.COOKIE_CURRENCY ];
+	return [ vars.COOKIE_CURRENCY ];
+};
+
+const prepareResponse = ( response ) => {
+	const cacheTags = response.headers.get( CACHE_TAG_HEADER );
+	const responseToCache = new Response( response.clone().body, response );
+	responseToCache.headers.delete( 'Set-Cookie' );
+	responseToCache.headers.set( 'Cache-Tag', cacheTags );
+
+	return responseToCache;
 };

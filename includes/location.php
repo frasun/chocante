@@ -34,8 +34,8 @@ if ( ! is_admin() ) {
 	add_action( 'woocommerce_customer_save_address', __NAMESPACE__ . '\set_cookies_on_address_change', 10, 4 );
 }
 
-// Set variation prices based on a cookie.
-add_filter( 'woocommerce_get_variation_prices_hash', __NAMESPACE__ . '\set_variations_price_hash', 10, 3 );
+// Add zero tax tate for countries without defined tax.
+add_filter( 'woocommerce_matched_rates', __NAMESPACE__ . '\add_zero_rate' );
 
 /**
  * Set default location based on cookie
@@ -121,10 +121,10 @@ function set_cookies_on_login( $user_login, $user ) {
 /**
  * Sync cookie with customer address
  *
- * @param int         $user_id User ID being saved.
- * @param string      $address_type Type of address; 'billing' or 'shipping'.
- * @param array       $address The address fields. Since 9.8.0.
- * @param WC_Customer $customer The customer object being saved. Since 9.8.0.
+ * @param int          $user_id User ID being saved.
+ * @param string       $address_type Type of address; 'billing' or 'shipping'.
+ * @param array        $address The address fields. Since 9.8.0.
+ * @param \WC_Customer $customer The customer object being saved. Since 9.8.0.
  */
 function set_cookies_on_address_change( $user_id, $address_type, $address, $customer ) {
 	manage_location_cookies( $customer );
@@ -257,33 +257,6 @@ function get_delivery_countries() {
 }
 
 /**
- * Use location cookies to generate variation price cache hash
- *
- * @param array       $price_hash Transient hash.
- * @param \WC_Product $product Product object.
- * @param bool        $for_display Price context.
- * @return string;
- */
-function set_variations_price_hash( $price_hash, $product, $for_display ) {
-	if ( ! $for_display ) {
-		return $price_hash;
-	}
-
-	$country    = sanitize_key( $_COOKIE[ COUNTRY_COOKIE ] ?? null );
-	$vat_exempt = sanitize_key( $_COOKIE[ VAT_EXEMPT_COOKIE ] ?? null );
-
-	if ( $country ) {
-		$price_hash[] = $country;
-	}
-
-	if ( $vat_exempt ) {
-		$price_hash[] = $vat_exempt;
-	}
-
-	return $price_hash;
-}
-
-/**
  * Get a list of cookies and currencies for delivery info.
  */
 function get_delivery_cookies() {
@@ -299,4 +272,24 @@ function get_delivery_cookies() {
 	}
 
 	return $delivery_cookies;
+}
+
+/**
+ * Add zero rate for countries without defined tax.
+ * Needed for proper variation price caching.
+ *
+ * @param array $rates Matched tax rates.
+ * @return array
+ */
+function add_zero_rate( $rates ) {
+	if ( empty( $rates ) ) {
+		$rates['zero'] = array(
+			'rate'     => 0,
+			'label'    => '',
+			'shipping' => false,
+			'compound' => false,
+		);
+	}
+
+	return $rates;
 }
