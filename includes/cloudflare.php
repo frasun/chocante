@@ -22,7 +22,7 @@ use const Chocante\Cache\TAG_CURRENCY;
 use const Chocante\Cache\TAG_POST_RATING;
 
 add_action( 'wp_finalized_template_enhancement_output_buffer', __NAMESPACE__ . '\send_headers' );
-add_filter( 'litespeed_purge_tags', __NAMESPACE__ . '\purge_tags', 30 );
+add_filter( 'litespeed_purge_tags', __NAMESPACE__ . '\purge_tags', 30, 2 );
 add_action( 'litespeed_update_confs', __NAMESPACE__ . '\update_worker_drop_qs' );
 add_action( 'chocante_currency_settings_saved', __NAMESPACE__ . '\update_worker_currencies' );
 
@@ -51,8 +51,9 @@ function send_headers() {
  * Purge CF by tag
  *
  * @param array $tags Purge tags.
+ * @param bool  $is_private Private cache.
  */
-function purge_tags( $tags ) {
+function purge_tags( $tags, $is_private ) {
 	global $final_tags;
 
 	if ( ! $final_tags || ! defined( 'LSWCP_TAG_PREFIX' ) ) {
@@ -76,7 +77,7 @@ function purge_tags( $tags ) {
 			continue;
 		}
 
-		if ( find_tag_id( $tag, '_' . Tag::TYPE_ESI . 'header', $matches ) || '*' === $tag ) {
+		if ( find_tag_id( $tag, '_' . Tag::TYPE_ESI . 'header', $matches ) || ( '*' === $tag && ! $is_private ) ) {
 			$cf_tags = array( '_' );
 			break;
 		}

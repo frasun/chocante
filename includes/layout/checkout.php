@@ -202,10 +202,15 @@ function delivery_point_validate_in_checkout( $data, $errors ) {
 	$available_methods = $package['rates'];
 
 	foreach ( $data['shipping_method'] as $method ) {
-		$rate      = $available_methods[ $method ];
+		$rate = $available_methods[ $method ];
+
+		if ( empty( $rate ) ) {
+			return;
+		}
+
 		$rate_meta = $rate->get_meta_data();
 
-		if ( true === (bool) $rate_meta['pod'] ) {
+		if ( isset( $rate_meta['pod'] ) && true === (bool) $rate_meta['pod'] ) {
 			$delivery_point = WC()->session->get( DELIVERY_POINT );
 
 			if ( ! isset( $delivery_point ) || $delivery_point['courier'] !== $rate_meta['courier'] ) {

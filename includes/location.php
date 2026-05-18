@@ -287,11 +287,11 @@ function get_delivery_cookies() {
  */
 function add_zero_rate( $rates ) {
 	if ( empty( $rates ) ) {
-		$rates['zero'] = array(
+		$rates[0] = array(
 			'rate'     => 0,
 			'label'    => '',
-			'shipping' => false,
-			'compound' => false,
+			'shipping' => 'no',
+			'compound' => 'no',
 		);
 	}
 
