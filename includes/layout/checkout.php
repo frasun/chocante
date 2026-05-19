@@ -267,5 +267,7 @@ function delivery_point_display_in_order( $address, $raw_address, $order ) {
  */
 function delivery_point_hide_meta( $meta ) {
 	$meta[] = 'courier';
+	$meta[] = 'pod';
+	$meta[] = 'cod';
 	return $meta;
 }
