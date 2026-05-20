@@ -202,7 +202,7 @@ function delivery_point_validate_in_checkout( $data, $errors ) {
 	$available_methods = $package['rates'];
 
 	foreach ( $data['shipping_method'] as $method ) {
-		$rate = $available_methods[ $method ];
+		$rate = isset( $available_methods[ $method ] ) ? $available_methods[ $method ] : null;
 
 		if ( empty( $rate ) ) {
 			return;
@@ -231,7 +231,8 @@ function delivery_point_save_in_order( $order_id ) {
 	if ( isset( $delivery_point ) ) {
 		$order = wc_get_order( $order_id );
 
-		$order->update_meta_data( DELIVERY_POINT, $delivery_point );
+		$order->update_meta_data( DELIVERY_POINT, $delivery_point['id'] );
+		$order->update_meta_data( DELIVERY_POINT . '_info', $delivery_point['info'] );
 		$order->save_meta_data();
 	}
 }
@@ -245,11 +246,10 @@ function delivery_point_save_in_order( $order_id ) {
  * @return string
  */
 function delivery_point_display_in_order( $address, $raw_address, $order ) {
-	$delivery_point = $order->get_meta( DELIVERY_POINT );
+	$delivery_point_info = $order->get_meta( DELIVERY_POINT . '_info' );
 
-	if ( ! empty( $delivery_point ) && ! empty( $address ) ) {
-		$delivery_point_info = $delivery_point['info'];
-		$address            .= '<br /><br />';
+	if ( ! empty( $delivery_point_info ) && ! empty( $address ) ) {
+		$address .= '<br /><br />';
 		// translators: Delivery point info.
 		$address .= esc_html__( 'Delivery Point', 'chocante' ) . ':';
 		$address .= '<br />';
