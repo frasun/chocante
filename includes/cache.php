@@ -17,6 +17,8 @@ if ( ! defined( 'LSCWP_V' ) ) {
 use LiteSpeed\Thirdparty\WooCommerce;
 use LiteSpeed\ESI;
 use LiteSpeed\Tag;
+use LiteSpeed\Base;
+use LiteSpeed\Utility;
 
 use function Chocante\Layout\Product\print_product_variations;
 use function Chocante\Woo\set_price_display_modify;
@@ -259,9 +261,20 @@ function set_control_global( $esi_block ) {
 		return;
 	}
 
+	// Non-cacheable page types.
 	$not_public = is_search() || is_cart() || is_checkout() || is_account_page() || is_404() || wp_is_rest_endpoint();
 
+	// Non-cacheable translator.
 	if ( class_exists( 'TRP_Translate_Press' ) && isset( $_REQUEST['trp-edit-translation'] ) ) {
+		$not_public = true;
+	}
+
+	// Excluded from cache in LSC settings.
+	$req_uri     = isset( $_SERVER['REQUEST_URI'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '';
+	$excludes    = apply_filters( 'litespeed_conf', Base::O_CACHE_EXC );
+	$is_excluded = (bool) Utility::str_hit_array( $req_uri, $excludes );
+
+	if ( $is_excluded ) {
 		$not_public = true;
 	}
 
