@@ -1,0 +1,12 @@
+/** mollie payments **/
+.woocommerce-order {
+
+	.woocommerce-order-details.mollie-instructions {
+		display: flex;
+		gap: var(--spacing--5);
+
+		p {
+			font-size: inherit;
+		}
+	}
+}
