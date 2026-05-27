@@ -55,6 +55,8 @@ require_once __DIR__ . '/includes/shipping/class-blpaczka-shipping.php';
  */
 use function Chocante\Layout\Common\show_product_badge;
 
+require_once __DIR__ . '/includes/class-chocante-wc-product-variable-data-store-cpt.php';
+
 /** Display product badges */
 function woocommerce_show_product_sale_flash() {
 	show_product_badge();

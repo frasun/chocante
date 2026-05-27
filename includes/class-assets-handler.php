@@ -17,7 +17,7 @@ class Assets_Handler {
 	/**
 	 * Assets.
 	 *
-	 * @var array;
+	 * @var array
 	 */
 	private static $assets = array();
 
