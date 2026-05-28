@@ -4,6 +4,37 @@ import { env as vars } from 'cloudflare:workers';
 const CURRENCY_PARAM = 'currency';
 const CURRENCY_PARAM_ALT = 'wmc-currency';
 const CACHE_TAG_HEADER = 'X-Cache-Tag';
+const VARY_VAT_EXEMPT = 'vat-exempt';
+const EU_COUNTRIES = [
+	'AT',
+	'BE',
+	'BG',
+	'CY',
+	'CZ',
+	'DE',
+	'DK',
+	'EE',
+	'ES',
+	'FI',
+	'FR',
+	'GR',
+	'HR',
+	'HU',
+	'IE',
+	'IT',
+	'LT',
+	'LU',
+	'LV',
+	'MT',
+	'NL',
+	'PL',
+	'PT',
+	'RO',
+	'SE',
+	'SI',
+	'SK',
+	'MC',
+];
 
 export default {
 	async fetch( request, env, ctx ) {
@@ -145,21 +176,34 @@ const getCacheKey = ( request ) => {
 
 const getVary = ( request ) => {
 	const cookies = request.headers.get( 'cookie' ) || '';
-	const requestVary = getVaryByPath( new URL( request.url ).pathname );
-	const varyCookies = requestVary.filter(
-		( key ) => typeof key === 'string' && key.length > 0
+	const [ varyCookies, vat ] = getVaryByPath(
+		new URL( request.url ).pathname
 	);
-	const hasVaryCookie = ( c ) =>
-		varyCookies.some( ( key ) => c.startsWith( `${ key }=` ) );
 
-	const cookieVary = cookies
-		.split( ';' )
-		.map( ( c ) => c.trim() )
-		.filter( hasVaryCookie )
-		.sort()
-		.join( '-' );
+	const parseCookie = ( name ) =>
+		cookies
+			.split( ';' )
+			.map( ( c ) => c.trim() )
+			.find( ( c ) => c.startsWith( `${ name }=` ) )
+			?.split( '=' )[ 1 ] || false;
 
-	return cookieVary.length ? `${ cookieVary }` : '';
+	const parts = varyCookies.map( parseCookie ).filter( Boolean );
+
+	if ( vat ) {
+		const country = parseCookie( vars.COOKIE_COUNTRY );
+		const isEU = EU_COUNTRIES.includes( country );
+
+		if ( isEU ) {
+			const vatExempt = parseCookie( vars.COOKIE_VAT_EXEMPT );
+			if ( vatExempt ) {
+				parts.push( VARY_VAT_EXEMPT );
+			}
+		} else {
+			parts.push( VARY_VAT_EXEMPT );
+		}
+	}
+
+	return parts.sort().join( '-' );
 };
 
 const dropQueryParams = ( params, blocklist ) => {
@@ -203,30 +247,25 @@ const getParamCurrency = ( request ) => {
 };
 
 const getVaryByPath = ( path ) => {
+	const cookies = [ vars.COOKIE_CURRENCY ];
+	let vat = false;
+
 	if (
 		vars.PATH_PRODUCT &&
 		new RegExp( `/${ vars.PATH_PRODUCT }/` ).test( path )
 	) {
-		return [
-			vars.COOKIE_CURRENCY,
-			vars.COOKIE_COUNTRY,
-			vars.COOKIE_VAT_EXEMPT,
-			vars.COOKIE_SHIPPING_COUNTRY,
-		];
+		cookies.push( vars.COOKIE_SHIPPING_COUNTRY );
+		vat = true;
 	}
 
 	if (
 		vars.PATH_SHOP &&
 		new RegExp( `/${ vars.PATH_SHOP }/` ).test( path )
 	) {
-		return [
-			vars.COOKIE_CURRENCY,
-			vars.COOKIE_COUNTRY,
-			vars.COOKIE_VAT_EXEMPT,
-		];
+		vat = true;
 	}
 
-	return [ vars.COOKIE_CURRENCY ];
+	return [ cookies, vat ];
 };
 
 const prepareResponse = ( response ) => {
