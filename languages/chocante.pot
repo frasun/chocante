@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the Chocante theme.
 msgid ""
 msgstr ""
-"Project-Id-Version: Chocante 2.0.0\n"
+"Project-Id-Version: Chocante 2.1.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/chocante\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-05-16T15:22:46+00:00\n"
+"POT-Creation-Date: 2026-05-28T08:41:47+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: chocante\n"
@@ -53,38 +53,38 @@ msgctxt "checkout"
 msgid "Edit previous step"
 msgstr ""
 
-#: includes/layout/checkout.php:163
+#: includes/layout/checkout.php:165
 #: template-parts/delivery-point.php:44
 msgid "Selected delivery point:"
 msgstr ""
 
-#: includes/layout/checkout.php:164
+#: includes/layout/checkout.php:166
 #: template-parts/delivery-point.php:47
 msgid "No delivery point selected"
 msgstr ""
 
-#: includes/layout/checkout.php:165
+#: includes/layout/checkout.php:167
 #: template-parts/delivery-point.php:38
 msgid "Select delivery point"
 msgstr ""
 
-#: includes/layout/checkout.php:166
+#: includes/layout/checkout.php:168
 #: template-parts/delivery-point.php:38
 #: template-parts/delivery-point.php:40
 msgid "Fetching point data..."
 msgstr ""
 
-#: includes/layout/checkout.php:167
+#: includes/layout/checkout.php:169
 #: template-parts/delivery-point.php:38
 msgid "No points available"
 msgstr ""
 
-#: includes/layout/checkout.php:210
+#: includes/layout/checkout.php:217
 msgid "Please select delivery point."
 msgstr ""
 
 #. translators: Delivery point info.
-#: includes/layout/checkout.php:247
+#: includes/layout/checkout.php:254
 msgid "Delivery Point"
 msgstr ""
 
@@ -525,6 +525,11 @@ msgstr ""
 #: template-parts/product-nutritional-data.php:19
 msgctxt "product page"
 msgid "Per 100 g"
+msgstr ""
+
+#: template-parts/product-recipe.php:16
+msgctxt "product page"
+msgid "Recipe"
 msgstr ""
 
 #: template-parts/reading-time.php:15

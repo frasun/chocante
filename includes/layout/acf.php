@@ -24,6 +24,7 @@ const ACF_PRODUCT_NUTRITION_DATA_LABEL = 'parametry_';
 const ACF_PRODUCT_NUTRITION_DATA_VALUE = 'wartosc_parametru';
 const ACF_PRODUCT_FEATURED_THUMBNAIL   = 'zdjecie_do_slidera';
 const ACF_CATEGORY_DESCRIPTION         = 'dlugi_opis_kategorii';
+const ACF_CATEGORY_RECIPE              = 'product_cat_recipe';
 
 // Cart, mini-cart, checkout.
 add_filter( 'woocommerce_cart_item_name', __NAMESPACE__ . '\get_custom_product_title', 10, 2 );
@@ -37,6 +38,7 @@ add_action( 'woocommerce_shop_loop_item_title', __NAMESPACE__ . '\modify_loop_it
 add_action( 'woocommerce_before_single_product_summary', __NAMESPACE__ . '\modify_product_breadcrumb_title', 6 );
 add_action( 'woocommerce_before_single_product_summary', __NAMESPACE__ . '\modify_product_page_title', 15 );
 add_filter( 'woocommerce_display_product_attributes', __NAMESPACE__ . '\add_product_attributes', 20, 2 );
+add_action( 'woocommerce_single_product_summary', __NAMESPACE__ . '\display_category_recipe', 35 );
 add_action( 'woocommerce_single_product_summary', __NAMESPACE__ . '\display_nutritional_data', 36 );
 
 // Product category page.
@@ -224,6 +226,37 @@ function display_nutritional_data() {
 	get_template_part(
 		'template-parts/product',
 		'nutritional-data',
+		array(
+			'data' => $data,
+		)
+	);
+}
+
+/**
+ * Display product category recipe
+ */
+function display_category_recipe() {
+	global $product;
+
+	$categories = get_the_terms( $product->get_id(), 'product_cat' );
+
+	if ( is_wp_error( $categories ) || empty( $categories ) ) {
+		return;
+	}
+
+	$data = array();
+
+	foreach ( array_reverse( $categories ) as $category ) {
+		$recipe = get_field( ACF_CATEGORY_RECIPE, 'product_cat_' . $category->term_id );
+
+		if ( ! empty( $recipe ) ) {
+			$data[] = $recipe;
+		}
+	}
+
+	get_template_part(
+		'template-parts/product',
+		'recipe',
 		array(
 			'data' => $data,
 		)
