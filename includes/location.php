@@ -44,7 +44,6 @@ if ( ! is_admin() ) {
  * @todo: check after woo@10.9
  * @link: https://github.com/woocommerce/woocommerce/issues/63716
  */
-add_filter( 'woocommerce_matched_rates', __NAMESPACE__ . '\add_zero_rate' );
 add_filter( 'woocommerce_data_stores', __NAMESPACE__ . '\override_variable_data_store' );
 
 /**
@@ -282,26 +281,6 @@ function get_delivery_cookies() {
 	}
 
 	return $delivery_cookies;
-}
-
-/**
- * Add zero rate for countries without defined tax.
- * Needed for proper variation price caching.
- *
- * @param array $rates Matched tax rates.
- * @return array
- */
-function add_zero_rate( $rates ) {
-	if ( empty( $rates ) ) {
-		$rates[0] = array(
-			'rate'     => 0,
-			'label'    => '',
-			'shipping' => 'no',
-			'compound' => 'no',
-		);
-	}
-
-	return $rates;
 }
 
 // phpcs:disable WordPress.Security.ValidatedSanitizedInput.InputNotValidated
