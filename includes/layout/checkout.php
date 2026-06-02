@@ -34,7 +34,7 @@ add_action( 'wp_ajax_nopriv_chocante_delivery_point_save', __NAMESPACE__ . '\aja
 add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\add_script_data', 30 );
 add_action( 'woocommerce_after_checkout_validation', __NAMESPACE__ . '\delivery_point_validate_in_checkout', 10, 2 );
 add_action( 'woocommerce_checkout_order_processed', __NAMESPACE__ . '\delivery_point_reset' );
-add_action( 'woocommerce_checkout_update_order_meta', __NAMESPACE__ . '\delivery_point_save_in_order' );
+add_action( 'woocommerce_checkout_update_order_meta', __NAMESPACE__ . '\delivery_point_save_in_order', 10, 2 );
 add_filter( 'woocommerce_order_get_formatted_shipping_address', __NAMESPACE__ . '\delivery_point_display_in_order', 10, 3 );
 add_filter( 'woocommerce_hidden_order_itemmeta', __NAMESPACE__ . '\delivery_point_hide_meta' );
 
@@ -210,7 +210,7 @@ function delivery_point_validate_in_checkout( $data, $errors ) {
 
 		$rate_meta = $rate->get_meta_data();
 
-		if ( isset( $rate_meta['pod'] ) && true === (bool) $rate_meta['pod'] ) {
+		if ( isset( $rate_meta['pod'] ) && 'yes' === $rate_meta['pod'] ) {
 			$delivery_point = WC()->session->get( DELIVERY_POINT );
 
 			if ( ! isset( $delivery_point ) || $delivery_point['courier'] !== $rate_meta['courier'] ) {
@@ -224,16 +224,27 @@ function delivery_point_validate_in_checkout( $data, $errors ) {
  * Save delivery point in order
  *
  * @param mixed $order_id Post ID of processed order.
+ * @param  array $data Posted data.
  */
-function delivery_point_save_in_order( $order_id ) {
-	$delivery_point = WC()->session->get( DELIVERY_POINT );
+function delivery_point_save_in_order( $order_id, $data ) {
+	$method                    = $data['shipping_method'][0];
+	[$method_id, $instance_id] = explode( ':', $method );
+	$shipping_method_settings  = get_option( "woocommerce_{$method_id}_{$instance_id}_settings", array() );
 
-	if ( isset( $delivery_point ) ) {
-		$order = wc_get_order( $order_id );
+	if ( empty( $shipping_method_settings ) ) {
+		return;
+	}
 
-		$order->update_meta_data( DELIVERY_POINT, $delivery_point['id'] );
-		$order->update_meta_data( DELIVERY_POINT . '_info', $delivery_point['info'] );
-		$order->save_meta_data();
+	if ( isset( $shipping_method_settings['pod'] ) && 'yes' === $shipping_method_settings['pod'] ) {
+		$delivery_point = WC()->session->get( DELIVERY_POINT );
+
+		if ( isset( $delivery_point ) ) {
+			$order = wc_get_order( $order_id );
+
+			$order->update_meta_data( DELIVERY_POINT, $delivery_point['id'] );
+			$order->update_meta_data( DELIVERY_POINT . '_info', $delivery_point['info'] );
+			$order->save_meta_data();
+		}
 	}
 }
 
