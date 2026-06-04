@@ -254,6 +254,7 @@ const getVaryByPath = ( path ) => {
 		vars.PATH_PRODUCT &&
 		new RegExp( `/${ vars.PATH_PRODUCT }/` ).test( path )
 	) {
+		cookies.push( vars.COOKIE_COUNTRY );
 		cookies.push( vars.COOKIE_SHIPPING_COUNTRY );
 		vat = true;
 	}
