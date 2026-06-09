@@ -205,12 +205,13 @@ function delivery_point_validate_in_checkout( $data, $errors ) {
 		$rate = isset( $available_methods[ $method ] ) ? $available_methods[ $method ] : null;
 
 		if ( empty( $rate ) ) {
+			$errors->add( 'shipping', __( 'Invalid shipping method!', 'woocommerce' ) );
 			return;
 		}
 
 		$rate_meta = $rate->get_meta_data();
 
-		if ( isset( $rate_meta['pod'] ) && 'yes' === $rate_meta['pod'] ) {
+		if ( isset( $rate_meta['pod'] ) && (bool) $rate_meta['pod'] ) {
 			$delivery_point = WC()->session->get( DELIVERY_POINT );
 
 			if ( ! isset( $delivery_point ) || $delivery_point['courier'] !== $rate_meta['courier'] ) {
