@@ -197,26 +197,15 @@ function add_script_data() {
  * @param  \WP_Error $errors Validation errors.
  */
 function delivery_point_validate_in_checkout( $data, $errors ) {
-	$packages          = WC()->shipping->get_packages();
-	$package           = $packages[0];
-	$available_methods = $package['rates'];
+	$method                    = $data['shipping_method'][0];
+	[$method_id, $instance_id] = explode( ':', $method );
+	$shipping_method_settings  = get_option( "woocommerce_{$method_id}_{$instance_id}_settings", array() );
 
-	foreach ( $data['shipping_method'] as $method ) {
-		$rate = isset( $available_methods[ $method ] ) ? $available_methods[ $method ] : null;
+	if ( isset( $shipping_method_settings['pod'] ) && 'yes' === $shipping_method_settings['pod'] ) {
+		$delivery_point = WC()->session->get( DELIVERY_POINT );
 
-		if ( empty( $rate ) ) {
-			$errors->add( 'shipping', __( 'Invalid shipping method!', 'woocommerce' ) );
-			return;
-		}
-
-		$rate_meta = $rate->get_meta_data();
-
-		if ( isset( $rate_meta['pod'] ) && (bool) $rate_meta['pod'] ) {
-			$delivery_point = WC()->session->get( DELIVERY_POINT );
-
-			if ( ! isset( $delivery_point ) || $delivery_point['courier'] !== $rate_meta['courier'] ) {
-				$errors->add( 'shipping', __( 'Please select delivery point.', 'chocante' ) );
-			}
+		if ( ! isset( $delivery_point ) ) {
+			$errors->add( 'shipping', __( 'Please select delivery point.', 'chocante' ) );
 		}
 	}
 }
@@ -231,10 +220,6 @@ function delivery_point_save_in_order( $order_id, $data ) {
 	$method                    = $data['shipping_method'][0];
 	[$method_id, $instance_id] = explode( ':', $method );
 	$shipping_method_settings  = get_option( "woocommerce_{$method_id}_{$instance_id}_settings", array() );
-
-	if ( empty( $shipping_method_settings ) ) {
-		return;
-	}
 
 	if ( isset( $shipping_method_settings['pod'] ) && 'yes' === $shipping_method_settings['pod'] ) {
 		$delivery_point = WC()->session->get( DELIVERY_POINT );
