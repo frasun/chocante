@@ -52,6 +52,8 @@ export default class MiniCart {
 		) {
 			this.miniCartCount.innerHTML =
 				storeFragments[ MiniCart.FRAGMENT_CART_COUNT ];
+		} else {
+			this.miniCartCount.innerHTML = '0';
 		}
 	}
 

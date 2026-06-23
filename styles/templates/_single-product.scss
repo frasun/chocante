@@ -289,7 +289,7 @@
 				grid-template-columns: repeat(auto-fill, minmax(75px, auto));
 				gap: var(--spacing--15);
 
-				@include min-width($breakpoint--desktop-sm) {
+				@include min-width($breakpoint--desktop) {
 					grid-template-columns: repeat(auto-fill, minmax(130px, auto));
 				}
 
