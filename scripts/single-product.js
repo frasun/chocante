@@ -106,10 +106,13 @@ function clearAddToCartNotice() {
 ( function ( $ ) {
 	const form = $( CART_FORM );
 
-	form.on( 'wc_variation_form', selectVariationFromUrl );
-	form.on( 'found_variation', selectVariationStockData );
-	form.on( 'found_variation', selectVariationToAdd );
-	form.on( 'reset_data', resetVariationToAdd );
+	// Variable product.
+	if ( form.length ) {
+		selectVariationFromUrl();
+		form.on( 'found_variation', selectVariationStockData );
+		form.on( 'found_variation', selectVariationToAdd );
+		form.on( 'reset_data', resetVariationToAdd );
+	}
 
 	$( document.body ).on(
 		'quantityInputChanged',
