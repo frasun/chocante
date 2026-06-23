@@ -30,6 +30,7 @@ require_once __DIR__ . '/includes/crawler.php';
 require_once __DIR__ . '/includes/cloudflare.php';
 require_once __DIR__ . '/includes/abilities.php';
 require_once __DIR__ . '/includes/blpaczka.php';
+require_once __DIR__ . '/includes/gtm.php';
 
 /**
  * Layout.

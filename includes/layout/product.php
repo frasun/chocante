@@ -48,6 +48,7 @@ add_filter( 'woocommerce_dropdown_variation_attribute_options_args', __NAMESPACE
 add_filter( 'woocommerce_dropdown_variation_attribute_options_args', __NAMESPACE__ . '\select_variation_from_url' );
 add_filter( 'woocommerce_available_variation', __NAMESPACE__ . '\filter_variation_data' );
 add_action( 'chocante_product_variations_json', __NAMESPACE__ . '\print_product_variations' );
+add_filter( 'woocommerce_product_variation_title_include_attributes', '__return_false' );
 
 // Product attributes.
 add_filter( 'woocommerce_display_product_attributes', __NAMESPACE__ . '\display_weight_in_attributes', 10 );
