@@ -64,9 +64,3 @@ npm run lint           # lint JS and SCSS
 npm run make-theme     # package theme as chocante.zip
 npm run make-pot       # generate .pot translation file
 ```
-
-## Stack
-PHP · JavaScript · SCSS  
-WordPress · Gutenberg · WooCommerce  
-LiteSpeed Cache (ESI, Cache Tags, Vary) · Cloudflare (Workers, Cache API)  
-Splide · PhotoSwipe
