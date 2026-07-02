@@ -21,7 +21,7 @@ including pickup point selection.
 **Gutenberg blocks**  
 Custom info bar block for the editor.
 
-**theme.json**
+**theme.json**  
 Design system based on theme.json and custom CSS variables.
 
 ## Structure
