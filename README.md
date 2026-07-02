@@ -10,7 +10,7 @@ Full-page cache with LiteSpeed Cache, with separate cache variants per currency,
 and VAT status. Dynamic fragments (product-tile, product price, delivery info, header, footer etc.) served via ESI blocks.
 Static assets cached at Cloudflare edge with smart purging via Cache Tags.
 
-**Multi-currency & Multi-language**  
+**Multi-currency & multi-language**  
 Currency switching with per-currency pricing. Cloudflare Worker handles currency detection
 and cache key generation.
 
@@ -20,6 +20,9 @@ including pickup point selection.
 
 **Gutenberg blocks**  
 Custom info bar block for the editor.
+
+**theme.json**
+Design system based on theme.json and custom CSS variables.
 
 ## Structure
 
