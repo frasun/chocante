@@ -3,6 +3,8 @@
 A hybrid theme built for a chocolate e-commerce store.
 WordPress (Gutenberg) handles content, WooCommerce runs in classic mode for full template control.
 
+![](chocante.png)
+
 **Advanced caching strategy**  
 Full-page cache with LiteSpeed Cache, with separate cache variants per currency, shipping country,
 and VAT status. Dynamic fragments (cart, header, mini-cart) served via ESI blocks.
