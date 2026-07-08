@@ -33,15 +33,6 @@ $page_title = _x( 'Thank you for shopping', 'thankyou', 'chocante' );
 $message = _x( 'You will be informed about further steps by separate emails. You can also keep up to date with the current status at this address:', 'thankyou', 'chocante' );
 // translators: processing order.
 $processing_message = sprintf( _x( 'Your order no. %s has been accepted for processing.', 'thankyou', 'chocante' ), '<strong>' . $order_number . '</strong>' );
-
-// @todo: Chocante - temp fix.
-$parts = parse_url( $_SERVER['REQUEST_URI'] ); // @codingStandardsIgnoreLine.
-parse_str( $parts['query'], $query );
-
-if ( isset( $query['error'] ) ) {
-	$order->update_status( 'failed' );
-}
-// END TODO.
 ?>
 
 <div class="woocommerce-order">
