@@ -3,3 +3,5 @@
 /node_modules
 chocante.zip
 .wrangler
+*.code-workspace
+.wp-env.json
