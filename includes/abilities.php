@@ -72,7 +72,11 @@ function retrieve_posts() {
 				return current_user_can( 'read' );
 			},
 			'meta'                => array(
-				'mcp' => array(
+				'show_in_rest' => true,
+				'annotations'  => array(
+					'readonly' => true,
+				),
+				'mcp'          => array(
 					'public' => true,
 					'type'   => 'tool',
 				),
