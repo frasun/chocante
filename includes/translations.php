@@ -64,6 +64,7 @@ add_filter( 'cwginstock_localization_array', __NAMESPACE__ . '\i18n_cwg_script' 
 add_filter( 'rmp_custom_strings', __NAMESPACE__ . '\i18n_rmp' );
 add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\i18n_paczkomaty', 20 );
 add_filter( 'chocante_checkout_i18n', __NAMESPACE__ . '\i18n_pod' );
+add_filter( 'chocante_product_filters_label', __NAMESPACE__ . '\i18n_product_filters' );
 
 // Woo e-mails.
 add_filter( 'woocommerce_order_item_name', __NAMESPACE__ . '\translate_email_order_item_name', 40, 2 );
@@ -550,6 +551,20 @@ function i18n_shipping_method( $label, $method ) {
 	$raw_label = $method->get_label();
 
 	return str_replace( $raw_label, '<span>' . $raw_label . '</span>', $label );
+}
+
+/**
+ * Translate labels in product filters
+ *
+ * @param string $label Filter label.
+ * @return string
+ */
+function i18n_product_filters( $label ) {
+	if ( function_exists( 'trp_translate' ) ) {
+		return trp_translate( $label, null, false );
+	}
+
+	return $label;
 }
 
 /**

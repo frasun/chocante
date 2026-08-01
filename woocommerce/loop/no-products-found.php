@@ -16,15 +16,16 @@
  */
 
 defined( 'ABSPATH' ) || exit;
-
+ob_start();
 ?>
-<div class="woocommerce-no-products-found empty-screen">
+<div class="woocommerce-no-products-found empty-screen" data-wp-interactive="chocante/product-filters">
 	<p><?php esc_html_e( 'No products were found matching your selection.', 'woocommerce' ); ?></p>
-	<?php
-	if ( ! is_search() && ( woocommerce_products_will_display() || ( class_exists( 'Chocante_Product_Filters' ) && Chocante_Product_Filters::instance()->has_filters() ) ) ) :
-		?>
-		<a href="<?php echo esc_url( Chocante_Product_Filters::instance()->get_reset_url() ); ?>" class="button"><?php esc_html_e( 'Reset filters', 'chocante-product-filters' ); ?></a>
-		<span><?php echo esc_html_x( 'or', 'no products found', 'chocante' ); ?></span>
+	<?php if ( ! is_search() ) : ?>
+		<a href="<?php echo esc_url( strtok( get_pagenum_link(), '?' ) ); ?>" data-wp-on--click="actions.navigate" data-wp-bind--hidden="!state.hasAvailableFilters" class="button"><?php esc_html_e( 'Reset filters', 'chocante-product-filters' ); ?></a>
+		<span data-wp-bind--hidden="!state.hasAvailableFilters"><?php echo esc_html_x( 'or', 'no products found', 'chocante' ); ?></span>
 	<?php endif; ?>
 	<a href="<?php echo esc_url( get_permalink( wc_get_page_id( 'shop' ) ) ); ?>" class="button button--sm"><?php esc_html_e( 'Go to shop', 'woocommerce' ); ?></a>
 </div>
+<?php
+// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+echo wp_interactivity_process_directives( ob_get_clean() );

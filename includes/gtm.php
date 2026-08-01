@@ -31,6 +31,9 @@ add_action( 'wp_footer', __NAMESPACE__ . '\output_item_list_data' );
 add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\add_script_data', 30 );
 add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\fix_gtm_server_side_item_variant', 30 );
 
+// Integrate with client-side product filters.
+add_filter( 'chocante_product_filters_server_state_extra', __NAMESPACE__ . '\add_data_on_catalog_filtering' );
+
 /**
  * View item event
  */
@@ -217,13 +220,42 @@ function output_item_list_data() {
 
 	wp_add_inline_script(
 		'chocante-shop',
-		'window.gtmItems = ' . wp_json_encode(
-			array(
-				'products' => $product_ids,
-				'pageId'   => $item_list_id,
-				'pageName' => $item_list_name,
-			)
-		) . ';',
+		'window.gtmItems = ' . wp_json_encode( get_item_list_data() ) . ';',
 		'before'
 	);
+}
+
+/**
+ * Get item list data according to current query
+ */
+function get_item_list_data() {
+	global $wp_query;
+	$product_ids = wp_list_pluck( $wp_query->posts, 'ID' );
+
+	if ( is_shop() ) {
+		$item_list_id   = wc_get_page_id( 'shop' );
+		$item_list_name = get_the_title( wc_get_page_id( 'shop' ) );
+	} else {
+		$queried_object = get_queried_object();
+		$item_list_id   = $queried_object->term_id;
+		$item_list_name = $queried_object->name;
+	}
+
+	return array(
+		'products' => $product_ids,
+		'pageId'   => $item_list_id,
+		'pageName' => $item_list_name,
+	);
+}
+
+/**
+ * Ouput item list data to product client-side filtering
+ *
+ * @param array $data Server data.
+ * @return array
+ */
+function add_data_on_catalog_filtering( $data ) {
+	$data['gtm'] = get_item_list_data();
+
+	return $data;
 }

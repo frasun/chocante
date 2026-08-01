@@ -216,9 +216,8 @@ canvas {
 	display: inline-block;
 }
 
-[hidden],
-template {
-	display: none;
+[hidden] {
+	display: none !important;
 }
 
 svg:not([width]) {

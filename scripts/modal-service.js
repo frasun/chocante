@@ -68,8 +68,10 @@ export default class ModalService {
 
 		this.backdrop.classList.remove( ModalService.CLASS_ACTIVE );
 
-		this.backdrop.addEventListener( 'transitionend', () => {
-			this.backdrop.remove();
+		const backdrop = this.backdrop;
+
+		backdrop.addEventListener( 'transitionend', () => {
+			backdrop.remove();
 			this.backdrop = null;
 		} );
 	}

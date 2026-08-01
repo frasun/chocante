@@ -9,6 +9,7 @@
 namespace Chocante\Layout\Shop;
 
 use function Chocante\Assets\icon;
+use function Chocante\Layout\Common\spinner;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -35,6 +36,7 @@ add_filter( 'woocommerce_pagination_args', __NAMESPACE__ . '\modify_pagination' 
 // Filters.
 add_action( 'woocommerce_before_shop_loop', __NAMESPACE__ . '\output_mobile_filter_trigger', 25 );
 add_action( 'chocante_product_filters_header', __NAMESPACE__ . '\output_mobile_filter_close' );
+add_filter( 'chocante_product_filters_loading', __NAMESPACE__ . '\output_spinner' );
 
 /**
  * Set catalog ordering.
@@ -47,6 +49,14 @@ function set_catalog_ordering_options() {
  * Open loop section
  */
 function open_shop_loop_wrapper() {
+	wp_interactivity_config(
+		'chocante/product-filters',
+		array(
+			'scrollTo'    => '#shop',
+			'routerCache' => 'local' === wp_get_environment_type(),
+		)
+	);
+
 	echo '<section id="shop" class="shop-loop">';
 	echo '<div class="shop-loop__container">';
 }
@@ -83,7 +93,7 @@ function close_shop_loop_header() {
  * Open shop loop section
  */
 function open_shop_loop_section() {
-	echo '<section class="shop-loop__section">';
+	echo '<section class="shop-loop__section" data-wp-interactive="chocante/product-filters" data-wp-router-region="chocante/shop-loop" data-wp-class--loaded="state.hasLoaded">';
 }
 
 /**
@@ -99,18 +109,14 @@ function close_shop_loop_section() {
  * Display mobile product filters trigger
  */
 function output_mobile_filter_trigger() {
-	if ( ! class_exists( 'Chocante_Product_Filters' ) ) {
+	if ( ! class_exists( 'Chocante_Product_Filters' ) || ! woocommerce_products_will_display() ) {
 		return;
 	}
 
-	if ( woocommerce_products_will_display() && \Chocante_Product_Filters::instance()->has_available_filters() ) {
-		echo '<button id="openMobileFilters">';
-		echo esc_html__( 'Filter', 'chocante-product-filters' );
-		if ( \Chocante_Product_Filters::instance()->has_filters() ) {
-			printf( '<span>%d</span>', esc_html( \Chocante_Product_Filters::instance()->get_active_filters() ) );
-		}
-		echo '</button>';
-	}
+	ob_start();
+	get_template_part( 'template-parts/mobile-filter-trigger' );
+	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+	echo wp_interactivity_process_directives( ob_get_clean() );
 }
 
 /**
@@ -181,4 +187,11 @@ function modify_pagination( $pagination ) {
 	$pagination['next_text'] = is_rtl() ? $prev_icon : $next_icon;
 
 	return $pagination;
+}
+
+/**
+ * Output loading indicator when filtering
+ */
+function output_spinner() {
+	return spinner();
 }

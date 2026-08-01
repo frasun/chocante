@@ -40,6 +40,7 @@ define( 'ESI_COMMENTS', 'production' === wp_get_environment_type() );
 add_filter( 'litespeed_vary', __NAMESPACE__ . '\reset_login_vary' );
 add_filter( 'litespeed_vary_cookies', __NAMESPACE__ . '\reset_cookie_vary' );
 add_filter( 'litespeed_vary_curr_cookies', __NAMESPACE__ . '\reset_cookie_vary' );
+add_action( 'wp_finalized_template_enhancement_output_buffer', __NAMESPACE__ . '\add_vary_cookie_header' );
 
 /**
  * Global
@@ -762,4 +763,11 @@ function finalize_purge_tags( $tags ) {
 	}
 
 	return $tags;
+}
+
+/**
+ * Extend response Vary header with cookie in order to handle browser caching
+ */
+function add_vary_cookie_header() {
+	header( 'Vary: Cookie', false );
 }

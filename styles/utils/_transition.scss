@@ -3,3 +3,14 @@
 	transition-timing-function: var(--wp--custom--transition--easing);
 	transition-property: var(--wp--custom--transition--property);
 }
+
+@keyframes fadeIn {
+
+	from {
+		opacity: 0;
+	}
+
+	to {
+		opacity: 1;
+	}
+}

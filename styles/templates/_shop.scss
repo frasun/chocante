@@ -59,9 +59,13 @@
 		}
 
 		.woocommerce-result-count {
-			margin: 0;
 
-			@include hide(mobile);
+			&,
+			&--static {
+				margin: 0;
+
+				@include hide(mobile);
+			}
 		}
 	}
 
@@ -76,7 +80,24 @@
 		}
 	}
 
+	.loaded .products {
+		animation: fadeIn var(--wp--custom--transition--duration) var(--wp--custom--transition--easing) forwards;
+	}
+
 	#chocante-product-filters {
+		padding-bottom: var(--spacing--10);
+
+		footer {
+			position: sticky;
+			bottom: 0;
+			background: var(--wp--preset--color--white);
+			padding-bottom: var(--spacing--10);
+		}
+
+		@include min-width($breakpoint--desktop-sm) {
+			position: sticky;
+			top: calc(var(--site-header--height) + var(--spacing--20));
+		}
 
 		@include max-width($breakpoint--desktop-sm) {
 
@@ -104,11 +125,9 @@
 			}
 
 			footer {
-				position: sticky;
-				bottom: 0;
-				background: var(--wp--preset--color--white);
 				padding-bottom: var(--spacing--20);
 				padding-top: var(--spacing--20);
+				gap: var(--spacing--5);
 			}
 		}
 
@@ -131,6 +150,10 @@
 			margin-left: var(--wp--preset--spacing--10);
 
 			@include badge;
+
+			@media (max-width: 360px) {
+				padding: 2px 5px;
+			}
 		}
 
 	}
@@ -180,6 +203,7 @@
 				width: 100%;
 				text-align: left;
 				background-color: var(--wp--preset--color--white);
+				transition-property: none;
 
 				&:not(.disabled):not([disabled]) {
 
@@ -197,6 +221,13 @@
 
 			@include hide(mobile);
 			font-weight: var(--font-weight--bold);
+		}
+
+		.spinner {
+			width: 24px;
+			height: 24px;
+			margin-right: var(--wp--preset--spacing--5);
+			opacity: 0.8;
 		}
 	}
 

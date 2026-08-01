@@ -16,6 +16,23 @@
 		@include color(grey-2);
 	}
 
+	legend {
+
+		@include font-size(medium-sm);
+		font-weight: var(--font-weight--bold);
+
+		@include color(base);
+		padding-bottom: var(--spacing--10);
+	}
+
+	label {
+
+		.count {
+			opacity: 0.4;
+			margin-left: 0.35em;
+		}
+	}
+
 	fieldset {
 		border: 0;
 		padding: 0;
@@ -31,23 +48,14 @@
 			+ div {
 				padding-top: var(--spacing--15);
 			}
-		}
-	}
 
-	legend {
+			&:has(input[disabled]) {
+				opacity: 0.4;
 
-		@include font-size(medium-sm);
-		font-weight: var(--font-weight--bold);
-
-		@include color(base);
-		padding-bottom: var(--spacing--10);
-	}
-
-	label {
-
-		span {
-			opacity: 0.4;
-			margin-left: 0.35em;
+				.count {
+					display: none;
+				}
+			}
 		}
 	}
 
@@ -55,7 +63,7 @@
 		display: flex;
 		flex-wrap: wrap;
 		align-items: center;
-		gap: var(--spacing--15);
+		gap: var(--spacing--10);
 		padding-top: var(--spacing--10);
 
 		button,

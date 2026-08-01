@@ -25,6 +25,7 @@ export default class HeaderScroll {
 
 		// Set global CSS variable so that scrolling to # can account for site header;
 		this.setCSSProp();
+		window.addEventListener( 'resize', this.setCSSProp.bind( this ) );
 		document.addEventListener(
 			'click',
 			this.handleInternalLinks.bind( this )
