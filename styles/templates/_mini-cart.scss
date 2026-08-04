@@ -125,6 +125,8 @@
 				grid-row-start: 1;
 
 				@include remove-button;
+
+				justify-content: end;
 			}
 
 			> a:not(.remove_from_cart_button) {

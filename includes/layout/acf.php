@@ -64,11 +64,12 @@ function get_custom_product_title( $product_name, $cart_item ) {
 	$product    = $cart_item['data'];
 
 	if ( 'product' === get_post_type( $product_id ) ) {
-		$product_short_name = apply_filters( 'chocante_acf_product_title', get_field( ACF_PRODUCT_TITLE, $product_id ) );
+		$product_short_name = get_field( ACF_PRODUCT_TITLE, $product_id );
 		$product_type       = get_field( ACF_PRODUCT_TYPE, $product_id );
 
 		if ( $product_short_name ) {
-			$product_name = $product_short_name;
+			$product_short_name = apply_filters( 'chocante_acf_product_title', get_field( ACF_PRODUCT_TITLE, $product_id ) );
+			$product_name       = $product_short_name;
 
 			if ( $product_type ) {
 				$product_name .= '<small>' . $product_type . '</small>';
@@ -108,8 +109,8 @@ function modify_loop_item_title() {
 		return;
 	}
 
-	$product_name  = apply_filters( 'chocante_acf_product_title', get_field( ACF_PRODUCT_TITLE, $product->get_id() ) );
-	$product_title = $product_name ? $product_name : get_the_title();
+	$product_name  = get_field( ACF_PRODUCT_TITLE, $product->get_id() );
+	$product_title = $product_name ? apply_filters( 'chocante_acf_product_title', $product_name ) : get_the_title();
 
 	echo '<h2 class="' . esc_attr( apply_filters( 'woocommerce_product_loop_title_classes', 'woocommerce-loop-product__title' ) ) . '">' . $product_title . '</h2>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 }
@@ -155,10 +156,10 @@ function modify_product_page_title() {
  */
 function get_product_page_title( $title, $id ) {
 	$product_short_name = get_field( ACF_PRODUCT_TITLE, $id );
-	$product_title      = apply_filters( 'chocante_acf_product_title', sprintf( '<span>%s</span>', $product_short_name ), $product_short_name );
 	$product_type       = get_field( ACF_PRODUCT_TYPE, $id );
 
 	if ( $product_short_name ) {
+		$product_title = apply_filters( 'chocante_acf_product_title', sprintf( '<span>%s</span>', $product_short_name ), $product_short_name );
 		if ( $product_type ) {
 			$product_title .= ' ';
 			$product_title .= sprintf( '<span>%s</span>', $product_type );
@@ -341,10 +342,10 @@ function get_featured_category( $category, $product_id ) {
  * @return string
  */
 function get_featured_title( $title, $product_id ) {
-	$product_name = apply_filters( 'chocante_acf_product_title', get_field( ACF_PRODUCT_TITLE, $product_id ) );
+	$product_name = get_field( ACF_PRODUCT_TITLE, $product_id );
 
 	if ( $product_name ) {
-		return $product_name;
+		return apply_filters( 'chocante_acf_product_title', $product_name );
 	}
 
 	return $title;
