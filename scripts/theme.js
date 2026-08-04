@@ -114,7 +114,15 @@ new ChocanteWooCommerce();
 
 jQuery( function ( $ ) {
 	// Override custom scrolling to notice. It scrolls to the top of the page.
-	$.scroll_to_notices = () => {};
+	$.scroll_to_notices = () => {
+		window.requestAnimationFrame( () => {
+			const notices = document.querySelector( 'div[role="alert"]' );
+
+			if ( notices ) {
+				notices.scrollIntoView( { block: 'start' } );
+			}
+		} );
+	};
 
 	// Footer menu mobile.
 	$( '.site-footer__nav .site-footer__nav-header' ).on(

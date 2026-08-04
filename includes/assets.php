@@ -40,7 +40,7 @@ function enqueue_scripts() {
 	$styles[]            = 'chocante';
 	$scripts['chocante'] = array(
 		'filename'     => 'chocante-scripts',
-		'dependencies' => class_exists( 'WooCommerce' ) ? array( 'wc-cart-fragments' ) : array(),
+		'dependencies' => class_exists( 'WooCommerce' ) ? array( 'wc-cart-fragments', 'wc-checkout' ) : array(),
 	);
 
 	// Blog.
@@ -86,7 +86,7 @@ function enqueue_scripts() {
 			$styles[]                     = 'checkout';
 			$scripts['chocante-checkout'] = array(
 				'filename'     => 'checkout-scripts',
-				'dependencies' => array( 'jquery', 'selectWoo' ),
+				'dependencies' => array( 'jquery', 'selectWoo', 'wc-checkout' ),
 			);
 		}
 
