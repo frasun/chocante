@@ -15,7 +15,6 @@ if ( ! class_exists( 'WooCommerce' ) ) {
 }
 
 use Chocante\Assets_Handler;
-use WC_Product_Variation;
 
 const CACHE_GROUP = 'chocante_products';
 

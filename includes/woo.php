@@ -28,9 +28,6 @@ add_filter( 'get_search_query', __NAMESPACE__ . '\use_product_search_in_query' )
 add_filter( 'woocommerce_shipping_methods', __NAMESPACE__ . '\add_shipping_methods' );
 add_filter( 'woocommerce_cart_shipping_method_full_label', __NAMESPACE__ . '\display_delivery_time', 20, 2 );
 
-// EU VAT.
-add_filter( 'wp_vat_eu_validator_PL', __NAMESPACE__ . '\validate_nip', 10, 2 );
-
 // Gift wrapper.
 add_filter( 'tgpc_wc_gift_wrapper_icon_html', __NAMESPACE__ . '\disable_gift_wrapper_icon_in_admin' );
 add_filter( 'tgpc_wc_gift_wrapper_checkout_label', __NAMESPACE__ . '\display_gift_wrapper_label', 10, 3 );
@@ -139,28 +136,6 @@ function add_shipping_methods( $shipping_methods ) {
 	$shipping_methods['chocante_blpaczka'] = 'BLPaczka_Shipping';
 
 	return $shipping_methods;
-}
-
-/**
- * Non-EU VAT validation for PL
- *
- * @param null   $validator External VAT validator.
- * @param string $tax_id VAT number.
- * @return bool
- */
-function validate_nip( $validator, $tax_id ) {
-	$weights = array( 6, 5, 7, 2, 3, 4, 5, 6, 7 );
-	$sum     = 0;
-
-	for ( $i = 0; $i < 9; $i++ ) {
-		$sum += $tax_id[ $i ] * $weights[ $i ];
-	}
-
-	if ( ( $sum % 11 ) % 10 === intval( $tax_id[9] ) ) {
-		return true;
-	}
-
-	return false;
 }
 
 /**
