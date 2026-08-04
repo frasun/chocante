@@ -1,6 +1,6 @@
 {
 	"name": "chocante-wp-theme",
-	"version": "2.3.3",
+	"version": "2.3.4",
 	"main": "",
 	"scripts": {
 		"start": "wp-scripts start",
@@ -17,9 +17,9 @@
 	"license": "ISC",
 	"description": "",
 	"devDependencies": {
-		"@wordpress/scripts": "^30.11.0",
+		"@wordpress/scripts": "^34.0.0",
 		"webpack-remove-empty-scripts": "^1.0.4",
-		"wrangler": "^4.80.0"
+		"wrangler": "^4.118.0"
 	},
 	"dependencies": {
 		"@splidejs/splide": "^4.1.4",

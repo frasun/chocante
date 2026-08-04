@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 import { useBlockProps, RichText } from '@wordpress/block-editor';
 import { ReactComponent as Icon } from '../../images/icon-info.svg';
 

@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 import { registerBlockType } from '@wordpress/blocks';
 import Edit from './edit';
 import save from './save';

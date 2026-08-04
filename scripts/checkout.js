@@ -235,7 +235,7 @@ class Checkout {
 				courier,
 				country: this.country,
 			};
-		} catch ( error ) {
+		} catch {
 			this.updateSelectedPointInfo( select );
 			throw new Error( Checkout.BAD_REQUEST );
 		}
