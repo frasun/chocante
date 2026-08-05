@@ -66,6 +66,11 @@ module.exports = {
 			'node_modules/photoswipe/dist',
 			'photoswipe.css'
 		),
+		'cky-load-styles': path.resolve(
+			process.cwd(),
+			'scripts',
+			'cky-load-styles.js'
+		),
 	},
 	// Do not bundle fonts.
 	module: {

@@ -61,6 +61,13 @@ function enqueue_scripts() {
 			$scripts['chocante-shop'] = array(
 				'filename' => 'shop-scripts',
 			);
+
+			// CKY modal style load fix.
+			if ( 'production' === wp_get_environment_type() ) {
+				$scripts['cky-load-styles'] = array(
+					'filename' => 'cky-load-styles',
+				);
+			}
 		}
 
 		// Product page.
