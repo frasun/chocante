@@ -10,6 +10,7 @@ export default class HeaderScroll {
 			return;
 		}
 
+		this.elem.headerScroll = this;
 		this.scrollTop = window.scrollY;
 		this.canTransition = true;
 

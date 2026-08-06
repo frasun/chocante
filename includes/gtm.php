@@ -158,15 +158,13 @@ function add_script_data() {
 		'ajaxNonce' => wp_create_nonce( 'chocante_gtm' ),
 		'gtmAction' => is_product() ? 'gtm_view_item' : 'gtm_view_item_list',
 	);
-	$handle      = 'chocante-shop';
 
 	if ( is_product() ) {
 		$script_data['gtmId'] = get_queried_object_id();
-		$handle               = 'chocante-product';
 	}
 
 	wp_localize_script(
-		$handle,
+		'chocante',
 		'chocanteGtm',
 		$script_data
 	);
@@ -206,20 +204,8 @@ function output_item_list_data() {
 		return;
 	}
 
-	global $wp_query;
-	$product_ids = wp_list_pluck( $wp_query->posts, 'ID' );
-
-	if ( is_shop() ) {
-		$item_list_id   = wc_get_page_id( 'shop' );
-		$item_list_name = get_the_title( wc_get_page_id( 'shop' ) );
-	} else {
-		$queried_object = get_queried_object();
-		$item_list_id   = $queried_object->term_id;
-		$item_list_name = $queried_object->name;
-	}
-
 	wp_add_inline_script(
-		'chocante-shop',
+		'chocante',
 		'window.gtmItems = ' . wp_json_encode( get_item_list_data() ) . ';',
 		'before'
 	);

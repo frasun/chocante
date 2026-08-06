@@ -1,9 +1,20 @@
 // Change default @wp/scripts 'src' path.
 process.env.WP_SOURCE_PATH = 'blocks';
 // WordPress webpack config.
-const defaultConfig = require( '@wordpress/scripts/config/webpack.config' );
-const { entry } = defaultConfig;
-const entries = typeof entry === 'function' ? entry() : entry;
+const [
+	defaultConfig,
+	moduleConfig,
+] = require( '@wordpress/scripts/config/webpack.config' );
+
+const entry =
+	typeof defaultConfig.entry === 'function'
+		? defaultConfig.entry()
+		: defaultConfig.entry;
+
+const moduleEntry =
+	typeof moduleConfig.entry === 'function'
+		? moduleConfig.entry()
+		: moduleConfig.entry;
 
 // Plugins.
 const RemoveEmptyScriptsPlugin = require( 'webpack-remove-empty-scripts' );
@@ -12,91 +23,103 @@ const RemoveEmptyScriptsPlugin = require( 'webpack-remove-empty-scripts' );
 const path = require( 'path' );
 
 // Add any new entry points by extending the webpack config.
-module.exports = {
-	...defaultConfig,
-	entry: {
-		...entries,
-		chocante: path.resolve( process.cwd(), 'styles', 'theme.scss' ),
-		'chocante-scripts': path.resolve(
-			process.cwd(),
-			'scripts',
-			'theme.js'
-		),
-		'product-section': path.resolve(
-			process.cwd(),
-			'scripts',
-			'product-section.js'
-		),
-		cart: path.resolve( process.cwd(), 'styles', 'cart.scss' ),
-		'cart-scripts': path.resolve( process.cwd(), 'scripts', 'cart.js' ),
-		'single-product': path.resolve(
-			process.cwd(),
-			'styles',
-			'single-product.scss'
-		),
-		'single-product-scripts': path.resolve(
-			process.cwd(),
-			'scripts',
-			'single-product.js'
-		),
-		shop: path.resolve( process.cwd(), 'styles', 'shop.scss' ),
-		'shop-scripts': path.resolve( process.cwd(), 'scripts', 'shop.js' ),
-		account: path.resolve( process.cwd(), 'styles', 'account.scss' ),
-		'account-scripts': path.resolve(
-			process.cwd(),
-			'scripts',
-			'account.js'
-		),
-		blog: path.resolve( process.cwd(), 'styles', 'blog.scss' ),
-		checkout: path.resolve( process.cwd(), 'styles', 'checkout.scss' ),
-		'checkout-scripts': path.resolve(
-			process.cwd(),
-			'scripts',
-			'checkout.js'
-		),
-		editor: path.resolve( process.cwd(), 'styles', 'editor.scss' ),
-		'editor-scripts': path.resolve( process.cwd(), 'scripts', 'editor.js' ),
-		'single-post': path.resolve(
-			process.cwd(),
-			'styles',
-			'single-post.scss'
-		),
-		'photoswipe-chocante': path.resolve(
-			process.cwd(),
-			'node_modules/photoswipe/dist',
-			'photoswipe.css'
-		),
-		'cky-load-styles': path.resolve(
-			process.cwd(),
-			'scripts',
-			'cky-load-styles.js'
-		),
-	},
-	// Do not bundle fonts.
-	module: {
-		...defaultConfig.module,
-		rules: [
-			...defaultConfig.module.rules,
-			{
-				test: /\.(woff|woff2|eot|ttf|otf)$/i,
-				type: 'asset/resource',
-				generator: {
-					filename: 'fonts/[name][ext]',
+module.exports = [
+	{
+		...defaultConfig,
+		entry: {
+			...entry,
+			chocante: path.resolve( process.cwd(), 'styles', 'theme.scss' ),
+			'chocante-scripts': path.resolve(
+				process.cwd(),
+				'scripts',
+				'theme.js'
+			),
+			'product-section': path.resolve(
+				process.cwd(),
+				'scripts',
+				'product-section.js'
+			),
+			cart: path.resolve( process.cwd(), 'styles', 'cart.scss' ),
+			'cart-scripts': path.resolve( process.cwd(), 'scripts', 'cart.js' ),
+			'single-product': path.resolve(
+				process.cwd(),
+				'styles',
+				'single-product.scss'
+			),
+			'single-product-scripts': path.resolve(
+				process.cwd(),
+				'scripts',
+				'single-product.js'
+			),
+			shop: path.resolve( process.cwd(), 'styles', 'shop.scss' ),
+			account: path.resolve( process.cwd(), 'styles', 'account.scss' ),
+			'account-scripts': path.resolve(
+				process.cwd(),
+				'scripts',
+				'account.js'
+			),
+			blog: path.resolve( process.cwd(), 'styles', 'blog.scss' ),
+			checkout: path.resolve( process.cwd(), 'styles', 'checkout.scss' ),
+			'checkout-scripts': path.resolve(
+				process.cwd(),
+				'scripts',
+				'checkout.js'
+			),
+			editor: path.resolve( process.cwd(), 'styles', 'editor.scss' ),
+			'editor-scripts': path.resolve(
+				process.cwd(),
+				'scripts',
+				'editor.js'
+			),
+			'single-post': path.resolve(
+				process.cwd(),
+				'styles',
+				'single-post.scss'
+			),
+			'photoswipe-chocante': path.resolve(
+				process.cwd(),
+				'node_modules/photoswipe/dist',
+				'photoswipe.css'
+			),
+			'cky-load-styles': path.resolve(
+				process.cwd(),
+				'scripts',
+				'cky-load-styles.js'
+			),
+		},
+		// Do not bundle fonts.
+		module: {
+			...defaultConfig.module,
+			rules: [
+				...defaultConfig.module.rules,
+				{
+					test: /\.(woff|woff2|eot|ttf|otf)$/i,
+					type: 'asset/resource',
+					generator: {
+						filename: 'fonts/[name][ext]',
+					},
 				},
-			},
-		],
-	},
-	plugins: [
-		// Include WP's plugin config.
-		...defaultConfig.plugins,
+			],
+		},
+		plugins: [
+			// Include WP's plugin config.
+			...defaultConfig.plugins,
 
-		// Removes the empty `.js` files generated by webpack but
-		// sets it after WP has generated its `*.asset.php` file.
-		new RemoveEmptyScriptsPlugin( {
-			stage: RemoveEmptyScriptsPlugin.STAGE_AFTER_PROCESS_PLUGINS,
-		} ),
-	],
-	stats: {
-		warnings: false,
+			// Removes the empty `.js` files generated by webpack but
+			// sets it after WP has generated its `*.asset.php` file.
+			new RemoveEmptyScriptsPlugin( {
+				stage: RemoveEmptyScriptsPlugin.STAGE_AFTER_PROCESS_PLUGINS,
+			} ),
+		],
+		stats: {
+			warnings: false,
+		},
 	},
-};
+	{
+		...moduleConfig,
+		entry: {
+			...moduleEntry,
+			'shop-scripts': path.resolve( process.cwd(), 'scripts', 'shop.js' ),
+		},
+	},
+];

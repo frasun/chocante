@@ -1,17 +1,42 @@
 import Modal from './modal';
 import { MOBILE_BREAKPOINT } from './constants';
 import { getGTM, pushGTM } from './gtm';
+/* eslint-disable-next-line import/no-unresolved */
+import { store, watch } from '@wordpress/interactivity';
 
-// Product filters.
-let mobileFilters;
+const SITE_HEADER = '#siteHeader';
 
-function initMobileFilters() {
-	mobileFilters = new Modal(
-		'#chocante-product-filters',
-		'#openMobileFilters',
-		MOBILE_BREAKPOINT
-	);
-}
+const { state } = store( 'chocante/product-filters' );
+const mobileFilters = new Modal(
+	'#chocante-product-filters',
+	'#openMobileFilters',
+	MOBILE_BREAKPOINT
+);
+
+const menuScroll = window.setTimeout( () => {
+	document
+		.querySelector( SITE_HEADER )
+		?.removeEventListener( 'scrollend', onScrollEnd );
+}, 500 );
+
+const onScrollEnd = () => {
+	clearTimeout( menuScroll );
+	document.querySelector( SITE_HEADER )?.headerScroll?.showMenu();
+};
+
+watch( () => {
+	if ( state.hasLoaded ) {
+		mobileFilters?.hideModal();
+
+		document.addEventListener( 'scrollend', onScrollEnd, { once: true } );
+
+		if ( state.extra?.gtm ) {
+			pushDataLayer( state.extra.gtm );
+		}
+	}
+} );
+
+pushDataLayer();
 
 // GTM.
 async function pushDataLayer( data ) {
@@ -19,7 +44,7 @@ async function pushDataLayer( data ) {
 		return;
 	}
 
-	const gtmData = data.gtm || window.gtmItems;
+	const gtmData = data || window.gtmItems;
 
 	if ( ! gtmData ) {
 		return;
@@ -35,15 +60,4 @@ async function pushDataLayer( data ) {
 	);
 
 	pushGTM( eventData );
-}
-
-if ( window.ChocanteProductFiltersRegisterCallback ) {
-	window.ChocanteProductFiltersRegisterCallback( initMobileFilters, 'init' );
-	window.ChocanteProductFiltersRegisterCallback( () => {
-		mobileFilters.hideModal();
-	}, 'navigation' );
-	window.ChocanteProductFiltersRegisterCallback( pushDataLayer, 'update' );
-} else {
-	initMobileFilters();
-	pushDataLayer();
 }

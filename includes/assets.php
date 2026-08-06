@@ -59,7 +59,9 @@ function enqueue_scripts() {
 		if ( is_shop() || is_product_category() || is_product_taxonomy() || is_product_tag() ) {
 			$styles[]                 = 'shop';
 			$scripts['chocante-shop'] = array(
-				'filename' => 'shop-scripts',
+				'filename'     => 'shop-scripts',
+				'type'         => 'module',
+				'dependencies' => array( '@wordpress/interactivity' ),
 			);
 
 			// CKY modal style load fix.
@@ -141,6 +143,18 @@ function add_theme_styles( $styles ) {
 function add_theme_scripts( $scripts ) {
 	foreach ( $scripts as $handle => $asset ) {
 		$script = Assets_Handler::include( $asset['filename'] );
+		$type   = $asset['type'] ?? 'script';
+
+		if ( 'module' === $type ) {
+			wp_enqueue_script_module(
+				$handle,
+				get_theme_file_uri( "build/{$asset['filename']}.js" ),
+				array_merge( $script['dependencies'], $asset['dependencies'] ?? array() ),
+				$script['version'],
+			);
+
+			continue;
+		}
 
 		wp_enqueue_script(
 			$handle,
