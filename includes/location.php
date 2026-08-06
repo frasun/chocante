@@ -39,14 +39,6 @@ if ( ! is_admin() ) {
 }
 
 /**
- * FIX for handling variable prices caching
- *
- * @todo: check after woo@10.9
- * @link: https://github.com/woocommerce/woocommerce/issues/63716
- */
-add_filter( 'woocommerce_data_stores', __NAMESPACE__ . '\override_variable_data_store' );
-
-/**
  * Set default location based on cookie
  *
  * @param array $location Customer default location.
@@ -318,14 +310,3 @@ function get_customer_city_from_geoip( $value ) {
 	return $value;
 }
 // phpcs:enable
-
-/**
- * Override native variable data store
- *
- * @param array $stores Woo data stroes.
- * @return array
- */
-function override_variable_data_store( $stores ) {
-	$stores['product-variable'] = 'Chocante_WC_Product_Variable_Data_Store_CPT';
-	return $stores;
-}
