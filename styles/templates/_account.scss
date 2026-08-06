@@ -6,6 +6,10 @@
 		--notice--background-color: var(--wp--preset--color--white);
 	}
 
+	&.woocommerce-lost-password {
+		--notice--background-color: var(--wp--preset--color--white);
+	}
+
 	.woocommerce-MyAccount-navigation:has(
 	.woocommerce-MyAccount-navigation-link--dashboard.is-active
 ) + .woocommerce-MyAccount-content {

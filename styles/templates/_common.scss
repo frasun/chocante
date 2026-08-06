@@ -27,7 +27,8 @@
 
 		@include min-width($breakpoint--mobile-sm) {
 
-			.form-row-first {
+			.form-row-first,
+			.form-row-last {
 				grid-column: span 6;
 			}
 		}
@@ -91,6 +92,34 @@
 
 	&-form-login-toggle .woocommerce-info {
 		--notice--icon: url(../icons//icon-account.svg);
+	}
+
+	&-password {
+
+		&-strength {
+			text-align: center;
+			font-weight: var(--font-weight--bold);
+			padding: var(--spacing--10) 0;
+
+			@include font-size(small);
+
+			&.short,
+			&.bad {
+				color: var(--wp--custom--color--error);
+			}
+
+			&.good {
+				color: var(--wp--custom--status--pending);
+			}
+
+			&.strong {
+				color: var(--wp--custom--status--completed);
+			}
+		}
+
+		&-hint {
+			display: block;
+		}
 	}
 }
 
