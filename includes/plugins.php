@@ -14,8 +14,7 @@ add_filter( 'chocante_assets_defer_scripts', __NAMESPACE__ . '\defer_scripts' );
 add_filter( 'chocante_assets_remove_scripts', __NAMESPACE__ . '\remove_scripts' );
 add_filter( 'chocante_assets_async_styles', __NAMESPACE__ . '\async_styles' );
 add_filter( 'chocante_assets_remove_styles', __NAMESPACE__ . '\remove_styles' );
-add_filter( 'chocante_assets_preconnect', __NAMESPACE__ . '\preconnect' );
-add_filter( 'chocante_assets_prefetch', __NAMESPACE__ . '\prefetch' );
+add_filter( 'wp_resource_hints', __NAMESPACE__ . '\add_resource_hints', 10, 2 );
 add_filter( 'chocante_assets_use_jquery_migrate', __NAMESPACE__ . '\use_jquery_migrate' );
 
 // Rate My Post.
@@ -237,33 +236,29 @@ function remove_styles( $styles ) {
 /**
  * Preconnect to sources
  *
- * @param array $links Url list.
+ * @param array  $hints Array of resources and their attributes, or URLs to print for resource hints.
+ * @param string $relation_type The relation type the URLs are printed for. One of 'dns-prefetch', 'preconnect', 'prefetch', or 'prerender'.
  * @return array
  */
-function preconnect( $links ) {
+function add_resource_hints( $hints, $relation_type ) {
 	if ( 'production' !== wp_get_environment_type() ) {
-		return $links;
+		return $hints;
 	}
 
-	$preconnect = array( 'https://gtm.chocante.pl', 'https://assets.mailerlite.com', 'https://www.gstatic.com' );
-
-	return array_merge( $links, $preconnect );
-}
-
-/**
- * DNS preferch sources.
- *
- * @param array $links Url list..
- * @return array
- */
-function prefetch( $links ) {
-	if ( 'production' !== wp_get_environment_type() ) {
-		return $links;
+	switch ( $relation_type ) {
+		case 'preconnect':
+			$hints[] = 'https://gtm.chocante.pl';
+			$hints[] = 'https://assets.mailerlite.com';
+			$hints[] = 'https://www.gstatic.com';
+			break;
+		case 'dns-prefetch':
+			$hints[] = 'https://static.ads-twitter.com';
+			$hints[] = 'https://connect.facebook.net';
+			$hints[] = 'https://cdn-cookieyes.com';
+			break;
 	}
 
-	$prefetch = array( 'https://static.ads-twitter.com', 'https://connect.facebook.net', 'https://cdn-cookieyes.com' );
-
-	return array_merge( $links, $prefetch );
+	return $hints;
 }
 
 /**

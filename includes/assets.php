@@ -16,7 +16,6 @@ add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\enqueue_scripts', 20 );
 add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\manage_external_scripts', 9999999 );
 add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\disable_jquery_migrate' );
 add_action( 'wp_head', __NAMESPACE__ . '\preload_assets', 0 );
-add_action( 'wp_head', __NAMESPACE__ . '\preconnect_to_sources', 1 );
 remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
 remove_action( 'wp_print_styles', 'print_emoji_styles' );
 add_filter( 'woocommerce_enqueue_styles', '__return_false' );
@@ -400,24 +399,6 @@ function manage_external_scripts() {
 	foreach ( $remove_styles as $handle ) {
 		wp_dequeue_style( $handle );
 		wp_deregister_style( $handle );
-	}
-}
-
-/**
- * Preconnect to external sources
- */
-function preconnect_to_sources() {
-	$preconnect = apply_filters( 'chocante_assets_preconnect', array() );
-	$prefetch   = apply_filters( 'chocante_assets_prefetch', array() );
-
-	foreach ( $preconnect as $link ) {
-		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-		echo "<link rel=\"preconnect\" href=\"{$link}\" />";
-	}
-
-	foreach ( $prefetch as $link ) {
-		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-		echo "<link rel=\"dns-prefetch\" href=\"{$link}\" />";
 	}
 }
 
