@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the Chocante theme.
 msgid ""
 msgstr ""
-"Project-Id-Version: Chocante 2.1.1\n"
+"Project-Id-Version: Chocante 2.5.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/chocante\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-05-28T08:41:47+00:00\n"
+"POT-Creation-Date: 2026-08-12T08:01:21+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: chocante\n"
@@ -27,6 +27,52 @@ msgstr ""
 #: home.php:49
 msgctxt "blog"
 msgid "Other articles"
+msgstr ""
+
+#: includes/class-chocante-gift-card-email.php:23
+#: includes/gift-cards.php:133
+msgid "Gift card"
+msgstr ""
+
+#: includes/class-chocante-gift-card-email.php:24
+msgid "Sent when an order contains gift card products."
+msgstr ""
+
+#: includes/class-chocante-gift-card-email.php:44
+msgid "{site_title} - Your Gift Card codes"
+msgstr ""
+
+#: includes/class-chocante-gift-card-email.php:54
+msgid "Your Gift Cards"
+msgstr ""
+
+#: includes/class-chocante-gift-card-email.php:126
+msgid "Happy shopping!"
+msgstr ""
+
+#: includes/gift-cards.php:42
+msgid "Generate gift card"
+msgstr ""
+
+#: includes/gift-cards.php:44
+msgid "Controls generating a gift card copupon based on the product price."
+msgstr ""
+
+#. translators: Gift card order note.
+#: includes/gift-cards.php:92
+#, php-format
+msgid "Generated gift card code: %1$s for %2$s"
+msgstr ""
+
+#. translators: Gift card coupon decription.
+#: includes/gift-cards.php:119
+#, php-format
+msgid "Gift card generated for Order #%s"
+msgstr ""
+
+#: includes/gift-cards.php:189
+#: includes/gift-cards.php:210
+msgid "Gift card code"
 msgstr ""
 
 #: includes/layout/account.php:202
@@ -79,12 +125,12 @@ msgstr ""
 msgid "No points available"
 msgstr ""
 
-#: includes/layout/checkout.php:217
+#: includes/layout/checkout.php:214
 msgid "Please select delivery point."
 msgstr ""
 
 #. translators: Delivery point info.
-#: includes/layout/checkout.php:254
+#: includes/layout/checkout.php:263
 msgid "Delivery Point"
 msgstr ""
 
@@ -99,77 +145,77 @@ msgctxt "product loop"
 msgid "Buy now"
 msgstr ""
 
-#: includes/layout/product-section.php:190
+#: includes/layout/product-section.php:189
 msgctxt "product slider"
 msgid "Previous"
 msgstr ""
 
-#: includes/layout/product-section.php:191
+#: includes/layout/product-section.php:190
 msgctxt "product slider"
 msgid "Next"
 msgstr ""
 
-#: includes/layout/product-section.php:192
+#: includes/layout/product-section.php:191
 msgctxt "product slider"
 msgid "Go to first"
 msgstr ""
 
-#: includes/layout/product-section.php:193
+#: includes/layout/product-section.php:192
 msgctxt "product slider"
 msgid "Go to last"
 msgstr ""
 
 #. translators: Go to product number.
-#: includes/layout/product-section.php:195
+#: includes/layout/product-section.php:194
 #, php-format
 msgctxt "product slider"
 msgid "Go to %s"
 msgstr ""
 
 #. translators: Go to page number.
-#: includes/layout/product-section.php:197
+#: includes/layout/product-section.php:196
 #, php-format
 msgctxt "product slider"
 msgid "Go to page %s"
 msgstr ""
 
-#: includes/layout/product-section.php:198
+#: includes/layout/product-section.php:197
 msgctxt "product slider"
 msgid "Start autoplay"
 msgstr ""
 
-#: includes/layout/product-section.php:199
+#: includes/layout/product-section.php:198
 msgctxt "product slider"
 msgid "Pause autoplay"
 msgstr ""
 
-#: includes/layout/product-section.php:200
+#: includes/layout/product-section.php:199
 msgctxt "product slider"
 msgid "carousel"
 msgstr ""
 
-#: includes/layout/product-section.php:201
+#: includes/layout/product-section.php:200
 msgctxt "product slider"
 msgid "Select product to show"
 msgstr ""
 
-#: includes/layout/product-section.php:202
+#: includes/layout/product-section.php:201
 msgctxt "product slider"
 msgid "product"
 msgstr ""
 
-#: includes/layout/product.php:137
+#: includes/layout/product.php:138
 msgctxt "product slider"
 msgid "Products from category"
 msgstr ""
 
 #. translators: Number of pieces.
-#: includes/layout/product.php:248
+#: includes/layout/product.php:249
 #, php-format
 msgid "%s pcs"
 msgstr ""
 
-#: includes/layout/product.php:272
+#: includes/layout/product.php:273
 msgid "Last items in stock!"
 msgstr ""
 
@@ -375,7 +421,7 @@ msgctxt "admin"
 msgid "Widgets in this area will be shown in the bottom right part of footer."
 msgstr ""
 
-#: includes/woo.php:128
+#: includes/woo.php:125
 msgctxt "price range prefix"
 msgid "From"
 msgstr ""
@@ -410,7 +456,7 @@ msgid "Page not found"
 msgstr ""
 
 #: template-parts/404.php:22
-#: woocommerce/checkout/thankyou.php:57
+#: woocommerce/checkout/thankyou.php:48
 msgctxt "thankyou"
 msgid "Go to homepage"
 msgstr ""
@@ -570,7 +616,22 @@ msgctxt "thankyou"
 msgid "Your order no. %s has been accepted for processing."
 msgstr ""
 
-#: woocommerce/loop/no-products-found.php:27
+#: woocommerce/emails/gift-card.php:24
+#: woocommerce/emails/plain/gift-card.php:16
+msgid "Thanks for shopping with us. Here are your gift cards:"
+msgstr ""
+
+#: woocommerce/emails/gift-card.php:36
+#: woocommerce/emails/plain/gift-card.php:25
+msgid "You can also find the gift card coupon codes in your account under order details."
+msgstr ""
+
+#: woocommerce/emails/gift-card.php:37
+#: woocommerce/emails/plain/gift-card.php:27
+msgid "Apply the coupon code in cart or checkout to get a discount for your order."
+msgstr ""
+
+#: woocommerce/loop/no-products-found.php:25
 msgctxt "no products found"
 msgid "or"
 msgstr ""
@@ -602,7 +663,7 @@ msgstr[1] ""
 msgid "Product gallery thumbnails"
 msgstr ""
 
-#: blocks/infobar/edit.js:16
+#: blocks/infobar/edit.js:17
 msgid "Insert message…"
 msgstr ""
 

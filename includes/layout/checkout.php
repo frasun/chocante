@@ -197,7 +197,13 @@ function add_script_data() {
  * @param  \WP_Error $errors Validation errors.
  */
 function delivery_point_validate_in_checkout( $data, $errors ) {
-	$method                    = $data['shipping_method'][0];
+	$shipping_method = $data['shipping_method'];
+
+	if ( empty( $shipping_method ) ) {
+		return;
+	}
+
+	$method                    = $shipping_method[0];
 	[$method_id, $instance_id] = explode( ':', $method );
 	$shipping_method_settings  = get_option( "woocommerce_{$method_id}_{$instance_id}_settings", array() );
 
@@ -217,7 +223,13 @@ function delivery_point_validate_in_checkout( $data, $errors ) {
  * @param  array $data Posted data.
  */
 function delivery_point_save_in_order( $order_id, $data ) {
-	$method                    = $data['shipping_method'][0];
+	$shipping_method = $data['shipping_method'];
+
+	if ( empty( $shipping_method ) ) {
+		return;
+	}
+
+	$method                    = $shipping_method[0];
 	[$method_id, $instance_id] = explode( ':', $method );
 	$shipping_method_settings  = get_option( "woocommerce_{$method_id}_{$instance_id}_settings", array() );
 
