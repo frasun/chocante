@@ -20,6 +20,7 @@ require_once __DIR__ . '/includes/blocks.php';
 require_once __DIR__ . '/includes/media.php';
 require_once __DIR__ . '/includes/woo.php';
 require_once __DIR__ . '/includes/product-tags.php';
+require_once __DIR__ . '/includes/coupons.php';
 require_once __DIR__ . '/includes/gift-cards.php';
 require_once __DIR__ . '/includes/currency.php';
 require_once __DIR__ . '/includes/location.php';
