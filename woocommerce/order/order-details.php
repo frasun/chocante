@@ -12,7 +12,7 @@
  *
  * @see     https://woocommerce.com/document/template-structure/
  * @package WooCommerce\Templates
- * @version 10.1.0
+ * @version 10.9.0
  *
  * @var bool $show_downloads Controls whether the downloads table should be rendered.
  */
@@ -51,7 +51,6 @@ if ( $show_downloads ) {
 	);
 }
 ?>
-
 <section class="woocommerce-order-details">
 	<?php do_action( 'woocommerce_order_details_before_order_table', $order ); ?>
 
