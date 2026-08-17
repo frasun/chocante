@@ -69,6 +69,7 @@ add_filter( 'chocante_product_filters_label', __NAMESPACE__ . '\i18n_product_fil
 // Woo e-mails.
 add_filter( 'woocommerce_order_item_name', __NAMESPACE__ . '\translate_email_order_item_name', 40, 2 );
 add_filter( 'woocommerce_get_order_item_totals', __NAMESPACE__ . '\translate_email_order_totals', 10, 2 );
+add_action( 'chocante_gift_card_notification', __NAMESPACE__ . '\set_trp_order' );
 
 // Woo order API.
 add_filter( 'woocommerce_rest_prepare_shop_order_object', __NAMESPACE__ . '\add_translations_to_order_api', 10, 3 );
@@ -752,4 +753,14 @@ function add_translated_urls( &$urls, $skip_default = true ) {
 	}
 
 	$urls = array_unique( array_merge( $urls, $translated_urls ) );
+}
+
+/**
+ * Set order for TRP to properly get language on deffered email sending (e.g. using scheduler)
+ *
+ * @param int $order_id Order ID.
+ */
+function set_trp_order( $order_id ) {
+	global $TRP_EMAIL_ORDER;
+	$TRP_EMAIL_ORDER = $order_id;
 }
