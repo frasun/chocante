@@ -57,7 +57,7 @@ add_action( 'chocante_language_switcher', __NAMESPACE__ . '\display_language_swi
 
 // Plugin i18n.
 add_filter( 'chocante_product_section_script_data', __NAMESPACE__ . '\add_language_to_product_section_script' );
-add_filter( 'woocommerce_available_variation', __NAMESPACE__ . '\i18n_woo_variation' );
+add_filter( 'woocommerce_available_variation', __NAMESPACE__ . '\i18n_woo_variation_data' );
 add_filter( 'woocommerce_cart_shipping_method_full_label', __NAMESPACE__ . '\i18n_shipping_method', 10, 2 );
 add_filter( 'cwginstock_default_values', __NAMESPACE__ . '\i18n_cwg' );
 add_filter( 'cwginstock_localization_array', __NAMESPACE__ . '\i18n_cwg_script' );
@@ -526,15 +526,21 @@ function i18n_pod( $texts ) {
 }
 
 /**
- * Expose variation description used in JS variations form
+ * Handle variation data JSON used in variations form
  *
  * @param array $variation_data Variation data.
  * @return array
  */
-function i18n_woo_variation( $variation_data ) {
+function i18n_woo_variation_data( $variation_data ) {
 	if ( function_exists( 'trp_translate' ) ) {
 		$variation_description                   = $variation_data['variation_description'];
 		$variation_data['variation_description'] = trp_translate( $variation_description, null, false );
+	}
+
+	if ( class_exists( 'TRP_Translation_Manager' ) ) {
+		foreach ( $variation_data as &$data ) {
+			$data = \TRP_Translation_Manager::strip_gettext_tags( $data );
+		}
 	}
 
 	return $variation_data;
