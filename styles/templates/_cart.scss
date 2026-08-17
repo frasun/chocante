@@ -300,6 +300,7 @@
 			.cart_totals {
 
 				@include box;
+				overflow: hidden;
 
 				h2 {
 
@@ -368,6 +369,7 @@
 
 								// Fix for select2.
 								.select2-container {
+									width: 100% !important;
 									margin-bottom: 4px;
 								}
 
@@ -397,7 +399,7 @@
 								}
 
 								&:has(.address-field) {
-									flex-direction: column;
+									flex-direction: §lumn;
 
 									p {
 										width: 100%;
@@ -408,9 +410,10 @@
 					}
 
 					&-form-coupon {
+						display: flex !important;
+						position: static !important;
 
 						@media (min-width: $breakpoint--desktop-sm) and (max-width: calc($breakpoint--desktop-md - 1px)) {
-							display: flex;
 							flex-direction: column;
 						}
 					}

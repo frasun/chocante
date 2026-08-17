@@ -236,6 +236,10 @@
 						border-bottom: 0;
 					}
 				}
+
+				> .woocommerce-info + * {
+					margin-top: var(--spacing--20);
+				}
 			}
 		}
 
@@ -521,6 +525,7 @@
 	flex-direction: column;
 	gap: var(--spacing--40);
 
+	/* stylelint-disable-next-line no-descending-specificity */
 	> *:not(.woocommerce-order-details) {
 		max-width: var(--size--form);
 	}
