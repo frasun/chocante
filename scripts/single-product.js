@@ -23,8 +23,14 @@ function selectVariationStockData( event, variationData ) {
 		return;
 	}
 
+	const availability = variationData[ AVAILABILITY ];
+
+	if ( '' === availability ) {
+		return;
+	}
+
 	const element = document.createElement( 'div' );
-	element.innerHTML = variationData[ AVAILABILITY ];
+	element.innerHTML = availability;
 
 	stock.replaceWith( element.firstChild );
 }
