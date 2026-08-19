@@ -24,7 +24,10 @@ function apply_coupon_from_url() {
 		return;
 	}
 
-  // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated
+	if ( ! isset( $_SERVER['REQUEST_URI'] ) ) {
+		return;
+	}
+
 	$path       = trim( wp_parse_url( sanitize_url( wp_unslash( $_SERVER['REQUEST_URI'] ) ), PHP_URL_PATH ), '/' );
 	$segments   = explode( '/', $path );
 	$maybe_code = end( $segments );
