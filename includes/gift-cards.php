@@ -73,6 +73,7 @@ function set_gift_card_option( $post_id ) {
  */
 function generate_gift_card_for_order( $order_id, $order ) {
 	$order_items = $order->get_items();
+	$send_email  = false;
 
 	foreach ( $order_items as $item ) {
 		if ( ! $item instanceof \WC_Order_Item_Product ) {
@@ -83,7 +84,8 @@ function generate_gift_card_for_order( $order_id, $order ) {
 		$parent_product = $item->get_variation_id() ? wc_get_product( $product->get_parent_id() ) : $product;
 
 		if ( 'yes' === $parent_product->get_meta( GIFT_CARD_META ) ) {
-			$i = 0;
+			$send_email = true;
+			$i          = 0;
 			while ( $i < $item->get_quantity() ) {
 				$value = $product->get_price();
 				$code  = generate_gift_card( $order_id, $value );
@@ -98,7 +100,9 @@ function generate_gift_card_for_order( $order_id, $order ) {
 		}
 	}
 
-	schedule_gift_card_email( $order_id );
+	if ( $send_email ) {
+		schedule_gift_card_email( $order_id );
+	}
 }
 
 /**
