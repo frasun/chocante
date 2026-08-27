@@ -15,7 +15,7 @@
 		width: var(--empty-scree-badge-size);
 		height: var(--empty-scree-badge-size);
 		border-radius: 50%;
-		background-color: var(--wp--preset--color--white);
+		background-color: var(--empty-screen--icon--bg, var(--wp--preset--color--white));
 
 		@include flex(center);
 		margin: var(--spacing--10) auto;

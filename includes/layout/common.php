@@ -8,9 +8,9 @@
 
 namespace Chocante\Layout\Common;
 
-use function Chocante\Assets\icon;
-
 defined( 'ABSPATH' ) || exit;
+
+use function Chocante\Assets\icon;
 
 // Breadcrumbs.
 add_action( 'chocante_before_content_header', __NAMESPACE__ . '\display_page_breadcrumbs' );
@@ -44,7 +44,6 @@ remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_pr
 add_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_product_link_close', 50 );
 add_action( 'woocommerce_before_shop_loop_item_title', __NAMESPACE__ . '\add_loop_item_info_open', 30 );
 add_action( 'woocommerce_after_shop_loop_item_title', __NAMESPACE__ . '\add_loop_item_info_close', 20 );
-remove_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_rating', 5 );
 add_action( 'woocommerce_after_shop_loop_item', __NAMESPACE__ . '\add_loop_item_info_close', 30 );
 
 // Product & archive page.
@@ -53,6 +52,16 @@ add_action( 'woocommerce_before_main_content', __NAMESPACE__ . '\open_main_eleme
 remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20 );
 remove_action( 'woocommerce_after_main_content', 'woocommerce_output_content_wrapper_end' );
 add_action( 'woocommerce_after_main_content', __NAMESPACE__ . '\close_main_element', 60 );
+
+// Comments / Reviews.
+add_filter( 'wp_list_comments_args', __NAMESPACE__ . '\fix_comments_ordering' );
+add_action( 'pre_get_comments', __NAMESPACE__ . '\set_comments_query_defaults' );
+add_filter( 'get_page_of_comment_query_args', __NAMESPACE__ . '\fix_comment_page_order' );
+add_filter( 'previous_comments_link_attributes', __NAMESPACE__ . '\aria_prev_comments' );
+add_filter( 'next_comments_link_attributes', __NAMESPACE__ . '\aria_next_comments' );
+add_filter( 'comment_form_fields', __NAMESPACE__ . '\reorder_comment_form_fields' );
+add_filter( 'woocommerce_review_gravatar_size', __NAMESPACE__ . '\set_avatar_size' );
+add_filter( 'get_comment_author', __NAMESPACE__ . '\get_comment_author', 10, 3 );
 
 // Admin.
 add_filter( 'show_admin_bar', __NAMESPACE__ . '\hide_admin_bar' );
@@ -113,9 +122,12 @@ function modify_breadcrumbs( $args ) {
 
 /**
  * Return spinner image
+ *
+ * @param string $atts HTML attributes.
+ * @return string
  */
-function spinner() {
-	return '<img src="' . esc_url( get_theme_file_uri( 'images/spinner-2x.gif' ) ) . '" alt="' . esc_attr_x( 'Loading', 'product slider', 'chocante' ) . '" class="spinner" loading="lazy">';
+function spinner( $atts = '' ) {
+	return sprintf( '<img src="%s" alt="%s" class="spinner" loading="lazy" %s />', esc_url( get_theme_file_uri( 'images/spinner-2x.gif' ) ), esc_attr_x( 'Loading', 'product slider', 'chocante' ), $atts );
 }
 
 /**
@@ -211,8 +223,8 @@ function add_loop_item_info_close() {
 /**
  * Replace add to cart link with button
  *
- * @param string     $link Add to cart url.
- * @param WC_Product $product Product object.
+ * @param string      $link Add to cart url.
+ * @param \WC_Product $product Product object.
  * @return string
  */
 function add_to_cart_button( $link, $product ) {
@@ -222,8 +234,8 @@ function add_to_cart_button( $link, $product ) {
 /**
  * Replace add to cart text when product is out of stock
  *
- * @param string     $text Add to cart text.
- * @param WC_Product $product Product object.
+ * @param string      $text Add to cart text.
+ * @param \WC_Product $product Product object.
  * @return string
  */
 function add_to_cart_text( $text, $product ) {
@@ -277,4 +289,158 @@ function display_header() {
  */
 function display_footer() {
 	get_template_part( 'template-parts/footer' );
+}
+
+/**
+ * Setup review list options
+ *
+ * @see: Chocante\Layout\Common\set_comments_ordering
+ *
+ * @param string|array $args Formatting options.
+ * @return string|array
+ */
+function fix_comments_ordering( $args ) {
+	$args['reverse_top_level'] = isset( $args['reverse_top_level'] ) ? ! $args['reverse_top_level'] : ( 'asc' === get_option( 'comment_order' ) );
+
+	return $args;
+}
+
+/**
+ * Add WCAG directives to previous comments navigation link (newer comments)
+ *
+ * @param string $atts Link attributes.
+ * @return string
+ */
+function aria_prev_comments( $atts ) {
+	$atts .= sprintf( ' aria-label="%s"', __( 'Newer comments' ) );
+	return $atts;
+}
+
+/**
+ * Add WCAG directives to next comments navigation link (older comments)
+ *
+ * @param string $atts Link attributes.
+ * @return string
+ */
+function aria_next_comments( $atts ) {
+	$atts .= sprintf( ' aria-label="%s"', __( 'Older comments' ) );
+	return $atts;
+}
+
+/**
+ * Reorder comment form fields
+ *
+ * @param array $comment_fields The comment fields.
+ * @return array
+ */
+function reorder_comment_form_fields( $comment_fields ) {
+	$fields = array();
+
+	if ( isset( $comment_fields['author'] ) ) {
+		$fields['author'] = $comment_fields['author'];
+	}
+
+	if ( isset( $comment_fields['email'] ) ) {
+		$fields['email'] = $comment_fields['email'];
+	}
+
+	$fields['comment'] = $comment_fields['comment'];
+
+	return $fields;
+}
+
+/**
+ * Set comment query according to admin discussion settings
+ *
+ * @param \WP_Comment_Query $query Current instance of WP_Comment_Query (passed by reference).
+ */
+function set_comments_query_defaults( $query ) {
+	// Ordering.
+	$query->query_vars['order'] = 'DESC';
+
+	// Pagination.
+	if ( ! empty( $query->query_vars['number'] ) ) {
+		return;
+	}
+
+	if ( ! get_option( 'page_comments' ) ) {
+		return;
+	}
+
+	$per_page = (int) get_option( 'comments_per_page' );
+
+	if ( $per_page < 1 ) {
+		return;
+	}
+
+	if ( ! empty( $query->query_vars['number'] ) ) {
+		$query->query_vars['number'] = $per_page;
+	}
+
+	if ( empty( $query->query_vars['offset'] ) ) {
+		$query->query_vars['offset'] = 0;
+	}
+}
+
+/**
+ * Fix calculating commetns page used in deeplinking according to comments DESC order
+ *
+ * @see Chocante\Layout\Common\set_comments_query_defaults
+ *
+ * @param array $args Array of WP_Comment_Query arguments.
+ * @return array
+ */
+function fix_comment_page_order( $args ) {
+	if ( isset( $args['date_query'][0]['before'] ) ) {
+		$args['date_query'][0]['after'] = $args['date_query'][0]['before'];
+		unset( $args['date_query'][0]['before'] );
+	}
+
+	return $args;
+}
+
+/**
+ * Set user avatar size in px
+ *
+ * @return string
+ */
+function set_avatar_size() {
+	return '32';
+}
+
+/**
+ * Display comment/review author name
+ *
+ * @param string      $comment_author The comment author's username.
+ * @param string      $comment_id     The comment ID as a numeric string.
+ * @param \WP_Comment $comment        The comment object.
+ * @return string
+ */
+function get_comment_author( $comment_author, $comment_id, $comment ) {
+	if ( is_admin() ) {
+		return $comment_author;
+	}
+
+	$display_name = get_comment_meta( $comment_id, 'author_display_name', true );
+
+	if ( ! empty( $display_name ) ) {
+		return $display_name;
+	}
+
+	if ( 'comment' !== $comment->comment_type ) {
+		return $comment_author;
+	}
+
+	$user = ! empty( $comment->user_id ) ? get_userdata( $comment->user_id ) : false;
+
+	if ( $user ) {
+
+		if ( user_can( $user, 'moderate_comments' ) ) {
+			$comment_author = get_bloginfo( 'name' );
+		} else {
+			$comment_author = $user->first_name;
+		}
+	}
+
+	return $comment_author;
 }

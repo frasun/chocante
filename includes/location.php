@@ -310,3 +310,18 @@ function get_customer_city_from_geoip( $value ) {
 	return $value;
 }
 // phpcs:enable
+
+/**
+ * Get country name
+ *
+ * @param string $country_code Country code.
+ * @return string|null
+ */
+function get_country_name( $country_code ) {
+	if ( ! class_exists( 'WC_Countries' ) ) {
+		return null;
+	}
+
+	$countries = new \WC_Countries();
+	return $countries->countries[ $country_code ] ?? null;
+}

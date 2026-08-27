@@ -8,12 +8,15 @@
 
 namespace Chocante\Layout\Product;
 
+defined( 'ABSPATH' ) || exit;
+
 use function Chocante\Layout\ProductSection\display_product_section;
 use function Chocante\Woo\get_variation_name;
 
-defined( 'ABSPATH' ) || exit;
-
+// Layout: woocommerce_before_single_product.
 remove_action( 'woocommerce_before_single_product', 'woocommerce_output_all_notices' );
+
+// Layout: woocommerce_before_single_product_summary.
 remove_action( 'woocommerce_before_single_product_summary', 'woocommerce_show_product_sale_flash', 10 );
 add_action( 'woocommerce_before_single_product_summary', 'woocommerce_output_all_notices', 5 );
 add_action( 'woocommerce_before_single_product_summary', 'Chocante\Woo\display_shop_breadcrumbs', 7 );
@@ -21,9 +24,11 @@ add_action( 'woocommerce_before_single_product_summary', __NAMESPACE__ . '\open_
 add_action( 'woocommerce_before_single_product_summary', __NAMESPACE__ . '\open_product_header', 13 );
 add_action( 'woocommerce_before_single_product_summary', 'woocommerce_show_product_sale_flash', 14 );
 add_action( 'woocommerce_before_single_product_summary', 'woocommerce_template_single_title', 16 );
+add_action( 'woocommerce_before_single_product_summary', 'woocommerce_template_single_rating', 17 );
 add_action( 'woocommerce_before_single_product_summary', __NAMESPACE__ . '\close_product_header', 18 );
 add_action( 'woocommerce_before_single_product_summary', '\Chocante\ProductTags\display_diet_icons_product_page', 25 );
 
+// Layout: woocommerce_single_product_summary.
 remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_title', 5 );
 remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_rating', 10 );
 remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_price', 10 );
@@ -31,13 +36,16 @@ add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_p
 add_action( 'woocommerce_single_product_summary', __NAMESPACE__ . '\display_product_info', 30 );
 add_action( 'woocommerce_single_product_summary', __NAMESPACE__ . '\display_product_attributes', 35 );
 
+// Layout: woocommerce_after_single_product_summary.
 remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_product_data_tabs', 10 );
 remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_upsell_display', 15 );
 remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_related_products', 20 );
 add_action( 'woocommerce_after_single_product_summary', __NAMESPACE__ . '\close_product_info_section', 30 );
 
+// Layout: woocommerce_after_single_product.
 add_action( 'woocommerce_after_single_product', __NAMESPACE__ . '\display_related_products', 10 );
 add_action( 'woocommerce_after_single_product', __NAMESPACE__ . '\output_product_description', 20 );
+add_action( 'woocommerce_after_single_product', 'comments_template', 30 );
 
 // Product variation.
 add_action( 'woocommerce_after_variations_table', 'woocommerce_single_variation', 10 );
@@ -66,6 +74,16 @@ add_action( 'chocante_product_stock', __NAMESPACE__ . '\get_product_stock' );
 add_action( 'woocommerce_ajax_added_to_cart', __NAMESPACE__ . '\make_success_notice_on_add_to_cart' );
 add_filter( 'woocommerce_cart_redirect_after_error', __NAMESPACE__ . '\make_error_notice_on_add_to_cart' );
 add_filter( 'woocommerce_add_to_cart_fragments', __NAMESPACE__ . '\add_fragments_with_add_to_cart_notices' );
+
+// Product reviews.
+remove_action( 'woocommerce_review_before_comment_meta', 'woocommerce_review_display_rating' );
+remove_action( 'woocommerce_review_meta', 'woocommerce_review_display_meta' );
+add_filter( 'previous_comments_link_attributes', __NAMESPACE__ . '\add_interactive_navigation_to_reviews', 20 );
+add_filter( 'next_comments_link_attributes', __NAMESPACE__ . '\add_interactive_navigation_to_reviews', 20 );
+add_filter( 'rank_math/schema/validated_data', __NAMESPACE__ . '\set_deeplinks_in_review_schema' );
+add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\add_reviews_script_data', 30 );
+add_action( 'wp_ajax_get_product_review_form', __NAMESPACE__ . '\get_product_review_form' );
+add_action( 'wp_ajax_nopriv_get_product_review_form', __NAMESPACE__ . '\get_product_review_form' );
 
 /**
  * Open product info section
@@ -231,8 +249,8 @@ function add_atts_to_main_image( $image_attributes, $attachment_id, $image_size,
 /**
  * Modify quantity text by adding variation info
  *
- * @param string     $availability Availability text.
- * @param WC_Product $product Product object.
+ * @param string      $availability Availability text.
+ * @param \WC_Product $product Product object.
  */
 function get_stock_text( $availability, $product ) {
 	/**
@@ -426,7 +444,7 @@ function add_fragments_with_add_to_cart_notices( $fragments ) {
 /**
  * Get product images
  *
- * @param WC_Product $product Product object.
+ * @param \WC_Product $product Product object.
  */
 function get_product_image_ids( $product ) {
 	$images            = array();
@@ -474,4 +492,113 @@ function display_product_gallery_image( $attachment_id, $alt_text, $is_main ) {
 		$image_params
 	);
 	echo '</a>';
+}
+
+/**
+ * Add interactivity routing to review pagination
+ *
+ * @param string $atts Link attributes.
+ * @return string
+ */
+function add_interactive_navigation_to_reviews( $atts ) {
+	if ( ! is_product() ) {
+		return $atts;
+	}
+
+	$atts .= ' data-wp-on--mouseenter="actions.prefetch" data-wp-on--click="actions.navigate"';
+	return $atts;
+}
+
+/**
+ * Set links to comments/reviews as review ID in Google JSON-LD schema
+ *
+ * @param array $data JSON Schema.
+ * @return array
+ */
+function set_deeplinks_in_review_schema( $data ) {
+	if ( ! isset( $data['richSnippet'], $data['richSnippet']['review'] ) ) {
+		return $data;
+	}
+
+	foreach ( $data['richSnippet']['review'] as &$review ) {
+		if ( ! isset( $review['@id'] ) ) {
+			continue;
+		}
+
+		$review['@id'] = str_replace( '#li-comment', '#comment', $review['@id'] );
+	}
+
+	return $data;
+}
+
+/**
+ * Add product reviews client script data
+ */
+function add_reviews_script_data() {
+	if ( ! class_exists( 'WooCommerce' ) || ! is_product() ) {
+		return;
+	}
+
+	wp_interactivity_config(
+		'chocante/product-reviews',
+		array(
+			'ajaxUrl' => admin_url( 'admin-ajax.php' ),
+			'i18n'    => array(
+				'invalid_nonce'                       => __( 'Security check failed.' ),
+				'require_rating'                      => __( 'Please rate the product.', 'woocommerce' ),
+				'comment_reply_to_unapproved_comment' => __( 'Sorry, replies to unapproved comments are not allowed.' ),
+				'comment_closed'                      => __( 'Sorry, comments are closed for this item.' ),
+				'comment_on_draft'                    => __( 'Sorry, comments are not allowed for this item.' ),
+				'not_logged_in'                       => __( 'Sorry, you must be logged in to comment.' ),
+				'require_name_email'                  => __( '<strong>Error:</strong> Please fill the required fields.' ),
+				'require_valid_email'                 => __( '<strong>Error:</strong> Please enter a valid email address.' ),
+				'require_valid_comment'               => __( '<strong>Error:</strong> Please type your comment text.' ),
+				'comment_content_column_length'       => __( '<strong>Error:</strong> Your comment is too long.' ),
+				'comment_author_column_length'        => __( '<strong>Error:</strong> Your name is too long.' ),
+				'comment_author_email_column_length'  => __( '<strong>Error:</strong> Your email address is too long.' ),
+				'comment_author_url_column_length'    => __( '<strong>Error:</strong> Your URL is too long.' ),
+				'comment_duplicate'                   => __( 'Duplicate comment detected; it looks as though you&#8217;ve already said that!' ),
+				'comment_flood'                       => __( 'You are posting comments too quickly. Slow down.' ),
+				'comment_save_error'                  => __( '<strong>Error:</strong> The comment could not be saved. Please try again later.' ),
+				'comment_save_success'                => __( 'Thank you for your feedback!', 'woocommerce' ),
+				'comment_save_unapproved'             => __( 'Thanks, your review is pending approval.', 'woocommerce' ),
+				'generic_error'                       => __( 'Something went wrong, please try again.', 'woocommerce' ),
+			),
+		)
+	);
+}
+
+/**
+ * Display product review form
+ */
+function get_product_review_form() {
+	if ( ! isset( $_POST['product_id'] ) ) {
+		wp_send_json_error( null, 400 );
+	}
+
+	$product = wc_get_product( absint( $_POST['product_id'] ) );
+
+	if ( ! $product || ! is_a( $product, 'WC_Product' ) ) {
+		wp_send_json_error( null, 400 );
+	}
+
+	$verified_buyer = wc_customer_bought_product( '', get_current_user_id(), $product->get_id() );
+	$must_verify    = 'yes' === get_option( 'woocommerce_review_rating_verification_required' ) && ! $verified_buyer;
+	$is_logged_in   = is_user_logged_in();
+	$must_log_in    = get_option( 'comment_registration' ) && ! $is_logged_in;
+	$commenter      = wp_get_current_commenter();
+
+	wp_send_json_success(
+		array(
+			'showForm'       => ! $must_verify && ! $must_log_in,
+			'verifiedBuyer'  => $verified_buyer,
+			'author'         => $commenter['comment_author'],
+			'email'          => $commenter['comment_author_email'],
+			'authorRequired' => ! $is_logged_in,
+			'mustLogIn'      => $must_log_in && ! $must_verify,
+			'mustBeVerified' => $must_verify,
+			'nonce'          => wp_create_nonce( 'chocante_product_review' ),
+			'productId'      => $product->get_id(),
+		)
+	);
 }

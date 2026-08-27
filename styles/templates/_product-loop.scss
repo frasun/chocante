@@ -88,6 +88,22 @@
 					line-height: 1.15;
 					padding-top: 0.2em;
 				}
+
+				&__rating {
+					margin-top: var(--spacing--10);
+
+					&-count {
+						display: inline-block;
+						vertical-align: top;
+						margin-left: 0.1em;
+						font-weight: var(--font-weight--bold);
+
+						@include font-size(small-sm);
+						@include color(grey-2);
+
+
+					}
+				}
 			}
 		}
 
@@ -100,6 +116,10 @@
 		&.outofstock .button {
 
 			@include button-style-outline;
+		}
+
+		&:not(:has(.woocommerce-loop-product__rating)) .price {
+			margin-top: var(--spacing--10);
 		}
 	}
 }

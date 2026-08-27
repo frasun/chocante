@@ -21,3 +21,12 @@
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
+
+@mixin icon($name) {
+
+	@include icon-font;
+
+	@if $name == "star" {
+		content: "\0042";
+	}
+}

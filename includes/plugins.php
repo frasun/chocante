@@ -214,6 +214,7 @@ function remove_styles( $styles ) {
 	if ( class_exists( 'WooCommerce' ) ) {
 		$styles[] = 'brands-styles';
 		$styles[] = 'wc-blocks-style';
+		$styles[] = 'wc-order-review';
 
 		if ( ! is_product() ) {
 			$styles[] = 'photoswipe';

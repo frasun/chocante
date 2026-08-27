@@ -1,7 +1,3 @@
-:root {
-	--rating--highlight: #e1c663;
-}
-
 .rmp {
 
 	&-icon {
@@ -9,16 +5,15 @@
 		&--ratings {
 			font-size: 16px;
 			padding: 0 0.1em;
-
-			@include color(grey-3);
+			color: var(--wp--custom--rating--empty);
 		}
 
 		&--full-highlight {
-			color: var(--rating--highlight);
+			color: var(--wp--custom--rating--filled);
 		}
 
 		&--half-highlight {
-			background: linear-gradient(to right, var(--rating--highlight) 50%, var(--wp--custom--color--grey-3) 50%);
+			background: linear-gradient(to right, var(--wp--custom--rating--filled) 50%, var(--wp--custom--rating--empty) 50%);
 			-webkit-background-clip: text;
 			background-clip: text;
 			-webkit-text-fill-color: transparent;
@@ -81,8 +76,7 @@
 				&--ratings {
 					font-size: 16px;
 					padding: 0 0.1em;
-
-					@include color(grey-3);
+					color: var(--wp--custom--rating--empty);
 
 					@include max-width($breakpoint--mobile-lg) {
 						font-size: 24px;
@@ -90,24 +84,24 @@
 				}
 
 				&--half-highlight {
-					background: linear-gradient(to right, var(--rating--highlight) 50%, var(--wp--custom--color--grey-3) 50%);
+					background: linear-gradient(to right, var(--wp--custom--rating--filled) 50%, var(--wp--custom--rating--empty) 50%);
 					-webkit-background-clip: text;
 					-webkit-text-fill-color: transparent;
 
 					&.rmp-icon--hovered {
-						background: var(--rating--highlight);
+						background: var(--wp--custom--rating--filled);
 						-webkit-background-clip: text;
 						-webkit-text-fill-color: transparent;
 					}
 				}
 
 				&--full-highlight {
-					color: var(--rating--highlight);
+					color: var(--wp--custom--rating--filled);
 				}
 
 				&--processing-rating,
 				&--hovered {
-					color: var(--rating--highlight);
+					color: var(--wp--custom--rating--filled);
 				}
 			}
 		}
@@ -122,7 +116,7 @@
 		&--has-rated {
 
 			.rmp-icon--full-highlight {
-				color: var(--rating--highlight);
+				color: var(--wp--custom--rating--filled);
 			}
 		}
 	}

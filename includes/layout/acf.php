@@ -46,6 +46,7 @@ add_action( 'chocante_shop_product_category_description', __NAMESPACE__ . '\disp
 
 // View order.
 add_filter( 'woocommerce_order_item_name', __NAMESPACE__ . '\modify_order_item_name', 30, 3 );
+add_filter( 'chocante_review_order_item_name', __NAMESPACE__ . '\get_product_page_title', 10, 2 );
 
 // Featured products slider.
 add_filter( 'chocante_featured_products_category', __NAMESPACE__ . '\get_featured_category', 10, 2 );
@@ -174,8 +175,8 @@ function get_product_page_title( $title, $id ) {
 /**
  * Add ACF product attributes
  *
- * @param array      $product_attributes Product attributes.
- * @param WC_Product $product Product object.
+ * @param array       $product_attributes Product attributes.
+ * @param \WC_Product $product Product object.
  * @return array
  */
 function add_product_attributes( $product_attributes, $product ) {

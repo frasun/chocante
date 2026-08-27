@@ -86,6 +86,11 @@ module.exports = [
 				'scripts',
 				'cky-load-styles.js'
 			),
+			'order-review': path.resolve(
+				process.cwd(),
+				'styles',
+				'order-review.scss'
+			),
 		},
 		// Do not bundle fonts.
 		module: {
@@ -120,6 +125,11 @@ module.exports = [
 		entry: {
 			...moduleEntry,
 			'shop-scripts': path.resolve( process.cwd(), 'scripts', 'shop.js' ),
+			'product-reviews': path.resolve(
+				process.cwd(),
+				'scripts',
+				'product-reviews.js'
+			),
 		},
 	},
 ];

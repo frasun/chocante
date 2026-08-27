@@ -78,6 +78,18 @@ function enqueue_scripts() {
 			$scripts['chocante-product'] = array(
 				'filename' => 'single-product-scripts',
 			);
+
+			if ( comments_open() ) {
+				$scripts['chocante-product-reviews'] = array(
+					'filename'     => 'product-reviews',
+					'type'         => 'module',
+					'dependencies' => array( '@wordpress/interactivity' ),
+					'args'         => array(
+						'in_footer'     => true,
+						'fetchpriority' => 'low',
+					),
+				);
+			}
 		}
 
 		// Cart.
@@ -104,6 +116,11 @@ function enqueue_scripts() {
 			$scripts['chocante-account'] = array(
 				'filename' => 'account-scripts',
 			);
+		}
+
+		// Order review page.
+		if ( is_page( wc_get_page_id( 'review_order' ) ) ) {
+			$styles[] = 'order-review';
 		}
 	}
 
@@ -150,6 +167,7 @@ function add_theme_scripts( $scripts ) {
 				get_theme_file_uri( "build/{$asset['filename']}.js" ),
 				array_merge( $script['dependencies'], $asset['dependencies'] ?? array() ),
 				$script['version'],
+				$asset['args'] ?? array()
 			);
 
 			continue;

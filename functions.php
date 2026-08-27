@@ -33,6 +33,7 @@ require_once __DIR__ . '/includes/cloudflare.php';
 require_once __DIR__ . '/includes/abilities.php';
 require_once __DIR__ . '/includes/blpaczka.php';
 require_once __DIR__ . '/includes/gtm.php';
+require_once __DIR__ . '/includes/class-product-reviews-feed.php';
 
 /**
  * Layout.

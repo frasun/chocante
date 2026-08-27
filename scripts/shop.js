@@ -3,8 +3,7 @@ import { MOBILE_BREAKPOINT } from './constants';
 import { getGTM, pushGTM } from './gtm';
 /* eslint-disable-next-line import/no-unresolved */
 import { store, watch, getElement } from '@wordpress/interactivity';
-
-const SITE_HEADER = '#siteHeader';
+import delayedShowMenu from './delayed-show-menu';
 
 const { state: filtersState } = store( 'chocante/product-filters' );
 const mobileFilters = new Modal(
@@ -13,15 +12,12 @@ const mobileFilters = new Modal(
 	MOBILE_BREAKPOINT
 );
 
-const { actions, callbacks } = store( 'chocante/shop', {
+const { actions } = store( 'chocante/shop', {
 	callbacks: {
 		shopInit() {
 			if ( mobileFilters instanceof Modal ) {
 				mobileFilters.toggle = getElement().ref;
 			}
-		},
-		showMenu() {
-			document.querySelector( SITE_HEADER )?.headerScroll?.showMenu();
 		},
 	},
 	actions: {
@@ -33,24 +29,7 @@ const { actions, callbacks } = store( 'chocante/shop', {
 		closeMobileFilters() {
 			if ( mobileFilters instanceof Modal ) {
 				mobileFilters.hideModal();
-
-				if ( 'onscrollend' in window ) {
-					window.addEventListener( 'scrollend', callbacks.showMenu, {
-						once: true,
-					} );
-				} else {
-					let scrollTimeout;
-					const onScroll = () => {
-						clearTimeout( scrollTimeout );
-						scrollTimeout = setTimeout( () => {
-							window.removeEventListener( 'scroll', onScroll );
-							callbacks.showMenu();
-						}, 100 );
-					};
-					window.addEventListener( 'scroll', onScroll, {
-						passive: true,
-					} );
-				}
+				delayedShowMenu();
 			}
 		},
 		*pushDataLayer( data ) {

@@ -1,0 +1,160 @@
+:root {
+	--content--background-color: var(--wp--preset--color--grey);
+	--notice--background-color: var(--wp--preset--color--white);
+	--empty-screen--width: 850px;
+}
+
+.woocommerce-review-order {
+
+	@include container;
+	padding-top: var(--spacing--20);
+	padding-bottom: var(--spacing--50);
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing--30);
+
+	&__header {
+
+		@include empty-screen;
+		margin-bottom: 0;
+	}
+
+	&__meta {
+		text-align: center;
+		font-weight: var(--font-weight--bold);
+		margin: 0;
+	}
+
+	&__items {
+		list-style: none;
+		padding: 0;
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacing--30);
+		max-width: var(--empty-screen--width);
+		margin: auto;
+	}
+
+	&__item {
+
+		@include box;
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacing--20) var(--spacing--30);
+
+		@include min-width($breakpoint--mobile) {
+			gap: var(--spacing--30);
+		}
+
+		&-title {
+
+			@include loop-item-title;
+			@include color(base);
+			margin: 0;
+
+			a {
+				text-decoration: none;
+				color: inherit;
+
+				&:hover {
+					color: var(--wp--custom--color--contrast);
+				}
+			}
+		}
+
+		&-image {
+			overflow: hidden;
+			border-radius: var(--border-radius);
+			max-width: 200px;
+		}
+
+		&-rating-label,
+		&-review-label {
+			margin-bottom: var(--spacing--10);
+		}
+
+		&-status {
+
+			@include notice;
+
+			--notice--background-color: var(--wp--preset--color--grey);
+
+			&--error {
+				--notice--background-color: var(--wp--custom--color--error-bg);
+				--notice--color: var(--wp--custom--color--error);
+			}
+		}
+
+		@include min-width($breakpoint--mobile) {
+			display: grid;
+			grid-template-columns: auto minmax(60%, 2fr);
+			grid-template-rows: auto auto 1fr;
+			grid-template-areas:
+				"image title"
+				"image rating"
+				"image review";
+			align-items: start;
+
+			&:has(.woocommerce-review-order__item-status) {
+				grid-template-areas:
+					"image title"
+					"image rating"
+					"image review"
+					"footer footer";
+			}
+
+			&-title {
+				grid-area: title;
+			}
+
+			&-image {
+				grid-area: image;
+			}
+
+			&-rating {
+				grid-area: rating;
+			}
+
+			&-review {
+				grid-area: review;
+			}
+
+			&-status {
+				grid-area: footer;
+			}
+		}
+
+		@include max-width($breakpoint--mobile) {
+
+			&-image {
+				align-self: center;
+			}
+		}
+	}
+
+	&__actions {
+		margin: var(--spacing--30) auto 0;
+		text-align: center;
+	}
+
+	&__notice {
+		margin: var(--spacing--15) auto 0;
+		max-width: var(--size--content);
+
+		&-body {
+			flex-grow: 1;
+
+			p {
+				margin: 0;
+			}
+		}
+
+		&-title {
+			font-weight: var(--font-weight--bold);
+		}
+
+		&-dismiss {
+			display: none;
+		}
+	}
+}

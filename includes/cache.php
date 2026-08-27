@@ -109,6 +109,7 @@ add_action( 'chocante_product_section_get_products', __NAMESPACE__ . '\tag_get_p
  * Products
  */
 add_action( 'woocommerce_ajax_save_product_variations', __NAMESPACE__ . '\purge_product' );
+add_action( 'wp_update_comment_count', __NAMESPACE__ . '\purge_product' );
 add_action( 'woocommerce_before_product_object_save', __NAMESPACE__ . '\purge_featured_products' );
 add_action( 'wp_ajax_woocommerce_feature_product', __NAMESPACE__ . '\purge_featured_products_ajax', 5 );
 add_action( 'litespeed_tag_finalize', __NAMESPACE__ . '\tag_product_taxonomy' );
@@ -263,7 +264,7 @@ function set_control_global( $esi_block ) {
 	}
 
 	// Non-cacheable page types.
-	$not_public = is_search() || is_cart() || is_checkout() || is_account_page() || is_404() || wp_is_rest_endpoint();
+	$not_public = is_search() || is_cart() || is_checkout() || is_account_page() || is_404() || wp_is_rest_endpoint() || is_page( wc_get_page_id( 'review_order' ) );
 
 	// Non-cacheable translator.
 	if ( class_exists( 'TRP_Translate_Press' ) && isset( $_REQUEST['trp-edit-translation'] ) ) {
@@ -283,6 +284,9 @@ function set_control_global( $esi_block ) {
 		do_action( 'litespeed_control_set_nocache', 'chocante - admin' );
 	} elseif ( ! $not_public ) {
 		do_action( 'litespeed_control_force_public', 'chocante - public' );
+	} else {
+		nocache_headers();
+		do_action( 'litespeed_control_set_nocache', 'chocante - non-cacheable' );
 	}
 }
 
@@ -445,7 +449,7 @@ function esi_product_tile( $params ) {
 
 	set_price_display_modify();
 
-	remove_filter( 'wc_get_template_part', __NAMESPACE__ . '\esi_include_product_tile', 10, 3 );
+	remove_filter( 'wc_get_template_part', __NAMESPACE__ . '\esi_include_product_tile', 10 );
 	wc_get_template_part( 'content', 'product' );
 }
 

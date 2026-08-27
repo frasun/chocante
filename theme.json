@@ -111,6 +111,10 @@
 				"failed": "#a9509f",
 				"cancelled": "#a9509f",
 				"refunded": "#9fa158"
+			},
+			"rating": {
+				"filled": "#e1c663",
+				"empty": "var:custom|color|grey-3"
 			}
 		},
 		"dimensions": {

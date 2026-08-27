@@ -16,8 +16,6 @@ use function Chocante\Woo\get_variation_name;
 
 add_filter( 'trp_translating_capability', __NAMESPACE__ . '\allow_translating' );
 
-add_filter( 'chocante_product_section_script_data', __NAMESPACE__ . '\add_language_to_product_section_script' );
-
 // Translation blocks.
 const TRANSLATION_BLOCK = 'translation-block';
 
@@ -70,6 +68,7 @@ add_filter( 'chocante_product_filters_label', __NAMESPACE__ . '\i18n_product_fil
 add_filter( 'woocommerce_order_item_name', __NAMESPACE__ . '\translate_email_order_item_name', 40, 2 );
 add_filter( 'woocommerce_get_order_item_totals', __NAMESPACE__ . '\translate_email_order_totals', 10, 2 );
 add_action( 'chocante_gift_card_notification', __NAMESPACE__ . '\set_trp_order' );
+add_action( 'woocommerce_send_review_request_notification', __NAMESPACE__ . '\set_trp_order' );
 
 // Woo order API.
 add_filter( 'woocommerce_rest_prepare_shop_order_object', __NAMESPACE__ . '\add_translations_to_order_api', 10, 3 );
@@ -167,7 +166,7 @@ function no_translate_units( $text ) {
 /**
  * Format decimal value using current locale
  *
- * @param string $value Value to format.
+ * @param mixed $value Value to format.
  * @return string
  */
 function format_localized_decimal( $value ) {
@@ -176,7 +175,7 @@ function format_localized_decimal( $value ) {
 	$locale_info = localeconv();
 	$decimal_sep = $locale_info['decimal_point'] ?? '.';
 
-	$normalized = str_replace( ',', '.', $value );
+	$normalized = str_replace( ',', '.', (string) $value );
 	return str_replace( '.', $decimal_sep, $normalized );
 }
 

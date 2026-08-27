@@ -95,6 +95,7 @@
 		}
 
 		@include min-width($breakpoint--desktop-sm) {
+			flex: 1 0 270px;
 			position: sticky;
 			top: calc(var(--site-header--height) + var(--spacing--20));
 		}
@@ -129,10 +130,6 @@
 				padding-top: var(--spacing--20);
 				gap: var(--spacing--5);
 			}
-		}
-
-		@include min-width($breakpoint--desktop-sm) {
-			flex: 1 0 270px;
 		}
 	}
 
