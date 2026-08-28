@@ -1,3 +1,10 @@
+/* Focus */
+*:focus-visible {
+	outline: 2px solid var(--wp--custom--color--contrast);
+}
+
+/* END Focus */
+
 /* Transition */
 .transition {
 
