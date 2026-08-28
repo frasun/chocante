@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Chocante 0.28.13\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/chocante\n"
-"POT-Creation-Date: 2026-08-12T08:01:21+00:00\n"
-"PO-Revision-Date: 2026-08-12 10:02+0200\n"
+"POT-Creation-Date: 2026-08-28T05:54:33+00:00\n"
+"PO-Revision-Date: 2026-08-28 07:55+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pl_PL\n"
@@ -30,7 +30,7 @@ msgctxt "blog"
 msgid "Other articles"
 msgstr "Pozostałe artykuły"
 
-#: includes/class-chocante-gift-card-email.php:23 includes/gift-cards.php:133
+#: includes/class-chocante-gift-card-email.php:23 includes/gift-cards.php:148
 msgid "Gift card"
 msgstr "Karta podarunkowa"
 
@@ -50,29 +50,33 @@ msgstr "Twoje karty podarunkowe"
 msgid "Happy shopping!"
 msgstr "Udanych zakupów!"
 
-#: includes/gift-cards.php:42
+#: includes/gift-cards.php:48
 msgid "Generate gift card"
 msgstr "Wygeneruj kod karty podarunkowej"
 
-#: includes/gift-cards.php:44
+#: includes/gift-cards.php:50
 msgid "Controls generating a gift card copupon based on the product price."
 msgstr "Pozwala wygenerować kupon na podstawie ceny produktu."
 
 #. translators: Gift card order note.
-#: includes/gift-cards.php:92
+#: includes/gift-cards.php:105
 #, php-format
 msgid "Generated gift card code: %1$s for %2$s"
 msgstr "Wygenerowano kupon dla karty podarunkowej: %1$s o wartości %2$s"
 
 #. translators: Gift card coupon decription.
-#: includes/gift-cards.php:119
+#: includes/gift-cards.php:134
 #, php-format
 msgid "Gift card generated for Order #%s"
 msgstr "Kupon karty podarunkowej dla zamówienia #%s"
 
-#: includes/gift-cards.php:189 includes/gift-cards.php:210
+#: includes/gift-cards.php:204 includes/gift-cards.php:225
 msgid "Gift card code"
 msgstr "Kod karty podarunkowej"
+
+#: includes/gift-cards.php:313
+msgid "Gift card codes removed from order"
+msgstr "Usunięto kupony karty podarunkowej z zamówienia"
 
 #: includes/layout/account.php:202
 msgctxt "login page"
@@ -126,12 +130,12 @@ msgstr "Wybierz punkt odbioru."
 msgid "Delivery Point"
 msgstr "Punkt odbioru"
 
-#: includes/layout/common.php:118
+#: includes/layout/common.php:130
 msgctxt "product slider"
 msgid "Loading"
 msgstr "Wczytuję"
 
-#: includes/layout/common.php:230 template-parts/slide-product.php:27
+#: includes/layout/common.php:242 template-parts/slide-product.php:27
 msgctxt "product loop"
 msgid "Buy now"
 msgstr "Kup teraz"
@@ -195,18 +199,18 @@ msgctxt "product slider"
 msgid "product"
 msgstr "produkt"
 
-#: includes/layout/product.php:138
+#: includes/layout/product.php:156
 msgctxt "product slider"
 msgid "Products from category"
 msgstr "Produkty z kategorii"
 
 #. translators: Number of pieces.
-#: includes/layout/product.php:249
+#: includes/layout/product.php:267
 #, php-format
 msgid "%s pcs"
 msgstr "%s szt."
 
-#: includes/layout/product.php:273
+#: includes/layout/product.php:291
 msgid "Last items in stock!"
 msgstr "Końcówka zapasów!"
 
@@ -421,7 +425,7 @@ msgctxt "admin"
 msgid "Widgets in this area will be shown in the bottom right part of footer."
 msgstr ""
 
-#: includes/woo.php:125
+#: includes/woo.php:145
 msgctxt "price range prefix"
 msgid "From"
 msgstr "Od"
@@ -638,18 +642,18 @@ msgstr "Dziękujemy za zakupy. Poniżej znajdziesz kupony karty podarunkowej:"
 #: woocommerce/emails/gift-card.php:36
 #: woocommerce/emails/plain/gift-card.php:25
 msgid ""
+"Apply the coupon code in cart or checkout to get a discount for your order."
+msgstr ""
+"Dodaj kupon w koszyku lub na ekranie zamówienia, aby uzyskać rabat na zakupy."
+
+#: woocommerce/emails/gift-card.php:37
+#: woocommerce/emails/plain/gift-card.php:27
+msgid ""
 "You can also find the gift card coupon codes in your account under order "
 "details."
 msgstr ""
 "Kupony kart podarunkowych znajdziesz również w szczegółach zamówienia na "
 "Twoim koncie."
-
-#: woocommerce/emails/gift-card.php:37
-#: woocommerce/emails/plain/gift-card.php:27
-msgid ""
-"Apply the coupon code in cart or checkout to get a discount for your order."
-msgstr ""
-"Dodaj kupon w koszyku lub na ekranie zamówienia, aby uzyskać rabat na zakupy."
 
 #: woocommerce/loop/no-products-found.php:25
 msgctxt "no products found"

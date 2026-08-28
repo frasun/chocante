@@ -11,21 +11,27 @@ namespace Chocante\GiftCards;
 defined( 'ABSPATH' ) || exit;
 
 use Automattic\WooCommerce\Utilities\NumberUtil;
+use Automattic\WooCommerce\Enums\OrderStatus;
 
 const GIFT_CARD_META          = '_gift_card';
 const GIFT_CARD_COUPON        = 'gift_card';
 const GIFT_CARD_COUPON_LENGTH = 10;
+const GIFT_CARD_ACTION_HOOK   = 'chocante_send_gift_card_email';
 
 add_action( 'woocommerce_product_options_general_product_data', __NAMESPACE__ . '\display_gift_card_option' );
 add_action( 'woocommerce_process_product_meta', __NAMESPACE__ . '\set_gift_card_option' );
-add_action( 'woocommerce_order_status_completed', __NAMESPACE__ . '\generate_gift_card_for_order', 10, 2 );
 add_filter( 'woocommerce_coupon_discount_types', __NAMESPACE__ . '\add_gift_card_coupon_type' );
 add_filter( 'woocommerce_cart_coupon_types', __NAMESPACE__ . '\add_gift_card_coupon_to_cart' );
 add_filter( 'woocommerce_coupon_get_discount_amount', __NAMESPACE__ . '\add_gift_card_coupon_discount', 10, 5 );
 add_filter( 'woocommerce_order_item_display_meta_key', __NAMESPACE__ . '\set_display_name_for_gift_card_meta' );
 add_action( 'woocommerce_order_item_meta_end', __NAMESPACE__ . '\display_gift_card_in_customer_order', 10, 2 );
 add_filter( 'woocommerce_email_classes', __NAMESPACE__ . '\load_gift_card_email' );
-add_action( 'chocante_send_gift_card_email', __NAMESPACE__ . '\send_gift_card_email' );
+add_action( GIFT_CARD_ACTION_HOOK, __NAMESPACE__ . '\send_gift_card_email' );
+add_action( 'woocommerce_order_status_completed', __NAMESPACE__ . '\generate_gift_card_for_order', 10, 2 );
+add_action( 'woocommerce_order_status_processing', __NAMESPACE__ . '\generate_gift_card_for_order', 10, 2 );
+add_action( 'woocommerce_order_status_changed', __NAMESPACE__ . '\handle_order_cancellation', 10, 3 );
+add_action( 'woocommerce_trash_order', __NAMESPACE__ . '\remove_gift_cards' );
+add_action( 'woocommerce_before_delete_order', __NAMESPACE__ . '\remove_gift_cards' );
 
 /**
  * Display option for generating a coupon (gift card) in product settings
@@ -84,8 +90,13 @@ function generate_gift_card_for_order( $order_id, $order ) {
 		$parent_product = $item->get_variation_id() ? wc_get_product( $product->get_parent_id() ) : $product;
 
 		if ( 'yes' === $parent_product->get_meta( GIFT_CARD_META ) ) {
+			if ( $item->get_meta( GIFT_CARD_COUPON ) ) {
+				continue;
+			}
+
 			$send_email = true;
 			$i          = 0;
+
 			while ( $i < $item->get_quantity() ) {
 				$value = $product->get_price();
 				$code  = generate_gift_card( $order_id, $value );
@@ -223,8 +234,8 @@ function display_gift_card_in_customer_order( $item_id, $item ) {
  * @param int $order_id Order ID.
  */
 function schedule_gift_card_email( $order_id ) {
-	if ( ! as_has_scheduled_action( 'chocante_send_gift_card_email', array( $order_id ), 'chocante-gift-cards' ) ) {
-		as_schedule_single_action( time() + 60, 'chocante_send_gift_card_email', array( $order_id ), 'chocante-gift-cards' );
+	if ( ! as_has_scheduled_action( GIFT_CARD_ACTION_HOOK, array( $order_id ), 'chocante-gift-cards' ) ) {
+		as_schedule_single_action( time() + 60, GIFT_CARD_ACTION_HOOK, array( $order_id ), 'chocante-gift-cards' );
 	}
 }
 
@@ -247,4 +258,58 @@ function load_gift_card_email( $emails ) {
 function send_gift_card_email( $order_id ) {
 	WC()->mailer();
 	do_action( 'chocante_gift_card_notification', $order_id );
+}
+
+/**
+ * Handle order cancellation
+ *
+ * @param int    $order_id   Order ID.
+ * @param string $old_status Previous status (sans `wc-` prefix).
+ * @param string $new_status New status (sans `wc-` prefix).
+ */
+function handle_order_cancellation( $order_id, $old_status, $new_status ) {
+	$eligible_statuses = array( OrderStatus::COMPLETED, OrderStatus::PROCESSING );
+
+	$was_eligible = in_array( $old_status, $eligible_statuses, true );
+	$is_eligible  = in_array( $new_status, $eligible_statuses, true );
+
+	if ( $was_eligible && ! $is_eligible ) {
+		remove_gift_cards( $order_id );
+	}
+}
+
+/**
+ * Remove coupon on order cancellation
+ *
+ *  @param int $order_id The affected order ID.
+ */
+function remove_gift_cards( $order_id ) {
+	as_unschedule_action( GIFT_CARD_ACTION_HOOK, array( $order_id ) );
+
+	$order = wc_get_order( $order_id );
+
+	if ( ! $order instanceof \WC_Order ) {
+		return;
+	}
+
+	$order_items = $order->get_items();
+
+	foreach ( $order_items as $item ) {
+		$coupon_codes = $item->get_meta( GIFT_CARD_COUPON, false );
+
+		foreach ( $coupon_codes as $coupon_code ) {
+			$coupon_id = wc_get_coupon_id_by_code( $coupon_code->value );
+
+			if ( $coupon_id ) {
+				$coupon = new \WC_Coupon( $coupon_id );
+				$coupon->delete( true );
+			}
+		}
+
+		$item->delete_meta_data( GIFT_CARD_COUPON );
+		$item->save();
+	}
+
+	$order->add_order_note( __( 'Gift card codes removed from order', 'chocante' ) );
+	$order->save();
 }
