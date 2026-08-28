@@ -42,7 +42,7 @@ function apply_coupon_from_url() {
 		return;
 	}
 
-	header( 'Cache-Control: no-store, no-cache, must-revalidate', true );
+	nocache_headers();
 	do_action( 'litespeed_control_set_nocache', 'Apply coupon via url' );
 
 	if ( ! WC()->session ) {
