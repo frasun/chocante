@@ -45,8 +45,7 @@ add_action( 'wp_finalized_template_enhancement_output_buffer', __NAMESPACE__ . '
 /**
  * Global
  */
-add_action( 'litespeed_control_finalize', __NAMESPACE__ . '\set_control_global', );
-add_action( 'litespeed_control_finalize', __NAMESPACE__ . '\set_no_cache_translatepress', 20 );
+add_action( 'litespeed_control_finalize', __NAMESPACE__ . '\set_control_global' );
 add_action( 'litespeed_purge_finalize', __NAMESPACE__ . '\set_final_tags' );
 add_filter( 'litespeed_purge_tags', __NAMESPACE__ . '\finalize_purge_tags', 5 );
 
@@ -55,7 +54,8 @@ add_filter( 'litespeed_purge_tags', __NAMESPACE__ . '\finalize_purge_tags', 5 );
  */
 add_action( 'init', __NAMESPACE__ . '\esi_ref_reset', 4 );
 add_action( 'init', __NAMESPACE__ . '\esi_ref_fix', 6 );
-add_action( 'init', __NAMESPACE__ . '\set_esi_status' );
+add_action( 'wp', __NAMESPACE__ . '\set_esi_status' );
+add_action( 'init', __NAMESPACE__ . '\set_no_esi_translatepress', 0 );
 add_action( 'init', __NAMESPACE__ . '\set_esi_translate' );
 add_action( 'litespeed_tag_finalize', __NAMESPACE__ . '\tag_esi', 5 );
 
@@ -214,17 +214,6 @@ function tag_get_product_section( $categories, $featured ) {
 }
 
 /**
- * Do not cache TranslatePress editor
- */
-function set_no_cache_translatepress() {
-	// phpcs:disable WordPress.Security.NonceVerification.Recommended
-	if ( class_exists( 'TRP_Translate_Press' ) && isset( $_REQUEST['trp-edit-translation'] ) ) {
-		do_action( 'litespeed_control_set_nocache', 'TranslatePress editor' );
-		add_filter( 'litespeed_esi_status', '__return_false' );
-	}
-}
-
-/**
  * Purge product by ID
  *
  * @param int $product_id Product ID.
@@ -371,7 +360,7 @@ function esi_product_variations( $params ) {
  */
 function esi_product_variations_trp_skip_json( $filter ) {
 	if ( isset( $_GET['lsesi'] ) && 'product_variations' === $_GET['lsesi'] ) {
-			return false;
+		return false;
 	}
 
 	return $filter;
@@ -457,9 +446,29 @@ function esi_product_tile( $params ) {
  * Set ESI status
  */
 function set_esi_status() {
-	if ( ( class_exists( 'TRP_Translate_Press' ) && isset( $_REQUEST['trp-edit-translation'] ) ) || is_admin_bar_showing() || wp_doing_ajax() ) {
-		add_filter( 'litespeed_esi_status', '__return_false' );
+	$is_admin_bar = is_admin_bar_showing();
+	$is_ajax      = wp_doing_ajax();
+	$is_wc_review = class_exists( 'WooCommerce' ) && is_page( wc_get_page_id( 'review_order' ) );
+
+	if ( $is_admin_bar || $is_ajax || $is_wc_review ) {
+		esi_disable();
 	}
+}
+
+/**
+ * Disable ESI in TranslatePress editor
+ */
+function set_no_esi_translatepress() {
+	if ( class_exists( 'TRP_Translate_Press' ) && isset( $_REQUEST['trp-edit-translation'] ) ) {
+		esi_disable();
+	}
+}
+
+/**
+ * Disable ESI
+ */
+function esi_disable() {
+	add_filter( 'litespeed_esi_status', '__return_false' );
 }
 
 /**
