@@ -192,10 +192,10 @@ class Product_Reviews_Feed {
 			'@value' => get_bloginfo( 'name' ),
 		);
 
-		if ( has_custom_logo() ) {
+		if ( has_site_icon() ) {
 			$publisher['@value'][] = array(
 				'@name'  => 'favicon',
-				'@value' => wp_get_attachment_image_url( get_theme_mod( 'custom_logo' ) ),
+				'@value' => get_site_icon_url( 16 ),
 			);
 		}
 
