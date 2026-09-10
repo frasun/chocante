@@ -51,6 +51,7 @@ add_filter( 'woocommerce_product_reviews_list_table_prepare_items_args', __NAMES
 add_action( Scheduler::ACTION_HOOK, __NAMESPACE__ . '\reschedule_order_review_request' );
 add_action( 'wp_update_comment_count', __NAMESPACE__ . '\schedule_product_reviews_feed' );
 add_action( 'chocante_generate_product_reviews_feed', __NAMESPACE__ . '\generate_product_reviews_feed' );
+add_filter( 'comments_open', __NAMESPACE__ . '\disable_comments', 10, 2 );
 
 /**
  * Fix PHP notice in widgets page
@@ -679,4 +680,19 @@ function generate_product_reviews_feed() {
 	$dom  = Product_Reviews_Feed::build_xml_feed( $feed );
 
 	Product_Reviews_Feed::save( $dom );
+}
+
+/**
+ * Disable comments on all post types except products
+ *
+ * @param bool $comments_open Whether the current post is open for comments.
+ * @param int  $post_id The post ID.
+ * @return bool
+ */
+function disable_comments( $comments_open, $post_id ) {
+	if ( 'product' !== get_post_type( $post_id ) ) {
+		return false;
+	}
+
+	return $comments_open;
 }
