@@ -54,8 +54,8 @@ add_filter( 'litespeed_purge_tags', __NAMESPACE__ . '\finalize_purge_tags', 5 );
  */
 add_action( 'init', __NAMESPACE__ . '\esi_ref_reset', 4 );
 add_action( 'init', __NAMESPACE__ . '\esi_ref_fix', 6 );
-add_action( 'wp', __NAMESPACE__ . '\set_esi_status' );
-add_action( 'init', __NAMESPACE__ . '\set_no_esi_translatepress', 0 );
+add_action( 'wp', __NAMESPACE__ . '\disable_esi_on_product_review' );
+add_action( 'init', __NAMESPACE__ . '\set_esi_status', 0 );
 add_action( 'init', __NAMESPACE__ . '\set_esi_translate' );
 add_action( 'litespeed_tag_finalize', __NAMESPACE__ . '\tag_esi', 5 );
 
@@ -448,18 +448,18 @@ function esi_product_tile( $params ) {
 function set_esi_status() {
 	$is_admin_bar = is_admin_bar_showing();
 	$is_ajax      = wp_doing_ajax();
-	$is_wc_review = class_exists( 'WooCommerce' ) && is_page( wc_get_page_id( 'review_order' ) );
+	$is_trp       = class_exists( 'TRP_Translate_Press' ) && isset( $_REQUEST['trp-edit-translation'] );
 
-	if ( $is_admin_bar || $is_ajax || $is_wc_review ) {
+	if ( $is_admin_bar || $is_ajax || $is_trp ) {
 		esi_disable();
 	}
 }
 
 /**
- * Disable ESI in TranslatePress editor
+ * Disable ESI on product order review page
  */
-function set_no_esi_translatepress() {
-	if ( class_exists( 'TRP_Translate_Press' ) && isset( $_REQUEST['trp-edit-translation'] ) ) {
+function disable_esi_on_product_review() {
+	if ( class_exists( 'WooCommerce' ) && is_page( wc_get_page_id( 'review_order' ) ) ) {
 		esi_disable();
 	}
 }
