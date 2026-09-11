@@ -46,6 +46,7 @@ add_filter( 'preprocess_comment', __NAMESPACE__ . '\ajax_set_comment_type', 1 );
 add_action( 'wp_ajax_submit_review', __NAMESPACE__ . '\submit_review' );
 add_action( 'wp_ajax_nopriv_submit_review', __NAMESPACE__ . '\submit_review' );
 add_filter( 'allow_empty_comment', __NAMESPACE__ . '\allow_rating_only_for_verified_buyers', 10, 2 );
+add_action( 'added_comment_meta', __NAMESPACE__ . '\sync_rating_after_review_update', 10, 3 );
 add_action( 'updated_comment_meta', __NAMESPACE__ . '\sync_rating_after_review_update', 10, 3 );
 add_filter( 'woocommerce_product_reviews_list_table_prepare_items_args', __NAMESPACE__ . '\admin_search_reviews_by_id' );
 add_action( Scheduler::ACTION_HOOK, __NAMESPACE__ . '\reschedule_order_review_request' );

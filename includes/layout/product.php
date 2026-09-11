@@ -582,11 +582,17 @@ function get_product_review_form() {
 		wp_send_json_error( null, 400 );
 	}
 
-	$verified_buyer = wc_customer_bought_product( '', get_current_user_id(), $product->get_id() );
-	$must_verify    = 'yes' === get_option( 'woocommerce_review_rating_verification_required' ) && ! $verified_buyer;
-	$is_logged_in   = is_user_logged_in();
-	$must_log_in    = get_option( 'comment_registration' ) && ! $is_logged_in;
-	$commenter      = wp_get_current_commenter();
+	if ( is_user_logged_in() ) {
+		$user           = wp_get_current_user();
+		$verified_buyer = wc_customer_bought_product( $user->user_email, null, $product->get_id() );
+	} else {
+		$verified_buyer = false;
+	}
+
+	$must_verify  = 'yes' === get_option( 'woocommerce_review_rating_verification_required' ) && ! $verified_buyer;
+	$is_logged_in = is_user_logged_in();
+	$must_log_in  = get_option( 'comment_registration' ) && ! $is_logged_in;
+	$commenter    = wp_get_current_commenter();
 
 	wp_send_json_success(
 		array(

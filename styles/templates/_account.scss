@@ -16,8 +16,15 @@
 		--notice--background-color: var(--wp--preset--color--white);
 	}
 
-	.woocommerce-notices-wrapper:not(:empty) {
-		margin-bottom: var(--spacing--20);
+	.woocommerce-notices-wrapper {
+
+		&:not(:empty) {
+			margin-bottom: var(--spacing--20);
+		}
+
+		&:empty + .woocommerce-message {
+			margin-bottom: var(--spacing--20);
+		}
 	}
 
 	main {
@@ -775,6 +782,7 @@
 		margin: auto;
 	}
 
+	/* stylelint-disable-next-line no-descending-specificity */
 	.woocommerce-message {
 		font-weight: var(--font-weight--bold);
 		margin-bottom: var(--spacing--20);
