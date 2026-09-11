@@ -28,7 +28,7 @@ function apply_coupon_from_url() {
 		return;
 	}
 
-	$path       = trim( wp_parse_url( sanitize_url( wp_unslash( $_SERVER['REQUEST_URI'] ) ), PHP_URL_PATH ), '/' );
+	$path       = trim( wp_parse_url( sanitize_url( wp_unslash( $_SERVER['REQUEST_URI'] ) ), PHP_URL_PATH ) ?? '', '/' );
 	$segments   = explode( '/', $path );
 	$maybe_code = end( $segments );
 
