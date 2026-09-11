@@ -13,6 +13,8 @@ defined( 'ABSPATH' ) || exit;
 add_action( 'after_setup_theme', __NAMESPACE__ . '\load_textdomain' );
 add_action( 'after_setup_theme', __NAMESPACE__ . '\add_feature_support' );
 
+add_filter( 'xmlrpc_enabled', '__return_false' );
+
 /**
  * Load textdomain
  */
