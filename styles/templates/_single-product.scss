@@ -506,7 +506,8 @@
 						.meta {
 							flex: 0 0 100%;
 							display: flex;
-							gap: 3px;
+							flex-wrap: wrap;
+							column-gap: 3px;
 							color: var(--wp--preset--color--grey-2);
 						}
 					}
