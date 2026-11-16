@@ -64,11 +64,7 @@ function enqueue_scripts() {
 			);
 
 			// CKY modal style load fix.
-			if ( 'production' === wp_get_environment_type() ) {
-				$scripts['cky-load-styles'] = array(
-					'filename' => 'cky-load-styles',
-				);
-			}
+			load_cky_modal_fix( $scripts );
 		}
 
 		// Product page.
@@ -89,6 +85,9 @@ function enqueue_scripts() {
 						'fetchpriority' => 'low',
 					),
 				);
+
+				// CKY modal style load fix.
+				load_cky_modal_fix( $scripts );
 			}
 		}
 
@@ -429,4 +428,18 @@ function async_load_photoswipe( $styles ) {
 	$styles[] = 'photoswipe-chocante';
 
 	return $styles;
+}
+
+/**
+ * Load CKY modal fix.
+ * CKY modal styles break when interactivity-router is being used.
+ *
+ * @param array $scripts Array of scripts attached to page.
+ */
+function load_cky_modal_fix( &$scripts ) {
+	if ( 'production' === wp_get_environment_type() ) {
+		$scripts['cky-load-styles'] = array(
+			'filename' => 'cky-load-styles',
+		);
+	}
 }
